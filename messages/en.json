@@ -2,6 +2,126 @@
   "Index": {
     "title": "AI Wedding Planner",
     "subtitle": "Your wedding planning copilot",
-    "cta": "Get started"
+    "cta": "Get started",
+    "dateNight": "Test our wedding's feasibility"
+  },
+  "Login": {
+    "title": "Welcome",
+    "subtitle": "Get a sign-in link by email — no password needed.",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "you@example.com",
+    "submit": "Send my link",
+    "submitting": "Sending…",
+    "sentTitle": "Check your inbox",
+    "sentDescription": "We sent a sign-in link to {email}. It is valid for one hour.",
+    "errors": {
+      "invalidEmail": "This email address doesn't look valid.",
+      "rateLimited": "Too many attempts. Please wait a few minutes before trying again.",
+      "linkExpired": "This link has expired or was already used. Please request a new one.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "DateNight": {
+    "metaTitle": "Date Night · Test your wedding plan",
+    "eyebrow": "Date Night",
+    "title": "Test the feasibility of your dream wedding",
+    "intro": "A mood, a budget, a guest list: in two minutes, a first honest estimate.",
+    "styles": {
+      "legend": "Which mood feels like you?",
+      "chateau": {
+        "name": "Classic Château",
+        "description": "Old stone and candlelit dinners"
+      },
+      "beach": {
+        "name": "Boho Beach",
+        "description": "Barefoot in golden light"
+      },
+      "urban": {
+        "name": "Urban Industrial",
+        "description": "Brick, glass roofs and long tables"
+      }
+    },
+    "budget": {
+      "label": "Ideal budget"
+    },
+    "guests": {
+      "label": "Number of guests",
+      "value": "{count, plural, one {# guest} other {# guests}}"
+    },
+    "analyze": "Analyse our project",
+    "pickStyleHint": "Choose a mood first.",
+    "analyzing": {
+      "market": "Analysing market prices…",
+      "venues": "Checking venues…",
+      "perGuest": "Estimating cost per guest…",
+      "advice": "Preparing your advice…"
+    },
+    "result": {
+      "verdicts": {
+        "comfortable": "Comfortable budget",
+        "tight": "Tight but doable",
+        "challenging": "Ambitious plan"
+      },
+      "yourBudgetPerGuest": "Your budget per guest",
+      "marketPerGuest": "Market average",
+      "tipsTitle": "Our two tips",
+      "disclaimer": "Indicative estimate based on French market averages.",
+      "cta": "Create an account to tailor this budget (it's free)"
+    },
+    "errors": {
+      "invalidInput": "Some values look off. Adjust them and try again.",
+      "generic": "We couldn't analyse your project. Please try again."
+    }
+  },
+  "RealityCheckAgent": {
+    "settings": {
+      "chateau": "in a château",
+      "beach": "on the beach",
+      "urban": "in an industrial venue"
+    },
+    "headlines": {
+      "challenging": "With {budget} for {guests} people {setting}, you'll need to get creative!",
+      "tight": "With {budget} for {guests} people {setting}, it's doable with a little method.",
+      "comfortable": "With {budget} for {guests} people {setting}, you have room to breathe!"
+    },
+    "summaries": {
+      "challenging": "Your budget covers about {coverage} of the average market cost. Nothing is impossible: here are two tips to bring the dream closer to reality.",
+      "tight": "Your budget covers about {coverage} of the average market cost. A few well-chosen trade-offs will do.",
+      "comfortable": "Your budget exceeds the average market cost, leaving room for the touches that make a difference."
+    },
+    "tips": {
+      "challenging": {
+        "title": "Trim the guest list",
+        "body": "At average market prices, your budget welcomes about {affordableGuests} guests. A larger cocktail hour followed by a more intimate dinner is an elegant compromise."
+      },
+      "tight": {
+        "title": "Aim for shoulder season",
+        "body": "A Saturday in May or September rather than midsummer: venues and caterers are often more flexible."
+      },
+      "comfortable": {
+        "experience": {
+          "title": "Elevate the experience",
+          "body": "Your margin can fund what guests remember: a next-day brunch, a two-day photographer, beautiful lighting."
+        },
+        "reserve": {
+          "title": "Keep a reserve",
+          "body": "Set aside about 10% for the unexpected: the secret to calm planning."
+        }
+      }
+    },
+    "styleTips": {
+      "chateau": {
+        "title": "The château, midweek",
+        "body": "Many estates offer much gentler rates from Sunday to Thursday, or outside peak season."
+      },
+      "beach": {
+        "title": "The beach, simply",
+        "body": "A food truck or a seafood grill: the boho spirit pairs beautifully with relaxed service."
+      },
+      "urban": {
+        "title": "The loft, unadorned",
+        "body": "An industrial venue speaks for itself: a few generous floral pieces beat decorating everywhere."
+      }
+    }
   }
 }
