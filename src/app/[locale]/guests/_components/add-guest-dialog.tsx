@@ -2,7 +2,7 @@
 
 import { UserPlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState, useTransition, type FormEvent } from "react";
+import { useState, useTransition, type FormEvent, type ReactNode } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,7 +18,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   GUEST_LIMITS,
+  type GuestFamily,
   type AddGuestInput,
   type GuestField,
   type GuestFieldError,
@@ -29,13 +37,25 @@ import { GuestStatusSelect } from "./guest-status";
 
 type FieldErrors = Partial<Record<GuestField, GuestFieldError>>;
 
+// Radix Select refuse une valeur vide : « aucune famille » a sa propre valeur.
+const NO_FAMILY = "none";
+
+type AddGuestDialogProps = {
+  families: GuestFamily[];
+  /** Famille présélectionnée (ajout depuis la fiche d'une famille). */
+  defaultFamilyId?: string | null;
+  /** Déclencheur personnalisé ; par défaut, le bouton « Ajouter un invité ». */
+  trigger?: ReactNode;
+};
+
 /** Bouton « Ajouter un invité » et son formulaire en modale. */
-export function AddGuestDialog() {
+export function AddGuestDialog({ families, defaultFamilyId = null, trigger }: AddGuestDialogProps) {
   const t = useTranslations("Guests");
   const [open, setOpen] = useState(false);
   const [pending, startTransition] = useTransition();
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<GuestStatus>("invited");
+  const [familyId, setFamilyId] = useState<string | null>(defaultFamilyId);
 
   // Le contenu de la modale est démonté à la fermeture : la saisie repart à zéro.
   function changeOpen(next: boolean) {
@@ -43,6 +63,7 @@ export function AddGuestDialog() {
     if (!next) {
       setFieldErrors({});
       setStatus("invited");
+      setFamilyId(defaultFamilyId);
     }
   }
 
@@ -55,6 +76,7 @@ export function AddGuestDialog() {
       status,
       dietaryRequirements: String(data.get("dietaryRequirements") ?? ""),
       isChild: data.get("isChild") === "on",
+      familyId,
     };
 
     startTransition(async () => {
@@ -91,10 +113,12 @@ export function AddGuestDialog() {
   return (
     <Dialog open={open} onOpenChange={changeOpen}>
       <DialogTrigger asChild>
-        <Button size="lg" className="h-11 rounded-full px-5">
-          <UserPlusIcon aria-hidden />
-          {t("add.trigger")}
-        </Button>
+        {trigger ?? (
+          <Button size="lg" className="h-11 rounded-full px-5">
+            <UserPlusIcon aria-hidden />
+            {t("add.trigger")}
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent closeLabel={t("add.close")} className="gap-6 rounded-3xl p-6 sm:max-w-md">
         <DialogHeader>
@@ -141,6 +165,31 @@ export function AddGuestDialog() {
               className="h-11 w-full data-[size=sm]:h-11"
             />
           </div>
+
+          {families.length > 0 && (
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="guest-family">
+                {t("add.family")}{" "}
+                <span className="font-normal text-stone">{t("add.optional")}</span>
+              </Label>
+              <Select
+                value={familyId ?? NO_FAMILY}
+                onValueChange={(value) => setFamilyId(value === NO_FAMILY ? null : value)}
+              >
+                <SelectTrigger id="guest-family" className="h-11 w-full data-[size=default]:h-11">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={NO_FAMILY}>{t("add.noFamily")}</SelectItem>
+                  {families.map((family) => (
+                    <SelectItem key={family.id} value={family.id}>
+                      {family.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
 
           <div className="flex flex-col gap-2">
             <Label htmlFor="guest-dietaryRequirements">

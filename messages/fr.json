@@ -274,6 +274,11 @@
       "pending": "En attente",
       "declined": "Déclinés"
     },
+    "views": {
+      "label": "Affichage",
+      "list": "Liste",
+      "families": "Familles"
+    },
     "search": {
       "label": "Rechercher un invité",
       "placeholder": "Rechercher…"
@@ -311,7 +316,9 @@
       "submit": "Ajouter",
       "submitting": "Ajout…",
       "close": "Fermer",
-      "success": "{name} a rejoint votre liste."
+      "success": "{name} a rejoint votre liste.",
+      "family": "Famille",
+      "noFamily": "Aucune famille"
     },
     "delete": {
       "trigger": "Retirer {name}",
@@ -329,6 +336,49 @@
       "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
       "forbidden": "Seuls les mariés peuvent modifier la liste d’invités.",
       "generic": "La modification n’a pas pu être enregistrée. Merci de réessayer."
+    },
+    "families": {
+      "empty": "Regroupez vos invités par famille pour suivre chaque foyer d’un coup d’œil.",
+      "emptyReadOnly": "Aucune famille n’a encore été créée.",
+      "unassigned": "{count, plural, one {# invité sans famille} other {# invités sans famille}}",
+      "composition": {
+        "adults": "{count, plural, =0 {Aucun adulte} one {# adulte} other {# adultes}}",
+        "children": "{count, plural, one {# enfant} other {# enfants}}"
+      },
+      "answers": {
+        "confirmed": "{count, plural, one {# confirmé} other {# confirmés}}",
+        "pending": "{count, plural, one {# en attente} other {# en attente}}",
+        "declined": "{count, plural, one {# décliné} other {# déclinés}}",
+        "confirmedOf": "{confirmed} sur {total} {total, plural, one {confirmé} other {confirmés}}"
+      },
+      "create": {
+        "trigger": "Nouvelle famille",
+        "title": "Nouvelle famille",
+        "description": "Donnez-lui un nom, puis rattachez-y ses membres.",
+        "name": "Nom de la famille",
+        "namePlaceholder": "Famille Daussy",
+        "submit": "Créer",
+        "submitting": "Création…",
+        "success": "{name} a été créée."
+      },
+      "detail": {
+        "eyebrow": "Famille",
+        "rename": "Renommer la famille",
+        "renameLabel": "Nom de la famille",
+        "renameSave": "Enregistrer le nom",
+        "empty": "Cette famille n’a pas encore de membres.",
+        "detach": "Retirer {name} de la famille",
+        "attach": "Rattacher un invité existant…",
+        "attachLabel": "Rattacher un invité existant",
+        "addMember": "Nouveau membre"
+      },
+      "delete": {
+        "trigger": "Supprimer la famille",
+        "title": "Supprimer {name} ?",
+        "description": "Ses membres resteront sur votre liste, simplement sans famille.",
+        "confirm": "Supprimer",
+        "success": "{name} a été supprimée."
+      }
     }
   },
   "Seating": {

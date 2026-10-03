@@ -1,5 +1,5 @@
 import type { BudgetItem } from "@/lib/budget/schema";
-import type { Guest } from "@/lib/guests/schema";
+import type { Guest, GuestFamily } from "@/lib/guests/schema";
 import { toTimeKey, type ItineraryEvent } from "@/lib/itinerary/schema";
 import type { Quote } from "@/lib/quotes/schema";
 import type { SeatedGuest, SeatingTable } from "@/lib/seating/schema";
@@ -124,7 +124,7 @@ export async function getGuests(
 ): Promise<Guest[]> {
   const { data, error } = await supabase
     .from("guests")
-    .select("id, first_name, last_name, status, dietary_requirements, is_child")
+    .select("id, first_name, last_name, status, dietary_requirements, is_child, family_id")
     .eq("wedding_id", weddingId)
     .order("created_at", { ascending: false })
     .returns<Guest[]>();
@@ -132,6 +132,25 @@ export async function getGuests(
   if (error) {
     console.error("[weddings] getGuests:", error.code);
     throw new Error("Unable to load guests");
+  }
+  return data;
+}
+
+/** Familles d'invités, par ordre alphabétique. */
+export async function getGuestFamilies(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<GuestFamily[]> {
+  const { data, error } = await supabase
+    .from("guest_families")
+    .select("id, name")
+    .eq("wedding_id", weddingId)
+    .order("name", { ascending: true })
+    .returns<GuestFamily[]>();
+
+  if (error) {
+    console.error("[weddings] getGuestFamilies:", error.code);
+    throw new Error("Unable to load guest families");
   }
   return data;
 }

@@ -8,6 +8,7 @@ import {
   getCurrentMemberRole,
   getCurrentUserId,
   getCurrentWedding,
+  getGuestFamilies,
   getGuests,
 } from "@/lib/weddings/queries";
 import { createClient } from "@/utils/supabase/client";
@@ -41,9 +42,10 @@ export default async function GuestsPage({
     return redirect({ href: "/onboarding", locale });
   }
 
-  const [role, guests, t] = await Promise.all([
+  const [role, guests, families, t] = await Promise.all([
     getCurrentMemberRole(supabase, wedding.id, userId),
     getGuests(supabase, wedding.id),
+    getGuestFamilies(supabase, wedding.id),
     getTranslations("Guests"),
   ]);
   const canEdit = role === "owner" || role === "partner";
@@ -73,7 +75,7 @@ export default async function GuestsPage({
           )}
         </header>
 
-        <GuestBoard guests={guests} canEdit={canEdit} />
+        <GuestBoard guests={guests} families={families} canEdit={canEdit} />
       </div>
       <Toaster position="bottom-center" />
     </main>

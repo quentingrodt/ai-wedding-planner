@@ -274,6 +274,11 @@
       "pending": "Awaiting reply",
       "declined": "Declined"
     },
+    "views": {
+      "label": "View",
+      "list": "List",
+      "families": "Families"
+    },
     "search": {
       "label": "Search guests",
       "placeholder": "Search…"
@@ -311,7 +316,9 @@
       "submit": "Add",
       "submitting": "Adding…",
       "close": "Close",
-      "success": "{name} has joined your list."
+      "success": "{name} has joined your list.",
+      "family": "Family",
+      "noFamily": "No family"
     },
     "delete": {
       "trigger": "Remove {name}",
@@ -329,6 +336,49 @@
       "unauthenticated": "Your session has expired. Please sign in again.",
       "forbidden": "Only the couple can edit the guest list.",
       "generic": "Your change couldn’t be saved. Please try again."
+    },
+    "families": {
+      "empty": "Group your guests by family to follow each household at a glance.",
+      "emptyReadOnly": "No families have been created yet.",
+      "unassigned": "{count, plural, one {# guest without a family} other {# guests without a family}}",
+      "composition": {
+        "adults": "{count, plural, =0 {No adults} one {# adult} other {# adults}}",
+        "children": "{count, plural, one {# child} other {# children}}"
+      },
+      "answers": {
+        "confirmed": "{count} confirmed",
+        "pending": "{count} awaiting reply",
+        "declined": "{count} declined",
+        "confirmedOf": "{confirmed} of {total} confirmed"
+      },
+      "create": {
+        "trigger": "New family",
+        "title": "New family",
+        "description": "Give it a name, then add its members.",
+        "name": "Family name",
+        "namePlaceholder": "The Daussy family",
+        "submit": "Create",
+        "submitting": "Creating…",
+        "success": "{name} has been created."
+      },
+      "detail": {
+        "eyebrow": "Family",
+        "rename": "Rename family",
+        "renameLabel": "Family name",
+        "renameSave": "Save name",
+        "empty": "This family has no members yet.",
+        "detach": "Remove {name} from the family",
+        "attach": "Add an existing guest…",
+        "attachLabel": "Add an existing guest",
+        "addMember": "New member"
+      },
+      "delete": {
+        "trigger": "Delete family",
+        "title": "Delete {name}?",
+        "description": "Its members will stay on your list, just without a family.",
+        "confirm": "Delete",
+        "success": "{name} has been deleted."
+      }
     }
   },
   "Seating": {
