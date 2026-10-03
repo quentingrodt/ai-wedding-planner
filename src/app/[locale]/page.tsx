@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { use } from "react";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 import type { Locale } from "next-intl";
 
 // Écran de test (temporaire) : design system + dictionnaire next-intl.
@@ -20,7 +21,9 @@ export default function Home({ params }: PageProps<"/[locale]">) {
         <p className="text-lg leading-8 text-muted-foreground">
           {t("subtitle")}
         </p>
-        <Button size="lg">{t("cta")}</Button>
+        <Button asChild size="lg">
+          <Link href="/date-night">{t("dateNight")}</Link>
+        </Button>
         <div className="flex gap-3" aria-hidden>
           {["bg-ivory border", "bg-linen", "bg-sand", "bg-sage", "bg-terracotta", "bg-charcoal"].map(
             (c) => (
