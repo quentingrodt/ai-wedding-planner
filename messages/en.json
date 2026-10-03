@@ -210,6 +210,41 @@
         "send_invitations": "Send the invitations",
         "seating_plan": "Finalise the seating plan"
       }
+    },
+    "quotesLink": "Decode your quotes"
+  },
+  "Quotes": {
+    "metaTitle": "Your quotes",
+    "back": "Dashboard",
+    "eyebrow": "Vendors",
+    "title": "Decode your quotes",
+    "intro": "Drop your vendors’ quotes here: we’ll read them for you and pull out what matters.",
+    "readOnly": "The couple manages quotes: you can browse them here.",
+    "dropzone": {
+      "title": "Drop your quote here",
+      "release": "Release to upload",
+      "browse": "or browse your files",
+      "hint": "PDF, PNG or JPEG · 10 MB max"
+    },
+    "uploading": "Uploading…",
+    "uploadedToast": "“{name}” is ready for review.",
+    "list": {
+      "title": "Your quotes",
+      "empty": "No quotes yet.",
+      "added": "Added on {date}"
+    },
+    "status": {
+      "uploaded": "Ready for review",
+      "analyzing": "Reading",
+      "processed": "Decoded",
+      "error": "Needs a look"
+    },
+    "errors": {
+      "invalidType": "“{name}” isn’t a PDF, PNG or JPEG.",
+      "tooLarge": "“{name}” is larger than 10 MB.",
+      "forbidden": "Only the couple can upload quotes.",
+      "unauthenticated": "Your session has expired. Please sign in again.",
+      "generic": "“{name}” couldn’t be uploaded. Please try again."
     }
   }
 }

@@ -210,6 +210,41 @@
         "send_invitations": "Envoyer les faire-part",
         "seating_plan": "Finaliser le plan de table"
       }
+    },
+    "quotesLink": "Décryptez vos devis"
+  },
+  "Quotes": {
+    "metaTitle": "Vos devis",
+    "back": "Tableau de bord",
+    "eyebrow": "Prestataires",
+    "title": "Décryptez vos devis",
+    "intro": "Déposez les devis de vos prestataires : nous les lirons pour vous et en extrairons l’essentiel.",
+    "readOnly": "Les mariés gèrent les devis : vous pouvez les consulter ici.",
+    "dropzone": {
+      "title": "Déposez votre devis ici",
+      "release": "Relâchez pour déposer",
+      "browse": "ou parcourez vos fichiers",
+      "hint": "PDF, PNG ou JPEG · 10 Mo maximum"
+    },
+    "uploading": "Téléversement en cours…",
+    "uploadedToast": "« {name} » est prêt pour analyse.",
+    "list": {
+      "title": "Vos devis",
+      "empty": "Aucun devis pour le moment.",
+      "added": "Ajouté le {date}"
+    },
+    "status": {
+      "uploaded": "Prêt pour analyse",
+      "analyzing": "Lecture en cours",
+      "processed": "Décrypté",
+      "error": "À vérifier"
+    },
+    "errors": {
+      "invalidType": "« {name} » n’est pas un PDF, PNG ou JPEG.",
+      "tooLarge": "« {name} » dépasse 10 Mo.",
+      "forbidden": "Seuls les mariés peuvent déposer des devis.",
+      "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
+      "generic": "« {name} » n’a pas pu être téléversé. Merci de réessayer."
     }
   }
 }

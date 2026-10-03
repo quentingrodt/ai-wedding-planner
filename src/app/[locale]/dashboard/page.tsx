@@ -1,8 +1,9 @@
+import { ArrowRightIcon } from "lucide-react";
 import type { Metadata } from "next";
 import type { Locale } from "next-intl";
 import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
 import { Toaster } from "@/components/ui/sonner";
-import { redirect } from "@/i18n/navigation";
+import { Link, redirect } from "@/i18n/navigation";
 import { summarizeBudget } from "@/lib/budget/schema";
 import { isTaskTemplateKey } from "@/lib/tasks/schema";
 import { daysBetween, isoDateToUtc, todayIsoDate } from "@/lib/weddings/dates";
@@ -101,6 +102,13 @@ export default async function DashboardPage({
               {needsAttention ? t("needsAttention") : t("allGood")}
             </span>
           </p>
+          <Link
+            href="/quotes"
+            className="inline-flex w-fit items-center gap-2 rounded-full bg-linen px-4 py-2 text-sm text-sage-deep ring-1 ring-sand transition-colors hover:bg-sand/60"
+          >
+            {t("quotesLink")}
+            <ArrowRightIcon aria-hidden className="size-4" />
+          </Link>
         </header>
 
         <BudgetGauge

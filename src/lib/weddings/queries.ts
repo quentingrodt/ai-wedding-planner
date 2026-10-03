@@ -1,4 +1,5 @@
 import type { BudgetItem } from "@/lib/budget/schema";
+import type { Quote } from "@/lib/quotes/schema";
 import type { Task } from "@/lib/tasks/schema";
 import type { createClient } from "@/utils/supabase/client";
 
@@ -86,6 +87,47 @@ export async function getBudgetItems(
   if (error) {
     console.error("[weddings] getBudgetItems:", error.code);
     throw new Error("Unable to load budget");
+  }
+  return data;
+}
+
+export type WeddingRole = "owner" | "partner" | "witness";
+
+/** Rôle de l'utilisateur connecté dans le mariage, ou null s'il n'en est pas membre. */
+export async function getCurrentMemberRole(
+  supabase: ServerClient,
+  weddingId: string,
+  userId: string,
+): Promise<WeddingRole | null> {
+  const { data, error } = await supabase
+    .from("wedding_members")
+    .select("role")
+    .eq("wedding_id", weddingId)
+    .eq("user_id", userId)
+    .maybeSingle<{ role: WeddingRole }>();
+
+  if (error) {
+    console.error("[weddings] getCurrentMemberRole:", error.code);
+    throw new Error("Unable to load membership");
+  }
+  return data?.role ?? null;
+}
+
+/** Devis du mariage, du plus récent au plus ancien. */
+export async function getQuotes(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<Quote[]> {
+  const { data, error } = await supabase
+    .from("quotes")
+    .select("id, file_name, vendor_name, category, status, total_ttc, created_at")
+    .eq("wedding_id", weddingId)
+    .order("created_at", { ascending: false })
+    .returns<Quote[]>();
+
+  if (error) {
+    console.error("[weddings] getQuotes:", error.code);
+    throw new Error("Unable to load quotes");
   }
   return data;
 }
