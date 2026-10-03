@@ -9,6 +9,7 @@ import { isTaskTemplateKey } from "@/lib/tasks/schema";
 import { daysBetween, isoDateToUtc, todayIsoDate } from "@/lib/weddings/dates";
 import {
   getBudgetItems,
+  getCurrentMemberRole,
   getCurrentUserId,
   getCurrentWedding,
   getUpcomingTasks,
@@ -36,7 +37,8 @@ export default async function DashboardPage({
   setRequestLocale(locale);
 
   const supabase = await createClient();
-  if (!(await getCurrentUserId(supabase))) {
+  const userId = await getCurrentUserId(supabase);
+  if (!userId) {
     return redirect({ href: "/login", locale });
   }
   const wedding = await getCurrentWedding(supabase);
@@ -44,9 +46,13 @@ export default async function DashboardPage({
     return redirect({ href: "/onboarding", locale });
   }
 
+  // Le budget est réservé aux mariés : rien n'est lu ni affiché pour un témoin.
+  const role = await getCurrentMemberRole(supabase, wedding.id, userId);
+  const canSeeBudget = role === "owner" || role === "partner";
+
   const [tasks, budgetItems, t, format] = await Promise.all([
     getUpcomingTasks(supabase, wedding.id, 5),
-    getBudgetItems(supabase, wedding.id),
+    canSeeBudget ? getBudgetItems(supabase, wedding.id) : Promise.resolve([]),
     getTranslations("Dashboard"),
     getFormatter(),
   ]);
@@ -82,7 +88,7 @@ export default async function DashboardPage({
   const needsAttention = timelineTasks.some((task) => task.overdue);
 
   const budgetSummary =
-    wedding.total_budget === null
+    !canSeeBudget || wedding.total_budget === null
       ? null
       : summarizeBudget(wedding.total_budget, budgetItems);
 
@@ -105,6 +111,7 @@ export default async function DashboardPage({
           <nav className="flex flex-wrap gap-2">
             {(
               [
+                ...(canSeeBudget ? [{ href: "/budget", label: t("budgetLink") }] as const : []),
                 { href: "/guests", label: t("guestsLink") },
                 { href: "/seating", label: t("seatingLink") },
                 { href: "/itinerary", label: t("itineraryLink") },
@@ -124,11 +131,13 @@ export default async function DashboardPage({
           </nav>
         </header>
 
-        <BudgetGauge
-          summary={budgetSummary}
-          items={budgetItems}
-          currency={wedding.currency_code}
-        />
+        {canSeeBudget && (
+          <BudgetGauge
+            summary={budgetSummary}
+            items={budgetItems}
+            currency={wedding.currency_code}
+          />
+        )}
 
         <TaskTimeline tasks={timelineTasks} />
       </div>
