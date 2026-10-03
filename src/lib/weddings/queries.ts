@@ -1,3 +1,5 @@
+import type { BudgetItem } from "@/lib/budget/schema";
+import type { Task } from "@/lib/tasks/schema";
 import type { createClient } from "@/utils/supabase/client";
 
 type ServerClient = Awaited<ReturnType<typeof createClient>>;
@@ -44,4 +46,46 @@ export async function getCurrentWedding(
     ...data,
     total_budget: data.total_budget === null ? null : Number(data.total_budget),
   };
+}
+
+/** Prochaines tâches à faire, de la plus urgente à la plus lointaine. */
+export async function getUpcomingTasks(
+  supabase: ServerClient,
+  weddingId: string,
+  limit = 5,
+): Promise<Task[]> {
+  const { data, error } = await supabase
+    .from("tasks")
+    .select("id, template_key, title, status, target_offset_days, due_date")
+    .eq("wedding_id", weddingId)
+    .eq("status", "todo")
+    .order("due_date", { ascending: true, nullsFirst: false })
+    .order("target_offset_days", { ascending: true })
+    .limit(limit)
+    .returns<Task[]>();
+
+  if (error) {
+    console.error("[weddings] getUpcomingTasks:", error.code);
+    throw new Error("Unable to load tasks");
+  }
+  return data;
+}
+
+/** Lignes de budget du mariage, dans l'ordre de création. */
+export async function getBudgetItems(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<BudgetItem[]> {
+  const { data, error } = await supabase
+    .from("budget_items")
+    .select("id, category, label, estimated_amount, actual_amount")
+    .eq("wedding_id", weddingId)
+    .order("created_at", { ascending: true })
+    .returns<BudgetItem[]>();
+
+  if (error) {
+    console.error("[weddings] getBudgetItems:", error.code);
+    throw new Error("Unable to load budget");
+  }
+  return data;
 }

@@ -12,6 +12,7 @@ import {
   type StyleDna,
 } from "@/lib/onboarding/schema";
 import { getCurrentUserId, getCurrentWedding } from "@/lib/weddings/queries";
+import { seedWeddingDefaults } from "@/lib/weddings/seed";
 import { createClient } from "@/utils/supabase/client";
 
 const FIELDS = [
@@ -83,21 +84,38 @@ export async function createWedding(
   const styleDna: StyleDna = { version: 1, ambiance: input.style };
 
   // created_by est rempli par défaut (auth.uid()) et contrôlé par la RLS.
-  const { error } = await supabase.from("weddings").insert({
-    title: input.coupleNames,
-    wedding_date: input.weddingDate,
-    total_budget: input.budget,
-    guest_count: input.guests,
-    currency_code: DEFAULT_CURRENCY,
-    country_code: DEFAULT_COUNTRY,
-    style_dna: styleDna,
-  });
+  const { data: wedding, error } = await supabase
+    .from("weddings")
+    .insert({
+      title: input.coupleNames,
+      wedding_date: input.weddingDate,
+      total_budget: input.budget,
+      guest_count: input.guests,
+      currency_code: DEFAULT_CURRENCY,
+      country_code: DEFAULT_COUNTRY,
+      style_dna: styleDna,
+    })
+    .select("id")
+    .single<{ id: string }>();
 
   if (error) {
     // Message brut journalisé côté serveur uniquement, jamais affiché.
     console.error("[onboarding] insert wedding:", error.code);
     return { status: "error", code: "generic", values };
   }
+
+  // Non bloquant : un échec est journalisé, le dashboard gère l'état vide.
+  await seedWeddingDefaults(
+    supabase,
+    {
+      id: wedding.id,
+      wedding_date: input.weddingDate,
+      total_budget: input.budget,
+    },
+    locale,
+  ).catch((seedError: unknown) => {
+    console.error("[onboarding] seed defaults:", seedError);
+  });
 
   return redirect({ href: "/dashboard", locale });
 }

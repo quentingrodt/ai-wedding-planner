@@ -160,8 +160,56 @@
   "Dashboard": {
     "metaTitle": "Dashboard",
     "eyebrow": "Our wedding",
-    "budget": "Target budget",
-    "guests": "Guests",
-    "comingSoon": "Your planning timeline and budget tracking are coming here very soon."
+    "greeting": "Hello {names}",
+    "countdown": "{days, plural, =0 {Today is the day.} one {Your wedding is # day away.} other {Your wedding is # days away.}}",
+    "countdownPast": "Your wedding took place on {date}.",
+    "countdownNoDate": "Your date is yet to be set.",
+    "allGood": "Everything is under control.",
+    "needsAttention": "A few tasks need your attention.",
+    "budget": {
+      "title": "Budget",
+      "percentSpent": "{percent} committed",
+      "of": "of {total}",
+      "meterLabel": "Budget spent",
+      "spent": "Spent",
+      "allocated": "Allocated",
+      "remaining": "Remaining",
+      "overBudget": "{amount} over",
+      "estimated": "{amount} planned",
+      "actualOfEstimated": "{actual} of {estimated}",
+      "noBudget": "Your budget is yet to be defined.",
+      "categories": {
+        "venue": "Venue",
+        "catering": "Catering",
+        "photography": "Photography",
+        "attire": "Attire",
+        "decoration": "Decoration",
+        "music": "Music",
+        "stationery": "Stationery",
+        "contingency": "Contingency",
+        "other": "Other expenses"
+      }
+    },
+    "timeline": {
+      "eyebrow": "Timeline",
+      "title": "Next steps",
+      "empty": "Nothing pending. Enjoy the moment.",
+      "due": "By {date}",
+      "overdue": "To do now",
+      "noDate": "No deadline",
+      "doneToast": "“{task}” is done.",
+      "undo": "Undo",
+      "error": "This step could not be updated. Please try again.",
+      "templates": {
+        "set_budget": "Set your overall budget",
+        "guest_list": "Draw up the guest list",
+        "book_venue": "Book the venue",
+        "book_catering": "Choose the caterer",
+        "book_photographer": "Book the photographer",
+        "choose_attire": "Choose your outfits",
+        "send_invitations": "Send the invitations",
+        "seating_plan": "Finalise the seating plan"
+      }
+    }
   }
 }

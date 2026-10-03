@@ -1,9 +1,20 @@
 import type { Metadata } from "next";
 import type { Locale } from "next-intl";
 import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
+import { Toaster } from "@/components/ui/sonner";
 import { redirect } from "@/i18n/navigation";
-import { getCurrentUserId, getCurrentWedding } from "@/lib/weddings/queries";
+import { summarizeBudget } from "@/lib/budget/schema";
+import { isTaskTemplateKey } from "@/lib/tasks/schema";
+import { daysBetween, isoDateToUtc, todayIsoDate } from "@/lib/weddings/dates";
+import {
+  getBudgetItems,
+  getCurrentUserId,
+  getCurrentWedding,
+  getUpcomingTasks,
+} from "@/lib/weddings/queries";
 import { createClient } from "@/utils/supabase/client";
+import { BudgetGauge } from "./_components/budget-gauge";
+import { TaskTimeline, type TimelineTask } from "./_components/task-timeline";
 
 export async function generateMetadata({
   params,
@@ -16,7 +27,6 @@ export async function generateMetadata({
   return { title: t("metaTitle") };
 }
 
-// Tableau de bord provisoire (Sprint 3 : jauge de budget et timeline).
 export default async function DashboardPage({
   params,
 }: PageProps<"/[locale]/dashboard">) {
@@ -33,8 +43,47 @@ export default async function DashboardPage({
     return redirect({ href: "/onboarding", locale });
   }
 
-  const t = await getTranslations("Dashboard");
-  const format = await getFormatter();
+  const [tasks, budgetItems, t, format] = await Promise.all([
+    getUpcomingTasks(supabase, wedding.id, 5),
+    getBudgetItems(supabase, wedding.id),
+    getTranslations("Dashboard"),
+    getFormatter(),
+  ]);
+
+  const today = todayIsoDate();
+  const formatDate = (isoDate: string) =>
+    format.dateTime(isoDateToUtc(isoDate), {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "UTC",
+    });
+
+  // Libellés et échéances résolus ici : le composant client reste sans calcul de date.
+  const timelineTasks: TimelineTask[] = tasks.map((task) => ({
+    id: task.id,
+    label: isTaskTemplateKey(task.template_key)
+      ? t(`timeline.templates.${task.template_key}`)
+      : task.title,
+    dueLabel: task.due_date === null ? null : formatDate(task.due_date),
+    overdue: task.due_date !== null && task.due_date < today,
+    done: task.status === "done",
+  }));
+
+  const daysLeft =
+    wedding.wedding_date === null ? null : daysBetween(today, wedding.wedding_date);
+  const countdown =
+    wedding.wedding_date === null || daysLeft === null
+      ? t("countdownNoDate")
+      : daysLeft < 0
+        ? t("countdownPast", { date: formatDate(wedding.wedding_date) })
+        : t("countdown", { days: daysLeft });
+  const needsAttention = timelineTasks.some((task) => task.overdue);
+
+  const budgetSummary =
+    wedding.total_budget === null
+      ? null
+      : summarizeBudget(wedding.total_budget, budgetItems);
 
   return (
     <main className="flex flex-1 justify-center px-5 pt-14 pb-24 sm:px-6 sm:pt-20">
@@ -44,43 +93,25 @@ export default async function DashboardPage({
             {t("eyebrow")}
           </p>
           <h1 className="text-4xl leading-tight tracking-tight text-balance wrap-break-word sm:text-5xl">
-            {wedding.title}
+            {t("greeting", { names: wedding.title })}
           </h1>
-          {wedding.wedding_date && (
-            <p className="text-lg text-muted-foreground">
-              {format.dateTime(new Date(`${wedding.wedding_date}T00:00:00Z`), {
-                dateStyle: "full",
-                timeZone: "UTC",
-              })}
-            </p>
-          )}
+          <p className="text-lg text-pretty text-muted-foreground">
+            {countdown}{" "}
+            <span className={needsAttention ? "text-terracotta" : "text-sage-deep"}>
+              {needsAttention ? t("needsAttention") : t("allGood")}
+            </span>
+          </p>
         </header>
 
-        <dl className="grid grid-cols-2 gap-3">
-          <div className="flex flex-col gap-1 rounded-2xl bg-sage-soft/60 p-4">
-            <dt className="text-xs text-sage-deep">{t("budget")}</dt>
-            <dd className="font-serif text-2xl tabular-nums">
-              {wedding.total_budget === null
-                ? "—"
-                : format.number(wedding.total_budget, {
-                    style: "currency",
-                    currency: wedding.currency_code,
-                    maximumFractionDigits: 0,
-                  })}
-            </dd>
-          </div>
-          <div className="flex flex-col gap-1 rounded-2xl bg-linen p-4">
-            <dt className="text-xs text-stone">{t("guests")}</dt>
-            <dd className="font-serif text-2xl tabular-nums">
-              {wedding.guest_count === null
-                ? "—"
-                : format.number(wedding.guest_count)}
-            </dd>
-          </div>
-        </dl>
+        <BudgetGauge
+          summary={budgetSummary}
+          items={budgetItems}
+          currency={wedding.currency_code}
+        />
 
-        <p className="text-muted-foreground">{t("comingSoon")}</p>
+        <TaskTimeline tasks={timelineTasks} />
       </div>
+      <Toaster position="bottom-center" />
     </main>
   );
 }

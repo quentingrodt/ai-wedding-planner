@@ -160,8 +160,56 @@
   "Dashboard": {
     "metaTitle": "Tableau de bord",
     "eyebrow": "Notre mariage",
-    "budget": "Budget cible",
-    "guests": "Invités",
-    "comingSoon": "Votre rétroplanning et le suivi de votre budget arrivent très bientôt ici."
+    "greeting": "Bonjour {names}",
+    "countdown": "{days, plural, =0 {C'est le grand jour.} one {Votre mariage est dans # jour.} other {Votre mariage est dans # jours.}}",
+    "countdownPast": "Votre mariage a eu lieu le {date}.",
+    "countdownNoDate": "Votre date reste à fixer.",
+    "allGood": "Tout est sous contrôle.",
+    "needsAttention": "Quelques tâches méritent votre attention.",
+    "budget": {
+      "title": "Budget",
+      "percentSpent": "{percent} engagé",
+      "of": "sur {total}",
+      "meterLabel": "Budget dépensé",
+      "spent": "Dépensé",
+      "allocated": "Réparti",
+      "remaining": "Reste",
+      "overBudget": "{amount} de dépassement",
+      "estimated": "{amount} prévus",
+      "actualOfEstimated": "{actual} sur {estimated}",
+      "noBudget": "Votre budget reste à définir.",
+      "categories": {
+        "venue": "Lieu de réception",
+        "catering": "Traiteur",
+        "photography": "Photographie",
+        "attire": "Tenues",
+        "decoration": "Décoration",
+        "music": "Musique",
+        "stationery": "Papeterie",
+        "contingency": "Imprévus",
+        "other": "Autres dépenses"
+      }
+    },
+    "timeline": {
+      "eyebrow": "Rétroplanning",
+      "title": "Prochaines étapes",
+      "empty": "Aucune étape en attente. Profitez de ce moment.",
+      "due": "Avant le {date}",
+      "overdue": "À faire dès maintenant",
+      "noDate": "Sans échéance",
+      "doneToast": "« {task} » est terminée.",
+      "undo": "Annuler",
+      "error": "Cette étape n'a pas pu être mise à jour. Merci de réessayer.",
+      "templates": {
+        "set_budget": "Définir votre budget global",
+        "guest_list": "Établir la liste d'invités",
+        "book_venue": "Réserver le lieu de réception",
+        "book_catering": "Choisir le traiteur",
+        "book_photographer": "Réserver le photographe",
+        "choose_attire": "Choisir vos tenues",
+        "send_invitations": "Envoyer les faire-part",
+        "seating_plan": "Finaliser le plan de table"
+      }
+    }
   }
 }
