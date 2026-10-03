@@ -123,5 +123,45 @@
         "body": "An industrial venue speaks for itself: a few generous floral pieces beat decorating everywhere."
       }
     }
+  },
+  "Onboarding": {
+    "metaTitle": "Let's talk about your big day",
+    "eyebrow": "Your project",
+    "title": "Let's talk about your big day",
+    "intro": "A few landmarks to lay the foundations. You can change everything later.",
+    "coupleNames": {
+      "label": "Your first names",
+      "placeholder": "Emma & James"
+    },
+    "weddingDate": {
+      "label": "Planned date",
+      "hint": "An approximate date is fine to start with."
+    },
+    "budget": {
+      "label": "Target budget ({currency})"
+    },
+    "guests": {
+      "label": "Number of guests"
+    },
+    "submit": "Create our project",
+    "submitting": "Creating…",
+    "errors": {
+      "required": "This field is required.",
+      "tooLong": "This text is a little long.",
+      "invalidDate": "Please enter a valid date.",
+      "pastDate": "This date has already passed.",
+      "invalidNumber": "Please enter a whole number.",
+      "budgetRange": "Please enter a budget between 1,000 and 1,000,000.",
+      "guestsRange": "Please enter between 1 and 2,000 guests.",
+      "invalidInput": "Some fields need your attention.",
+      "generic": "We couldn't create your project. Please try again."
+    }
+  },
+  "Dashboard": {
+    "metaTitle": "Dashboard",
+    "eyebrow": "Our wedding",
+    "budget": "Target budget",
+    "guests": "Guests",
+    "comingSoon": "Your planning timeline and budget tracking are coming here very soon."
   }
 }

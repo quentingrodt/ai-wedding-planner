@@ -103,6 +103,7 @@ export function DateNightFlow() {
         {isAnalyzing && <AnalysisSkeleton />}
         {!isAnalyzing && result?.status === "success" && (
           <RealityCheckResult
+            input={result.input}
             feasibility={result.feasibility}
             insight={result.insight}
           />

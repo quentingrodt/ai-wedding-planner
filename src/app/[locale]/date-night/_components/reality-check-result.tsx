@@ -7,6 +7,7 @@ import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import {
   DATE_NIGHT_CURRENCY,
+  type DateNightInput,
   type Feasibility,
   type FeasibilityVerdict,
   type RealityCheckInsight,
@@ -19,11 +20,13 @@ const VERDICT_TONE: Record<FeasibilityVerdict, string> = {
 };
 
 type RealityCheckResultProps = {
+  input: DateNightInput;
   feasibility: Feasibility;
   insight: RealityCheckInsight;
 };
 
 export function RealityCheckResult({
+  input,
   feasibility,
   insight,
 }: RealityCheckResultProps) {
@@ -100,7 +103,17 @@ export function RealityCheckResult({
         size="lg"
         className="h-auto min-h-14 rounded-2xl px-6 py-4 text-base whitespace-normal shadow-sm"
       >
-        <Link href="/login">
+        {/* Le projet suit l'utilisateur jusqu'à l'onboarding (pré-remplissage). */}
+        <Link
+          href={{
+            pathname: "/login",
+            query: {
+              budget: input.budget,
+              guests: input.guests,
+              style: input.style,
+            },
+          }}
+        >
           {t("cta")}
           <ArrowRight data-icon="inline-end" className="size-5" />
         </Link>

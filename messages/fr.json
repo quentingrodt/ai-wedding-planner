@@ -123,5 +123,45 @@
         "body": "Un lieu industriel se suffit à lui-même : quelques compositions florales généreuses valent mieux qu'une décoration partout."
       }
     }
+  },
+  "Onboarding": {
+    "metaTitle": "Parlons de votre grand jour",
+    "eyebrow": "Votre projet",
+    "title": "Parlons de votre grand jour",
+    "intro": "Quelques repères pour poser les fondations. Tout restera modifiable par la suite.",
+    "coupleNames": {
+      "label": "Vos prénoms",
+      "placeholder": "Camille & Thomas"
+    },
+    "weddingDate": {
+      "label": "Date prévue",
+      "hint": "Une date approximative suffit pour commencer."
+    },
+    "budget": {
+      "label": "Budget cible ({currency})"
+    },
+    "guests": {
+      "label": "Nombre d'invités"
+    },
+    "submit": "Créer notre projet",
+    "submitting": "Création en cours…",
+    "errors": {
+      "required": "Ce champ est requis.",
+      "tooLong": "Ce texte est un peu long.",
+      "invalidDate": "Indiquez une date valide.",
+      "pastDate": "Cette date est déjà passée.",
+      "invalidNumber": "Indiquez un nombre entier.",
+      "budgetRange": "Indiquez un budget entre 1 000 et 1 000 000.",
+      "guestsRange": "Indiquez un nombre d'invités entre 1 et 2 000.",
+      "invalidInput": "Certains champs sont à compléter.",
+      "generic": "Nous n'avons pas pu créer votre projet. Merci de réessayer."
+    }
+  },
+  "Dashboard": {
+    "metaTitle": "Tableau de bord",
+    "eyebrow": "Notre mariage",
+    "budget": "Budget cible",
+    "guests": "Invités",
+    "comingSoon": "Votre rétroplanning et le suivi de votre budget arrivent très bientôt ici."
   }
 }

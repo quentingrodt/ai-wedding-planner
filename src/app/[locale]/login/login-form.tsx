@@ -5,12 +5,19 @@ import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { HANDOFF_KEYS, type Handoff } from "@/lib/onboarding/schema";
 import { signInWithMagicLink } from "./actions";
 import type { LoginState } from "./schema";
 
 const initialState: LoginState = { status: "idle" };
 
-export function LoginForm({ linkExpired }: { linkExpired: boolean }) {
+type LoginFormProps = {
+  linkExpired: boolean;
+  /** Projet Date Night à relayer via le Magic Link. */
+  handoff: Handoff;
+};
+
+export function LoginForm({ linkExpired, handoff }: LoginFormProps) {
   const t = useTranslations("Login");
   const [state, formAction, pending] = useActionState(
     signInWithMagicLink,
@@ -33,6 +40,17 @@ export function LoginForm({ linkExpired }: { linkExpired: boolean }) {
 
   return (
     <form action={formAction} className="flex flex-col gap-4" noValidate>
+      {HANDOFF_KEYS.map(
+        (key) =>
+          handoff[key] !== undefined && (
+            <input
+              key={key}
+              type="hidden"
+              name={key}
+              value={String(handoff[key])}
+            />
+          ),
+      )}
       <div className="flex flex-col gap-2">
         <Label htmlFor="email">{t("emailLabel")}</Label>
         <Input
