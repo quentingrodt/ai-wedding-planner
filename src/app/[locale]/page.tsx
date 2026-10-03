@@ -11,9 +11,18 @@ export default function Home({ params }: PageProps<"/[locale]">) {
   setRequestLocale(locale as Locale);
 
   const t = useTranslations("Index");
+  const tCommon = useTranslations("Common");
 
   return (
-    <main className="flex flex-1 items-center justify-center px-6 py-24">
+    <main className="relative flex flex-1 items-center justify-center px-6 py-24">
+      <header className="absolute inset-x-0 top-0 flex justify-end px-6 py-5">
+        <Link
+          href="/login"
+          className="text-sm text-muted-foreground underline underline-offset-4 decoration-sand transition-colors hover:text-foreground hover:decoration-terracotta"
+        >
+          {tCommon("login")}
+        </Link>
+      </header>
       <div className="flex w-full min-w-0 max-w-2xl flex-col items-start gap-8">
         <h1 className="text-5xl leading-tight tracking-tight wrap-break-word sm:text-6xl">
           {t("title")}

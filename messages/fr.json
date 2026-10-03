@@ -1,4 +1,7 @@
 {
+  "Common": {
+    "login": "Déjà un compte ? Se connecter"
+  },
   "Index": {
     "title": "AI Wedding Planner",
     "subtitle": "Votre copilote d'organisation",

@@ -1,4 +1,7 @@
 {
+  "Common": {
+    "login": "Already have an account? Log in"
+  },
   "Index": {
     "title": "AI Wedding Planner",
     "subtitle": "Your wedding planning copilot",
