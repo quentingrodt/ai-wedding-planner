@@ -216,7 +216,8 @@
     },
     "quotesLink": "Décryptez vos devis",
     "guestsLink": "Vos invités",
-    "seatingLink": "Plan de table"
+    "seatingLink": "Plan de table",
+    "itineraryLink": "Le Jour J"
   },
   "Quotes": {
     "metaTitle": "Vos devis",
@@ -385,6 +386,64 @@
       "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
       "forbidden": "Seuls les mariés peuvent modifier le plan de table.",
       "tableFull": "Cette table est déjà complète : {name} n’a pas pu y être installé·e.",
+      "generic": "La modification n’a pas pu être enregistrée. Merci de réessayer."
+    }
+  },
+  "Itinerary": {
+    "metaTitle": "Le Jour J",
+    "back": "Tableau de bord",
+    "eyebrow": "Conducteur",
+    "title": "Le Jour J",
+    "subtitle": "{names} · {date}",
+    "intro": "Déroulez votre journée minute par minute, de la préparation au dernier verre. Exportez-la en PDF pour vos témoins et prestataires.",
+    "readOnly": "Les mariés composent le conducteur : vous pouvez le consulter et l’exporter ici.",
+    "export": "Exporter en PDF",
+    "steps": {
+      "title": "Le déroulé",
+      "empty": "Aucune étape pour l’instant. Commencez par la cérémonie, ou par le rendez-vous coiffure du matin.",
+      "emptyReadOnly": "Le déroulé de la journée n’a pas encore été composé."
+    },
+    "form": {
+      "startTime": "Heure",
+      "title": "Étape",
+      "titlePlaceholder": "Cérémonie laïque",
+      "location": "Lieu",
+      "locationPlaceholder": "Jardin du domaine",
+      "description": "Détails",
+      "descriptionPlaceholder": "Qui est concerné, ce qu’il faut prévoir…",
+      "optional": "(facultatif)",
+      "cancel": "Annuler",
+      "close": "Fermer"
+    },
+    "add": {
+      "trigger": "Ajouter une étape",
+      "title": "Nouvelle étape",
+      "description": "Une heure et un intitulé suffisent : l’étape prend sa place dans la journée.",
+      "submit": "Ajouter l’étape"
+    },
+    "edit": {
+      "trigger": "Modifier « {title} »",
+      "title": "Modifier l’étape",
+      "description": "Changez l’heure : l’étape se replace d’elle-même dans la journée.",
+      "submit": "Enregistrer"
+    },
+    "delete": {
+      "trigger": "Supprimer « {title} »",
+      "title": "Supprimer « {title} » ?",
+      "description": "Cette étape disparaîtra du conducteur.",
+      "cancel": "Annuler",
+      "confirm": "Supprimer",
+      "success": "« {title} » a été retirée du conducteur."
+    },
+    "fieldErrors": {
+      "required": "Ce champ est requis.",
+      "tooLong": "Ce texte est trop long.",
+      "time": "Indiquez une heure valide (HH:MM)."
+    },
+    "errors": {
+      "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
+      "forbidden": "Seuls les mariés peuvent modifier le conducteur.",
+      "invalid": "Certaines informations sont invalides. Merci de vérifier la saisie.",
       "generic": "La modification n’a pas pu être enregistrée. Merci de réessayer."
     }
   }

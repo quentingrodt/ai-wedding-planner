@@ -1,5 +1,6 @@
 import type { BudgetItem } from "@/lib/budget/schema";
 import type { Guest } from "@/lib/guests/schema";
+import { toTimeKey, type ItineraryEvent } from "@/lib/itinerary/schema";
 import type { Quote } from "@/lib/quotes/schema";
 import type { SeatedGuest, SeatingTable } from "@/lib/seating/schema";
 import type { Task } from "@/lib/tasks/schema";
@@ -191,3 +192,24 @@ export async function getConfirmedGuests(
   }
   return data;
 }
+
+/** Conducteur du jour J, dans l'ordre chronologique (created_at en départage). */
+export async function getItineraryEvents(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<ItineraryEvent[]> {
+  const { data, error } = await supabase
+    .from("itinerary_events")
+    .select("id, start_time, title, location, description, created_at")
+    .eq("wedding_id", weddingId)
+    .order("start_time", { ascending: true })
+    .order("created_at", { ascending: true })
+    .returns<ItineraryEvent[]>();
+
+  if (error) {
+    console.error("[weddings] getItineraryEvents:", error.code);
+    throw new Error("Unable to load itinerary");
+  }
+  return data.map((event) => ({ ...event, start_time: toTimeKey(event.start_time) }));
+}
+

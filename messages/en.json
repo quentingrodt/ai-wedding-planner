@@ -216,7 +216,8 @@
     },
     "quotesLink": "Decode your quotes",
     "guestsLink": "Your guests",
-    "seatingLink": "Seating plan"
+    "seatingLink": "Seating plan",
+    "itineraryLink": "The Big Day"
   },
   "Quotes": {
     "metaTitle": "Your quotes",
@@ -386,6 +387,64 @@
       "forbidden": "Only the couple can edit the seating plan.",
       "tableFull": "This table is already full: {name} couldn't be seated.",
       "generic": "Your change couldn't be saved. Please try again."
+    }
+  },
+  "Itinerary": {
+    "metaTitle": "The Big Day",
+    "back": "Dashboard",
+    "eyebrow": "Run of show",
+    "title": "The Big Day",
+    "subtitle": "{names} · {date}",
+    "intro": "Plan your day minute by minute, from getting ready to the last dance. Export it as a PDF for your wedding party and vendors.",
+    "readOnly": "The couple builds the run of show: you can view and export it here.",
+    "export": "Export as PDF",
+    "steps": {
+      "title": "The schedule",
+      "empty": "No moments yet. Start with the ceremony, or the morning hair appointment.",
+      "emptyReadOnly": "The day’s schedule hasn’t been put together yet."
+    },
+    "form": {
+      "startTime": "Time",
+      "title": "Moment",
+      "titlePlaceholder": "Outdoor ceremony",
+      "location": "Location",
+      "locationPlaceholder": "Estate garden",
+      "description": "Details",
+      "descriptionPlaceholder": "Who’s involved, what to prepare…",
+      "optional": "(optional)",
+      "cancel": "Cancel",
+      "close": "Close"
+    },
+    "add": {
+      "trigger": "Add a moment",
+      "title": "New moment",
+      "description": "A time and a title are enough: the moment finds its place in the day.",
+      "submit": "Add moment"
+    },
+    "edit": {
+      "trigger": "Edit “{title}”",
+      "title": "Edit moment",
+      "description": "Change the time and the moment moves into place on its own.",
+      "submit": "Save"
+    },
+    "delete": {
+      "trigger": "Delete “{title}”",
+      "title": "Delete “{title}”?",
+      "description": "This moment will be removed from the schedule.",
+      "cancel": "Cancel",
+      "confirm": "Delete",
+      "success": "“{title}” was removed from the schedule."
+    },
+    "fieldErrors": {
+      "required": "This field is required.",
+      "tooLong": "This text is too long.",
+      "time": "Enter a valid time (HH:MM)."
+    },
+    "errors": {
+      "unauthenticated": "Your session has expired. Please sign in again.",
+      "forbidden": "Only the couple can edit the schedule.",
+      "invalid": "Some details are invalid. Please check your entry.",
+      "generic": "Your change couldn’t be saved. Please try again."
     }
   }
 }

@@ -121,3 +121,8 @@
     @apply font-serif;
   }
 }
+
+/* Export PDF (window.print) : marges du document imprimé. */
+@page {
+  margin: 16mm 14mm;
+}
