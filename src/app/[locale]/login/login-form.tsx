@@ -15,9 +15,11 @@ type LoginFormProps = {
   linkExpired: boolean;
   /** Projet Date Night à relayer via le Magic Link. */
   handoff: Handoff;
+  /** Token d'invitation à relayer via le Magic Link. */
+  invite?: string;
 };
 
-export function LoginForm({ linkExpired, handoff }: LoginFormProps) {
+export function LoginForm({ linkExpired, handoff, invite }: LoginFormProps) {
   const t = useTranslations("Login");
   const [state, formAction, pending] = useActionState(
     signInWithMagicLink,
@@ -51,6 +53,7 @@ export function LoginForm({ linkExpired, handoff }: LoginFormProps) {
             />
           ),
       )}
+      {invite && <input type="hidden" name="invite" value={invite} />}
       <div className="flex flex-col gap-2">
         <Label htmlFor="email">{t("emailLabel")}</Label>
         <Input

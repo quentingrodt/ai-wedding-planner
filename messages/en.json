@@ -22,7 +22,8 @@
       "rateLimited": "Too many attempts. Please wait a few minutes before trying again.",
       "linkExpired": "This link has expired or was already used. Please request a new one.",
       "generic": "Something went wrong. Please try again."
-    }
+    },
+    "inviteSubtitle": "Sign in to join the wedding you've been invited to."
   },
   "DateNight": {
     "metaTitle": "Date Night · Test your wedding plan",
@@ -217,7 +218,8 @@
     "quotesLink": "Decode your quotes",
     "guestsLink": "Your guests",
     "seatingLink": "Seating plan",
-    "itineraryLink": "The Big Day"
+    "itineraryLink": "The Big Day",
+    "settingsLink": "Team"
   },
   "Quotes": {
     "metaTitle": "Your quotes",
@@ -445,6 +447,63 @@
       "forbidden": "Only the couple can edit the schedule.",
       "invalid": "Some details are invalid. Please check your entry.",
       "generic": "Your change couldn’t be saved. Please try again."
+    }
+  },
+  "Settings": {
+    "metaTitle": "Team settings",
+    "back": "Dashboard",
+    "eyebrow": "Settings",
+    "title": "Your team",
+    "intro": "Plan this wedding together: invite your partner and your witnesses to join you.",
+    "roles": {
+      "owner": "Organiser",
+      "partner": "Partner",
+      "witness": "Witness"
+    },
+    "team": {
+      "title": "Project members",
+      "you": "(you)",
+      "unnamed": "Unnamed member"
+    },
+    "invite": {
+      "title": "Invite",
+      "description": "Each link is personal, single-use and valid for 7 days.",
+      "ownerOnly": "Only the wedding organiser can invite new members.",
+      "partnerButton": "Invite my partner",
+      "witnessButton": "Invite a witness",
+      "partnerTitle": "Invite your partner",
+      "witnessTitle": "Invite a witness",
+      "dialogDescription": "Share this link by message or email. It only works once.",
+      "linkLabel": "Invitation link",
+      "copy": "Copy link",
+      "copiedButton": "Copied",
+      "copied": "Link copied. All that's left is to send it.",
+      "copyFailed": "Couldn't copy. Select the link to copy it.",
+      "expires": "Valid until {date}.",
+      "close": "Close"
+    },
+    "errors": {
+      "unauthenticated": "Your session has expired. Please sign in again.",
+      "forbidden": "Only the organiser can invite new members.",
+      "invalid": "This kind of invitation doesn't exist.",
+      "generic": "The link couldn't be created. Please try again."
+    },
+    "accept": {
+      "metaTitle": "Invitation",
+      "eyebrow": "You're invited",
+      "title": "Join {names}'s wedding",
+      "description": "You've been invited to help plan this wedding as {role}.",
+      "submit": "Join the project",
+      "submitting": "One moment…",
+      "invalidTitle": "This invitation is no longer valid",
+      "invalidDescription": "The link has expired or has already been used. Ask the organiser for a new one.",
+      "toDashboard": "Go to dashboard",
+      "errors": {
+        "unauthenticated": "Your session has expired. Sign in again, then reopen the link.",
+        "invalid": "This link has already been used. Ask the organiser for a new one.",
+        "expired": "This link has expired. Ask the organiser for a new one.",
+        "generic": "Something went wrong. Please try again."
+      }
     }
   }
 }

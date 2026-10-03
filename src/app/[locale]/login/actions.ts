@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { getLocale } from "next-intl/server";
 import { getPathname } from "@/i18n/navigation";
 import { parseHandoff, withHandoff } from "@/lib/onboarding/schema";
+import { parseInviteToken } from "@/lib/team/schema";
 import { createClient } from "@/utils/supabase/client";
 import { loginSchema, type LoginState } from "./schema";
 
@@ -22,10 +23,13 @@ export async function signInWithMagicLink(
   const origin =
     headerList.get("origin") ?? `https://${headerList.get("host")}`;
   const locale = await getLocale();
-  // Le projet Date Night (revalidé, liste blanche) voyage dans le Magic Link.
+  // Le projet Date Night (revalidé, liste blanche) et l'éventuel token
+  // d'invitation voyagent dans le Magic Link.
+  const invite = parseInviteToken(formData.get("invite"));
   const callbackPath = withHandoff(
     getPathname({ href: "/auth/callback", locale }),
     parseHandoff(formData),
+    invite ? { invite } : undefined,
   );
 
   const supabase = await createClient();

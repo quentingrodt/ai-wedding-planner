@@ -1,6 +1,7 @@
 import type { Locale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { parseHandoff } from "@/lib/onboarding/schema";
+import { parseInviteToken } from "@/lib/team/schema";
 import { LoginForm } from "./login-form";
 
 export default async function LoginPage({
@@ -14,17 +15,22 @@ export default async function LoginPage({
 
   // Projet éventuellement transmis par Date Night : relayé jusqu'à l'onboarding.
   const handoff = parseHandoff(query);
+  // Invitation à rejoindre un mariage : le token est relayé par le Magic Link.
+  const invite = parseInviteToken(query.invite);
 
   return (
     <main className="flex flex-1 items-center justify-center px-6 py-24">
       <div className="flex w-full min-w-0 max-w-sm flex-col gap-8">
         <div className="flex flex-col gap-3">
           <h1 className="text-4xl tracking-tight">{t("title")}</h1>
-          <p className="text-muted-foreground">{t("subtitle")}</p>
+          <p className="text-muted-foreground">
+            {invite ? t("inviteSubtitle") : t("subtitle")}
+          </p>
         </div>
         <LoginForm
           linkExpired={query.error === "link_expired"}
           handoff={handoff}
+          invite={invite}
         />
       </div>
     </main>

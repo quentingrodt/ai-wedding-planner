@@ -4,6 +4,7 @@ import { toTimeKey, type ItineraryEvent } from "@/lib/itinerary/schema";
 import type { Quote } from "@/lib/quotes/schema";
 import type { SeatedGuest, SeatingTable } from "@/lib/seating/schema";
 import type { Task } from "@/lib/tasks/schema";
+import { ROLE_ORDER, type TeamMember } from "@/lib/team/schema";
 import type { createClient } from "@/utils/supabase/client";
 
 type ServerClient = Awaited<ReturnType<typeof createClient>>;
@@ -213,3 +214,34 @@ export async function getItineraryEvents(
   return data.map((event) => ({ ...event, start_time: toTimeKey(event.start_time) }));
 }
 
+/** Membres du mariage avec leur profil (RLS : profils des co-membres lisibles). */
+export async function getTeamMembers(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<TeamMember[]> {
+  const { data, error } = await supabase
+    .from("wedding_members")
+    .select("user_id, role, created_at, profiles(full_name, email)")
+    .eq("wedding_id", weddingId)
+    .order("created_at", { ascending: true })
+    .returns<
+      {
+        user_id: string;
+        role: WeddingRole;
+        profiles: { full_name: string | null; email: string | null } | null;
+      }[]
+    >();
+
+  if (error) {
+    console.error("[weddings] getTeamMembers:", error.code);
+    throw new Error("Unable to load team");
+  }
+  return data
+    .map(({ user_id, role, profiles }) => ({
+      user_id,
+      role,
+      full_name: profiles?.full_name ?? null,
+      email: profiles?.email ?? null,
+    }))
+    .sort((a, b) => ROLE_ORDER[a.role] - ROLE_ORDER[b.role]);
+}

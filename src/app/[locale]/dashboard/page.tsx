@@ -109,6 +109,7 @@ export default async function DashboardPage({
                 { href: "/seating", label: t("seatingLink") },
                 { href: "/itinerary", label: t("itineraryLink") },
                 { href: "/quotes", label: t("quotesLink") },
+                { href: "/settings", label: t("settingsLink") },
               ] as const
             ).map(({ href, label }) => (
               <Link

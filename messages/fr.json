@@ -22,7 +22,8 @@
       "rateLimited": "Trop de tentatives. Patientez quelques minutes avant de réessayer.",
       "linkExpired": "Ce lien a expiré ou a déjà été utilisé. Demandez-en un nouveau.",
       "generic": "Une erreur est survenue. Merci de réessayer."
-    }
+    },
+    "inviteSubtitle": "Connectez-vous pour rejoindre le mariage auquel vous êtes invité·e."
   },
   "DateNight": {
     "metaTitle": "Date Night · Testez votre projet de mariage",
@@ -217,7 +218,8 @@
     "quotesLink": "Décryptez vos devis",
     "guestsLink": "Vos invités",
     "seatingLink": "Plan de table",
-    "itineraryLink": "Le Jour J"
+    "itineraryLink": "Le Jour J",
+    "settingsLink": "Équipe"
   },
   "Quotes": {
     "metaTitle": "Vos devis",
@@ -445,6 +447,63 @@
       "forbidden": "Seuls les mariés peuvent modifier le conducteur.",
       "invalid": "Certaines informations sont invalides. Merci de vérifier la saisie.",
       "generic": "La modification n’a pas pu être enregistrée. Merci de réessayer."
+    }
+  },
+  "Settings": {
+    "metaTitle": "Paramètres de l'équipe",
+    "back": "Tableau de bord",
+    "eyebrow": "Paramètres",
+    "title": "Votre équipe",
+    "intro": "Préparez ce mariage à plusieurs : invitez votre conjoint et vos témoins à vous rejoindre.",
+    "roles": {
+      "owner": "Organisateur",
+      "partner": "Conjoint",
+      "witness": "Témoin"
+    },
+    "team": {
+      "title": "Membres du projet",
+      "you": "(vous)",
+      "unnamed": "Membre sans nom"
+    },
+    "invite": {
+      "title": "Inviter",
+      "description": "Chaque lien est personnel, à usage unique et valable 7 jours.",
+      "ownerOnly": "Seul l'organisateur du mariage peut inviter de nouveaux membres.",
+      "partnerButton": "Inviter mon conjoint",
+      "witnessButton": "Inviter un témoin",
+      "partnerTitle": "Inviter votre conjoint",
+      "witnessTitle": "Inviter un témoin",
+      "dialogDescription": "Partagez ce lien par message ou par email. Il ne fonctionne qu'une seule fois.",
+      "linkLabel": "Lien d'invitation",
+      "copy": "Copier le lien",
+      "copiedButton": "Copié",
+      "copied": "Lien copié. Il ne reste plus qu'à l'envoyer.",
+      "copyFailed": "Copie impossible. Sélectionnez le lien pour le copier.",
+      "expires": "Valable jusqu'au {date}.",
+      "close": "Fermer"
+    },
+    "errors": {
+      "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
+      "forbidden": "Seul l'organisateur peut inviter de nouveaux membres.",
+      "invalid": "Ce type d'invitation n'existe pas.",
+      "generic": "Le lien n'a pas pu être créé. Merci de réessayer."
+    },
+    "accept": {
+      "metaTitle": "Invitation",
+      "eyebrow": "Vous êtes invité·e",
+      "title": "Rejoindre le mariage de {names}",
+      "description": "Vous êtes invité·e à préparer ce mariage en tant que {role}.",
+      "submit": "Rejoindre le projet",
+      "submitting": "Un instant…",
+      "invalidTitle": "Cette invitation n'est plus valable",
+      "invalidDescription": "Le lien a expiré ou a déjà été utilisé. Demandez-en un nouveau à l'organisateur.",
+      "toDashboard": "Aller au tableau de bord",
+      "errors": {
+        "unauthenticated": "Votre session a expiré. Reconnectez-vous puis rouvrez le lien.",
+        "invalid": "Ce lien a déjà été utilisé. Demandez-en un nouveau à l'organisateur.",
+        "expired": "Ce lien a expiré. Demandez-en un nouveau à l'organisateur.",
+        "generic": "Une erreur est survenue. Merci de réessayer."
+      }
     }
   }
 }
