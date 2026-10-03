@@ -211,7 +211,9 @@
         "seating_plan": "Finaliser le plan de table"
       }
     },
-    "quotesLink": "Décryptez vos devis"
+    "quotesLink": "Décryptez vos devis",
+    "guestsLink": "Vos invités",
+    "seatingLink": "Plan de table"
   },
   "Quotes": {
     "metaTitle": "Vos devis",
@@ -245,6 +247,142 @@
       "forbidden": "Seuls les mariés peuvent déposer des devis.",
       "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
       "generic": "« {name} » n’a pas pu être téléversé. Merci de réessayer."
+    }
+  },
+  "Guests": {
+    "metaTitle": "Vos invités",
+    "back": "Tableau de bord",
+    "eyebrow": "Réception",
+    "title": "Vos Invités",
+    "intro": "Votre liste, les réponses et les préférences de chacun, réunies au même endroit.",
+    "readOnly": "Les mariés gèrent la liste : vous pouvez la consulter ici.",
+    "kpis": {
+      "total": "Invités",
+      "confirmed": "Confirmés",
+      "pending": "En attente",
+      "children": "Enfants"
+    },
+    "filters": {
+      "all": "Tous",
+      "confirmed": "Confirmés",
+      "pending": "En attente",
+      "declined": "Déclinés"
+    },
+    "search": {
+      "label": "Rechercher un invité",
+      "placeholder": "Rechercher…"
+    },
+    "table": {
+      "name": "Nom",
+      "status": "Réponse",
+      "dietary": "Préférences alimentaires",
+      "actions": "Actions",
+      "noDietary": "—"
+    },
+    "status": {
+      "invited": "Sans réponse",
+      "confirmed": "Confirmé",
+      "tentative": "Peut-être",
+      "declined": "Décliné"
+    },
+    "statusLabel": "Réponse de {name}",
+    "childBadge": "Enfant",
+    "empty": "Votre liste est encore vide. Ajoutez vos premiers invités pour commencer.",
+    "emptyFilter": "Aucun invité ne correspond à votre recherche.",
+    "add": {
+      "trigger": "Ajouter un invité",
+      "title": "Ajouter un invité",
+      "description": "Quelques informations suffisent, vous pourrez compléter plus tard.",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "optional": "(facultatif)",
+      "status": "Réponse",
+      "dietary": "Préférences alimentaires",
+      "dietaryPlaceholder": "Végétarien, sans porc…",
+      "dietaryHint": "Indiquez uniquement des préférences de repas, sans information médicale.",
+      "isChild": "C’est un enfant",
+      "cancel": "Annuler",
+      "submit": "Ajouter",
+      "submitting": "Ajout…",
+      "close": "Fermer",
+      "success": "{name} a rejoint votre liste."
+    },
+    "delete": {
+      "trigger": "Retirer {name}",
+      "title": "Retirer {name} de la liste ?",
+      "description": "Cette personne et ses préférences ne figureront plus dans votre liste.",
+      "cancel": "Annuler",
+      "confirm": "Retirer",
+      "success": "{name} ne figure plus sur votre liste."
+    },
+    "fieldErrors": {
+      "required": "Ce champ est requis.",
+      "tooLong": "Ce texte est trop long."
+    },
+    "errors": {
+      "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
+      "forbidden": "Seuls les mariés peuvent modifier la liste d’invités.",
+      "generic": "La modification n’a pas pu être enregistrée. Merci de réessayer."
+    }
+  },
+  "Seating": {
+    "metaTitle": "Plan de table",
+    "back": "Tableau de bord",
+    "eyebrow": "Réception",
+    "title": "Plan de Table",
+    "intro": "Composez vos tables et installez chaque invité confirmé à sa place.",
+    "readOnly": "Les mariés composent le plan de table : vous pouvez le consulter ici.",
+    "childBadge": "Enfant",
+    "unseated": {
+      "title": "À placer",
+      "count": "{count, plural, =0 {Personne en attente} one {# invité} other {# invités}}",
+      "noConfirmed": "Aucun invité n’a encore confirmé sa venue. Les confirmés apparaîtront ici.",
+      "allSeated": "Tous vos invités confirmés ont trouvé leur place.",
+      "assign": "Choisir une table",
+      "assignLabel": "Choisir une table pour {name}",
+      "noTables": "Créez d’abord une table",
+      "seatsLeft": "{count, plural, one {# place libre} other {# places libres}}",
+      "full": "Complète"
+    },
+    "tables": {
+      "title": "Les Tables",
+      "empty": "Aucune table pour l’instant. Créez la première, la Table d’Honneur par exemple.",
+      "seats": "{seated}/{capacity} places",
+      "full": "Complète",
+      "noGuests": "Personne n’est encore installé à cette table.",
+      "unassign": "Retirer {name} de la table"
+    },
+    "create": {
+      "trigger": "Nouvelle table",
+      "title": "Nouvelle table",
+      "description": "Un nom et un nombre de places : vous y installerez vos invités ensuite.",
+      "name": "Nom de la table",
+      "namePlaceholder": "Table d’Honneur",
+      "capacity": "Nombre de places",
+      "cancel": "Annuler",
+      "submit": "Créer la table",
+      "submitting": "Création…",
+      "close": "Fermer",
+      "success": "La table « {name} » est prête."
+    },
+    "delete": {
+      "trigger": "Supprimer la table {name}",
+      "title": "Supprimer la table « {name} » ?",
+      "description": "Les invités installés à cette table retourneront dans la liste « À placer ».",
+      "cancel": "Annuler",
+      "confirm": "Supprimer",
+      "success": "La table « {name} » a été supprimée."
+    },
+    "fieldErrors": {
+      "required": "Ce champ est requis.",
+      "tooLong": "Ce nom est trop long.",
+      "capacity": "Indiquez un nombre de places entre 1 et {max}."
+    },
+    "errors": {
+      "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
+      "forbidden": "Seuls les mariés peuvent modifier le plan de table.",
+      "tableFull": "Cette table est déjà complète : {name} n’a pas pu y être installé·e.",
+      "generic": "La modification n’a pas pu être enregistrée. Merci de réessayer."
     }
   }
 }

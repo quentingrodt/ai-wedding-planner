@@ -102,13 +102,24 @@ export default async function DashboardPage({
               {needsAttention ? t("needsAttention") : t("allGood")}
             </span>
           </p>
-          <Link
-            href="/quotes"
-            className="inline-flex w-fit items-center gap-2 rounded-full bg-linen px-4 py-2 text-sm text-sage-deep ring-1 ring-sand transition-colors hover:bg-sand/60"
-          >
-            {t("quotesLink")}
-            <ArrowRightIcon aria-hidden className="size-4" />
-          </Link>
+          <nav className="flex flex-wrap gap-2">
+            {(
+              [
+                { href: "/guests", label: t("guestsLink") },
+                { href: "/seating", label: t("seatingLink") },
+                { href: "/quotes", label: t("quotesLink") },
+              ] as const
+            ).map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className="inline-flex w-fit items-center gap-2 rounded-full bg-linen px-4 py-2 text-sm text-sage-deep ring-1 ring-sand transition-colors hover:bg-sand/60"
+              >
+                {label}
+                <ArrowRightIcon aria-hidden className="size-4" />
+              </Link>
+            ))}
+          </nav>
         </header>
 
         <BudgetGauge

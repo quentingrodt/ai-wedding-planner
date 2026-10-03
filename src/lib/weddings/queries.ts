@@ -1,5 +1,7 @@
 import type { BudgetItem } from "@/lib/budget/schema";
+import type { Guest } from "@/lib/guests/schema";
 import type { Quote } from "@/lib/quotes/schema";
+import type { SeatedGuest, SeatingTable } from "@/lib/seating/schema";
 import type { Task } from "@/lib/tasks/schema";
 import type { createClient } from "@/utils/supabase/client";
 
@@ -113,6 +115,25 @@ export async function getCurrentMemberRole(
   return data?.role ?? null;
 }
 
+/** Invités du mariage, du plus récemment ajouté au plus ancien. */
+export async function getGuests(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<Guest[]> {
+  const { data, error } = await supabase
+    .from("guests")
+    .select("id, first_name, last_name, status, dietary_requirements, is_child")
+    .eq("wedding_id", weddingId)
+    .order("created_at", { ascending: false })
+    .returns<Guest[]>();
+
+  if (error) {
+    console.error("[weddings] getGuests:", error.code);
+    throw new Error("Unable to load guests");
+  }
+  return data;
+}
+
 /** Devis du mariage, du plus récent au plus ancien. */
 export async function getQuotes(
   supabase: ServerClient,
@@ -128,6 +149,45 @@ export async function getQuotes(
   if (error) {
     console.error("[weddings] getQuotes:", error.code);
     throw new Error("Unable to load quotes");
+  }
+  return data;
+}
+
+/** Tables du plan de table, dans l'ordre de création. */
+export async function getSeatingTables(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<SeatingTable[]> {
+  const { data, error } = await supabase
+    .from("seating_tables")
+    .select("id, name, capacity")
+    .eq("wedding_id", weddingId)
+    .order("created_at", { ascending: true })
+    .returns<SeatingTable[]>();
+
+  if (error) {
+    console.error("[weddings] getSeatingTables:", error.code);
+    throw new Error("Unable to load seating tables");
+  }
+  return data;
+}
+
+/** Invités confirmés, seuls concernés par le plan de table, par ordre alphabétique. */
+export async function getConfirmedGuests(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<SeatedGuest[]> {
+  const { data, error } = await supabase
+    .from("guests")
+    .select("id, first_name, last_name, is_child, seating_table_id")
+    .eq("wedding_id", weddingId)
+    .eq("status", "confirmed")
+    .order("first_name", { ascending: true })
+    .returns<SeatedGuest[]>();
+
+  if (error) {
+    console.error("[weddings] getConfirmedGuests:", error.code);
+    throw new Error("Unable to load confirmed guests");
   }
   return data;
 }

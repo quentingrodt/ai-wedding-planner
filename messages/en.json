@@ -211,7 +211,9 @@
         "seating_plan": "Finalise the seating plan"
       }
     },
-    "quotesLink": "Decode your quotes"
+    "quotesLink": "Decode your quotes",
+    "guestsLink": "Your guests",
+    "seatingLink": "Seating plan"
   },
   "Quotes": {
     "metaTitle": "Your quotes",
@@ -245,6 +247,142 @@
       "forbidden": "Only the couple can upload quotes.",
       "unauthenticated": "Your session has expired. Please sign in again.",
       "generic": "“{name}” couldn’t be uploaded. Please try again."
+    }
+  },
+  "Guests": {
+    "metaTitle": "Your guests",
+    "back": "Dashboard",
+    "eyebrow": "Reception",
+    "title": "Your Guests",
+    "intro": "Your list, every reply and everyone’s preferences, all in one place.",
+    "readOnly": "The couple manages the list: you can view it here.",
+    "kpis": {
+      "total": "Guests",
+      "confirmed": "Confirmed",
+      "pending": "Awaiting reply",
+      "children": "Children"
+    },
+    "filters": {
+      "all": "All",
+      "confirmed": "Confirmed",
+      "pending": "Awaiting reply",
+      "declined": "Declined"
+    },
+    "search": {
+      "label": "Search guests",
+      "placeholder": "Search…"
+    },
+    "table": {
+      "name": "Name",
+      "status": "Reply",
+      "dietary": "Dietary preferences",
+      "actions": "Actions",
+      "noDietary": "—"
+    },
+    "status": {
+      "invited": "No reply yet",
+      "confirmed": "Confirmed",
+      "tentative": "Maybe",
+      "declined": "Declined"
+    },
+    "statusLabel": "Reply from {name}",
+    "childBadge": "Child",
+    "empty": "Your list is still empty. Add your first guests to get started.",
+    "emptyFilter": "No guests match your search.",
+    "add": {
+      "trigger": "Add a guest",
+      "title": "Add a guest",
+      "description": "A few details are enough; you can fill in the rest later.",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "optional": "(optional)",
+      "status": "Reply",
+      "dietary": "Dietary preferences",
+      "dietaryPlaceholder": "Vegetarian, no pork…",
+      "dietaryHint": "Meal preferences only, please — no medical information.",
+      "isChild": "This guest is a child",
+      "cancel": "Cancel",
+      "submit": "Add",
+      "submitting": "Adding…",
+      "close": "Close",
+      "success": "{name} has joined your list."
+    },
+    "delete": {
+      "trigger": "Remove {name}",
+      "title": "Remove {name} from the list?",
+      "description": "This guest and their preferences will no longer appear on your list.",
+      "cancel": "Cancel",
+      "confirm": "Remove",
+      "success": "{name} is no longer on your list."
+    },
+    "fieldErrors": {
+      "required": "This field is required.",
+      "tooLong": "This text is too long."
+    },
+    "errors": {
+      "unauthenticated": "Your session has expired. Please sign in again.",
+      "forbidden": "Only the couple can edit the guest list.",
+      "generic": "Your change couldn’t be saved. Please try again."
+    }
+  },
+  "Seating": {
+    "metaTitle": "Seating plan",
+    "back": "Dashboard",
+    "eyebrow": "Reception",
+    "title": "Seating Plan",
+    "intro": "Set up your tables and give every confirmed guest their seat.",
+    "readOnly": "The couple arranges the seating plan: you can view it here.",
+    "childBadge": "Child",
+    "unseated": {
+      "title": "To be seated",
+      "count": "{count, plural, =0 {No one waiting} one {# guest} other {# guests}}",
+      "noConfirmed": "No guest has confirmed yet. Confirmed guests will appear here.",
+      "allSeated": "Every confirmed guest has a seat.",
+      "assign": "Choose a table",
+      "assignLabel": "Choose a table for {name}",
+      "noTables": "Create a table first",
+      "seatsLeft": "{count, plural, one {# seat left} other {# seats left}}",
+      "full": "Full"
+    },
+    "tables": {
+      "title": "Tables",
+      "empty": "No tables yet. Start with the first one, such as the Head Table.",
+      "seats": "{seated}/{capacity} seats",
+      "full": "Full",
+      "noGuests": "No one is seated at this table yet.",
+      "unassign": "Remove {name} from the table"
+    },
+    "create": {
+      "trigger": "New table",
+      "title": "New table",
+      "description": "A name and a number of seats: you'll seat your guests next.",
+      "name": "Table name",
+      "namePlaceholder": "Head Table",
+      "capacity": "Number of seats",
+      "cancel": "Cancel",
+      "submit": "Create table",
+      "submitting": "Creating…",
+      "close": "Close",
+      "success": "“{name}” is ready."
+    },
+    "delete": {
+      "trigger": "Delete table {name}",
+      "title": "Delete “{name}”?",
+      "description": "Guests seated at this table will go back to the “To be seated” list.",
+      "cancel": "Cancel",
+      "confirm": "Delete",
+      "success": "“{name}” has been deleted."
+    },
+    "fieldErrors": {
+      "required": "This field is required.",
+      "tooLong": "This name is too long.",
+      "capacity": "Enter a number of seats between 1 and {max}."
+    },
+    "errors": {
+      "unauthenticated": "Your session has expired. Please sign in again.",
+      "forbidden": "Only the couple can edit the seating plan.",
+      "tableFull": "This table is already full: {name} couldn't be seated.",
+      "generic": "Your change couldn't be saved. Please try again."
     }
   }
 }
