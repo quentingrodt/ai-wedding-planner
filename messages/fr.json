@@ -219,7 +219,8 @@
     "guestsLink": "Vos invités",
     "seatingLink": "Plan de table",
     "itineraryLink": "Le Jour J",
-    "settingsLink": "Équipe"
+    "settingsLink": "Équipe",
+    "budgetLink": "Budget & prestataires"
   },
   "Quotes": {
     "metaTitle": "Vos devis",
@@ -554,6 +555,86 @@
         "expired": "Ce lien a expiré. Demandez-en un nouveau à l'organisateur.",
         "generic": "Une erreur est survenue. Merci de réessayer."
       }
+    }
+  },
+  "Budget": {
+    "metaTitle": "Budget & Prestataires",
+    "back": "Tableau de bord",
+    "eyebrow": "Finances",
+    "title": "Budget & Prestataires",
+    "intro": "Chaque poste, chaque prestataire et ce qu’il reste à répartir, réunis au même endroit.",
+    "kpis": {
+      "envelope": "Enveloppe totale",
+      "noEnvelope": "À définir",
+      "committed": "Montant engagé",
+      "committedShare": "{percent} de l’enveloppe",
+      "remaining": "Reste à allouer",
+      "remainingHint": "Après devis signés et estimations",
+      "overBy": "Au-delà de l’enveloppe"
+    },
+    "vendors": {
+      "title": "Vos prestataires",
+      "intro": "Un devis signé remplace l’estimation dans vos calculs.",
+      "empty": "Aucun prestataire pour l’instant. Ajoutez votre premier poste de dépense.",
+      "groupTotal": "{actual} engagés sur {estimated} prévus",
+      "unnamed": "Prestataire à choisir",
+      "estimated": "Prévu",
+      "actual": "Signé",
+      "notSigned": "En attente"
+    },
+    "categories": {
+      "venue": "Lieu de réception",
+      "catering": "Traiteur",
+      "photography": "Photographie",
+      "attire": "Tenues",
+      "decoration": "Décoration",
+      "music": "Musique",
+      "stationery": "Papeterie",
+      "contingency": "Imprévus",
+      "other": "Autres dépenses"
+    },
+    "add": {
+      "trigger": "Ajouter un prestataire",
+      "title": "Ajouter un prestataire",
+      "description": "Une estimation suffit pour commencer ; le montant signé viendra avec le devis.",
+      "submit": "Ajouter"
+    },
+    "edit": {
+      "trigger": "Modifier {name}",
+      "title": "Modifier le prestataire",
+      "description": "Ajustez l’estimation ou reportez le montant du devis signé.",
+      "submit": "Enregistrer"
+    },
+    "form": {
+      "category": "Catégorie",
+      "categoryPlaceholder": "Choisir une catégorie",
+      "label": "Nom du prestataire",
+      "labelPlaceholder": "Domaine des Tilleuls",
+      "estimated": "Montant prévu",
+      "actual": "Montant signé",
+      "actualHint": "Montants arrondis à l’unité. Le montant signé est celui du devis accepté.",
+      "optional": "(facultatif)",
+      "cancel": "Annuler",
+      "close": "Fermer"
+    },
+    "delete": {
+      "trigger": "Retirer {name}",
+      "title": "Retirer {name} du budget ?",
+      "description": "Cette ligne ne sera plus prise en compte dans vos calculs.",
+      "cancel": "Annuler",
+      "confirm": "Retirer",
+      "success": "{name} a été retiré du budget."
+    },
+    "fieldErrors": {
+      "required": "Ce champ est requis.",
+      "tooLong": "Ce texte est trop long.",
+      "amount": "Saisissez un montant entier, sans centimes."
+    },
+    "errors": {
+      "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
+      "forbidden": "Seuls les mariés peuvent modifier le budget.",
+      "invalid": "Certaines informations sont incomplètes. Merci de vérifier la saisie.",
+      "generic": "La modification n’a pas pu être enregistrée. Merci de réessayer."
     }
   }
 }

@@ -219,7 +219,8 @@
     "guestsLink": "Your guests",
     "seatingLink": "Seating plan",
     "itineraryLink": "The Big Day",
-    "settingsLink": "Team"
+    "settingsLink": "Team",
+    "budgetLink": "Budget & vendors"
   },
   "Quotes": {
     "metaTitle": "Your quotes",
@@ -554,6 +555,86 @@
         "expired": "This link has expired. Ask the organiser for a new one.",
         "generic": "Something went wrong. Please try again."
       }
+    }
+  },
+  "Budget": {
+    "metaTitle": "Budget & Vendors",
+    "back": "Dashboard",
+    "eyebrow": "Finances",
+    "title": "Budget & Vendors",
+    "intro": "Every expense, every vendor and what’s left to plan, all in one place.",
+    "kpis": {
+      "envelope": "Total budget",
+      "noEnvelope": "Not set yet",
+      "committed": "Committed",
+      "committedShare": "{percent} of your budget",
+      "remaining": "Left to allocate",
+      "remainingHint": "After signed quotes and estimates",
+      "overBy": "Over your budget"
+    },
+    "vendors": {
+      "title": "Your vendors",
+      "intro": "A signed quote replaces the estimate in your totals.",
+      "empty": "No vendors yet. Add your first expense to get started.",
+      "groupTotal": "{actual} committed of {estimated} planned",
+      "unnamed": "Vendor to be chosen",
+      "estimated": "Planned",
+      "actual": "Signed",
+      "notSigned": "Pending"
+    },
+    "categories": {
+      "venue": "Venue",
+      "catering": "Catering",
+      "photography": "Photography",
+      "attire": "Attire",
+      "decoration": "Decoration",
+      "music": "Music",
+      "stationery": "Stationery",
+      "contingency": "Contingency",
+      "other": "Other expenses"
+    },
+    "add": {
+      "trigger": "Add a vendor",
+      "title": "Add a vendor",
+      "description": "An estimate is enough to start; the signed amount will come with the quote.",
+      "submit": "Add"
+    },
+    "edit": {
+      "trigger": "Edit {name}",
+      "title": "Edit vendor",
+      "description": "Adjust the estimate or enter the amount from the signed quote.",
+      "submit": "Save"
+    },
+    "form": {
+      "category": "Category",
+      "categoryPlaceholder": "Choose a category",
+      "label": "Vendor name",
+      "labelPlaceholder": "Linden Estate",
+      "estimated": "Planned amount",
+      "actual": "Signed amount",
+      "actualHint": "Whole amounts only. The signed amount is the one on the accepted quote.",
+      "optional": "(optional)",
+      "cancel": "Cancel",
+      "close": "Close"
+    },
+    "delete": {
+      "trigger": "Remove {name}",
+      "title": "Remove {name} from the budget?",
+      "description": "This line will no longer count towards your totals.",
+      "cancel": "Cancel",
+      "confirm": "Remove",
+      "success": "{name} has been removed from the budget."
+    },
+    "fieldErrors": {
+      "required": "This field is required.",
+      "tooLong": "This text is too long.",
+      "amount": "Enter a whole amount, without cents."
+    },
+    "errors": {
+      "unauthenticated": "Your session has expired. Please sign in again.",
+      "forbidden": "Only the couple can edit the budget.",
+      "invalid": "Some details are missing. Please check your entry.",
+      "generic": "Your change couldn’t be saved. Please try again."
     }
   }
 }
