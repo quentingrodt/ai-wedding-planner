@@ -9,6 +9,7 @@ import {
   getCurrentMemberRole,
   getCurrentUserId,
   getCurrentWedding,
+  getWeddingStyleDna,
 } from "@/lib/weddings/queries";
 import { createClient } from "@/utils/supabase/client";
 import { BudgetBoard } from "./_components/budget-board";
@@ -46,8 +47,9 @@ export default async function BudgetPage({ params }: PageProps<"/[locale]/budget
     return redirect({ href: "/dashboard", locale });
   }
 
-  const [items, t] = await Promise.all([
+  const [items, styleDna, t] = await Promise.all([
     getBudgetItems(supabase, wedding.id),
+    getWeddingStyleDna(supabase, wedding.id),
     getTranslations("Budget"),
   ]);
 
@@ -75,6 +77,8 @@ export default async function BudgetPage({ params }: PageProps<"/[locale]/budget
           items={items}
           total={wedding.total_budget}
           currency={wedding.currency_code}
+          weddingId={wedding.id}
+          likes={styleDna.likes}
         />
       </div>
       <Toaster position="bottom-center" />

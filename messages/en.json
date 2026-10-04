@@ -749,6 +749,58 @@
       "forbidden": "Only the couple can edit the budget.",
       "invalid": "Some details are missing. Please check your entry.",
       "generic": "Your change couldn’t be saved. Please try again."
+    },
+    "suggestions": {
+      "title": "Have you thought of everything?",
+      "intro": "A few items are often forgotten. Add them in one click, with a first estimate.",
+      "estimate": "About {amount}",
+      "add": "Add",
+      "dismiss": "Dismiss",
+      "added": "“{name}” was added to your budget.",
+      "showMore": "{count, plural, one {See # more suggestion} other {See # more suggestions}}",
+      "showLess": "Hide",
+      "items": {
+        "dj": {
+          "question": "Have you thought about a DJ?",
+          "label": "DJ"
+        },
+        "photographer": {
+          "question": "Have you thought about a photographer?",
+          "label": "Photographer"
+        },
+        "attire": {
+          "question": "Have you thought about your outfits?",
+          "label": "Wedding outfits"
+        },
+        "florist": {
+          "question": "Have you thought about a florist?",
+          "label": "Florist and decoration"
+        },
+        "stationery": {
+          "question": "Have you thought about invitations?",
+          "label": "Invitations and stationery"
+        },
+        "transport": {
+          "question": "Have you thought about transport?",
+          "label": "Wedding transport"
+        },
+        "weddingCake": {
+          "question": "Have you thought about the wedding cake?",
+          "label": "Wedding cake and desserts"
+        },
+        "officiant": {
+          "question": "Have you thought about a celebrant?",
+          "label": "Celebrant"
+        },
+        "honeymoon": {
+          "question": "Have you thought about the honeymoon?",
+          "label": "Honeymoon"
+        },
+        "rings": {
+          "question": "Have you thought about the rings?",
+          "label": "Wedding rings"
+        }
+      }
     }
   },
   "Inspiration": {

@@ -14,8 +14,11 @@ import {
   type BudgetItemData,
   type BudgetItemInput,
 } from "@/lib/budget/schema";
+import { suggestMissingVendors, type BudgetSuggestion } from "@/lib/budget/suggestions";
+import type { InspirationLikes } from "@/lib/inspiration/catalog";
 import { cn } from "@/lib/utils";
 import { addBudgetItem, deleteBudgetItem, updateBudgetItem } from "../actions";
+import { BudgetSuggestions } from "./budget-suggestions";
 import { BudgetItemDialog } from "./budget-item-dialog";
 import { DeleteBudgetItemButton } from "./delete-budget-item-button";
 
@@ -54,10 +57,13 @@ type BudgetBoardProps = {
   /** Enveloppe totale du mariage ; null tant qu'elle n'est pas définie. */
   total: number | null;
   currency: string;
+  weddingId: string;
+  /** Carnet d'inspiration, pour les suggestions de prestataires. */
+  likes: InspirationLikes;
 };
 
 /** Indicateurs de l'enveloppe et prestataires par catégorie, mis à jour instantanément. */
-export function BudgetBoard({ items, total, currency }: BudgetBoardProps) {
+export function BudgetBoard({ items, total, currency, weddingId, likes }: BudgetBoardProps) {
   const t = useTranslations("Budget");
   const format = useFormatter();
   const [, startTransition] = useTransition();
@@ -71,6 +77,19 @@ export function BudgetBoard({ items, total, currency }: BudgetBoardProps) {
   const itemName = (item: BudgetItem) => item.label ?? t(`categories.${item.category}`);
 
   const notifyError = (error: BudgetActionError) => toast.error(t(`errors.${error}`));
+
+  // Recalculées sur les lignes optimistes : une suggestion ajoutée disparaît aussitôt.
+  const suggestions = suggestMissingVendors({ items: optimisticItems, likes, totalBudget: total });
+
+  function addSuggestion(suggestion: BudgetSuggestion, label: string) {
+    add({
+      category: suggestion.category,
+      label,
+      estimatedAmount: String(suggestion.estimate ?? 0),
+      actualAmount: "",
+    });
+    toast(t("suggestions.added", { name: label }));
+  }
 
   function add(input: BudgetItemInput) {
     const parsed = parseBudgetItem(input);
@@ -185,6 +204,13 @@ export function BudgetBoard({ items, total, currency }: BudgetBoardProps) {
             }
           />
         </div>
+
+        <BudgetSuggestions
+          suggestions={suggestions}
+          currency={currency}
+          storageKey={`celeste.budget.dismissedSuggestions.${weddingId}`}
+          onAdd={addSuggestion}
+        />
 
         {groups.length === 0 ? (
           <p className="rounded-3xl bg-linen px-6 py-10 text-center text-stone">

@@ -749,6 +749,58 @@
       "forbidden": "Seuls les mariés peuvent modifier le budget.",
       "invalid": "Certaines informations sont incomplètes. Merci de vérifier la saisie.",
       "generic": "La modification n’a pas pu être enregistrée. Merci de réessayer."
+    },
+    "suggestions": {
+      "title": "Avez-vous pensé à tout ?",
+      "intro": "Quelques postes manquent souvent à l’appel. Ajoutez-les en un clic, avec une première estimation.",
+      "estimate": "Environ {amount}",
+      "add": "Ajouter",
+      "dismiss": "Ignorer",
+      "added": "« {name} » a été ajouté à votre budget.",
+      "showMore": "{count, plural, one {Voir # autre suggestion} other {Voir # autres suggestions}}",
+      "showLess": "Masquer",
+      "items": {
+        "dj": {
+          "question": "Avez-vous pensé au DJ ?",
+          "label": "DJ"
+        },
+        "photographer": {
+          "question": "Avez-vous pensé au photographe ?",
+          "label": "Photographe"
+        },
+        "attire": {
+          "question": "Avez-vous pensé à vos tenues ?",
+          "label": "Tenues des mariés"
+        },
+        "florist": {
+          "question": "Avez-vous pensé au fleuriste ?",
+          "label": "Fleuriste et décoration"
+        },
+        "stationery": {
+          "question": "Avez-vous pensé aux faire-part ?",
+          "label": "Faire-part et papeterie"
+        },
+        "transport": {
+          "question": "Avez-vous pensé au transport ?",
+          "label": "Transport des mariés"
+        },
+        "weddingCake": {
+          "question": "Avez-vous pensé à la pièce montée ?",
+          "label": "Pièce montée et desserts"
+        },
+        "officiant": {
+          "question": "Avez-vous pensé à l’officiant de cérémonie ?",
+          "label": "Officiant de cérémonie laïque"
+        },
+        "honeymoon": {
+          "question": "Avez-vous pensé au voyage de noces ?",
+          "label": "Voyage de noces"
+        },
+        "rings": {
+          "question": "Avez-vous pensé aux alliances ?",
+          "label": "Alliances"
+        }
+      }
     }
   },
   "Inspiration": {
