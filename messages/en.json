@@ -3,10 +3,40 @@
     "login": "Already have an account? Log in"
   },
   "Index": {
-    "title": "AI Wedding Planner",
-    "subtitle": "Your wedding planning copilot",
-    "cta": "Get started",
-    "dateNight": "Test our wedding's feasibility"
+    "eyebrow": "The couple’s notebook",
+    "title": "Love is a celebration. <em>Leave the mental load to us.</em>",
+    "subtitle": "An expert’s guidance, with peace of mind. Your invisible copilot for a wedding that truly feels like you.",
+    "heroCta": "Discover",
+    "pillarsEyebrow": "What we carry for you",
+    "pillars": {
+      "planning": {
+        "title": "A living timeline",
+        "body": "Every step arrives at the right moment. When one date moves, the whole calendar follows."
+      },
+      "budget": {
+        "title": "A budget in hand",
+        "body": "Planned, actual, the difference. A clear view of every expense, no spreadsheet to maintain."
+      },
+      "quotes": {
+        "title": "Quote analysis",
+        "body": "Drop in a quote: amounts, deposits and sensitive clauses are laid out for you in moments."
+      }
+    },
+    "crossroadsEyebrow": "Two ways to begin",
+    "crossroadsTitle": "Where are you in your journey?",
+    "dateNight": {
+      "label": "Date Night",
+      "title": "We’re starting to talk about it",
+      "body": "Test whether your dream is feasible over a glass of wine. No commitment.",
+      "cta": "Run a simulation"
+    },
+    "organize": {
+      "label": "Planning",
+      "title": "The date is set",
+      "body": "Generate your timeline and start coordinating your vendors.",
+      "cta": "Create my wedding"
+    },
+    "footer": "Crafted with care for the big days."
   },
   "Auth": {
     "emailLabel": "Email address",

@@ -3,10 +3,40 @@
     "login": "Déjà un compte ? Se connecter"
   },
   "Index": {
-    "title": "AI Wedding Planner",
-    "subtitle": "Votre copilote d'organisation",
-    "cta": "Commencer",
-    "dateNight": "Tester la faisabilité de notre mariage"
+    "eyebrow": "Le carnet des futurs mariés",
+    "title": "L’amour est une fête. <em>Laissez-nous la charge mentale.</em>",
+    "subtitle": "L’assistance d’un expert, le calme en plus. Votre copilote invisible pour concevoir un mariage qui vous ressemble.",
+    "heroCta": "Découvrir",
+    "pillarsEyebrow": "Ce que nous portons pour vous",
+    "pillars": {
+      "planning": {
+        "title": "Rétroplanning vivant",
+        "body": "Chaque étape arrive au bon moment. Une date bouge, tout le calendrier s’ajuste avec elle."
+      },
+      "budget": {
+        "title": "Budget maîtrisé",
+        "body": "Le prévu, le réel, l’écart. Une vision claire de chaque dépense, sans tableur à tenir."
+      },
+      "quotes": {
+        "title": "Analyse de devis",
+        "body": "Déposez un devis : montants, acomptes et clauses sensibles vous sont restitués en quelques instants."
+      }
+    },
+    "crossroadsEyebrow": "Deux façons de commencer",
+    "crossroadsTitle": "Où en êtes-vous dans votre projet ?",
+    "dateNight": {
+      "label": "Date Night",
+      "title": "On commence à en parler",
+      "body": "Testez la faisabilité de votre rêve autour d’un verre. Sans engagement.",
+      "cta": "Faire une simulation"
+    },
+    "organize": {
+      "label": "Organisation",
+      "title": "La date est fixée",
+      "body": "Générez votre rétroplanning et commencez à coordonner vos prestataires.",
+      "cta": "Créer mon mariage"
+    },
+    "footer": "Conçu avec soin pour les grands jours."
   },
   "Auth": {
     "emailLabel": "Adresse email",
