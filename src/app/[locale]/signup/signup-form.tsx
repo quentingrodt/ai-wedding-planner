@@ -2,33 +2,41 @@
 
 import { useTranslations } from "next-intl";
 import { useActionState } from "react";
-import { authLinkClassName } from "@/components/auth/auth-layout";
 import { PasswordInput } from "@/components/auth/password-input";
 import { RelayFields } from "@/components/auth/relay-fields";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "@/i18n/navigation";
-import type { AuthState } from "@/lib/auth/schema";
+import { PASSWORD_LIMITS, type AuthState } from "@/lib/auth/schema";
 import type { Handoff } from "@/lib/onboarding/schema";
-import { signInWithPassword } from "./actions";
+import { signUpWithPassword } from "./actions";
 
 const initialState: AuthState = { status: "idle" };
 
-type LoginFormProps = {
-  linkExpired: boolean;
+type SignupFormProps = {
   handoff: Handoff;
   invite?: string;
 };
 
-export function LoginForm({ linkExpired, handoff, invite }: LoginFormProps) {
+export function SignupForm({ handoff, invite }: SignupFormProps) {
   const t = useTranslations("Auth");
-  const [state, formAction, pending] = useActionState(signInWithPassword, initialState);
+  const [state, formAction, pending] = useActionState(signUpWithPassword, initialState);
 
-  const errorCode =
-    state.status === "error" ? state.code : linkExpired ? "linkExpired" : null;
-  const emailInvalid = errorCode === "invalidEmail";
-  const passwordInvalid = errorCode === "missingPassword" || errorCode === "invalidCredentials";
+  // Uniquement si la confirmation d'email est activée côté Supabase.
+  if (state.status === "sent") {
+    return (
+      <div className="flex flex-col gap-2" role="status">
+        <h2 className="text-2xl">{t("signup.sentTitle")}</h2>
+        <p className="text-muted-foreground">
+          {t("signup.sentDescription", { email: state.email })}
+        </p>
+      </div>
+    );
+  }
+
+  const errorCode = state.status === "error" ? state.code : null;
+  const emailInvalid = errorCode === "invalidEmail" || errorCode === "emailTaken";
+  const passwordInvalid = errorCode === "weakPassword";
 
   return (
     <form action={formAction} className="flex flex-col gap-5" noValidate>
@@ -49,21 +57,20 @@ export function LoginForm({ linkExpired, handoff, invite }: LoginFormProps) {
         />
       </div>
       <div className="flex flex-col gap-2">
-        <div className="flex items-baseline justify-between gap-4">
-          <Label htmlFor="password">{t("passwordLabel")}</Label>
-          <Link href="/forgot-password" className={`text-sm ${authLinkClassName}`}>
-            {t("login.forgot")}
-          </Link>
-        </div>
+        <Label htmlFor="password">{t("passwordLabel")}</Label>
         <PasswordInput
           id="password"
           name="password"
-          autoComplete="current-password"
+          autoComplete="new-password"
+          minLength={PASSWORD_LIMITS.min}
           required
           className="h-11 text-base"
           aria-invalid={passwordInvalid || undefined}
-          aria-describedby={passwordInvalid ? "auth-error" : undefined}
+          aria-describedby={passwordInvalid ? "auth-error password-hint" : "password-hint"}
         />
+        <p id="password-hint" className="text-sm text-muted-foreground">
+          {t("passwordHint")}
+        </p>
       </div>
       {errorCode && (
         <p id="auth-error" role="alert" className="text-sm text-destructive">
@@ -71,7 +78,7 @@ export function LoginForm({ linkExpired, handoff, invite }: LoginFormProps) {
         </p>
       )}
       <Button type="submit" size="lg" className="h-11" disabled={pending}>
-        {pending ? t("login.submitting") : t("login.submit")}
+        {pending ? t("signup.submitting") : t("signup.submit")}
       </Button>
     </form>
   );

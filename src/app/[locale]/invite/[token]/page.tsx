@@ -34,8 +34,9 @@ export default async function InvitePage({
 
   const supabase = await createClient();
   if (token && !(await getCurrentUserId(supabase))) {
-    // Le token voyage jusqu'au Magic Link, puis revient ici après l'auth.
-    return redirect({ href: { pathname: "/login", query: { invite: token } }, locale });
+    // Un invité n'a souvent pas encore de compte : inscription d'abord, le token
+    // voyage jusqu'au retour ici (la page propose aussi de se connecter).
+    return redirect({ href: { pathname: "/signup", query: { invite: token } }, locale });
   }
 
   const t = await getTranslations("Settings");

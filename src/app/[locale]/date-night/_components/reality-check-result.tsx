@@ -106,7 +106,7 @@ export function RealityCheckResult({
         {/* Le projet suit l'utilisateur jusqu'à l'onboarding (pré-remplissage). */}
         <Link
           href={{
-            pathname: "/login",
+            pathname: "/signup",
             query: {
               budget: input.budget,
               guests: input.guests,

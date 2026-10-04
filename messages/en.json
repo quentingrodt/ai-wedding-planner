@@ -8,22 +8,66 @@
     "cta": "Get started",
     "dateNight": "Test our wedding's feasibility"
   },
-  "Login": {
-    "title": "Welcome",
-    "subtitle": "Get a sign-in link by email — no password needed.",
+  "Auth": {
     "emailLabel": "Email address",
     "emailPlaceholder": "you@example.com",
-    "submit": "Send my link",
-    "submitting": "Sending…",
-    "sentTitle": "Check your inbox",
-    "sentDescription": "We sent a sign-in link to {email}. It is valid for one hour.",
+    "passwordLabel": "Password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "passwordHint": "At least 8 characters.",
+    "login": {
+      "metaTitle": "Log in",
+      "title": "Welcome back",
+      "subtitle": "Log in to get back to your wedding.",
+      "inviteSubtitle": "Log in to join the wedding you've been invited to.",
+      "forgot": "Forgot password?",
+      "submit": "Log in",
+      "submitting": "Logging in…",
+      "noAccount": "No account yet?",
+      "signupLink": "Create an account"
+    },
+    "signup": {
+      "metaTitle": "Create an account",
+      "title": "Create your account",
+      "subtitle": "An email and a password, and your wedding starts taking shape.",
+      "inviteSubtitle": "Create your account to join the wedding you've been invited to.",
+      "submit": "Create my account",
+      "submitting": "Creating…",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Log in",
+      "sentTitle": "Confirm your address",
+      "sentDescription": "We sent a confirmation link to {email}. Click it to access your space."
+    },
+    "forgot": {
+      "metaTitle": "Forgot password",
+      "title": "Forgot your password",
+      "subtitle": "Enter your address and we'll send you a link to choose a new password.",
+      "submit": "Send the link",
+      "submitting": "Sending…",
+      "sentTitle": "Check your inbox",
+      "sentDescription": "If an account exists for {email}, a link is waiting for you. It is valid for one hour.",
+      "back": "Back to log in"
+    },
+    "reset": {
+      "metaTitle": "New password",
+      "title": "Choose a password",
+      "subtitle": "You'll use it from now on to log in with {email}.",
+      "passwordLabel": "New password",
+      "submit": "Save",
+      "submitting": "Saving…"
+    },
     "errors": {
       "invalidEmail": "This email address doesn't look valid.",
+      "missingPassword": "Enter your password.",
+      "weakPassword": "Choose a password of at least 8 characters that is harder to guess.",
+      "invalidCredentials": "Incorrect email or password.",
+      "emailNotConfirmed": "First confirm your address with the link we emailed you.",
+      "emailTaken": "An account already exists with this address. Log in, or use “Forgot password”.",
+      "samePassword": "That's already your password: choose a new one.",
       "rateLimited": "Too many attempts. Please wait a few minutes before trying again.",
       "linkExpired": "This link has expired or was already used. Please request a new one.",
       "generic": "Something went wrong. Please try again."
-    },
-    "inviteSubtitle": "Sign in to join the wedding you've been invited to."
+    }
   },
   "DateNight": {
     "metaTitle": "Date Night · Test your wedding plan",

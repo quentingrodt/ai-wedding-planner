@@ -6,50 +6,46 @@ import { relayQuery } from "@/components/auth/relay-fields";
 import { Link } from "@/i18n/navigation";
 import { parseHandoff } from "@/lib/onboarding/schema";
 import { parseInviteToken } from "@/lib/team/schema";
-import { LoginForm } from "./login-form";
+import { SignupForm } from "./signup-form";
 
 export async function generateMetadata({
   params,
-}: PageProps<"/[locale]/login">): Promise<Metadata> {
+}: PageProps<"/[locale]/signup">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale: locale as Locale, namespace: "Auth" });
-  return { title: t("login.metaTitle") };
+  return { title: t("signup.metaTitle") };
 }
 
-export default async function LoginPage({
+export default async function SignupPage({
   params,
   searchParams,
-}: PageProps<"/[locale]/login">) {
+}: PageProps<"/[locale]/signup">) {
   const { locale } = await params;
   setRequestLocale(locale as Locale);
   const query = await searchParams;
   const t = await getTranslations("Auth");
 
-  // Projet Date Night et invitation éventuels : relayés après la connexion.
+  // Projet Date Night et invitation éventuels : relayés après l'inscription.
   const handoff = parseHandoff(query);
   const invite = parseInviteToken(query.invite);
 
   return (
     <AuthLayout
-      title={t("login.title")}
-      subtitle={invite ? t("login.inviteSubtitle") : t("login.subtitle")}
+      title={t("signup.title")}
+      subtitle={invite ? t("signup.inviteSubtitle") : t("signup.subtitle")}
       footer={
         <>
-          {t("login.noAccount")}{" "}
+          {t("signup.hasAccount")}{" "}
           <Link
-            href={{ pathname: "/signup", query: relayQuery(handoff, invite) }}
+            href={{ pathname: "/login", query: relayQuery(handoff, invite) }}
             className={authLinkClassName}
           >
-            {t("login.signupLink")}
+            {t("signup.loginLink")}
           </Link>
         </>
       }
     >
-      <LoginForm
-        linkExpired={query.error === "link_expired"}
-        handoff={handoff}
-        invite={invite}
-      />
+      <SignupForm handoff={handoff} invite={invite} />
     </AuthLayout>
   );
 }

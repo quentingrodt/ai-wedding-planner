@@ -2,15 +2,16 @@ import { NextResponse, type NextRequest } from "next/server";
 import { hasLocale } from "next-intl";
 import { getPathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
+import { afterAuthPath } from "@/lib/auth/redirect";
 import { parseHandoff, withHandoff } from "@/lib/onboarding/schema";
 import { parseInviteToken } from "@/lib/team/schema";
 import { createClient } from "@/utils/supabase/client";
 
 /**
- * Retour du Magic Link (flux PKCE) : échange le `code` contre une session,
- * puis redirige vers l'onboarding dans la langue de l'utilisateur, en
+ * Retour des liens envoyés par email (flux PKCE) : confirmation d'inscription
+ * ou réinitialisation du mot de passe. Échange le `code` contre une session,
+ * puis redirige vers l'étape suivante dans la langue de l'utilisateur, en
  * conservant le projet Date Night éventuel (budget, invités, style).
- * Un invité est renvoyé vers sa page d'invitation plutôt que l'onboarding.
  */
 export async function GET(
   request: NextRequest,
@@ -24,28 +25,27 @@ export async function GET(
   const code = searchParams.get("code");
   const handoff = parseHandoff(searchParams);
   const invite = parseInviteToken(searchParams.get("invite"));
+  const isPasswordReset = searchParams.get("next") === "reset-password";
 
   if (code) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      if (invite) {
-        const invitePath = getPathname({ href: `/invite/${invite}`, locale });
-        return NextResponse.redirect(new URL(invitePath, origin));
-      }
-      // L'onboarding renvoie lui-même au dashboard si un mariage existe déjà.
-      const onboardingPath = getPathname({ href: "/onboarding", locale });
-      return NextResponse.redirect(
-        new URL(withHandoff(onboardingPath, handoff), origin),
-      );
+      const next = isPasswordReset
+        ? getPathname({ href: "/reset-password", locale })
+        : afterAuthPath(locale, handoff, invite);
+      return NextResponse.redirect(new URL(next, origin));
     }
     console.error("[auth] exchangeCodeForSession:", error.status, error.code);
   }
 
-  const loginPath = getPathname({ href: "/login", locale });
+  const fallbackPath = getPathname({
+    href: isPasswordReset ? "/forgot-password" : "/login",
+    locale,
+  });
   return NextResponse.redirect(
     new URL(
-      withHandoff(loginPath, handoff, {
+      withHandoff(fallbackPath, handoff, {
         error: "link_expired",
         ...(invite ? { invite } : {}),
       }),

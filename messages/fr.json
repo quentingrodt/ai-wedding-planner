@@ -8,22 +8,66 @@
     "cta": "Commencer",
     "dateNight": "Tester la faisabilité de notre mariage"
   },
-  "Login": {
-    "title": "Bienvenue",
-    "subtitle": "Recevez un lien de connexion par email, sans mot de passe.",
+  "Auth": {
     "emailLabel": "Adresse email",
     "emailPlaceholder": "vous@exemple.fr",
-    "submit": "Recevoir mon lien",
-    "submitting": "Envoi en cours…",
-    "sentTitle": "Vérifiez votre boîte mail",
-    "sentDescription": "Nous avons envoyé un lien de connexion à {email}. Il est valable une heure.",
+    "passwordLabel": "Mot de passe",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "passwordHint": "8 caractères minimum.",
+    "login": {
+      "metaTitle": "Connexion",
+      "title": "Bon retour",
+      "subtitle": "Connectez-vous pour retrouver votre mariage.",
+      "inviteSubtitle": "Connectez-vous pour rejoindre le mariage auquel vous êtes invité·e.",
+      "forgot": "Mot de passe oublié ?",
+      "submit": "Se connecter",
+      "submitting": "Connexion…",
+      "noAccount": "Pas encore de compte ?",
+      "signupLink": "Créer un compte"
+    },
+    "signup": {
+      "metaTitle": "Créer un compte",
+      "title": "Créez votre compte",
+      "subtitle": "Un email et un mot de passe, et votre mariage prend forme.",
+      "inviteSubtitle": "Créez votre compte pour rejoindre le mariage auquel vous êtes invité·e.",
+      "submit": "Créer mon compte",
+      "submitting": "Création…",
+      "hasAccount": "Déjà un compte ?",
+      "loginLink": "Se connecter",
+      "sentTitle": "Confirmez votre adresse",
+      "sentDescription": "Nous avons envoyé un lien de confirmation à {email}. Cliquez dessus pour accéder à votre espace."
+    },
+    "forgot": {
+      "metaTitle": "Mot de passe oublié",
+      "title": "Mot de passe oublié",
+      "subtitle": "Indiquez votre adresse : nous vous envoyons un lien pour choisir un nouveau mot de passe.",
+      "submit": "Recevoir le lien",
+      "submitting": "Envoi…",
+      "sentTitle": "Vérifiez votre boîte mail",
+      "sentDescription": "Si un compte existe pour {email}, un lien vous attend. Il est valable une heure.",
+      "back": "Retour à la connexion"
+    },
+    "reset": {
+      "metaTitle": "Nouveau mot de passe",
+      "title": "Choisissez un mot de passe",
+      "subtitle": "Vous l'utiliserez désormais pour vous connecter avec {email}.",
+      "passwordLabel": "Nouveau mot de passe",
+      "submit": "Enregistrer",
+      "submitting": "Enregistrement…"
+    },
     "errors": {
       "invalidEmail": "Cette adresse email ne semble pas valide.",
+      "missingPassword": "Saisissez votre mot de passe.",
+      "weakPassword": "Choisissez un mot de passe d'au moins 8 caractères, plus difficile à deviner.",
+      "invalidCredentials": "Email ou mot de passe incorrect.",
+      "emailNotConfirmed": "Confirmez d'abord votre adresse grâce au lien reçu par email.",
+      "emailTaken": "Un compte existe déjà avec cette adresse. Connectez-vous, ou utilisez « Mot de passe oublié ».",
+      "samePassword": "Ce mot de passe est déjà le vôtre : choisissez-en un nouveau.",
       "rateLimited": "Trop de tentatives. Patientez quelques minutes avant de réessayer.",
       "linkExpired": "Ce lien a expiré ou a déjà été utilisé. Demandez-en un nouveau.",
       "generic": "Une erreur est survenue. Merci de réessayer."
-    },
-    "inviteSubtitle": "Connectez-vous pour rejoindre le mariage auquel vous êtes invité·e."
+    }
   },
   "DateNight": {
     "metaTitle": "Date Night · Testez votre projet de mariage",
