@@ -2,6 +2,7 @@ import { ArrowRightIcon } from "lucide-react";
 import type { Metadata } from "next";
 import type { Locale } from "next-intl";
 import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
+import { SignOutButton } from "@/components/auth/sign-out-button";
 import { Toaster } from "@/components/ui/sonner";
 import { Link, redirect } from "@/i18n/navigation";
 import { summarizeBudget } from "@/lib/budget/schema";
@@ -96,9 +97,12 @@ export default async function DashboardPage({
     <main className="flex flex-1 justify-center px-5 pt-14 pb-24 sm:px-6 sm:pt-20">
       <div className="flex w-full min-w-0 max-w-2xl flex-col gap-10">
         <header className="flex flex-col gap-4">
-          <p className="text-xs font-medium tracking-[0.2em] text-terracotta uppercase">
-            {t("eyebrow")}
-          </p>
+          <div className="flex items-center justify-between gap-4">
+            <p className="text-xs font-medium tracking-[0.2em] text-terracotta uppercase">
+              {t("eyebrow")}
+            </p>
+            <SignOutButton />
+          </div>
           <h1 className="text-4xl leading-tight tracking-tight text-balance wrap-break-word sm:text-5xl">
             {t("greeting", { names: wedding.title })}
           </h1>

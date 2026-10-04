@@ -67,7 +67,8 @@
       "rateLimited": "Trop de tentatives. Patientez quelques minutes avant de réessayer.",
       "linkExpired": "Ce lien a expiré ou a déjà été utilisé. Demandez-en un nouveau.",
       "generic": "Une erreur est survenue. Merci de réessayer."
-    }
+    },
+    "signOut": "Se déconnecter"
   },
   "DateNight": {
     "metaTitle": "Date Night · Testez votre projet de mariage",

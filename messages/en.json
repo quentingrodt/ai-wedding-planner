@@ -67,7 +67,8 @@
       "rateLimited": "Too many attempts. Please wait a few minutes before trying again.",
       "linkExpired": "This link has expired or was already used. Please request a new one.",
       "generic": "Something went wrong. Please try again."
-    }
+    },
+    "signOut": "Log out"
   },
   "DateNight": {
     "metaTitle": "Date Night · Test your wedding plan",
