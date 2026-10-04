@@ -11,7 +11,7 @@ import { INSPIRATION_OPTIONS, INSPIRATION_STEPS } from "@/lib/inspiration/catalo
 import { INSPIRATION_PHOTOS } from "@/lib/inspiration/photos";
 import { playedSteps } from "@/lib/inspiration/style-dna";
 import { isTaskTemplateKey } from "@/lib/tasks/schema";
-import { daysBetween, isoDateToUtc, todayIsoDate } from "@/lib/weddings/dates";
+import { addDaysToIsoDate, daysBetween, isoDateToUtc, todayIsoDate } from "@/lib/weddings/dates";
 import {
   getBudgetItems,
   getCurrentMemberRole,
@@ -79,6 +79,7 @@ export default async function DashboardPage({
     label: isTaskTemplateKey(task.template_key)
       ? t(`timeline.templates.${task.template_key}`)
       : task.title,
+    dueDate: task.due_date,
     dueLabel: task.due_date === null ? null : formatDate(task.due_date),
     overdue: task.due_date !== null && task.due_date < today,
     done: task.status === "done",
@@ -189,7 +190,11 @@ export default async function DashboardPage({
           />
         )}
 
-        <TaskTimeline tasks={timelineTasks} />
+        <TaskTimeline
+          tasks={timelineTasks}
+          // Garde-fou du moteur de cascade : pas d'échéance après la veille du mariage.
+          latestDate={wedding.wedding_date ? addDaysToIsoDate(wedding.wedding_date, -1) : null}
+        />
       </div>
       <Toaster position="bottom-center" />
     </main>

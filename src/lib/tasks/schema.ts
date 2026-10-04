@@ -9,6 +9,7 @@ export const TASK_TEMPLATE_KEYS = [
   "guest_list",
   "book_venue",
   "book_catering",
+  "book_dj",
   "book_photographer",
   "choose_attire",
   "send_invitations",

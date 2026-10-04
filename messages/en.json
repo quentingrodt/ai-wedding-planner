@@ -315,6 +315,7 @@
         "guest_list": "Draw up the guest list",
         "book_venue": "Book the venue",
         "book_catering": "Choose the caterer",
+        "book_dj": "Book the DJ or musicians",
         "book_photographer": "Book the photographer",
         "choose_attire": "Choose your outfits",
         "send_invitations": "Send the invitations",
@@ -1169,6 +1170,21 @@
       "bachelor": "Stag party",
       "preparedOn": "Prepared on {date}",
       "disclaimer": "Indicative amounts, split from market averages and your choices; adjust them freely."
+    }
+  },
+  "Tasks": {
+    "editDate": "Change the due date of “{task}”",
+    "dateLabel": "New due date",
+    "save": "Save",
+    "cancel": "Cancel",
+    "latestHint": "At the latest the day before the wedding",
+    "toasts": {
+      "updated": "Date updated.",
+      "updatedWithImpacts": "{count, plural, one {Date updated. # dependent task was rescheduled.} other {Date updated. # dependent tasks were rescheduled.}}",
+      "capped": "Some due dates were brought back to the day before the wedding.",
+      "unchanged": "This task is already due on that date.",
+      "invalid": "This date isn’t valid.",
+      "error": "The date could not be updated. Please try again."
     }
   }
 }

@@ -315,6 +315,7 @@
         "guest_list": "Établir la liste d'invités",
         "book_venue": "Réserver le lieu de réception",
         "book_catering": "Choisir le traiteur",
+        "book_dj": "Réserver le DJ ou les musiciens",
         "book_photographer": "Réserver le photographe",
         "choose_attire": "Choisir vos tenues",
         "send_invitations": "Envoyer les faire-part",
@@ -1169,6 +1170,21 @@
       "bachelor": "EVG",
       "preparedOn": "Préparé le {date}",
       "disclaimer": "Montants indicatifs, répartis d’après les moyennes du marché et vos choix ; ajustez-les librement."
+    }
+  },
+  "Tasks": {
+    "editDate": "Modifier l’échéance de « {task} »",
+    "dateLabel": "Nouvelle échéance",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "latestHint": "Au plus tard la veille du mariage",
+    "toasts": {
+      "updated": "Date mise à jour.",
+      "updatedWithImpacts": "{count, plural, one {Date mise à jour. # tâche dépendante a été recalculée.} other {Date mise à jour. # tâches dépendantes ont été recalculées.}}",
+      "capped": "Certaines échéances ont été ramenées à la veille du mariage.",
+      "unchanged": "Cette échéance est déjà à cette date.",
+      "invalid": "Cette date n’est pas valide.",
+      "error": "La date n’a pas pu être mise à jour. Merci de réessayer."
     }
   }
 }
