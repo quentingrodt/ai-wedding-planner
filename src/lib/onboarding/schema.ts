@@ -4,13 +4,36 @@ import {
   GUESTS_RANGE,
   WEDDING_STYLES,
 } from "@/lib/date-night/schema";
+import {
+  INSPIRATION_OPTIONS,
+  inspirationLikesSchema,
+  type DateNightLikes,
+} from "@/lib/inspiration/catalog";
 
 // -----------------------------------------------------------------------------
 // Passage de relais Date Night → Login → Auth Callback → Onboarding
 // -----------------------------------------------------------------------------
 
-/** Paramètres d'URL transmis tout au long du tunnel (liste blanche). */
-export const HANDOFF_KEYS = ["budget", "guests", "style"] as const;
+/**
+ * Paramètres d'URL transmis tout au long du tunnel (liste blanche). Les
+ * coups de cœur du swipe voyagent en listes séparées par des virgules
+ * (`venue=chateau,beach`), forme que produit directement String(array).
+ */
+export const HANDOFF_KEYS = ["budget", "guests", "style", "venue", "ceremony", "reception"] as const;
+
+/** Liste « a,b » tolérante : valeurs inconnues et doublons ignorés. */
+const likesParam = <T extends readonly [string, ...string[]]>(options: T) =>
+  z
+    .string()
+    .optional()
+    .transform((raw) => {
+      const values = [...new Set(raw?.split(",") ?? [])].filter((value): value is T[number] =>
+        (options as readonly string[]).includes(value),
+      );
+      return values.length > 0 ? values : undefined;
+    })
+    .catch(undefined)
+    .optional();
 
 /**
  * Lecture tolérante des searchParams : une valeur absente ou invalide est
@@ -32,6 +55,9 @@ export const handoffSchema = z.object({
     .optional()
     .catch(undefined),
   style: z.enum(WEDDING_STYLES).optional().catch(undefined),
+  venue: likesParam(INSPIRATION_OPTIONS.venue),
+  ceremony: likesParam(INSPIRATION_OPTIONS.ceremony),
+  reception: likesParam(INSPIRATION_OPTIONS.reception),
 });
 export type Handoff = z.infer<typeof handoffSchema>;
 
@@ -90,12 +116,26 @@ export const ONBOARDING_GUESTS = { min: 1, max: 2_000 } as const;
 export const DEFAULT_CURRENCY = "EUR";
 export const DEFAULT_COUNTRY = "FR";
 
-/** "Style DNA" stocké en JSONB : versionné pour pouvoir l'enrichir sans migration. */
+/**
+ * "Style DNA" stocké en JSONB : versionné pour pouvoir l'enrichir sans
+ * migration. v2 : ambiance principale + coups de cœur du swipe par étape
+ * (v1 ne contenait que l'ambiance).
+ */
 export const styleDnaSchema = z.object({
-  version: z.literal(1),
+  version: z.literal(2),
   ambiance: z.enum(WEDDING_STYLES),
+  likes: inspirationLikesSchema,
 });
 export type StyleDna = z.infer<typeof styleDnaSchema>;
+
+/** Coups de cœur Date Night extraits du relais, prêts pour le Style DNA. */
+export function likesFromHandoff(handoff: Handoff): DateNightLikes {
+  return {
+    ...(handoff.venue && { venue: handoff.venue }),
+    ...(handoff.ceremony && { ceremony: handoff.ceremony }),
+    ...(handoff.reception && { reception: handoff.reception }),
+  };
+}
 
 /** Date du jour (UTC) au format ISO, moins un jour pour absorber les fuseaux. */
 function earliestWeddingDate(): string {

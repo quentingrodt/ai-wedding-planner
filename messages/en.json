@@ -110,21 +110,6 @@
     "eyebrow": "Date Night",
     "title": "Test the feasibility of your dream wedding",
     "intro": "A mood, a budget, a guest list: in two minutes, a first honest estimate.",
-    "styles": {
-      "legend": "Which mood feels like you?",
-      "chateau": {
-        "name": "Classic Château",
-        "description": "Old stone and candlelit dinners"
-      },
-      "beach": {
-        "name": "Boho Beach",
-        "description": "Barefoot in golden light"
-      },
-      "urban": {
-        "name": "Urban Industrial",
-        "description": "Brick, glass roofs and long tables"
-      }
-    },
     "budget": {
       "label": "Ideal budget"
     },
@@ -133,7 +118,6 @@
       "value": "{count, plural, one {# guest} other {# guests}}"
     },
     "analyze": "Analyse our project",
-    "pickStyleHint": "Choose a mood first.",
     "analyzing": {
       "market": "Analysing market prices…",
       "venues": "Checking venues…",
@@ -155,11 +139,32 @@
     "errors": {
       "invalidInput": "Some values look off. Adjust them and try again.",
       "generic": "We couldn't analyse your project. Please try again."
+    },
+    "swipe": {
+      "like": "I love this one",
+      "pass": "Skip this one",
+      "hintLike": "Love it",
+      "hintPass": "Not for us",
+      "position": "Choice {current} of {total}",
+      "keyboard": "Tip: use the ← and → keys",
+      "photoCredit": "Photo {author} · Unsplash",
+      "progress": "Step {current} of {total}",
+      "emptyVenue": {
+        "title": "No venue won you over?",
+        "body": "We need at least one venue to estimate your budget. Your favourite may have slipped by a little fast.",
+        "restart": "See the venues again"
+      }
+    },
+    "summary": {
+      "label": "Your inspiration",
+      "edit": "Edit",
+      "none": "No preference"
     }
   },
   "RealityCheckAgent": {
     "settings": {
       "chateau": "in a château",
+      "countryside": "on a country estate",
       "beach": "on the beach",
       "urban": "in an industrial venue"
     },
@@ -197,6 +202,10 @@
       "chateau": {
         "title": "The château, midweek",
         "body": "Many estates offer much gentler rates from Sunday to Thursday, or outside peak season."
+      },
+      "countryside": {
+        "title": "The countryside, au naturel",
+        "body": "A barn or a meadow needs little dressing: wildflowers, string lights and long tables are enough to set the mood."
       },
       "beach": {
         "title": "The beach, simply",
@@ -239,7 +248,8 @@
       "guestsRange": "Please enter between 1 and 2,000 guests.",
       "invalidInput": "Some fields need your attention.",
       "generic": "We couldn't create your project. Please try again."
-    }
+    },
+    "styleLegend": "Which mood feels like you?"
   },
   "Dashboard": {
     "metaTitle": "Dashboard",
@@ -715,6 +725,88 @@
       "forbidden": "Only the couple can edit the budget.",
       "invalid": "Some details are missing. Please check your entry.",
       "generic": "Your change couldn’t be saved. Please try again."
+    }
+  },
+  "Inspiration": {
+    "steps": {
+      "venue": {
+        "label": "The venue",
+        "title": "What is your wedding’s DNA?",
+        "subtitle": "Let’s start with the venue. Keep every crush, set the rest aside."
+      },
+      "ceremony": {
+        "label": "The ceremony",
+        "title": "And to say “I do”?",
+        "subtitle": "Outdoors, in church or just the two of you: several crushes are allowed."
+      },
+      "reception": {
+        "label": "The meal",
+        "title": "Dinner is served!",
+        "subtitle": "How would you love to treat your guests?"
+      }
+    },
+    "options": {
+      "venue": {
+        "chateau": {
+          "name": "Classic Château",
+          "description": "Old stone and candlelit dinners",
+          "alt": "Renaissance château by the water, surrounded by formal French gardens"
+        },
+        "countryside": {
+          "name": "Country Estate",
+          "description": "Barn, meadow and evening light",
+          "alt": "Wooden barn and ceremony arch in the middle of a field"
+        },
+        "beach": {
+          "name": "Boho Beach",
+          "description": "Barefoot in golden light",
+          "alt": "Flower-decked ceremony arch on a white sand beach facing the sea"
+        },
+        "urban": {
+          "name": "Urban Industrial",
+          "description": "Brick, glass roofs and long tables",
+          "alt": "Brick-walled loft with long set tables under string lights and chandeliers"
+        }
+      },
+      "ceremony": {
+        "secular": {
+          "name": "Outdoor celebrant-led",
+          "description": "Your words, your rituals, under the sky",
+          "alt": "Outdoor ceremony aisle lined with white flowers"
+        },
+        "religious": {
+          "name": "Religious",
+          "description": "The stillness of a church or temple",
+          "alt": "Church altar adorned with floral arrangements"
+        },
+        "civil": {
+          "name": "Intimate civil",
+          "description": "The town hall, and what matters: the two of you",
+          "alt": "The couple’s joined hands and a dried flower bouquet"
+        }
+      },
+      "reception": {
+        "seated": {
+          "name": "Formal seated dinner",
+          "description": "Plated service and white tablecloths",
+          "alt": "Long table set with white tablecloths in a bright room"
+        },
+        "family": {
+          "name": "Long family tables",
+          "description": "Sharing plates, family atmosphere",
+          "alt": "Guests raising their glasses around a long table"
+        },
+        "cocktail": {
+          "name": "Cocktail reception",
+          "description": "Canapés, champagne and mingling guests",
+          "alt": "Tower of champagne coupes"
+        },
+        "foodTrucks": {
+          "name": "Food trucks",
+          "description": "Street food and festival spirit",
+          "alt": "Flower-decorated food truck serving guests outdoors"
+        }
+      }
     }
   }
 }

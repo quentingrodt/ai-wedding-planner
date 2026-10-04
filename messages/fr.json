@@ -110,21 +110,6 @@
     "eyebrow": "Date Night",
     "title": "Testez la faisabilité de votre mariage de rêve",
     "intro": "Une ambiance, un budget, une liste d'invités : en deux minutes, une première estimation honnête.",
-    "styles": {
-      "legend": "Quelle ambiance vous ressemble ?",
-      "chateau": {
-        "name": "Château Classique",
-        "description": "Pierres anciennes et dîner aux chandelles"
-      },
-      "beach": {
-        "name": "Plage Bohème",
-        "description": "Pieds nus et lumière dorée"
-      },
-      "urban": {
-        "name": "Urbain Industriel",
-        "description": "Briques, verrières et grandes tablées"
-      }
-    },
     "budget": {
       "label": "Budget idéal"
     },
@@ -133,7 +118,6 @@
       "value": "{count, plural, one {# invité} other {# invités}}"
     },
     "analyze": "Analyser notre projet",
-    "pickStyleHint": "Choisissez d'abord une ambiance.",
     "analyzing": {
       "market": "Analyse des prix du marché…",
       "venues": "Vérification des lieux…",
@@ -155,11 +139,32 @@
     "errors": {
       "invalidInput": "Certaines valeurs semblent incorrectes. Ajustez-les puis réessayez.",
       "generic": "Nous n'avons pas pu analyser votre projet. Merci de réessayer."
+    },
+    "swipe": {
+      "like": "J’aime ce choix",
+      "pass": "Passer ce choix",
+      "hintLike": "Coup de cœur",
+      "hintPass": "Pas pour nous",
+      "position": "Choix {current} sur {total}",
+      "keyboard": "Astuce : flèches ← et → du clavier",
+      "photoCredit": "Photo {author} · Unsplash",
+      "progress": "Étape {current} sur {total}",
+      "emptyVenue": {
+        "title": "Aucun lieu ne vous a séduits ?",
+        "body": "Il nous faut au moins un lieu pour estimer votre budget. Votre coup de cœur est peut-être passé un peu vite.",
+        "restart": "Revoir les lieux"
+      }
+    },
+    "summary": {
+      "label": "Votre inspiration",
+      "edit": "Modifier",
+      "none": "Pas de préférence"
     }
   },
   "RealityCheckAgent": {
     "settings": {
       "chateau": "dans un château",
+      "countryside": "dans un domaine champêtre",
       "beach": "sur la plage",
       "urban": "dans un lieu industriel"
     },
@@ -197,6 +202,10 @@
       "chateau": {
         "title": "Le château en semaine",
         "body": "De nombreux domaines proposent des tarifs bien plus doux du dimanche au jeudi, ou hors haute saison."
+      },
+      "countryside": {
+        "title": "La campagne, au naturel",
+        "body": "Une grange ou une prairie se décorent de peu : fleurs des champs, guirlandes lumineuses et grandes tablées suffisent à créer l’atmosphère."
       },
       "beach": {
         "title": "La plage, simplement",
@@ -239,7 +248,8 @@
       "guestsRange": "Indiquez un nombre d'invités entre 1 et 2 000.",
       "invalidInput": "Certains champs sont à compléter.",
       "generic": "Nous n'avons pas pu créer votre projet. Merci de réessayer."
-    }
+    },
+    "styleLegend": "Quelle ambiance vous ressemble ?"
   },
   "Dashboard": {
     "metaTitle": "Tableau de bord",
@@ -715,6 +725,88 @@
       "forbidden": "Seuls les mariés peuvent modifier le budget.",
       "invalid": "Certaines informations sont incomplètes. Merci de vérifier la saisie.",
       "generic": "La modification n’a pas pu être enregistrée. Merci de réessayer."
+    }
+  },
+  "Inspiration": {
+    "steps": {
+      "venue": {
+        "label": "Le lieu",
+        "title": "Quel est l’ADN de votre mariage ?",
+        "subtitle": "Commençons par le lieu. Gardez tous vos coups de cœur, écartez le reste."
+      },
+      "ceremony": {
+        "label": "La cérémonie",
+        "title": "Et pour vous dire oui ?",
+        "subtitle": "En plein air, à l’église ou en toute intimité : plusieurs coups de cœur sont permis."
+      },
+      "reception": {
+        "label": "Le repas",
+        "title": "À table !",
+        "subtitle": "Comment aimeriez-vous régaler vos invités ?"
+      }
+    },
+    "options": {
+      "venue": {
+        "chateau": {
+          "name": "Château Classique",
+          "description": "Pierres anciennes et dîner aux chandelles",
+          "alt": "Château Renaissance au bord de l’eau, entouré de jardins à la française"
+        },
+        "countryside": {
+          "name": "Domaine Champêtre",
+          "description": "Grange, prairie et lumière du soir",
+          "alt": "Grange en bois et arche de cérémonie au milieu d’un champ"
+        },
+        "beach": {
+          "name": "Plage Bohème",
+          "description": "Pieds nus et lumière dorée",
+          "alt": "Arche de cérémonie fleurie sur une plage de sable blanc face à la mer"
+        },
+        "urban": {
+          "name": "Urbain Industriel",
+          "description": "Briques, verrières et grandes tablées",
+          "alt": "Loft aux murs de brique, grandes tablées dressées sous des guirlandes lumineuses et des lustres"
+        }
+      },
+      "ceremony": {
+        "secular": {
+          "name": "Laïque en plein air",
+          "description": "Vos mots, vos rituels, sous le ciel",
+          "alt": "Allée de cérémonie bordée de fleurs blanches, en plein air"
+        },
+        "religious": {
+          "name": "Religieuse",
+          "description": "Le recueillement d’une église ou d’un temple",
+          "alt": "Autel d’église orné de compositions florales"
+        },
+        "civil": {
+          "name": "Civile intimiste",
+          "description": "La mairie, et l’essentiel : vous deux",
+          "alt": "Mains jointes du couple et bouquet de fleurs séchées"
+        }
+      },
+      "reception": {
+        "seated": {
+          "name": "Dîner à la française",
+          "description": "Service à l’assiette et nappes blanches",
+          "alt": "Longue table dressée de nappes blanches dans une salle lumineuse"
+        },
+        "family": {
+          "name": "Grandes tablées",
+          "description": "Plats à partager, ambiance de famille",
+          "alt": "Invités qui trinquent autour d’une longue table"
+        },
+        "cocktail": {
+          "name": "Cocktail dînatoire",
+          "description": "Bouchées, champagne et invités qui circulent",
+          "alt": "Pyramide de coupes de champagne"
+        },
+        "foodTrucks": {
+          "name": "Food trucks",
+          "description": "Cuisine de rue et esprit festival",
+          "alt": "Food truck décoré de fleurs servant des invités en plein air"
+        }
+      }
     }
   }
 }

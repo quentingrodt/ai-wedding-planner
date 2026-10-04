@@ -5,21 +5,36 @@ import {
   BUDGET_RANGE,
   GUESTS_RANGE,
   type RealityCheckResponse,
-  type WeddingStyle,
 } from "@/lib/date-night/schema";
+import {
+  DATE_NIGHT_STEPS,
+  type DateNightLikes,
+  type DateNightStep,
+  type InspirationOption,
+} from "@/lib/inspiration/catalog";
 import { analyzeDateNight } from "../actions";
 
 /** État et logique du tunnel "Date Night", sans aucun rendu. */
 export function useDateNight() {
-  const [style, setStyleValue] = useState<WeddingStyle | null>(null);
+  const [likes, setLikes] = useState<DateNightLikes>({});
   const [budget, setBudgetValue] = useState<number>(BUDGET_RANGE.defaultValue);
   const [guests, setGuestsValue] = useState<number>(GUESTS_RANGE.defaultValue);
   const [result, setResult] = useState<RealityCheckResponse | null>(null);
   const [isAnalyzing, startTransition] = useTransition();
 
+  // Première étape du swipe pas encore jouée ; null = swipe terminé.
+  const currentStep = DATE_NIGHT_STEPS.find((step) => likes[step] === undefined) ?? null;
+  // Le premier lieu aimé fait référence pour le Reality Check.
+  const style = likes.venue?.[0] ?? null;
+
+  function completeStep<S extends DateNightStep>(step: S, stepLikes: InspirationOption<S>[]) {
+    setLikes((previous) => ({ ...previous, [step]: stepLikes }));
+    setResult(null);
+  }
+
   // Toute modification rend le résultat précédent obsolète.
-  function setStyle(value: WeddingStyle) {
-    setStyleValue(value);
+  function restartInspiration() {
+    setLikes({});
     setResult(null);
   }
   function setBudget(value: number) {
@@ -46,13 +61,16 @@ export function useDateNight() {
   }
 
   return {
+    likes,
+    currentStep,
     style,
     budget,
     guests,
     result,
     isAnalyzing,
     canAnalyze: style !== null && !isAnalyzing,
-    setStyle,
+    completeStep,
+    restartInspiration,
     setBudget,
     setGuests,
     analyze,

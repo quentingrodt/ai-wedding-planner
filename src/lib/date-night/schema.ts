@@ -1,7 +1,8 @@
 import { z } from "zod";
+import { INSPIRATION_OPTIONS } from "@/lib/inspiration/catalog";
 
-/** Ambiances proposées dans le tunnel "Date Night". */
-export const WEDDING_STYLES = ["chateau", "beach", "urban"] as const;
+/** Ambiances de lieu : la préférence principale sert au Reality Check. */
+export const WEDDING_STYLES = INSPIRATION_OPTIONS.venue;
 export type WeddingStyle = (typeof WEDDING_STYLES)[number];
 
 export const BUDGET_RANGE = {

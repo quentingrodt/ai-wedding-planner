@@ -1,6 +1,6 @@
 "use client";
 
-import { Castle, Factory, Waves, type LucideIcon } from "lucide-react";
+import { Castle, Factory, Trees, Waves, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { WEDDING_STYLES, type WeddingStyle } from "@/lib/date-night/schema";
@@ -8,6 +8,7 @@ import { WEDDING_STYLES, type WeddingStyle } from "@/lib/date-night/schema";
 const STYLE_VISUALS: Record<WeddingStyle, { icon: LucideIcon; tint: string }> =
   {
     chateau: { icon: Castle, tint: "from-sand to-linen text-charcoal" },
+    countryside: { icon: Trees, tint: "from-sage-soft to-sand/60 text-sage-deep" },
     beach: { icon: Waves, tint: "from-sage-soft to-linen text-sage-deep" },
     urban: { icon: Factory, tint: "from-terracotta-soft to-linen text-terracotta" },
   };
@@ -19,12 +20,13 @@ type StylePickerProps = {
 };
 
 export function StylePicker({ value, onChange, disabled }: StylePickerProps) {
-  const t = useTranslations("DateNight.styles");
+  const t = useTranslations("Onboarding");
+  const tVenue = useTranslations("Inspiration.options.venue");
 
   return (
     <fieldset className="flex flex-col gap-4" disabled={disabled}>
-      <legend className="mb-4 font-serif text-2xl">{t("legend")}</legend>
-      <div className="grid gap-3 sm:grid-cols-3">
+      <legend className="mb-4 font-serif text-2xl">{t("styleLegend")}</legend>
+      <div className="grid gap-3 sm:grid-cols-2">
         {WEDDING_STYLES.map((style) => {
           const { icon: Icon, tint } = STYLE_VISUALS[style];
           const selected = value === style;
@@ -58,10 +60,10 @@ export function StylePicker({ value, onChange, disabled }: StylePickerProps) {
               </span>
               <span className="flex min-w-0 flex-col gap-1">
                 <span className="font-serif text-lg leading-snug">
-                  {t(`${style}.name`)}
+                  {tVenue(`${style}.name`)}
                 </span>
                 <span className="text-sm text-muted-foreground">
-                  {t(`${style}.description`)}
+                  {tVenue(`${style}.description`)}
                 </span>
               </span>
             </label>

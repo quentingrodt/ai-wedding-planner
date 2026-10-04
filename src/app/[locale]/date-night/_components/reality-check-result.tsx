@@ -12,6 +12,7 @@ import {
   type FeasibilityVerdict,
   type RealityCheckInsight,
 } from "@/lib/date-night/schema";
+import { DATE_NIGHT_STEPS, type DateNightLikes } from "@/lib/inspiration/catalog";
 
 const VERDICT_TONE: Record<FeasibilityVerdict, string> = {
   comfortable: "bg-sage-soft text-sage-deep",
@@ -21,12 +22,15 @@ const VERDICT_TONE: Record<FeasibilityVerdict, string> = {
 
 type RealityCheckResultProps = {
   input: DateNightInput;
+  /** Coups de cœur du swipe, relayés jusqu'à l'onboarding. */
+  likes: DateNightLikes;
   feasibility: Feasibility;
   insight: RealityCheckInsight;
 };
 
 export function RealityCheckResult({
   input,
+  likes,
   feasibility,
   insight,
 }: RealityCheckResultProps) {
@@ -111,6 +115,13 @@ export function RealityCheckResult({
               budget: input.budget,
               guests: input.guests,
               style: input.style,
+              // Listes « a,b » (format du relais, cf. HANDOFF_KEYS).
+              ...Object.fromEntries(
+                DATE_NIGHT_STEPS.flatMap((step) => {
+                  const stepLikes = likes[step];
+                  return stepLikes?.length ? [[step, stepLikes.join(",")]] : [];
+                }),
+              ),
             },
           }}
         >

@@ -5,7 +5,9 @@ import { redirect } from "@/i18n/navigation";
 import {
   DEFAULT_COUNTRY,
   DEFAULT_CURRENCY,
+  likesFromHandoff,
   onboardingSchema,
+  parseHandoff,
   type OnboardingField,
   type OnboardingFieldError,
   type OnboardingState,
@@ -81,7 +83,12 @@ export async function createWedding(
     return redirect({ href: "/dashboard", locale });
   }
 
-  const styleDna: StyleDna = { version: 1, ambiance: input.style };
+  // Coups de cœur du swipe Date Night, relayés en champs cachés (liste blanche).
+  const styleDna: StyleDna = {
+    version: 2,
+    ambiance: input.style,
+    likes: likesFromHandoff(parseHandoff(formData)),
+  };
 
   // created_by est rempli par défaut (auth.uid()) et contrôlé par la RLS.
   const { data: wedding, error } = await supabase

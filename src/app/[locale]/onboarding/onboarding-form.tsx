@@ -151,6 +151,13 @@ export function OnboardingForm({
           disabled={pending}
         />
         <input type="hidden" name="style" value={style ?? ""} />
+        {/* Coups de cœur du swipe Date Night, enregistrés dans le Style DNA. */}
+        {(["venue", "ceremony", "reception"] as const).map(
+          (step) =>
+            handoff[step] && (
+              <input key={step} type="hidden" name={step} value={handoff[step].join(",")} />
+            ),
+        )}
         {fieldError("style")}
       </div>
 

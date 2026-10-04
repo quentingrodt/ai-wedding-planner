@@ -12,6 +12,7 @@ import type {
  */
 const MARKET_COST_PER_GUEST: Record<WeddingStyle, number> = {
   chateau: 190,
+  countryside: 150,
   beach: 140,
   urban: 120,
 };
