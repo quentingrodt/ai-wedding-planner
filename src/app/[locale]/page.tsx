@@ -11,7 +11,6 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { RevealInk } from "@/components/ink/reveal-ink";
-import { ScrollInk } from "@/components/ink/scroll-ink";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "next-intl";
@@ -184,9 +183,9 @@ export default function Home({ params }: PageProps<"/[locale]">) {
               <p className="font-serif text-sm text-sage-deep italic">
                 {t("dateNight.label")}
               </p>
-              <ScrollInk distance={0.55} className="mt-6 h-32 w-full max-w-60 text-charcoal/85 sm:h-36">
+              <RevealInk duration={3800} className="mt-6 h-32 w-full max-w-60 text-charcoal/85 sm:h-36">
                 <GlassesDrawing label={t("illustrationGlasses")} />
-              </ScrollInk>
+              </RevealInk>
               <h3 className="mt-6 text-3xl leading-tight tracking-tight sm:text-4xl">
                 {t("dateNight.title")}
               </h3>
@@ -210,9 +209,9 @@ export default function Home({ params }: PageProps<"/[locale]">) {
               <p className="font-serif text-sm text-terracotta italic">
                 {t("organize.label")}
               </p>
-              <ScrollInk distance={0.55} className="mt-6 h-32 w-full max-w-60 text-charcoal/85 sm:h-36">
+              <RevealInk duration={3800} className="mt-6 h-32 w-full max-w-60 text-charcoal/85 sm:h-36">
                 <NotebookDrawing label={t("illustrationNotebook")} />
-              </ScrollInk>
+              </RevealInk>
               <h3 className="mt-6 text-3xl leading-tight tracking-tight sm:text-4xl">
                 {t("organize.title")}
               </h3>

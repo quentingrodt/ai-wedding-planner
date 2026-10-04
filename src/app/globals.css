@@ -128,7 +128,7 @@
 }
 
 /*
- * Dessins au trait animés. <ScrollInk> fournit --p (0 → 1) ; chaque élément
+ * Dessins au trait animés. <RevealInk> fournit --p (0 → 1) ; chaque élément
  * `.ink` en déduit son avancement local --t entre --s (début) et --e (fin).
  * Les tracés utilisent pathLength="1".
  */

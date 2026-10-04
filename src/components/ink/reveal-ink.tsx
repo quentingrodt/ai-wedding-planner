@@ -68,8 +68,9 @@ type RevealInkProps = {
 };
 
 /**
- * Variante temporelle de <ScrollInk> : le dessin se trace de lui-même dès
- * qu'il apparaît à l'écran. Expose la même variable CSS `--p`.
+ * Pilote les dessins au trait : le dessin se trace de lui-même, une seule
+ * fois, dès qu'il apparaît à l'écran. Expose la variable CSS `--p` (0 → 1),
+ * dont les éléments `.ink` déduisent leur propre avancement (globals.css).
  */
 export function RevealInk({ children, className, duration = 4200 }: RevealInkProps) {
   const ref = useRef<HTMLDivElement>(null);

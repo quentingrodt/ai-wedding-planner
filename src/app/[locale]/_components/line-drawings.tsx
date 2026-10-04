@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 
 /*
  * Petits dessins au trait des cartes et du bandeau, pilotés par la variable
- * --p de <ScrollInk> (voir globals.css pour les classes .ink-*).
+ * --p de <RevealInk> (voir globals.css pour les classes .ink-*).
  */
 
 const w = (s: number, e: number, extra?: Record<string, string | number>) =>
