@@ -2,7 +2,7 @@
 
 import { CheckIcon, DownloadIcon, RefreshCwIcon } from "lucide-react";
 import { useLocale, useMessages, useTranslations } from "next-intl";
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,7 +18,8 @@ import {
 } from "@/lib/invitations/schema";
 import { cn } from "@/lib/utils";
 import { saveInvitation } from "../actions";
-import { BROWSER_FAMILIES } from "./fonts";
+import { BROWSER_FAMILIES } from "@/components/invitations/fonts";
+import { ResponsiveInvitation } from "@/components/invitations/responsive-invitation";
 
 type InvitationEditorProps = {
   initialDesign: InvitationDesign;
@@ -77,7 +78,7 @@ export function InvitationEditor({
   }
 
   const preview = (
-    <Preview design={design} watermark={watermarked ? t("signature") : undefined} />
+    <ResponsiveInvitation design={design} watermark={watermarked ? t("signature") : undefined} />
   );
 
   if (!canEdit) {
@@ -299,34 +300,5 @@ function OptionButton({
         </span>
       )}
     </button>
-  );
-}
-
-/** Aperçu à la largeur du conteneur (le rendu est proportionnel à sa largeur). */
-function Preview({ design, watermark }: { design: InvitationDesign; watermark?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new ResizeObserver(([entry]) => setWidth(Math.floor(entry.contentRect.width)));
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div ref={ref} className="w-full">
-      {width > 0 && (
-        <div className="overflow-hidden rounded-sm shadow-[0_30px_60px_-30px_rgba(43,42,40,0.45)]">
-          <InvitationCard
-            design={design}
-            width={width}
-            families={BROWSER_FAMILIES}
-            watermark={watermark}
-          />
-        </div>
-      )}
-    </div>
   );
 }

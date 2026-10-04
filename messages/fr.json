@@ -501,8 +501,8 @@
       "title": "Relancer {name}",
       "description": "Un message prêt à envoyer : copiez-le, puis collez-le dans votre messagerie (SMS, WhatsApp, e-mail). Vous pouvez l’ajuster avant.",
       "textareaLabel": "Message de relance",
-      "message": "Coucou {firstName} ! On fait un point sur l’organisation de notre grand jour. Pensez à nous confirmer votre présence et vos éventuelles allergies ou régimes alimentaires. Merci, et à très vite ! {couple}",
-      "messageWithDate": "Coucou {firstName} ! On fait un point sur l’organisation de notre grand jour, le {date}. Pensez à nous confirmer votre présence et vos éventuelles allergies ou régimes alimentaires. Merci, et à très vite ! {couple}",
+      "message": "Coucou {firstName} ! On fait un point sur l’organisation de notre grand jour. Pensez à nous confirmer votre présence et vos éventuelles allergies ou régimes alimentaires, en un clic ici : {link} Merci, et à très vite ! {couple}",
+      "messageWithDate": "Coucou {firstName} ! On fait un point sur l’organisation de notre grand jour, le {date}. Pensez à nous confirmer votre présence et vos éventuelles allergies ou régimes alimentaires, en un clic ici : {link} Merci, et à très vite ! {couple}",
       "copy": "Copier le texte",
       "copied": "Texte copié : il ne reste plus qu’à l’envoyer.",
       "copyError": "La copie a échoué. Sélectionnez le texte pour le copier vous-même.",
@@ -1333,5 +1333,37 @@
       "saveFirst": "Enregistrez vos modifications pour télécharger cette version.",
       "fileName": "faire-part"
     }
+  },
+  "Rsvp": {
+    "metaTitle": "Faire-part de {couple}",
+    "hello": "Bonjour {firstName},",
+    "question": "Serez-vous des nôtres ?",
+    "options": {
+      "confirmed": "Avec joie, je serai là",
+      "tentative": "Je ne sais pas encore",
+      "declined": "Malheureusement, je ne pourrai pas venir"
+    },
+    "dietaryLabel": "Allergies ou régime alimentaire",
+    "dietaryPlaceholder": "Végétarien, allergie aux fruits à coque…",
+    "dietaryHint": "Facultatif : cela aide le traiteur à prévoir votre assiette.",
+    "submit": "Envoyer ma réponse",
+    "sending": "Envoi…",
+    "thanks": {
+      "confirmed": "Merci {firstName} ! Nous avons hâte de célébrer ce jour avec vous.",
+      "tentative": "Merci {firstName}. Revenez sur ce lien dès que vous serez fixé·e.",
+      "declined": "Merci {firstName} de nous avoir prévenus. Vous nous manquerez."
+    },
+    "change": "Modifier ma réponse",
+    "closed": "Le mariage a eu lieu : les réponses sont closes. Merci d’avoir été là !",
+    "fallbackDate": "Le {date}",
+    "notFound": {
+      "title": "Ce lien n’est plus valide",
+      "body": "Demandez aux mariés de vous renvoyer votre lien personnel de réponse."
+    },
+    "errors": {
+      "invalid": "Votre réponse n’a pas pu être prise en compte. Vérifiez vos informations.",
+      "generic": "Votre réponse n’a pas pu être envoyée. Merci de réessayer dans un instant."
+    },
+    "madeWith": "Créé avec Céleste"
   }
 }

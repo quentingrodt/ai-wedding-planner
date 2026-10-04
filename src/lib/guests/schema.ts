@@ -16,6 +16,8 @@ export type Guest = {
   dietary_requirements: string | null;
   is_child: boolean;
   family_id: string | null;
+  /** Jeton du lien personnel de réponse (/i/<jeton>). */
+  rsvp_token: string;
 };
 
 /** Ligne de la table guest_families. */

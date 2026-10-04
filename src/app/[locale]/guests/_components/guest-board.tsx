@@ -235,6 +235,7 @@ export function GuestBoard({
           firstName={guest.first_name}
           coupleNames={coupleNames}
           weddingDateLabel={weddingDateLabel}
+          rsvpToken={guest.rsvp_token}
         />
       )}
       {canEdit && (

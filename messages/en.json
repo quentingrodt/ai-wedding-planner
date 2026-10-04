@@ -501,8 +501,8 @@
       "title": "Remind {name}",
       "description": "A message ready to send: copy it, then paste it into your messaging app (text, WhatsApp, email). You can adjust it first.",
       "textareaLabel": "Reminder message",
-      "message": "Hi {firstName}! We’re catching up on the plans for our big day. Please remember to confirm whether you can come, and let us know about any allergies or dietary requirements. Thank you, and see you very soon! {couple}",
-      "messageWithDate": "Hi {firstName}! We’re catching up on the plans for our big day on {date}. Please remember to confirm whether you can come, and let us know about any allergies or dietary requirements. Thank you, and see you very soon! {couple}",
+      "message": "Hi {firstName}! We’re catching up on the plans for our big day. Please confirm whether you can come, and let us know about any allergies or dietary requirements, in one click here: {link} Thank you, and see you very soon! {couple}",
+      "messageWithDate": "Hi {firstName}! We’re catching up on the plans for our big day on {date}. Please confirm whether you can come, and let us know about any allergies or dietary requirements, in one click here: {link} Thank you, and see you very soon! {couple}",
       "copy": "Copy the text",
       "copied": "Text copied: all that’s left is to send it.",
       "copyError": "Copying failed. Select the text to copy it yourself.",
@@ -1333,5 +1333,37 @@
       "saveFirst": "Save your changes to download this version.",
       "fileName": "wedding-invitation"
     }
+  },
+  "Rsvp": {
+    "metaTitle": "{couple}’s wedding invitation",
+    "hello": "Hello {firstName},",
+    "question": "Will you join us?",
+    "options": {
+      "confirmed": "Joyfully, I’ll be there",
+      "tentative": "I don’t know yet",
+      "declined": "Sadly, I can’t make it"
+    },
+    "dietaryLabel": "Allergies or dietary requirements",
+    "dietaryPlaceholder": "Vegetarian, nut allergy…",
+    "dietaryHint": "Optional: it helps the caterer plan your meal.",
+    "submit": "Send my reply",
+    "sending": "Sending…",
+    "thanks": {
+      "confirmed": "Thank you {firstName}! We can’t wait to celebrate with you.",
+      "tentative": "Thank you {firstName}. Come back to this link as soon as you know.",
+      "declined": "Thank you {firstName} for letting us know. We’ll miss you."
+    },
+    "change": "Change my reply",
+    "closed": "The wedding has taken place: replies are closed. Thank you for being there!",
+    "fallbackDate": "On {date}",
+    "notFound": {
+      "title": "This link is no longer valid",
+      "body": "Ask the couple to send you your personal reply link again."
+    },
+    "errors": {
+      "invalid": "Your reply could not be recorded. Please check your details.",
+      "generic": "Your reply could not be sent. Please try again in a moment."
+    },
+    "madeWith": "Made with Céleste"
   }
 }

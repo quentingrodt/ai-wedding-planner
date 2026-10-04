@@ -200,7 +200,7 @@ export async function getGuests(
 ): Promise<Guest[]> {
   const { data, error } = await supabase
     .from("guests")
-    .select("id, first_name, last_name, status, dietary_requirements, is_child, family_id")
+    .select("id, first_name, last_name, status, dietary_requirements, is_child, family_id, rsvp_token")
     .eq("wedding_id", weddingId)
     .order("created_at", { ascending: false })
     .returns<Guest[]>();

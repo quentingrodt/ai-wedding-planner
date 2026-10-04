@@ -1,7 +1,7 @@
 "use client";
 
 import { CopyIcon, MessageCircleIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { getPathname } from "@/i18n/navigation";
 
 type RemindGuestDialogProps = {
   guestName: string;
@@ -23,11 +24,13 @@ type RemindGuestDialogProps = {
   coupleNames: string;
   /** Date du mariage déjà formatée, ou null si elle n'est pas fixée. */
   weddingDateLabel: string | null;
+  /** Jeton du lien personnel de réponse de l'invité. */
+  rsvpToken: string;
 };
 
 /**
- * Relance RSVP : un message pré-rédigé, modifiable, à copier puis envoyer
- * depuis sa messagerie. Rien n'est écrit en base : accessible à tous les
+ * Relance RSVP : un message pré-rédigé, modifiable, avec le lien personnel
+ * de réponse de l'invité, à copier puis envoyer depuis sa messagerie. Rien n'est écrit en base : accessible à tous les
  * membres, y compris les témoins, pour décharger les mariés.
  */
 export function RemindGuestDialog({
@@ -35,12 +38,18 @@ export function RemindGuestDialog({
   firstName,
   coupleNames,
   weddingDateLabel,
+  rsvpToken,
 }: RemindGuestDialogProps) {
   const t = useTranslations("Guests.remind");
-  const draft = () =>
-    weddingDateLabel
-      ? t("messageWithDate", { firstName, couple: coupleNames, date: weddingDateLabel })
-      : t("message", { firstName, couple: coupleNames });
+  const locale = useLocale();
+  // Lien absolu, construit à l'ouverture (l'origine n'existe qu'au navigateur).
+  const draft = () => {
+    const origin = typeof window === "undefined" ? "" : window.location.origin;
+    const link = origin + getPathname({ href: `/i/${rsvpToken}`, locale });
+    return weddingDateLabel
+      ? t("messageWithDate", { firstName, couple: coupleNames, date: weddingDateLabel, link })
+      : t("message", { firstName, couple: coupleNames, link });
+  };
   const [message, setMessage] = useState(draft);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
