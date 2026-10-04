@@ -1332,6 +1332,20 @@
       "imageHint": "Ideal for WhatsApp and Instagram, with a small “Made with Céleste” mention.",
       "saveFirst": "Save your changes to download this version.",
       "fileName": "wedding-invitation"
+    },
+    "print": {
+      "title": "Printer-ready file",
+      "formatLabel": "Size",
+      "formats": {
+        "a5": "A5 · 148 × 210 mm",
+        "a6": "A6 · 105 × 148 mm"
+      },
+      "download": "Download the PDF",
+      "proofHint": "Free proof, marked “Proof”: ideal for checking the layout with your printer. The final, unmarked version unlocks in a single purchase.",
+      "unlockedHint": "High-resolution file (300 dpi), 3 mm bleed and crop marks, ready for your printer.",
+      "proofMark": "Proof",
+      "fileName": "invitation-print",
+      "documentTitle": "{names} wedding invitation"
     }
   },
   "Rsvp": {

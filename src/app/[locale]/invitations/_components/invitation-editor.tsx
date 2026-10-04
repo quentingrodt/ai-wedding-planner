@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckIcon, DownloadIcon, RefreshCwIcon } from "lucide-react";
+import { CheckIcon, DownloadIcon, FileTextIcon, RefreshCwIcon } from "lucide-react";
 import { useLocale, useMessages, useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
@@ -229,6 +229,7 @@ export function InvitationEditor({
           href={`/api/invitations/image?locale=${locale}`}
           ready={hasSaved && !dirty}
         />
+        <PrintFile locale={locale} ready={hasSaved && !dirty} proof={watermarked} />
       </div>
     </div>
   );
@@ -258,6 +259,57 @@ function DownloadImage({ href, ready }: { href: string; ready: boolean }) {
         </span>
       )}
       <p className="text-xs leading-5 text-stone">{ready ? t("download.imageHint") : t("download.saveFirst")}</p>
+    </div>
+  );
+}
+
+const PRINT_FORMAT_OPTIONS = ["a5", "a6"] as const;
+
+/** PDF pour l'imprimeur : épreuve gratuite, version finale après déblocage. */
+function PrintFile({ locale, ready, proof }: { locale: string; ready: boolean; proof: boolean }) {
+  const t = useTranslations("Invitations");
+  const [format, setFormat] = useState<(typeof PRINT_FORMAT_OPTIONS)[number]>("a5");
+
+  return (
+    <div className="flex flex-col gap-3 rounded-2xl bg-linen/70 p-4">
+      <p className="text-sm font-medium">{t("print.title")}</p>
+      <div role="group" aria-label={t("print.formatLabel")} className="flex flex-wrap gap-2">
+        {PRINT_FORMAT_OPTIONS.map((value) => (
+          <button
+            key={value}
+            type="button"
+            aria-pressed={format === value}
+            onClick={() => setFormat(value)}
+            className={cn(
+              "h-8 rounded-full px-3 text-xs ring-1 transition",
+              format === value ? "bg-card text-charcoal ring-terracotta" : "text-stone ring-border hover:ring-sand",
+            )}
+          >
+            {t(`print.formats.${value}`)}
+          </button>
+        ))}
+      </div>
+      {ready ? (
+        <a
+          href={`/api/invitations/pdf?format=${format}&locale=${locale}`}
+          download
+          className="inline-flex h-10 w-fit items-center gap-2 rounded-full bg-card px-4 text-sm font-medium text-sage-deep ring-1 ring-sage/40 transition-colors hover:bg-sage-soft"
+        >
+          <FileTextIcon aria-hidden className="size-4" strokeWidth={1.5} />
+          {t("print.download")}
+        </a>
+      ) : (
+        <span
+          aria-disabled
+          className="inline-flex h-10 w-fit items-center gap-2 rounded-full bg-card/60 px-4 text-sm text-stone ring-1 ring-border"
+        >
+          <FileTextIcon aria-hidden className="size-4" strokeWidth={1.5} />
+          {t("print.download")}
+        </span>
+      )}
+      <p className="text-xs leading-5 text-stone">
+        {!ready ? t("download.saveFirst") : proof ? t("print.proofHint") : t("print.unlockedHint")}
+      </p>
     </div>
   );
 }

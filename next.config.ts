@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   // Polices TTF lues par readFile dans la route d'export des faire-part.
   outputFileTracingIncludes: {
     "/api/invitations/image": ["./assets/fonts/**"],
+    "/api/invitations/pdf": ["./assets/fonts/**"],
   },
   images: {
     // Photos du swipe d'inspiration (licences Unsplash et Pexels), toujours

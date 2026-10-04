@@ -1332,6 +1332,20 @@
       "imageHint": "Format idéal pour WhatsApp et Instagram, avec la mention « Créé avec Céleste ».",
       "saveFirst": "Enregistrez vos modifications pour télécharger cette version.",
       "fileName": "faire-part"
+    },
+    "print": {
+      "title": "Fichier pour l’imprimeur",
+      "formatLabel": "Format",
+      "formats": {
+        "a5": "A5 · 14,8 × 21 cm",
+        "a6": "A6 · 10,5 × 14,8 cm"
+      },
+      "download": "Télécharger le PDF",
+      "proofHint": "Épreuve gratuite, marquée « Épreuve » : idéale pour valider la mise en page avec votre imprimeur. La version finale, sans marquage, se débloque en une fois.",
+      "unlockedHint": "Fichier haute définition (300 dpi), fond perdu de 3 mm et traits de coupe, prêt pour l’imprimeur.",
+      "proofMark": "Épreuve",
+      "fileName": "faire-part-impression",
+      "documentTitle": "Faire-part de {names}"
     }
   },
   "Rsvp": {
