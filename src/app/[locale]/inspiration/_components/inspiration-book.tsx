@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, ArrowRight, Check, RotateCcw } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, ChevronDown, RotateCcw } from "lucide-react";
 import Image from "next/image";
 import { useMessages, useTranslations } from "next-intl";
 import { useEffect, useRef, useState, useTransition } from "react";
@@ -12,6 +12,7 @@ import {
   INSPIRATION_STEPS,
   type InspirationLikes,
   type InspirationOption,
+  type InspirationSection,
   type InspirationStep,
 } from "@/lib/inspiration/catalog";
 import { INSPIRATION_PHOTOS, type InspirationPhoto } from "@/lib/inspiration/photos";
@@ -46,6 +47,21 @@ export function InspirationBook({
   const [likes, setLikes] = useState<InspirationLikes>(initialLikes);
   const [playing, setPlaying] = useState<Playing | null>(null);
   const [saveError, setSaveError] = useState(false);
+  // Seule la section de la prochaine étape à jouer est dépliée à l'arrivée.
+  const [openSections, setOpenSections] = useState<ReadonlySet<InspirationSection>>(() => {
+    const next = INSPIRATION_STEPS.find((step) => initialLikes[step] === undefined);
+    const section = INSPIRATION_SECTIONS.find((s) => (s.steps as readonly string[]).includes(next ?? ""));
+    return new Set(section ? [section.key] : []);
+  });
+
+  function toggleSection(key: InspirationSection) {
+    setOpenSections((current) => {
+      const next = new Set(current);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  }
   const [, startTransition] = useTransition();
 
   const remaining = INSPIRATION_STEPS.filter((step) => likes[step] === undefined);
@@ -201,29 +217,77 @@ export function InspirationBook({
         )
       )}
 
-      {INSPIRATION_SECTIONS.map((section) => (
-        <section key={section.key} className="flex flex-col gap-5">
-          <div className="flex items-center gap-4">
-            <h2 className="font-serif text-2xl tracking-tight">{t(`sections.${section.key}`)}</h2>
-            <span className="h-px flex-1 bg-sand" aria-hidden />
-            <span className="text-sm text-stone tabular-nums">
-              {section.steps.filter((step) => likes[step] !== undefined).length} / {section.steps.length}
-            </span>
-          </div>
-          <ul className="grid gap-4 sm:grid-cols-2">
-            {section.steps.map((step) => (
-              <StepCard
-                key={step}
-                step={step}
-                index={INSPIRATION_STEPS.indexOf(step)}
-                likes={likes[step]}
-                canEdit={canEdit}
-                onPlay={() => setPlaying({ step, continuous: false })}
-              />
-            ))}
-          </ul>
-        </section>
-      ))}
+      <div className="flex flex-col border-t border-sand">
+        {INSPIRATION_SECTIONS.map((section) => {
+          const open = openSections.has(section.key);
+          const panelId = `section-${section.key}`;
+          const played = section.steps.filter((step) => likes[step] !== undefined);
+
+          return (
+            <section key={section.key} className="border-b border-sand">
+              <h2>
+                <button
+                  type="button"
+                  aria-expanded={open}
+                  aria-controls={panelId}
+                  onClick={() => toggleSection(section.key)}
+                  className="group flex w-full items-center gap-4 py-6 text-left"
+                >
+                  <span className="font-serif text-2xl tracking-tight transition-colors group-hover:text-terracotta">
+                    {t(`sections.${section.key}`)}
+                  </span>
+                  {/* Aperçu discret : les couvertures des étapes déjà jouées */}
+                  <span className="flex -space-x-2" aria-hidden>
+                    {played.slice(0, 4).map((step) => (
+                      <span
+                        key={step}
+                        className="relative size-7 overflow-hidden rounded-full ring-2 ring-ivory"
+                      >
+                        <Image src={coverOf(step, likes[step]).src} alt="" fill sizes="28px" className="object-cover" />
+                      </span>
+                    ))}
+                  </span>
+                  <span className="ml-auto text-sm text-stone tabular-nums">
+                    {played.length} / {section.steps.length}
+                  </span>
+                  <ChevronDown
+                    className={cn(
+                      "size-5 shrink-0 text-stone transition-transform duration-300",
+                      open && "rotate-180",
+                    )}
+                    strokeWidth={1.5}
+                    aria-hidden
+                  />
+                </button>
+              </h2>
+              {/* Repli animé (grid-rows 0fr → 1fr) ; inert retire les cartes du parcours clavier. */}
+              <div
+                id={panelId}
+                inert={!open}
+                className={cn(
+                  "grid transition-[grid-template-rows,opacity] duration-500 ease-out",
+                  open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                )}
+              >
+                <div className="overflow-hidden">
+                  <ul className="grid gap-4 pb-8 sm:grid-cols-2">
+                    {section.steps.map((step) => (
+                      <StepCard
+                        key={step}
+                        step={step}
+                        index={INSPIRATION_STEPS.indexOf(step)}
+                        likes={likes[step]}
+                        canEdit={canEdit}
+                        onPlay={() => setPlaying({ step, continuous: false })}
+                      />
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </section>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -245,9 +309,8 @@ function StepCard({
   const tSteps = useTranslations("Inspiration.steps");
   // Textes et photos de l'étape d'un bloc : clés dynamiques « étape.choix ».
   const names = useMessages().Inspiration.options[step] as Record<string, { name: string }>;
-  const photos = INSPIRATION_PHOTOS[step] as Record<string, InspirationPhoto>;
   const played = likes !== undefined;
-  const cover = photos[likes?.[0] ?? INSPIRATION_OPTIONS[step][0]];
+  const cover = coverOf(step, likes);
 
   return (
     <li className="group flex flex-col overflow-hidden rounded-2xl bg-card ring-1 ring-border">
@@ -306,4 +369,10 @@ function StepCard({
       </div>
     </li>
   );
+}
+
+/** Photo de couverture d'une étape : le premier coup de cœur, sinon le premier choix. */
+function coverOf(step: InspirationStep, likes: readonly string[] | undefined): InspirationPhoto {
+  const photos = INSPIRATION_PHOTOS[step] as Record<string, InspirationPhoto>;
+  return photos[likes?.[0] ?? INSPIRATION_OPTIONS[step][0]];
 }
