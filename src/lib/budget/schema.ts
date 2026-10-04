@@ -14,6 +14,16 @@ export const BUDGET_CATEGORIES = [
 ] as const;
 export type BudgetCategory = (typeof BUDGET_CATEGORIES)[number];
 
+/**
+ * Répartition indicative du budget total, en part du total : lignes créées à
+ * l'onboarding, et aperçu montré à la fin de Date Night.
+ */
+export const DEFAULT_BUDGET_SPLIT = [
+  { category: "venue", share: 0.4 },
+  { category: "catering", share: 0.3 },
+  { category: "contingency", share: 0.1 },
+] as const satisfies readonly { category: BudgetCategory; share: number }[];
+
 /** Ligne de la table budget_items ; montants en unités entières de la devise. */
 export type BudgetItem = {
   id: string;

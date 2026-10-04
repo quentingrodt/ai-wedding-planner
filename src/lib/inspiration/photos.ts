@@ -1,25 +1,35 @@
-import type { DateNightStep, InspirationOption } from "./catalog";
+import type { InspirationOption, InspirationStep } from "./catalog";
 
-/**
- * Recadrage portrait demandé à Unsplash ; doit rester identique au `search`
- * autorisé dans next.config.ts (images.remotePatterns).
+/*
+ * Photos du swipe d'inspiration (licences Unsplash et Pexels : usage libre,
+ * crédit apprécié). Recadrage portrait fixe, identique au `search` autorisé
+ * dans next.config.ts (images.remotePatterns).
  */
-const PHOTO_QUERY = "?auto=format&fit=crop&w=1200&h=1600&q=80";
+const UNSPLASH_QUERY = "?auto=format&fit=crop&w=1200&h=1600&q=80";
+const PEXELS_QUERY = "?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=1600";
 
 export type InspirationPhoto = {
   src: string;
-  /** Page Unsplash de la photo (licence Unsplash, crédit apprécié). */
-  credit: { author: string; url: string };
+  credit: {
+    /** Inconnu pour Pexels, dont la licence n'exige pas d'attribution. */
+    author?: string;
+    source: "Unsplash" | "Pexels";
+    url: string;
+  };
 };
 
 const unsplash = (photo: string, author: string, pageId: string): InspirationPhoto => ({
-  src: `https://images.unsplash.com/${photo}${PHOTO_QUERY}`,
-  credit: { author, url: `https://unsplash.com/photos/${pageId}` },
+  src: `https://images.unsplash.com/${photo}${UNSPLASH_QUERY}`,
+  credit: { author, source: "Unsplash", url: `https://unsplash.com/photos/${pageId}` },
 });
 
-/** Photos des étapes Date Night ; celles du carnet viendront avec lui. */
+const pexels = (id: number): InspirationPhoto => ({
+  src: `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg${PEXELS_QUERY}`,
+  credit: { source: "Pexels", url: `https://www.pexels.com/photo/${id}/` },
+});
+
 export const INSPIRATION_PHOTOS: {
-  [S in DateNightStep]: Record<InspirationOption<S>, InspirationPhoto>;
+  [S in InspirationStep]: Record<InspirationOption<S>, InspirationPhoto>;
 } = {
   venue: {
     chateau: unsplash("photo-1526815170550-79f226886ef3", "Dorian Mongel", "X8bwXanmSOo"),
@@ -37,5 +47,59 @@ export const INSPIRATION_PHOTOS: {
     family: unsplash("photo-1774660811278-3a9710b375cd", "Alexander Mass", "qa0gEVBTyRY"),
     cocktail: unsplash("photo-1759646827349-bc2ac350d096", "Vlad Deep", "t4tb823FWYQ"),
     foodTrucks: unsplash("photo-1759503615129-54445a7b2f6a", "Jonathan Borba", "t8Arlmh7UNE"),
+  },
+  dessert: {
+    croquembouche: pexels(9328799),
+    tieredCake: unsplash("photo-1574538860416-baadc5d4ec57", "Scott Osborn", "TAtTPzM95nk"),
+    dessertBar: unsplash("photo-1774660811213-37f1b8e8f00c", "Alexander Mass", "eLkVXFJxF_0"),
+    nakedCake: unsplash("photo-1542007920-992d2c424d09", "James Coleman", "5HR1gItc7Gs"),
+  },
+  brideAttire: {
+    princess: unsplash("photo-1776013114452-1c44daeb47c7", "Quinces Perfectos", "vSrnzkZg1QY"),
+    sheath: unsplash("photo-1740589389656-789130dd6a05", "Elist Nguyen", "irBcFUcxnuQ"),
+    boho: unsplash("photo-1654266552357-c743547d54dd", "Oksana Zub", "T_L4dVzo0so"),
+    pantsuit: pexels(27927668),
+  },
+  groomAttire: {
+    threePiece: pexels(15536113),
+    tuxedo: pexels(31619528),
+    linen: pexels(4558789),
+    velvet: pexels(12386604),
+  },
+  bridesmaids: {
+    matching: pexels(32187159),
+    mixMatch: pexels(32075005),
+    pastel: pexels(16228863),
+    freeStyle: pexels(33434577),
+  },
+  groomsmen: {
+    matching: pexels(34327717),
+    suspenders: pexels(20024338),
+    linen: pexels(12358431),
+    accessory: pexels(29858929),
+  },
+  bacheloretteParty: {
+    spa: pexels(11179573),
+    cityTrip: pexels(904742),
+    workshop: pexels(6223132),
+    poolParty: pexels(5303406),
+  },
+  bachelorParty: {
+    adventure: pexels(33986451),
+    karting: pexels(32491797),
+    cityTrip: pexels(5858203),
+    tasting: pexels(14641303),
+  },
+  transport: {
+    luxury: pexels(37828108),
+    vintage: pexels(19773707),
+    carriage: pexels(18416304),
+    shuttle: pexels(23153107),
+  },
+  honeymoon: {
+    island: pexels(3293192),
+    roadTrip: pexels(6271672),
+    cityBreak: pexels(39305263),
+    safari: pexels(10740862),
   },
 };

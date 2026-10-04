@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useFormatter, useMessages, useTranslations } from "next-intl";
 import { useEffect, useRef } from "react";
+import { SwipeDeck } from "@/components/inspiration/swipe-deck";
 import { Button } from "@/components/ui/button";
 import { BUDGET_RANGE, DATE_NIGHT_CURRENCY, GUESTS_RANGE } from "@/lib/date-night/schema";
 import {
@@ -15,7 +16,6 @@ import { INSPIRATION_PHOTOS } from "@/lib/inspiration/photos";
 import { AnalysisSkeleton } from "./analysis-skeleton";
 import { RealityCheckResult } from "./reality-check-result";
 import { SliderField } from "./slider-field";
-import { SwipeDeck } from "./swipe-deck";
 import { useDateNight } from "./use-date-night";
 
 /**
@@ -172,7 +172,7 @@ function FlowHeader({
   intro: string;
   progress?: { current: number; total: number };
 }) {
-  const t = useTranslations("DateNight");
+  const t = useTranslations("Inspiration.book");
 
   return (
     <header className="flex flex-col gap-4">
@@ -183,7 +183,7 @@ function FlowHeader({
           aria-valuemin={1}
           aria-valuemax={progress.total}
           aria-valuenow={progress.current}
-          aria-valuetext={t("swipe.progress", progress)}
+          aria-valuetext={t("stepOf", progress)}
           className="flex gap-1.5"
         >
           {Array.from({ length: progress.total }, (_, i) => (

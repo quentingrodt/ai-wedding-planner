@@ -6,6 +6,7 @@ import { relayQuery } from "@/components/auth/relay-fields";
 import { Link } from "@/i18n/navigation";
 import { parseHandoff } from "@/lib/onboarding/schema";
 import { parseInviteToken } from "@/lib/team/schema";
+import { hasProject, ProjectRecap } from "./project-recap";
 import { SignupForm } from "./signup-form";
 
 export async function generateMetadata({
@@ -29,10 +30,19 @@ export default async function SignupPage({
   const handoff = parseHandoff(query);
   const invite = parseInviteToken(query.invite);
 
+  // Arrivée depuis Date Night : on rappelle le projet pour donner envie de le sauvegarder.
+  const showProject = !invite && hasProject(handoff);
+
   return (
     <AuthLayout
-      title={t("signup.title")}
-      subtitle={invite ? t("signup.inviteSubtitle") : t("signup.subtitle")}
+      title={showProject ? t("signup.project.title") : t("signup.title")}
+      subtitle={
+        invite
+          ? t("signup.inviteSubtitle")
+          : showProject
+            ? t("signup.project.subtitle")
+            : t("signup.subtitle")
+      }
       footer={
         <>
           {t("signup.hasAccount")}{" "}
@@ -45,6 +55,7 @@ export default async function SignupPage({
         </>
       }
     >
+      {showProject && <ProjectRecap handoff={handoff} />}
       <SignupForm handoff={handoff} invite={invite} />
     </AuthLayout>
   );

@@ -8,8 +8,8 @@ import { useEffect, useEffectEvent, useState } from "react";
 import { cn } from "@/lib/utils";
 import {
   INSPIRATION_OPTIONS,
-  type DateNightStep,
   type InspirationOption,
+  type InspirationStep,
 } from "@/lib/inspiration/catalog";
 import { INSPIRATION_PHOTOS, type InspirationPhoto } from "@/lib/inspiration/photos";
 
@@ -27,7 +27,7 @@ const EXIT_EASE = [0.32, 0.72, 0, 1] as const;
 
 type OptionTexts = { name: string; description: string; alt: string };
 
-type SwipeDeckProps<S extends DateNightStep> = {
+type SwipeDeckProps<S extends InspirationStep> = {
   step: S;
   /** Appelé à la fin du paquet avec les choix aimés, dans l'ordre des cartes. */
   onComplete: (likes: InspirationOption<S>[]) => void;
@@ -39,12 +39,12 @@ type SwipeDeckProps<S extends DateNightStep> = {
  * Un paquet de cartes d'inspiration à « swiper » (au doigt, aux boutons ou aux
  * flèches du clavier). Plusieurs coups de cœur sont possibles par étape.
  */
-export function SwipeDeck<S extends DateNightStep>({
+export function SwipeDeck<S extends InspirationStep>({
   step,
   onComplete,
   requireLike = false,
 }: SwipeDeckProps<S>) {
-  const t = useTranslations("DateNight");
+  const t = useTranslations("Inspiration.deck");
   const options = INSPIRATION_OPTIONS[step] as readonly InspirationOption<S>[];
   const photos = INSPIRATION_PHOTOS[step] as Record<InspirationOption<S>, InspirationPhoto>;
   // Textes de l'étape d'un bloc : les clés dynamiques « étape.choix » ne sont
@@ -88,16 +88,16 @@ export function SwipeDeck<S extends DateNightStep>({
     return (
       <section className="flex flex-col items-center gap-5 rounded-3xl bg-linen/70 px-6 py-16 text-center">
         <h2 className="text-3xl leading-tight tracking-tight text-balance">
-          {t("swipe.emptyVenue.title")}
+          {t("emptyVenue.title")}
         </h2>
-        <p className="max-w-sm leading-7 text-stone">{t("swipe.emptyVenue.body")}</p>
+        <p className="max-w-sm leading-7 text-stone">{t("emptyVenue.body")}</p>
         <button
           type="button"
           onClick={() => setIndex(0)}
           className="mt-2 inline-flex h-12 items-center gap-2 rounded-full border border-sage-deep/30 px-6 text-sm font-medium text-sage-deep transition-colors hover:border-sage-deep hover:bg-sage-deep hover:text-ivory"
         >
           <RotateCcw className="size-4" strokeWidth={1.5} aria-hidden />
-          {t("swipe.emptyVenue.restart")}
+          {t("emptyVenue.restart")}
         </button>
       </section>
     );
@@ -132,7 +132,7 @@ export function SwipeDeck<S extends DateNightStep>({
           type="button"
           onClick={() => requestSwipe("left")}
           disabled={exit !== null}
-          aria-label={t("swipe.pass")}
+          aria-label={t("pass")}
           className="flex size-16 items-center justify-center rounded-full border border-sand bg-ivory text-terracotta shadow-[0_10px_30px_-14px_rgba(43,42,40,0.35)] transition hover:-translate-y-0.5 hover:border-terracotta/40 disabled:opacity-60 disabled:hover:translate-y-0"
         >
           <X className="size-6" strokeWidth={1.5} aria-hidden />
@@ -140,7 +140,7 @@ export function SwipeDeck<S extends DateNightStep>({
 
         <p className="min-w-16 text-center text-xs tracking-[0.2em] text-stone uppercase" aria-live="polite">
           <span className="sr-only">
-            {t("swipe.position", { current: index + 1, total: options.length })}
+            {t("position", { current: index + 1, total: options.length })}
           </span>
           <span aria-hidden>
             {index + 1} / {options.length}
@@ -151,7 +151,7 @@ export function SwipeDeck<S extends DateNightStep>({
           type="button"
           onClick={() => requestSwipe("right")}
           disabled={exit !== null}
-          aria-label={t("swipe.like")}
+          aria-label={t("like")}
           className="flex size-16 items-center justify-center rounded-full bg-sage-deep text-ivory shadow-[0_14px_34px_-14px_rgba(63,74,59,0.7)] transition hover:-translate-y-0.5 hover:bg-[#35402f] disabled:opacity-60 disabled:hover:translate-y-0"
         >
           <Heart className="size-6" strokeWidth={1.5} aria-hidden />
@@ -160,9 +160,11 @@ export function SwipeDeck<S extends DateNightStep>({
 
       <p className="-mt-2 flex flex-col items-center gap-1 text-xs text-stone/80">
         <a href={photo.credit.url} target="_blank" rel="noreferrer" className="hover:text-charcoal">
-          {t("swipe.photoCredit", { author: photo.credit.author })}
+          {photo.credit.author
+            ? t("photoCredit", { author: photo.credit.author, source: photo.credit.source })
+            : t("photoCreditAnonymous", { source: photo.credit.source })}
         </a>
-        <span className="hidden sm:inline">{t("swipe.keyboard")}</span>
+        <span className="hidden sm:inline">{t("keyboard")}</span>
       </p>
     </section>
   );
@@ -180,7 +182,7 @@ type InspirationCardProps = {
 };
 
 function InspirationCard({ photo, texts, depth, exit, onDecision, onExited }: InspirationCardProps) {
-  const t = useTranslations("DateNight");
+  const t = useTranslations("Inspiration.deck");
   const reduceMotion = useReducedMotion();
   const isTop = depth === 0;
 
@@ -256,7 +258,7 @@ function InspirationCard({ photo, texts, depth, exit, onDecision, onExited }: In
             aria-hidden
           >
             <Heart className="size-4" strokeWidth={1.5} />
-            {t("swipe.hintLike")}
+            {t("hintLike")}
           </motion.span>
           <motion.span
             style={{ opacity: passHint }}
@@ -264,7 +266,7 @@ function InspirationCard({ photo, texts, depth, exit, onDecision, onExited }: In
             aria-hidden
           >
             <X className="size-4" strokeWidth={1.5} />
-            {t("swipe.hintPass")}
+            {t("hintPass")}
           </motion.span>
         </>
       )}

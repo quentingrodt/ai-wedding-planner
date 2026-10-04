@@ -71,7 +71,15 @@
       "hasAccount": "Déjà un compte ?",
       "loginLink": "Se connecter",
       "sentTitle": "Confirmez votre adresse",
-      "sentDescription": "Nous avons envoyé un lien de confirmation à {email}. Cliquez dessus pour accéder à votre espace."
+      "sentDescription": "Nous avons envoyé un lien de confirmation à {email}. Cliquez dessus pour accéder à votre espace.",
+      "project": {
+        "title": "Plus qu’une étape",
+        "subtitle": "Créez votre compte : votre projet vous attend, prêt à prendre vie.",
+        "label": "Votre projet",
+        "budget": "Budget",
+        "guests": "{count, plural, one {# invité} other {# invités}}",
+        "kept": "Vos réponses sont conservées et vous attendent dans votre espace."
+      }
     },
     "forgot": {
       "metaTitle": "Mot de passe oublié",
@@ -133,32 +141,40 @@
       "yourBudgetPerGuest": "Votre budget par invité",
       "marketPerGuest": "Moyenne constatée",
       "tipsTitle": "Nos deux astuces",
-      "disclaimer": "Estimation indicative fondée sur les moyennes du marché français.",
-      "cta": "Créer un compte pour adapter ce budget (C'est gratuit)"
+      "disclaimer": "Estimation indicative fondée sur les moyennes du marché français."
     },
     "errors": {
       "invalidInput": "Certaines valeurs semblent incorrectes. Ajustez-les puis réessayez.",
       "generic": "Nous n'avons pas pu analyser votre projet. Merci de réessayer."
     },
-    "swipe": {
-      "like": "J’aime ce choix",
-      "pass": "Passer ce choix",
-      "hintLike": "Coup de cœur",
-      "hintPass": "Pas pour nous",
-      "position": "Choix {current} sur {total}",
-      "keyboard": "Astuce : flèches ← et → du clavier",
-      "photoCredit": "Photo {author} · Unsplash",
-      "progress": "Étape {current} sur {total}",
-      "emptyVenue": {
-        "title": "Aucun lieu ne vous a séduits ?",
-        "body": "Il nous faut au moins un lieu pour estimer votre budget. Votre coup de cœur est peut-être passé un peu vite.",
-        "restart": "Revoir les lieux"
-      }
-    },
     "summary": {
       "label": "Votre inspiration",
       "edit": "Modifier",
       "none": "Pas de préférence"
+    },
+    "save": {
+      "eyebrow": "Votre projet est prêt",
+      "title": "Ne laissez pas filer ce que vous venez de construire",
+      "body": "Créez votre espace : vos réponses s’y installent aussitôt, et l’organisation commence pour de vrai.",
+      "budgetTitle": "Votre budget, déjà réparti",
+      "budgetNote": "Une première répartition, ajustable à tout moment.",
+      "others": "Autres postes",
+      "benefits": {
+        "timeline": {
+          "title": "Un rétroplanning mois par mois",
+          "body": "Chaque étape arrive au bon moment, de la réservation du lieu au plan de table."
+        },
+        "book": {
+          "title": "Votre carnet d’inspiration",
+          "body": "Lieu, cérémonie et repas déjà choisis. Tenues, desserts, voyage de noces : la suite vous attend."
+        },
+        "quotes": {
+          "title": "L’analyse de vos devis",
+          "body": "Déposez un devis : montants, acomptes et clauses sensibles vous sont restitués en clair."
+        }
+      },
+      "cta": "Sauvegarder notre projet",
+      "reassurance": "Création gratuite · Sans carte bancaire · Moins d’une minute"
     }
   },
   "RealityCheckAgent": {
@@ -249,7 +265,7 @@
       "invalidInput": "Certains champs sont à compléter.",
       "generic": "Nous n'avons pas pu créer votre projet. Merci de réessayer."
     },
-    "styleLegend": "Quelle ambiance vous ressemble ?"
+    "styleLegend": "Quelle ambiance vous ressemble ?"
   },
   "Dashboard": {
     "metaTitle": "Tableau de bord",
@@ -310,7 +326,14 @@
     "seatingLink": "Plan de table",
     "itineraryLink": "Le Jour J",
     "settingsLink": "Équipe",
-    "budgetLink": "Budget & prestataires"
+    "budgetLink": "Budget & prestataires",
+    "inspirationLink": "Inspiration",
+    "inspiration": {
+      "title": "Carnet d’inspiration",
+      "progress": "{done} sur {total} étapes",
+      "cta": "Continuer",
+      "ctaDone": "Voir mon carnet"
+    }
   },
   "Quotes": {
     "metaTitle": "Vos devis",
@@ -743,6 +766,51 @@
         "label": "Le repas",
         "title": "À table !",
         "subtitle": "Comment aimeriez-vous régaler vos invités ?"
+      },
+      "dessert": {
+        "label": "Les desserts",
+        "title": "Et pour finir en douceur ?",
+        "subtitle": "Le moment sucré que vos invités raconteront encore."
+      },
+      "transport": {
+        "label": "Le transport",
+        "title": "Votre arrivée",
+        "subtitle": "Comment rejoindre le lieu, et y emmener vos invités ?"
+      },
+      "honeymoon": {
+        "label": "Le voyage de noces",
+        "title": "Et après la fête ?",
+        "subtitle": "Le voyage qui prolongera le rêve."
+      },
+      "brideAttire": {
+        "label": "La mariée",
+        "title": "La tenue de la mariée",
+        "subtitle": "Une silhouette, une allure : gardez celles qui vous font vibrer."
+      },
+      "bridesmaids": {
+        "label": "Les demoiselles d’honneur",
+        "title": "Vos demoiselles d’honneur",
+        "subtitle": "Assorties, en camaïeu ou en toute liberté."
+      },
+      "bacheloretteParty": {
+        "label": "L’EVJF",
+        "title": "L’enterrement de vie de jeune fille",
+        "subtitle": "Des idées à glisser à vos témoins, pour une fête qui vous ressemble."
+      },
+      "groomAttire": {
+        "label": "Le marié",
+        "title": "La tenue du marié",
+        "subtitle": "Classique, décontracté ou audacieux ?"
+      },
+      "groomsmen": {
+        "label": "Les garçons d’honneur",
+        "title": "Vos garçons d’honneur",
+        "subtitle": "Le style qui accompagnera le marié."
+      },
+      "bachelorParty": {
+        "label": "L’EVG",
+        "title": "L’enterrement de vie de garçon",
+        "subtitle": "Des idées à glisser aux témoins, pour une fête qui lui ressemble."
       }
     },
     "options": {
@@ -806,7 +874,301 @@
           "description": "Cuisine de rue et esprit festival",
           "alt": "Food truck décoré de fleurs servant des invités en plein air"
         }
+      },
+      "dessert": {
+        "croquembouche": {
+          "name": "Pièce montée",
+          "description": "La tradition, en choux caramélisés",
+          "alt": "Pyramide de choux à la crème saupoudrés de sucre glace"
+        },
+        "tieredCake": {
+          "name": "Wedding cake",
+          "description": "Plusieurs étages et décor de fleurs",
+          "alt": "Gâteau de mariage blanc à quatre étages orné de fleurs"
+        },
+        "dessertBar": {
+          "name": "Bar à desserts",
+          "description": "Mignardises, macarons et gourmandises à volonté",
+          "alt": "Table de desserts dressée au milieu de compositions florales"
+        },
+        "nakedCake": {
+          "name": "Naked cake",
+          "description": "Génoise apparente, fruits et fleurs fraîches",
+          "alt": "Naked cake garni de fleurs fraîches"
+        }
+      },
+      "transport": {
+        "luxury": {
+          "name": "Voiture de luxe",
+          "description": "Une berline d’exception avec chauffeur",
+          "alt": "Berline noire de luxe décorée de fleurs"
+        },
+        "vintage": {
+          "name": "Voiture vintage",
+          "description": "Le charme d’une ancienne fleurie",
+          "alt": "Voiture ancienne blanche ornée d’un bouquet"
+        },
+        "carriage": {
+          "name": "Calèche",
+          "description": "Au pas des chevaux, comme dans un conte",
+          "alt": "Calèche décorée de tissus et de fleurs"
+        },
+        "shuttle": {
+          "name": "Navette pour les invités",
+          "description": "Un bus rétro pour que tout le monde suive",
+          "alt": "Bus vintage vert stationné dans une rue"
+        }
+      },
+      "honeymoon": {
+        "island": {
+          "name": "Île paradisiaque",
+          "description": "Lagon turquoise et villas sur pilotis",
+          "alt": "Villas sur pilotis au-dessus d’un lagon turquoise"
+        },
+        "roadTrip": {
+          "name": "Road trip",
+          "description": "La route, à deux, sans plan précis",
+          "alt": "Couple souriant en voiture au soleil couchant"
+        },
+        "cityBreak": {
+          "name": "City break culturel",
+          "description": "Rome, Lisbonne, Kyoto…",
+          "alt": "Couple en Vespa à side-car dans une rue de Rome"
+        },
+        "safari": {
+          "name": "Safari et aventure",
+          "description": "Grands espaces et nuits sous les étoiles",
+          "alt": "Jeep de safari observant des éléphants dans la savane"
+        }
+      },
+      "brideAttire": {
+        "princess": {
+          "name": "Robe princesse",
+          "description": "Jupon ample et allure de conte",
+          "alt": "Mariée en robe de bal à jupon ample"
+        },
+        "sheath": {
+          "name": "Robe fourreau",
+          "description": "Ligne épurée qui épouse la silhouette",
+          "alt": "Mariée en robe fourreau blanche et épurée"
+        },
+        "boho": {
+          "name": "Robe bohème",
+          "description": "Dentelle, fluidité et cheveux au vent",
+          "alt": "Mariée de dos en robe bohème en dentelle, en forêt"
+        },
+        "pantsuit": {
+          "name": "Tailleur pantalon",
+          "description": "Moderne, chic et assumé",
+          "alt": "Mariée en tailleur pantalon blanc, bouquet à la main"
+        }
+      },
+      "bridesmaids": {
+        "matching": {
+          "name": "Robes assorties",
+          "description": "La même robe pour toutes",
+          "alt": "Mariée entourée de ses demoiselles d’honneur en robes vert sauge assorties"
+        },
+        "mixMatch": {
+          "name": "Robes dépareillées",
+          "description": "Des coupes différentes, une même palette",
+          "alt": "Demoiselles d’honneur en robes de différentes nuances de vert sur la plage"
+        },
+        "pastel": {
+          "name": "Tons pastel",
+          "description": "Rose poudré, lavande, pêche",
+          "alt": "Mariée et demoiselles d’honneur en robes rose pâle"
+        },
+        "freeStyle": {
+          "name": "Tenues libres",
+          "description": "Chacune son style, et ses couleurs",
+          "alt": "Demoiselles d’honneur en robes colorées sous une arche fleurie"
+        }
+      },
+      "bacheloretteParty": {
+        "spa": {
+          "name": "Spa et détente",
+          "description": "Peignoirs, massages et bulles",
+          "alt": "Amies en peignoir trinquant lors d’une journée au spa"
+        },
+        "cityTrip": {
+          "name": "City trip festif",
+          "description": "Une ville, une nuit, mille souvenirs",
+          "alt": "Amies se promenant le soir dans une rue animée"
+        },
+        "workshop": {
+          "name": "Atelier gourmand ou créatif",
+          "description": "Cuisine, cocktails ou composition florale",
+          "alt": "Amies apprenant à faire des pâtes fraîches"
+        },
+        "poolParty": {
+          "name": "Week-end au soleil",
+          "description": "Piscine, maillots assortis et ballons",
+          "alt": "Amies en maillot de bain tenant des ballons « Bride » au bord d’une piscine"
+        }
+      },
+      "groomAttire": {
+        "threePiece": {
+          "name": "Costume trois-pièces",
+          "description": "Gilet, nœud papillon et élégance d’antan",
+          "alt": "Marié en costume trois-pièces et nœud papillon"
+        },
+        "tuxedo": {
+          "name": "Smoking",
+          "description": "Le noir absolu des grandes soirées",
+          "alt": "Marié en smoking noir"
+        },
+        "linen": {
+          "name": "Costume en lin",
+          "description": "Clair et léger, pour l’été",
+          "alt": "Marié en costume clair et léger"
+        },
+        "velvet": {
+          "name": "Velours ou couleur",
+          "description": "Une touche d’audace",
+          "alt": "Homme en veste de velours bordeaux et nœud papillon"
+        }
+      },
+      "groomsmen": {
+        "matching": {
+          "name": "Costumes assortis",
+          "description": "Une même ligne pour toute l’équipe",
+          "alt": "Garçons d’honneur de dos en costumes gris assortis"
+        },
+        "suspenders": {
+          "name": "Bretelles et nœud papillon",
+          "description": "Sans veste, l’esprit guinguette",
+          "alt": "Garçons d’honneur en chemise et bretelles"
+        },
+        "linen": {
+          "name": "Lin décontracté",
+          "description": "Tenues claires, pieds dans le sable",
+          "alt": "Garçons d’honneur en tenues claires sur la plage"
+        },
+        "accessory": {
+          "name": "Accessoire commun",
+          "description": "Boutonnière, cravate ou pochette identiques",
+          "alt": "Gros plan sur une boutonnière blanche"
+        }
+      },
+      "bachelorParty": {
+        "adventure": {
+          "name": "Aventure et nature",
+          "description": "Rafting, randonnée ou canyoning",
+          "alt": "Groupe d’amis en rafting sur une rivière"
+        },
+        "karting": {
+          "name": "Sensations mécaniques",
+          "description": "Karting, pilotage ou paintball",
+          "alt": "Karts sur une piste de course couverte"
+        },
+        "cityTrip": {
+          "name": "City trip festif",
+          "description": "Bars, concerts et nuit blanche",
+          "alt": "Amis trinquant au comptoir d’un bar"
+        },
+        "tasting": {
+          "name": "Dégustation",
+          "description": "Whisky, vins ou bières artisanales",
+          "alt": "Verres de dégustation de spiritueux alignés sur une table"
+        }
       }
+    },
+    "deck": {
+      "like": "J’aime ce choix",
+      "pass": "Passer ce choix",
+      "hintLike": "Coup de cœur",
+      "hintPass": "Pas pour nous",
+      "position": "Choix {current} sur {total}",
+      "keyboard": "Astuce : flèches ← et → du clavier",
+      "photoCredit": "Photo {author} · {source}",
+      "photoCreditAnonymous": "Photo · {source}",
+      "emptyVenue": {
+        "title": "Aucun lieu ne vous a séduits ?",
+        "body": "Il nous faut au moins un lieu pour estimer votre budget. Votre coup de cœur est peut-être passé un peu vite.",
+        "restart": "Revoir les lieux"
+      }
+    },
+    "book": {
+      "metaTitle": "Carnet d’inspiration",
+      "eyebrow": "Votre carnet",
+      "title": "Le carnet d’inspiration",
+      "intro": "Douze étapes pour dessiner l’identité de votre mariage. Chaque coup de cœur guidera votre rétroplanning et votre budget.",
+      "progress": "{done} sur {total} étapes",
+      "start": "Commencer mon carnet",
+      "continue": "Continuer mon carnet",
+      "todo": "À découvrir",
+      "noLikes": "Aucun coup de cœur",
+      "replay": "Rejouer l’étape",
+      "back": "Retour au carnet",
+      "dashboard": "Tableau de bord",
+      "stepOf": "Étape {current} sur {total}",
+      "readOnly": "Seuls les mariés peuvent compléter le carnet ; vous le consultez en lecture.",
+      "saveError": "Cette étape n’a pas pu être enregistrée. Merci de réessayer.",
+      "complete": {
+        "title": "Votre carnet est complet",
+        "body": "Toute votre inspiration est réunie : elle guidera chacune des prochaines étapes."
+      },
+      "play": "Découvrir l’étape",
+      "sections": {
+        "together": "Ensemble",
+        "her": "Pour elle",
+        "him": "Pour lui"
+      }
+    }
+  },
+  "Plan": {
+    "vendors": {
+      "venue": "Lieu de réception",
+      "catering": "Traiteur",
+      "honeymoon": "Voyage de noces",
+      "attire": "Tenues des mariés",
+      "photographer": "Photographe",
+      "videographer": "Vidéaste",
+      "florist": "Fleuriste",
+      "music": "DJ et musique",
+      "partyRental": "Location de matériel",
+      "rings": "Alliances",
+      "weddingCake": "Pièce montée et desserts",
+      "stationery": "Papeterie",
+      "transport": "Transport",
+      "officiant": "Officiant de cérémonie laïque",
+      "hairdresser": "Coiffure",
+      "makeup": "Maquillage",
+      "beauty": "Soins esthétiques",
+      "tech": "Outils et services en ligne"
+    },
+    "generate": {
+      "title": "Votre plan d’accompagnement",
+      "body": "Votre carnet est complet : Céleste rassemble vos coups de cœur pour vous proposer un plan concret et un budget réparti poste par poste.",
+      "cta": "Préparer notre plan",
+      "regenerate": "Préparer un nouveau plan",
+      "generating": "Céleste prépare votre plan…",
+      "incomplete": "Complétez les douze étapes du carnet pour recevoir votre plan d’accompagnement."
+    },
+    "errors": {
+      "unavailable": "La préparation du plan n’est pas encore disponible. Revenez très bientôt.",
+      "generic": "Le plan n’a pas pu être préparé. Merci de réessayer dans un instant.",
+      "incomplete": "Complétez d’abord les douze étapes du carnet.",
+      "noBudget": "Indiquez d’abord un budget pour votre mariage.",
+      "tooSoon": "Un plan vient d’être préparé. Patientez une minute avant d’en demander un nouveau.",
+      "forbidden": "Seuls les mariés peuvent préparer le plan.",
+      "unauthenticated": "Votre session a expiré. Reconnectez-vous pour préparer le plan."
+    },
+    "view": {
+      "eyebrow": "Votre plan",
+      "budgetTitle": "Votre budget, poste par poste",
+      "contingency": "Imprévus",
+      "total": "Budget total",
+      "lookFor": "À rechercher",
+      "when": "Quand",
+      "tip": "Pour tenir l’enveloppe",
+      "milestones": "Les grandes étapes",
+      "witnesses": "Pour vos témoins",
+      "bachelorette": "EVJF",
+      "bachelor": "EVG",
+      "preparedOn": "Préparé le {date}",
+      "disclaimer": "Montants indicatifs, répartis d’après les moyennes du marché et vos choix ; ajustez-les librement."
     }
   }
 }

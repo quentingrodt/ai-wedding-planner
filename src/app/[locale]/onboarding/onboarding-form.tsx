@@ -5,7 +5,7 @@ import { useActionState, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { StylePicker } from "@/app/[locale]/date-night/_components/style-picker";
+import { StylePicker } from "./style-picker";
 import type { WeddingStyle } from "@/lib/date-night/schema";
 import {
   ONBOARDING_BUDGET,
@@ -37,8 +37,9 @@ export function OnboardingForm({
     createWedding,
     initialState,
   );
+  // Pré-sélection : l'ambiance du Reality Check, sinon le premier lieu aimé au swipe.
   const [style, setStyle] = useState<WeddingStyle | null>(
-    handoff.style ?? null,
+    handoff.style ?? handoff.venue?.[0] ?? null,
   );
 
   const values = state.status === "error" ? state.values : undefined;

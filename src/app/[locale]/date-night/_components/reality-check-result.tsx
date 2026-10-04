@@ -1,9 +1,6 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import {
   DATE_NIGHT_CURRENCY,
@@ -12,7 +9,8 @@ import {
   type FeasibilityVerdict,
   type RealityCheckInsight,
 } from "@/lib/date-night/schema";
-import { DATE_NIGHT_STEPS, type DateNightLikes } from "@/lib/inspiration/catalog";
+import type { DateNightLikes } from "@/lib/inspiration/catalog";
+import { SaveProjectCta } from "./save-project-cta";
 
 const VERDICT_TONE: Record<FeasibilityVerdict, string> = {
   comfortable: "bg-sage-soft text-sage-deep",
@@ -102,33 +100,7 @@ export function RealityCheckResult({
         <p className="text-xs text-muted-foreground">{t("disclaimer")}</p>
       </article>
 
-      <Button
-        asChild
-        size="lg"
-        className="h-auto min-h-14 rounded-2xl px-6 py-4 text-base whitespace-normal shadow-sm"
-      >
-        {/* Le projet suit l'utilisateur jusqu'à l'onboarding (pré-remplissage). */}
-        <Link
-          href={{
-            pathname: "/signup",
-            query: {
-              budget: input.budget,
-              guests: input.guests,
-              style: input.style,
-              // Listes « a,b » (format du relais, cf. HANDOFF_KEYS).
-              ...Object.fromEntries(
-                DATE_NIGHT_STEPS.flatMap((step) => {
-                  const stepLikes = likes[step];
-                  return stepLikes?.length ? [[step, stepLikes.join(",")]] : [];
-                }),
-              ),
-            },
-          }}
-        >
-          {t("cta")}
-          <ArrowRight data-icon="inline-end" className="size-5" />
-        </Link>
-      </Button>
+      <SaveProjectCta input={input} likes={likes} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import type { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import type { BudgetCategory } from "@/lib/budget/schema";
+import { DEFAULT_BUDGET_SPLIT } from "@/lib/budget/schema";
 import type { TaskTemplateKey } from "@/lib/tasks/schema";
 import type { createClient } from "@/utils/supabase/client";
 import { addDaysToIsoDate } from "./dates";
@@ -18,13 +18,6 @@ const DEFAULT_TASKS = [
   { key: "send_invitations", offset: -120 },
   { key: "seating_plan", offset: -30 },
 ] as const satisfies readonly { key: TaskTemplateKey; offset: number }[];
-
-/** Répartition indicative du budget total, en part du total. */
-const DEFAULT_BUDGET_SPLIT = [
-  { category: "venue", share: 0.4 },
-  { category: "catering", share: 0.3 },
-  { category: "contingency", share: 0.1 },
-] as const satisfies readonly { category: BudgetCategory; share: number }[];
 
 type SeedableWedding = {
   id: string;

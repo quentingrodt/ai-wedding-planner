@@ -1,4 +1,5 @@
 import { ArrowRightIcon } from "lucide-react";
+import Image from "next/image";
 import type { Metadata } from "next";
 import type { Locale } from "next-intl";
 import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
@@ -6,6 +7,9 @@ import { SignOutButton } from "@/components/auth/sign-out-button";
 import { Toaster } from "@/components/ui/sonner";
 import { Link, redirect } from "@/i18n/navigation";
 import { summarizeBudget } from "@/lib/budget/schema";
+import { INSPIRATION_OPTIONS, INSPIRATION_STEPS } from "@/lib/inspiration/catalog";
+import { INSPIRATION_PHOTOS } from "@/lib/inspiration/photos";
+import { playedSteps } from "@/lib/inspiration/style-dna";
 import { isTaskTemplateKey } from "@/lib/tasks/schema";
 import { daysBetween, isoDateToUtc, todayIsoDate } from "@/lib/weddings/dates";
 import {
@@ -14,6 +18,7 @@ import {
   getCurrentUserId,
   getCurrentWedding,
   getUpcomingTasks,
+  getWeddingStyleDna,
 } from "@/lib/weddings/queries";
 import { createClient } from "@/utils/supabase/client";
 import { BudgetGauge } from "./_components/budget-gauge";
@@ -51,9 +56,10 @@ export default async function DashboardPage({
   const role = await getCurrentMemberRole(supabase, wedding.id, userId);
   const canSeeBudget = role === "owner" || role === "partner";
 
-  const [tasks, budgetItems, t, format] = await Promise.all([
+  const [tasks, budgetItems, styleDna, t, format] = await Promise.all([
     getUpcomingTasks(supabase, wedding.id, 5),
     canSeeBudget ? getBudgetItems(supabase, wedding.id) : Promise.resolve([]),
+    getWeddingStyleDna(supabase, wedding.id),
     getTranslations("Dashboard"),
     getFormatter(),
   ]);
@@ -88,6 +94,12 @@ export default async function DashboardPage({
         : t("countdown", { days: daysLeft });
   const needsAttention = timelineTasks.some((task) => task.overdue);
 
+  // Carnet d'inspiration : progression et photo du premier lieu aimé.
+  const inspirationDone = playedSteps(styleDna.likes).length;
+  const inspirationComplete = inspirationDone === INSPIRATION_STEPS.length;
+  const inspirationCover =
+    INSPIRATION_PHOTOS.venue[styleDna.likes.venue?.[0] ?? styleDna.ambiance ?? INSPIRATION_OPTIONS.venue[0]];
+
   const budgetSummary =
     !canSeeBudget || wedding.total_budget === null
       ? null
@@ -115,6 +127,7 @@ export default async function DashboardPage({
           <nav className="flex flex-wrap gap-2">
             {(
               [
+                { href: "/inspiration", label: t("inspirationLink") },
                 ...(canSeeBudget ? [{ href: "/budget", label: t("budgetLink") }] as const : []),
                 { href: "/guests", label: t("guestsLink") },
                 { href: "/seating", label: t("seatingLink") },
@@ -134,6 +147,39 @@ export default async function DashboardPage({
             ))}
           </nav>
         </header>
+
+        <Link
+          href="/inspiration"
+          className="group flex items-center gap-5 overflow-hidden rounded-2xl bg-card p-3 pr-6 ring-1 ring-border transition-shadow hover:shadow-[0_20px_50px_-30px_rgba(43,42,40,0.35)]"
+        >
+          <span className="relative h-24 w-20 shrink-0 overflow-hidden rounded-xl">
+            <Image
+              src={inspirationCover.src}
+              alt=""
+              fill
+              sizes="80px"
+              className="object-cover transition duration-700 group-hover:scale-105"
+            />
+          </span>
+          <span className="flex min-w-0 flex-1 flex-col gap-2">
+            <span className="font-serif text-xl leading-snug">{t("inspiration.title")}</span>
+            <span className="flex gap-1" aria-hidden>
+              {INSPIRATION_STEPS.map((step, i) => (
+                <span
+                  key={step}
+                  className={`h-0.5 flex-1 rounded-full ${i < inspirationDone ? "bg-terracotta" : "bg-sand"}`}
+                />
+              ))}
+            </span>
+            <span className="text-sm text-stone">
+              {t("inspiration.progress", { done: inspirationDone, total: INSPIRATION_STEPS.length })}
+            </span>
+          </span>
+          <span className="hidden items-center gap-2 text-sm font-medium text-sage-deep sm:inline-flex">
+            {inspirationComplete ? t("inspiration.ctaDone") : t("inspiration.cta")}
+            <ArrowRightIcon aria-hidden className="size-4 transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </Link>
 
         {canSeeBudget && (
           <BudgetGauge

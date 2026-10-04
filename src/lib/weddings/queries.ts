@@ -1,5 +1,11 @@
 import type { BudgetItem } from "@/lib/budget/schema";
 import type { Guest, GuestFamily } from "@/lib/guests/schema";
+import { readStyleDna, type StyleDna } from "@/lib/inspiration/style-dna";
+import {
+  planAllocationSchema,
+  weddingPlanSchema,
+  type StoredWeddingPlan,
+} from "@/lib/plan/schema";
 import { toTimeKey, type ItineraryEvent } from "@/lib/itinerary/schema";
 import type { Quote } from "@/lib/quotes/schema";
 import type { SeatedGuest, SeatingTable } from "@/lib/seating/schema";
@@ -51,6 +57,51 @@ export async function getCurrentWedding(
     ...data,
     total_budget: data.total_budget === null ? null : Number(data.total_budget),
   };
+}
+
+/** Style DNA du mariage (carnet d'inspiration), lu de façon tolérante. */
+export async function getWeddingStyleDna(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<StyleDna> {
+  const { data, error } = await supabase
+    .from("weddings")
+    .select("style_dna")
+    .eq("id", weddingId)
+    .single<{ style_dna: unknown }>();
+
+  if (error) {
+    console.error("[weddings] getWeddingStyleDna:", error.code);
+    throw new Error("Unable to load style DNA");
+  }
+  return readStyleDna(data.style_dna);
+}
+
+/**
+ * Dernier plan d'accompagnement (owner et partner uniquement, par la RLS).
+ * Tolérant : une erreur de lecture ou un plan illisible donnent null.
+ */
+export async function getLatestWeddingPlan(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<StoredWeddingPlan | null> {
+  const { data, error } = await supabase
+    .from("wedding_plans")
+    .select("plan, allocation, created_at")
+    .eq("wedding_id", weddingId)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle<{ plan: unknown; allocation: unknown; created_at: string }>();
+
+  if (error) {
+    console.error("[weddings] getLatestWeddingPlan:", error.code);
+    return null;
+  }
+  if (!data) return null;
+  const plan = weddingPlanSchema.safeParse(data.plan);
+  const allocation = planAllocationSchema.safeParse(data.allocation);
+  if (!plan.success || !allocation.success) return null;
+  return { plan: plan.data, allocation: allocation.data, createdAt: data.created_at };
 }
 
 /** Prochaines tâches à faire, de la plus urgente à la plus lointaine. */

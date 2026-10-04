@@ -4,11 +4,7 @@ import {
   GUESTS_RANGE,
   WEDDING_STYLES,
 } from "@/lib/date-night/schema";
-import {
-  INSPIRATION_OPTIONS,
-  inspirationLikesSchema,
-  type DateNightLikes,
-} from "@/lib/inspiration/catalog";
+import { INSPIRATION_OPTIONS, type DateNightLikes } from "@/lib/inspiration/catalog";
 
 // -----------------------------------------------------------------------------
 // Passage de relais Date Night → Login → Auth Callback → Onboarding
@@ -116,17 +112,7 @@ export const ONBOARDING_GUESTS = { min: 1, max: 2_000 } as const;
 export const DEFAULT_CURRENCY = "EUR";
 export const DEFAULT_COUNTRY = "FR";
 
-/**
- * "Style DNA" stocké en JSONB : versionné pour pouvoir l'enrichir sans
- * migration. v2 : ambiance principale + coups de cœur du swipe par étape
- * (v1 ne contenait que l'ambiance).
- */
-export const styleDnaSchema = z.object({
-  version: z.literal(2),
-  ambiance: z.enum(WEDDING_STYLES),
-  likes: inspirationLikesSchema,
-});
-export type StyleDna = z.infer<typeof styleDnaSchema>;
+export type { StyleDna } from "@/lib/inspiration/style-dna";
 
 /** Coups de cœur Date Night extraits du relais, prêts pour le Style DNA. */
 export function likesFromHandoff(handoff: Handoff): DateNightLikes {

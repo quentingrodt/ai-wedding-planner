@@ -6,10 +6,12 @@ import {
   DEFAULT_CURRENCY,
   HANDOFF_KEYS,
   parseHandoff,
+  toHandoffQuery,
 } from "@/lib/onboarding/schema";
 import { getCurrentUserId, getCurrentWedding } from "@/lib/weddings/queries";
 import { createClient } from "@/utils/supabase/client";
 import { OnboardingForm } from "./onboarding-form";
+import { RestoreProject } from "./restore-project";
 
 export async function generateMetadata({
   params,
@@ -48,6 +50,7 @@ export default async function OnboardingPage({
   }
 
   const t = await getTranslations("Onboarding");
+  const projectQuery = toHandoffQuery(handoff);
 
   return (
     <main className="flex flex-1 justify-center px-5 pt-14 pb-24 sm:px-6 sm:pt-20">
@@ -63,7 +66,11 @@ export default async function OnboardingPage({
             {t("intro")}
           </p>
         </header>
+        {/* URL sans projet : on tente de le retrouver dans le navigateur. */}
+        {!projectQuery && <RestoreProject />}
         <OnboardingForm
+          // key : le formulaire (valeurs par défaut, ambiance) se recrée si le projet est restauré.
+          key={projectQuery}
           handoff={handoff}
           currency={DEFAULT_CURRENCY}
           minDate={new Date().toISOString().slice(0, 10)}

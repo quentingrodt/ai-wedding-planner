@@ -71,7 +71,15 @@
       "hasAccount": "Already have an account?",
       "loginLink": "Log in",
       "sentTitle": "Confirm your address",
-      "sentDescription": "We sent a confirmation link to {email}. Click it to access your space."
+      "sentDescription": "We sent a confirmation link to {email}. Click it to access your space.",
+      "project": {
+        "title": "Just one step left",
+        "subtitle": "Create your account: your project is waiting, ready to come to life.",
+        "label": "Your project",
+        "budget": "Budget",
+        "guests": "{count, plural, one {# guest} other {# guests}}",
+        "kept": "Your answers are saved and waiting for you in your space."
+      }
     },
     "forgot": {
       "metaTitle": "Forgot password",
@@ -133,32 +141,40 @@
       "yourBudgetPerGuest": "Your budget per guest",
       "marketPerGuest": "Market average",
       "tipsTitle": "Our two tips",
-      "disclaimer": "Indicative estimate based on French market averages.",
-      "cta": "Create an account to tailor this budget (it's free)"
+      "disclaimer": "Indicative estimate based on French market averages."
     },
     "errors": {
       "invalidInput": "Some values look off. Adjust them and try again.",
       "generic": "We couldn't analyse your project. Please try again."
     },
-    "swipe": {
-      "like": "I love this one",
-      "pass": "Skip this one",
-      "hintLike": "Love it",
-      "hintPass": "Not for us",
-      "position": "Choice {current} of {total}",
-      "keyboard": "Tip: use the ← and → keys",
-      "photoCredit": "Photo {author} · Unsplash",
-      "progress": "Step {current} of {total}",
-      "emptyVenue": {
-        "title": "No venue won you over?",
-        "body": "We need at least one venue to estimate your budget. Your favourite may have slipped by a little fast.",
-        "restart": "See the venues again"
-      }
-    },
     "summary": {
       "label": "Your inspiration",
       "edit": "Edit",
       "none": "No preference"
+    },
+    "save": {
+      "eyebrow": "Your project is ready",
+      "title": "Don’t let what you just built slip away",
+      "body": "Create your space: your answers move in straight away, and the planning truly begins.",
+      "budgetTitle": "Your budget, already split",
+      "budgetNote": "A first split you can adjust at any time.",
+      "others": "Other items",
+      "benefits": {
+        "timeline": {
+          "title": "A month-by-month timeline",
+          "body": "Every step arrives at the right moment, from booking the venue to the seating plan."
+        },
+        "book": {
+          "title": "Your inspiration book",
+          "body": "Venue, ceremony and meal already chosen. Outfits, desserts, honeymoon: the rest awaits."
+        },
+        "quotes": {
+          "title": "Your quotes, analysed",
+          "body": "Drop in a quote: amounts, deposits and sensitive clauses are laid out clearly."
+        }
+      },
+      "cta": "Save our project",
+      "reassurance": "Free sign-up · No credit card · Under a minute"
     }
   },
   "RealityCheckAgent": {
@@ -310,7 +326,14 @@
     "seatingLink": "Seating plan",
     "itineraryLink": "The Big Day",
     "settingsLink": "Team",
-    "budgetLink": "Budget & vendors"
+    "budgetLink": "Budget & vendors",
+    "inspirationLink": "Inspiration",
+    "inspiration": {
+      "title": "Inspiration book",
+      "progress": "{done} of {total} steps",
+      "cta": "Continue",
+      "ctaDone": "View my book"
+    }
   },
   "Quotes": {
     "metaTitle": "Your quotes",
@@ -743,6 +766,51 @@
         "label": "The meal",
         "title": "Dinner is served!",
         "subtitle": "How would you love to treat your guests?"
+      },
+      "dessert": {
+        "label": "Desserts",
+        "title": "And for a sweet finish?",
+        "subtitle": "The sweet moment your guests will still be talking about."
+      },
+      "transport": {
+        "label": "Transport",
+        "title": "Your arrival",
+        "subtitle": "How will you reach the venue, and bring your guests along?"
+      },
+      "honeymoon": {
+        "label": "Honeymoon",
+        "title": "And after the party?",
+        "subtitle": "The trip that keeps the dream going."
+      },
+      "brideAttire": {
+        "label": "The bride",
+        "title": "The bride’s outfit",
+        "subtitle": "A silhouette, an allure: keep the ones that move you."
+      },
+      "bridesmaids": {
+        "label": "Bridesmaids",
+        "title": "Your bridesmaids",
+        "subtitle": "Matching, tonal or entirely free."
+      },
+      "bacheloretteParty": {
+        "label": "Hen party",
+        "title": "The hen party",
+        "subtitle": "Ideas to pass on to the bridesmaids, for a party that feels like her."
+      },
+      "groomAttire": {
+        "label": "The groom",
+        "title": "The groom’s outfit",
+        "subtitle": "Classic, relaxed or bold?"
+      },
+      "groomsmen": {
+        "label": "Groomsmen",
+        "title": "Your groomsmen",
+        "subtitle": "The style that will stand by the groom."
+      },
+      "bachelorParty": {
+        "label": "Stag party",
+        "title": "The stag party",
+        "subtitle": "Ideas to pass on to the best men, for a party that feels like him."
       }
     },
     "options": {
@@ -806,7 +874,301 @@
           "description": "Street food and festival spirit",
           "alt": "Flower-decorated food truck serving guests outdoors"
         }
+      },
+      "dessert": {
+        "croquembouche": {
+          "name": "Croquembouche",
+          "description": "French tradition in caramelised choux",
+          "alt": "Pyramid of cream puffs dusted with icing sugar"
+        },
+        "tieredCake": {
+          "name": "Wedding cake",
+          "description": "Several tiers and floral décor",
+          "alt": "Four-tier white wedding cake adorned with flowers"
+        },
+        "dessertBar": {
+          "name": "Dessert bar",
+          "description": "Petits fours, macarons and treats galore",
+          "alt": "Dessert table set among floral arrangements"
+        },
+        "nakedCake": {
+          "name": "Naked cake",
+          "description": "Bare sponge, fruit and fresh flowers",
+          "alt": "Naked cake topped with fresh flowers"
+        }
+      },
+      "transport": {
+        "luxury": {
+          "name": "Luxury car",
+          "description": "An exceptional saloon with chauffeur",
+          "alt": "Black luxury saloon decorated with flowers"
+        },
+        "vintage": {
+          "name": "Vintage car",
+          "description": "The charm of a classic, in bloom",
+          "alt": "White vintage car adorned with a bouquet"
+        },
+        "carriage": {
+          "name": "Horse carriage",
+          "description": "At a horse’s pace, like a fairytale",
+          "alt": "Carriage decorated with fabric and flowers"
+        },
+        "shuttle": {
+          "name": "Guest shuttle",
+          "description": "A retro bus so everyone comes along",
+          "alt": "Green vintage bus parked on a street"
+        }
+      },
+      "honeymoon": {
+        "island": {
+          "name": "Island paradise",
+          "description": "Turquoise lagoon and overwater villas",
+          "alt": "Overwater villas above a turquoise lagoon"
+        },
+        "roadTrip": {
+          "name": "Road trip",
+          "description": "The open road, just the two of you",
+          "alt": "Smiling couple in a car at sunset"
+        },
+        "cityBreak": {
+          "name": "Cultural city break",
+          "description": "Rome, Lisbon, Kyoto…",
+          "alt": "Couple on a sidecar Vespa in a Roman street"
+        },
+        "safari": {
+          "name": "Safari and adventure",
+          "description": "Wide open spaces and starry nights",
+          "alt": "Safari jeep watching elephants on the savannah"
+        }
+      },
+      "brideAttire": {
+        "princess": {
+          "name": "Ball gown",
+          "description": "Full skirt and fairytale allure",
+          "alt": "Bride in a full-skirted ball gown"
+        },
+        "sheath": {
+          "name": "Sheath dress",
+          "description": "A clean line that follows the figure",
+          "alt": "Bride in a sleek white sheath dress"
+        },
+        "boho": {
+          "name": "Boho dress",
+          "description": "Lace, flow and hair in the wind",
+          "alt": "Bride seen from behind in a lace boho dress, in a forest"
+        },
+        "pantsuit": {
+          "name": "Trouser suit",
+          "description": "Modern, chic and confident",
+          "alt": "Bride in a white trouser suit holding a bouquet"
+        }
+      },
+      "bridesmaids": {
+        "matching": {
+          "name": "Matching dresses",
+          "description": "The same dress for everyone",
+          "alt": "Bride surrounded by bridesmaids in matching sage green dresses"
+        },
+        "mixMatch": {
+          "name": "Mix and match",
+          "description": "Different cuts, one palette",
+          "alt": "Bridesmaids in different shades of green on the beach"
+        },
+        "pastel": {
+          "name": "Pastel tones",
+          "description": "Dusty pink, lavender, peach",
+          "alt": "Bride and bridesmaids in pale pink dresses"
+        },
+        "freeStyle": {
+          "name": "Free style",
+          "description": "Their own style, their own colours",
+          "alt": "Bridesmaids in colourful dresses under a floral arch"
+        }
+      },
+      "bacheloretteParty": {
+        "spa": {
+          "name": "Spa and unwind",
+          "description": "Bathrobes, massages and bubbles",
+          "alt": "Friends in bathrobes toasting during a spa day"
+        },
+        "cityTrip": {
+          "name": "Party city trip",
+          "description": "One city, one night, endless memories",
+          "alt": "Friends strolling down a lively street at night"
+        },
+        "workshop": {
+          "name": "Foodie or creative workshop",
+          "description": "Cooking, cocktails or flower arranging",
+          "alt": "Friends learning to make fresh pasta"
+        },
+        "poolParty": {
+          "name": "Sunny weekend",
+          "description": "Pool, matching swimsuits and balloons",
+          "alt": "Friends in swimsuits holding “Bride” balloons by a pool"
+        }
+      },
+      "groomAttire": {
+        "threePiece": {
+          "name": "Three-piece suit",
+          "description": "Waistcoat, bow tie and old-world style",
+          "alt": "Groom in a three-piece suit and bow tie"
+        },
+        "tuxedo": {
+          "name": "Tuxedo",
+          "description": "The deep black of grand evenings",
+          "alt": "Groom in a black tuxedo"
+        },
+        "linen": {
+          "name": "Linen suit",
+          "description": "Light and airy, for summer",
+          "alt": "Groom in a light, airy suit"
+        },
+        "velvet": {
+          "name": "Velvet or colour",
+          "description": "A touch of daring",
+          "alt": "Man in a burgundy velvet jacket and bow tie"
+        }
+      },
+      "groomsmen": {
+        "matching": {
+          "name": "Matching suits",
+          "description": "One look for the whole team",
+          "alt": "Groomsmen seen from behind in matching grey suits"
+        },
+        "suspenders": {
+          "name": "Braces and bow ties",
+          "description": "No jacket, garden-party spirit",
+          "alt": "Groomsmen in shirts and braces"
+        },
+        "linen": {
+          "name": "Relaxed linen",
+          "description": "Light outfits, toes in the sand",
+          "alt": "Groomsmen in light outfits on the beach"
+        },
+        "accessory": {
+          "name": "Shared accessory",
+          "description": "Matching buttonholes, ties or pocket squares",
+          "alt": "Close-up of a white buttonhole flower"
+        }
+      },
+      "bachelorParty": {
+        "adventure": {
+          "name": "Adventure and nature",
+          "description": "Rafting, hiking or canyoning",
+          "alt": "Group of friends rafting on a river"
+        },
+        "karting": {
+          "name": "Motor thrills",
+          "description": "Karting, track driving or paintball",
+          "alt": "Go-karts on an indoor race track"
+        },
+        "cityTrip": {
+          "name": "Party city trip",
+          "description": "Bars, gigs and an all-nighter",
+          "alt": "Friends toasting at a bar counter"
+        },
+        "tasting": {
+          "name": "Tasting",
+          "description": "Whisky, wine or craft beer",
+          "alt": "Spirit tasting glasses lined up on a table"
+        }
       }
+    },
+    "deck": {
+      "like": "I love this one",
+      "pass": "Skip this one",
+      "hintLike": "Love it",
+      "hintPass": "Not for us",
+      "position": "Choice {current} of {total}",
+      "keyboard": "Tip: use the ← and → keys",
+      "photoCredit": "Photo {author} · {source}",
+      "photoCreditAnonymous": "Photo · {source}",
+      "emptyVenue": {
+        "title": "No venue won you over?",
+        "body": "We need at least one venue to estimate your budget. Your favourite may have slipped by a little fast.",
+        "restart": "See the venues again"
+      }
+    },
+    "book": {
+      "metaTitle": "Inspiration book",
+      "eyebrow": "Your book",
+      "title": "The inspiration book",
+      "intro": "Twelve steps to shape your wedding’s identity. Every crush will guide your timeline and your budget.",
+      "progress": "{done} of {total} steps",
+      "start": "Start my book",
+      "continue": "Continue my book",
+      "todo": "To discover",
+      "noLikes": "No crush",
+      "replay": "Replay this step",
+      "back": "Back to the book",
+      "dashboard": "Dashboard",
+      "stepOf": "Step {current} of {total}",
+      "readOnly": "Only the couple can fill in the book; you are viewing it read-only.",
+      "saveError": "This step could not be saved. Please try again.",
+      "complete": {
+        "title": "Your book is complete",
+        "body": "All your inspiration is gathered: it will guide every next step."
+      },
+      "play": "Explore this step",
+      "sections": {
+        "together": "Together",
+        "her": "For her",
+        "him": "For him"
+      }
+    }
+  },
+  "Plan": {
+    "vendors": {
+      "venue": "Venue",
+      "catering": "Catering",
+      "honeymoon": "Honeymoon",
+      "attire": "Wedding outfits",
+      "photographer": "Photographer",
+      "videographer": "Videographer",
+      "florist": "Florist",
+      "music": "DJ and music",
+      "partyRental": "Equipment hire",
+      "rings": "Wedding rings",
+      "weddingCake": "Wedding cake and desserts",
+      "stationery": "Stationery",
+      "transport": "Transport",
+      "officiant": "Celebrant",
+      "hairdresser": "Hair",
+      "makeup": "Make-up",
+      "beauty": "Beauty treatments",
+      "tech": "Online tools and services"
+    },
+    "generate": {
+      "title": "Your planning companion",
+      "body": "Your book is complete: Céleste brings your crushes together into a concrete plan and a budget split item by item.",
+      "cta": "Prepare our plan",
+      "regenerate": "Prepare a new plan",
+      "generating": "Céleste is preparing your plan…",
+      "incomplete": "Complete all twelve steps of the book to receive your planning companion."
+    },
+    "errors": {
+      "unavailable": "Plan preparation isn’t available yet. Please check back very soon.",
+      "generic": "The plan could not be prepared. Please try again in a moment.",
+      "incomplete": "Please complete all twelve steps of the book first.",
+      "noBudget": "Please set a budget for your wedding first.",
+      "tooSoon": "A plan was just prepared. Please wait a minute before asking for a new one.",
+      "forbidden": "Only the couple can prepare the plan.",
+      "unauthenticated": "Your session has expired. Please sign in again to prepare the plan."
+    },
+    "view": {
+      "eyebrow": "Your plan",
+      "budgetTitle": "Your budget, item by item",
+      "contingency": "Contingency",
+      "total": "Total budget",
+      "lookFor": "What to look for",
+      "when": "When",
+      "tip": "Staying on budget",
+      "milestones": "Key milestones",
+      "witnesses": "For your witnesses",
+      "bachelorette": "Hen party",
+      "bachelor": "Stag party",
+      "preparedOn": "Prepared on {date}",
+      "disclaimer": "Indicative amounts, split from market averages and your choices; adjust them freely."
     }
   }
 }
