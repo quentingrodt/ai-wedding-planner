@@ -1,5 +1,6 @@
+import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { use } from "react";
 import {
   ArrowDown,
@@ -12,6 +13,7 @@ import {
 import { RevealInk } from "@/components/ink/reveal-ink";
 import { ScrollInk } from "@/components/ink/scroll-ink";
 import { Link } from "@/i18n/navigation";
+import { routing } from "@/i18n/routing";
 import type { Locale } from "next-intl";
 import {
   GlassesDrawing,
@@ -27,6 +29,34 @@ const PILLARS: { key: "planning" | "budget" | "quotes"; icon: LucideIcon }[] = [
 ];
 
 const ROMAN = ["I", "II", "III"];
+
+export async function generateMetadata({
+  params,
+}: PageProps<"/[locale]">): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale: locale as Locale, namespace: "Index" });
+  const title = t("metaTitle");
+  const description = t("metaDescription");
+
+  return {
+    title,
+    description,
+    // fr est servie sans préfixe (localePrefix: "as-needed").
+    alternates: {
+      canonical: locale === routing.defaultLocale ? "/" : `/${locale}`,
+      languages: Object.fromEntries(
+        routing.locales.map((l) => [l, l === routing.defaultLocale ? "/" : `/${l}`]),
+      ),
+    },
+    openGraph: {
+      title,
+      description,
+      siteName: "AI Wedding Planner",
+      locale,
+      type: "website",
+    },
+  };
+}
 
 export default function Home({ params }: PageProps<"/[locale]">) {
   const { locale } = use(params);
