@@ -4,6 +4,10 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
+  // Polices TTF lues par readFile dans la route d'export des faire-part.
+  outputFileTracingIncludes: {
+    "/api/invitations/image": ["./assets/fonts/**"],
+  },
   images: {
     // Photos du swipe d'inspiration (licences Unsplash et Pexels), toujours
     // demandées avec le même recadrage (voir src/lib/inspiration/photos.ts).

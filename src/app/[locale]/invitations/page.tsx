@@ -104,6 +104,7 @@ export default async function InvitationsPage({ params }: PageProps<"/[locale]/i
           initialDesign={design}
           canEdit={role === "owner" || role === "partner"}
           watermarked={!invitation?.unlockedAt}
+          saved={invitation !== null}
         />
       </div>
       <Toaster position="bottom-center" />

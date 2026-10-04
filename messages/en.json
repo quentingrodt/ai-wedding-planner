@@ -1320,12 +1320,18 @@
     "saved": "Invitation saved.",
     "unsaved": "Unsaved changes",
     "preview": "Preview",
-    "watermark": "Preview · Céleste",
     "errors": {
       "invalid": "Check your wording: names are required and some fields are too long.",
       "unauthenticated": "Your session has expired. Please sign in again to save.",
       "forbidden": "Only the couple can edit the invitation.",
       "generic": "The invitation could not be saved. Please try again."
+    },
+    "signature": "Made with Céleste",
+    "download": {
+      "image": "Download the image",
+      "imageHint": "Ideal for WhatsApp and Instagram, with a small “Made with Céleste” mention.",
+      "saveFirst": "Save your changes to download this version.",
+      "fileName": "wedding-invitation"
     }
   }
 }

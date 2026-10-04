@@ -1320,12 +1320,18 @@
     "saved": "Faire-part enregistré.",
     "unsaved": "Modifications non enregistrées",
     "preview": "Aperçu",
-    "watermark": "Aperçu · Céleste",
     "errors": {
       "invalid": "Vérifiez vos textes : les prénoms sont obligatoires et certains champs sont trop longs.",
       "unauthenticated": "Votre session a expiré. Reconnectez-vous pour enregistrer.",
       "forbidden": "Seuls les mariés peuvent modifier le faire-part.",
       "generic": "Le faire-part n’a pas pu être enregistré. Merci de réessayer."
+    },
+    "signature": "Créé avec Céleste",
+    "download": {
+      "image": "Télécharger l’image",
+      "imageHint": "Format idéal pour WhatsApp et Instagram, avec la mention « Créé avec Céleste ».",
+      "saveFirst": "Enregistrez vos modifications pour télécharger cette version.",
+      "fileName": "faire-part"
     }
   }
 }

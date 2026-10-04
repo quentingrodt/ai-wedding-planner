@@ -1,7 +1,7 @@
 "use client";
 
-import { CheckIcon, RefreshCwIcon } from "lucide-react";
-import { useMessages, useTranslations } from "next-intl";
+import { CheckIcon, DownloadIcon, RefreshCwIcon } from "lucide-react";
+import { useLocale, useMessages, useTranslations } from "next-intl";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
@@ -26,13 +26,22 @@ type InvitationEditorProps = {
   canEdit: boolean;
   /** Le faire-part n'est pas encore débloqué : l'aperçu porte un filigrane. */
   watermarked: boolean;
+  /** Un design est déjà enregistré (l'export lit la version enregistrée). */
+  saved: boolean;
 };
 
 const FIELDS = ["names", "intro", "dateText", "time", "venue", "address", "rsvpNote"] as const;
 
 /** Éditeur du faire-part : réglages à gauche, aperçu en direct à droite. */
-export function InvitationEditor({ initialDesign, canEdit, watermarked }: InvitationEditorProps) {
+export function InvitationEditor({
+  initialDesign,
+  canEdit,
+  watermarked,
+  saved,
+}: InvitationEditorProps) {
   const t = useTranslations("Invitations");
+  const locale = useLocale();
+  const [hasSaved, setHasSaved] = useState(saved);
   const suggestions = useMessages().Invitations.introSuggestions as string[];
   const [design, setDesign] = useState(initialDesign);
   const [savedDesign, setSavedDesign] = useState(initialDesign);
@@ -62,12 +71,13 @@ export function InvitationEditor({ initialDesign, canEdit, watermarked }: Invita
         return;
       }
       setSavedDesign(design);
+      setHasSaved(true);
       toast.success(t("saved"));
     });
   }
 
   const preview = (
-    <Preview design={design} watermark={watermarked ? t("watermark") : undefined} />
+    <Preview design={design} watermark={watermarked ? t("signature") : undefined} />
   );
 
   if (!canEdit) {
@@ -213,7 +223,40 @@ export function InvitationEditor({ initialDesign, canEdit, watermarked }: Invita
             {pending ? t("saving") : t("save")}
           </button>
         </div>
+        {/* L'export lit la version enregistrée : il attend que tout soit enregistré. */}
+        <DownloadImage
+          href={`/api/invitations/image?locale=${locale}`}
+          ready={hasSaved && !dirty}
+        />
       </div>
+    </div>
+  );
+}
+
+function DownloadImage({ href, ready }: { href: string; ready: boolean }) {
+  const t = useTranslations("Invitations");
+
+  return (
+    <div className="flex flex-col gap-2 rounded-2xl bg-linen/70 p-4">
+      {ready ? (
+        <a
+          href={href}
+          download
+          className="inline-flex h-10 w-fit items-center gap-2 rounded-full bg-card px-4 text-sm font-medium text-sage-deep ring-1 ring-sage/40 transition-colors hover:bg-sage-soft"
+        >
+          <DownloadIcon aria-hidden className="size-4" strokeWidth={1.5} />
+          {t("download.image")}
+        </a>
+      ) : (
+        <span
+          aria-disabled
+          className="inline-flex h-10 w-fit items-center gap-2 rounded-full bg-card/60 px-4 text-sm text-stone ring-1 ring-border"
+        >
+          <DownloadIcon aria-hidden className="size-4" strokeWidth={1.5} />
+          {t("download.image")}
+        </span>
+      )}
+      <p className="text-xs leading-5 text-stone">{ready ? t("download.imageHint") : t("download.saveFirst")}</p>
     </div>
   );
 }
