@@ -1,6 +1,7 @@
 import type { BudgetItem } from "@/lib/budget/schema";
 import type { Guest, GuestFamily } from "@/lib/guests/schema";
 import { readStyleDna, type StyleDna } from "@/lib/inspiration/style-dna";
+import { invitationDesignSchema, type InvitationDesign } from "@/lib/invitations/schema";
 import {
   planAllocationSchema,
   weddingPlanSchema,
@@ -102,6 +103,30 @@ export async function getLatestWeddingPlan(
   const allocation = planAllocationSchema.safeParse(data.allocation);
   if (!plan.success || !allocation.success) return null;
   return { plan: plan.data, allocation: allocation.data, createdAt: data.created_at };
+}
+
+/**
+ * Faire-part enregistré du mariage, ou null s'il n'existe pas encore.
+ * Tolérant : une erreur de lecture ou un design illisible donnent null
+ * (l'éditeur repart alors du design suggéré).
+ */
+export async function getInvitation(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<{ design: InvitationDesign; unlockedAt: string | null } | null> {
+  const { data, error } = await supabase
+    .from("invitations")
+    .select("design, unlocked_at")
+    .eq("wedding_id", weddingId)
+    .maybeSingle<{ design: unknown; unlocked_at: string | null }>();
+
+  if (error) {
+    console.error("[weddings] getInvitation:", error.code);
+    return null;
+  }
+  if (!data) return null;
+  const design = invitationDesignSchema.safeParse(data.design);
+  return design.success ? { design: design.data, unlockedAt: data.unlocked_at } : null;
 }
 
 /** Prochaines tâches à faire, de la plus urgente à la plus lointaine. */

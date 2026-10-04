@@ -1,0 +1,289 @@
+"use client";
+
+import { CheckIcon, RefreshCwIcon } from "lucide-react";
+import { useMessages, useTranslations } from "next-intl";
+import { useEffect, useRef, useState, useTransition } from "react";
+import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { InvitationCard } from "@/lib/invitations/card";
+import {
+  INVITATION_FONTS,
+  INVITATION_LIMITS,
+  INVITATION_PALETTES,
+  INVITATION_TEMPLATES,
+  PALETTE_KEYS,
+  type InvitationContent,
+  type InvitationDesign,
+} from "@/lib/invitations/schema";
+import { cn } from "@/lib/utils";
+import { saveInvitation } from "../actions";
+import { BROWSER_FAMILIES } from "./fonts";
+
+type InvitationEditorProps = {
+  initialDesign: InvitationDesign;
+  /** Owner ou partner. */
+  canEdit: boolean;
+  /** Le faire-part n'est pas encore débloqué : l'aperçu porte un filigrane. */
+  watermarked: boolean;
+};
+
+const FIELDS = ["names", "intro", "dateText", "time", "venue", "address", "rsvpNote"] as const;
+
+/** Éditeur du faire-part : réglages à gauche, aperçu en direct à droite. */
+export function InvitationEditor({ initialDesign, canEdit, watermarked }: InvitationEditorProps) {
+  const t = useTranslations("Invitations");
+  const suggestions = useMessages().Invitations.introSuggestions as string[];
+  const [design, setDesign] = useState(initialDesign);
+  const [savedDesign, setSavedDesign] = useState(initialDesign);
+  const [pending, startTransition] = useTransition();
+  const dirty = JSON.stringify(design) !== JSON.stringify(savedDesign);
+
+  const set = <K extends keyof InvitationDesign>(key: K, value: InvitationDesign[K]) =>
+    setDesign((current) => ({ ...current, [key]: value }));
+  const setText = (field: keyof InvitationContent, value: string) =>
+    setDesign((current) => ({ ...current, content: { ...current.content, [field]: value } }));
+
+  function nextIntro() {
+    const index = suggestions.indexOf(design.content.intro);
+    setText("intro", suggestions[(index + 1) % suggestions.length]);
+  }
+
+  function save() {
+    startTransition(async () => {
+      let result: Awaited<ReturnType<typeof saveInvitation>>;
+      try {
+        result = await saveInvitation(design);
+      } catch {
+        result = { ok: false, error: "generic" };
+      }
+      if (!result.ok) {
+        toast.error(t(`errors.${result.error}`));
+        return;
+      }
+      setSavedDesign(design);
+      toast.success(t("saved"));
+    });
+  }
+
+  const preview = (
+    <Preview design={design} watermark={watermarked ? t("watermark") : undefined} />
+  );
+
+  if (!canEdit) {
+    return (
+      <div className="flex flex-col items-center gap-6">
+        <p className="w-full rounded-3xl bg-linen px-6 py-5 text-stone">{t("readOnly")}</p>
+        <div className="w-full max-w-md">{preview}</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-start">
+      <div className="flex flex-col gap-10">
+        <Section title={t("sections.template")}>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {INVITATION_TEMPLATES.map((template) => (
+              <OptionButton
+                key={template}
+                selected={design.template === template}
+                onClick={() => set("template", template)}
+                label={t(`templates.${template}`)}
+              >
+                <div className="pointer-events-none overflow-hidden rounded-lg ring-1 ring-border">
+                  <InvitationCard
+                    design={{ ...design, template }}
+                    width={140}
+                    families={BROWSER_FAMILIES}
+                  />
+                </div>
+              </OptionButton>
+            ))}
+          </div>
+        </Section>
+
+        <Section title={t("sections.palette")}>
+          <div className="flex flex-wrap gap-3">
+            {PALETTE_KEYS.map((key) => {
+              const palette = INVITATION_PALETTES[key];
+              const selected = design.palette === key;
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  aria-pressed={selected}
+                  onClick={() => set("palette", key)}
+                  className={cn(
+                    "inline-flex items-center gap-2.5 rounded-full py-1.5 pr-4 pl-1.5 text-sm ring-1 transition",
+                    selected ? "bg-card ring-2 ring-terracotta" : "bg-card/60 ring-border hover:ring-sand",
+                  )}
+                >
+                  <span
+                    aria-hidden
+                    className="flex size-7 items-center justify-center rounded-full ring-1 ring-black/5"
+                    style={{ backgroundColor: palette.paper }}
+                  >
+                    <span className="size-3.5 rounded-full" style={{ backgroundColor: palette.accent }} />
+                  </span>
+                  {t(`palettes.${key}`)}
+                </button>
+              );
+            })}
+          </div>
+        </Section>
+
+        <Section title={t("sections.fonts")}>
+          <div className="grid grid-cols-3 gap-3">
+            {INVITATION_FONTS.map((fonts) => (
+              <OptionButton
+                key={fonts}
+                selected={design.fonts === fonts}
+                onClick={() => set("fonts", fonts)}
+                label={t(`fonts.${fonts}`)}
+              >
+                <span
+                  aria-hidden
+                  className="flex h-16 items-center justify-center rounded-lg bg-linen/60 text-3xl"
+                  style={{
+                    fontFamily:
+                      fonts === "script"
+                        ? BROWSER_FAMILIES.script
+                        : fonts === "romantic"
+                          ? BROWSER_FAMILIES.cormorant
+                          : BROWSER_FAMILIES.playfair,
+                    fontStyle: fonts === "romantic" ? "italic" : "normal",
+                  }}
+                >
+                  Aa
+                </span>
+              </OptionButton>
+            ))}
+          </div>
+        </Section>
+
+        <Section title={t("sections.texts")}>
+          <div className="flex flex-col gap-5">
+            {FIELDS.map((field) => (
+              <div key={field} className="flex flex-col gap-2">
+                <div className="flex items-baseline justify-between gap-3">
+                  <Label htmlFor={`invitation-${field}`}>{t(`fields.${field}`)}</Label>
+                  {field === "intro" && (
+                    <button
+                      type="button"
+                      onClick={nextIntro}
+                      className="inline-flex items-center gap-1.5 text-xs text-sage-deep underline decoration-sage/40 underline-offset-4 hover:decoration-sage-deep"
+                    >
+                      <RefreshCwIcon aria-hidden className="size-3" strokeWidth={1.5} />
+                      {t("otherIntro")}
+                    </button>
+                  )}
+                </div>
+                <Input
+                  id={`invitation-${field}`}
+                  value={design.content[field]}
+                  maxLength={INVITATION_LIMITS[field]}
+                  onChange={(event) => setText(field, event.target.value)}
+                  placeholder={
+                    field === "time" || field === "venue" || field === "address"
+                      ? t(`placeholders.${field}`)
+                      : undefined
+                  }
+                  required={field === "names"}
+                  className="h-11 rounded-xl bg-card text-base"
+                />
+              </div>
+            ))}
+          </div>
+        </Section>
+      </div>
+
+      {/* Aperçu : en tête sur mobile, collant à droite sur grand écran */}
+      <div className="order-first flex flex-col gap-4 lg:sticky lg:top-8 lg:order-none">
+        <p className="text-xs font-medium tracking-[0.2em] text-stone uppercase">{t("preview")}</p>
+        {preview}
+        <div className="flex items-center justify-between gap-4">
+          <span className="text-sm text-stone">{dirty ? t("unsaved") : null}</span>
+          <button
+            type="button"
+            onClick={save}
+            disabled={pending || !dirty || design.content.names.trim() === ""}
+            className="inline-flex h-11 items-center gap-2 rounded-full bg-terracotta px-6 text-sm font-medium text-primary-foreground shadow-[0_10px_30px_-12px_rgba(169,83,58,0.6)] transition-colors hover:bg-[#93462f] disabled:opacity-60 disabled:shadow-none"
+          >
+            {pending ? t("saving") : t("save")}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className="flex flex-col gap-4">
+      <h2 className="font-serif text-2xl">{title}</h2>
+      {children}
+    </section>
+  );
+}
+
+function OptionButton({
+  selected,
+  onClick,
+  label,
+  children,
+}: {
+  selected: boolean;
+  onClick: () => void;
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      aria-pressed={selected}
+      onClick={onClick}
+      className={cn(
+        "relative flex flex-col gap-2 rounded-2xl p-2 text-left text-sm transition",
+        selected ? "bg-card ring-2 ring-terracotta" : "ring-1 ring-border hover:ring-sand",
+      )}
+    >
+      {children}
+      <span className="px-1 pb-1">{label}</span>
+      {selected && (
+        <span className="absolute top-3.5 right-3.5 flex size-6 items-center justify-center rounded-full bg-terracotta text-ivory">
+          <CheckIcon aria-hidden className="size-3.5" strokeWidth={2} />
+        </span>
+      )}
+    </button>
+  );
+}
+
+/** Aperçu à la largeur du conteneur (le rendu est proportionnel à sa largeur). */
+function Preview({ design, watermark }: { design: InvitationDesign; watermark?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new ResizeObserver(([entry]) => setWidth(Math.floor(entry.contentRect.width)));
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="w-full">
+      {width > 0 && (
+        <div className="overflow-hidden rounded-sm shadow-[0_30px_60px_-30px_rgba(43,42,40,0.45)]">
+          <InvitationCard
+            design={design}
+            width={width}
+            families={BROWSER_FAMILIES}
+            watermark={watermark}
+          />
+        </div>
+      )}
+    </div>
+  );
+}

@@ -334,7 +334,8 @@
       "progress": "{done} sur {total} étapes",
       "cta": "Continuer",
       "ctaDone": "Voir mon carnet"
-    }
+    },
+    "invitationsLink": "Faire-part"
   },
   "Quotes": {
     "metaTitle": "Vos devis",
@@ -1255,6 +1256,76 @@
       "unchanged": "Cette échéance est déjà à cette date.",
       "invalid": "Cette date n’est pas valide.",
       "error": "La date n’a pas pu être mise à jour. Merci de réessayer."
+    }
+  },
+  "Invitations": {
+    "metaTitle": "Votre faire-part",
+    "back": "Tableau de bord",
+    "eyebrow": "Faire-part",
+    "title": "Votre faire-part, déjà à votre image",
+    "intro": "Céleste l’a composé d’après votre carnet d’inspiration. Ajustez le modèle, les couleurs et les textes : l’aperçu suit chacun de vos choix.",
+    "readOnly": "Seuls les mariés peuvent modifier le faire-part ; vous le consultez en lecture.",
+    "sections": {
+      "template": "Le modèle",
+      "palette": "Les couleurs",
+      "fonts": "La typographie",
+      "texts": "Les textes"
+    },
+    "templates": {
+      "classic": "Gravure classique",
+      "garden": "Jardin d’olivier",
+      "seaside": "Bord de mer",
+      "loft": "Verrière"
+    },
+    "palettes": {
+      "terracotta": "Terracotta",
+      "sage": "Sauge",
+      "sand": "Sable",
+      "mist": "Brume",
+      "ink": "Encre"
+    },
+    "fonts": {
+      "editorial": "Éditoriale",
+      "romantic": "Romantique",
+      "script": "Calligraphiée"
+    },
+    "fields": {
+      "names": "Vos prénoms",
+      "intro": "Phrase d’invitation",
+      "dateText": "Date",
+      "time": "Heure",
+      "venue": "Lieu",
+      "address": "Adresse",
+      "rsvpNote": "Mention de réponse"
+    },
+    "placeholders": {
+      "time": "à seize heures",
+      "venue": "Domaine des Tilleuls",
+      "address": "Route des Vignes, 21200 Beaune"
+    },
+    "otherIntro": "Autre formulation",
+    "defaults": {
+      "intro": "ont la joie de vous convier à la célébration de leur mariage",
+      "rsvpNote": "Réponse souhaitée avant le {date}",
+      "rsvpNoteNoDate": "Merci de nous confirmer votre présence"
+    },
+    "introSuggestions": [
+      "ont la joie de vous convier à la célébration de leur mariage",
+      "seraient heureux de vous compter parmi eux pour célébrer leur union",
+      "vous invitent à partager la joie de leur mariage",
+      "se disent oui et aimeraient vous avoir à leurs côtés"
+    ],
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "saved": "Faire-part enregistré.",
+    "unsaved": "Modifications non enregistrées",
+    "preview": "Aperçu",
+    "watermark": "Aperçu · Céleste",
+    "errors": {
+      "invalid": "Vérifiez vos textes : les prénoms sont obligatoires et certains champs sont trop longs.",
+      "unauthenticated": "Votre session a expiré. Reconnectez-vous pour enregistrer.",
+      "forbidden": "Seuls les mariés peuvent modifier le faire-part.",
+      "generic": "Le faire-part n’a pas pu être enregistré. Merci de réessayer."
     }
   }
 }

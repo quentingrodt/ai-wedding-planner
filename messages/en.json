@@ -334,7 +334,8 @@
       "progress": "{done} of {total} steps",
       "cta": "Continue",
       "ctaDone": "View my book"
-    }
+    },
+    "invitationsLink": "Invitation"
   },
   "Quotes": {
     "metaTitle": "Your quotes",
@@ -1255,6 +1256,76 @@
       "unchanged": "This task is already due on that date.",
       "invalid": "This date isn’t valid.",
       "error": "The date could not be updated. Please try again."
+    }
+  },
+  "Invitations": {
+    "metaTitle": "Your invitation",
+    "back": "Dashboard",
+    "eyebrow": "Invitation",
+    "title": "Your invitation, already made in your image",
+    "intro": "Céleste composed it from your inspiration book. Adjust the template, colours and wording: the preview follows every choice.",
+    "readOnly": "Only the couple can edit the invitation; you are viewing it read-only.",
+    "sections": {
+      "template": "Template",
+      "palette": "Colours",
+      "fonts": "Typography",
+      "texts": "Wording"
+    },
+    "templates": {
+      "classic": "Classic engraving",
+      "garden": "Olive garden",
+      "seaside": "Seaside",
+      "loft": "Glasshouse"
+    },
+    "palettes": {
+      "terracotta": "Terracotta",
+      "sage": "Sage",
+      "sand": "Sand",
+      "mist": "Mist",
+      "ink": "Ink"
+    },
+    "fonts": {
+      "editorial": "Editorial",
+      "romantic": "Romantic",
+      "script": "Calligraphy"
+    },
+    "fields": {
+      "names": "Your names",
+      "intro": "Invitation line",
+      "dateText": "Date",
+      "time": "Time",
+      "venue": "Venue",
+      "address": "Address",
+      "rsvpNote": "RSVP note"
+    },
+    "placeholders": {
+      "time": "at four o’clock",
+      "venue": "The Linden Estate",
+      "address": "Vineyard Road, Beaune, France"
+    },
+    "otherIntro": "Another wording",
+    "defaults": {
+      "intro": "joyfully invite you to celebrate their wedding",
+      "rsvpNote": "Kindly reply by {date}",
+      "rsvpNoteNoDate": "Kindly let us know if you can join us"
+    },
+    "introSuggestions": [
+      "joyfully invite you to celebrate their wedding",
+      "would be delighted to have you with them as they marry",
+      "invite you to share in the joy of their wedding",
+      "are saying yes and would love you by their side"
+    ],
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Invitation saved.",
+    "unsaved": "Unsaved changes",
+    "preview": "Preview",
+    "watermark": "Preview · Céleste",
+    "errors": {
+      "invalid": "Check your wording: names are required and some fields are too long.",
+      "unauthenticated": "Your session has expired. Please sign in again to save.",
+      "forbidden": "Only the couple can edit the invitation.",
+      "generic": "The invitation could not be saved. Please try again."
     }
   }
 }

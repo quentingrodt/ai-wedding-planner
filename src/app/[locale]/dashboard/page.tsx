@@ -131,6 +131,7 @@ export default async function DashboardPage({
                 { href: "/inspiration", label: t("inspirationLink") },
                 ...(canSeeBudget ? [{ href: "/budget", label: t("budgetLink") }] as const : []),
                 { href: "/guests", label: t("guestsLink") },
+                { href: "/invitations", label: t("invitationsLink") },
                 { href: "/seating", label: t("seatingLink") },
                 { href: "/itinerary", label: t("itineraryLink") },
                 { href: "/quotes", label: t("quotesLink") },
