@@ -9,8 +9,16 @@ import {
   Wallet,
   type LucideIcon,
 } from "lucide-react";
+import { RevealInk } from "@/components/ink/reveal-ink";
+import { ScrollInk } from "@/components/ink/scroll-ink";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "next-intl";
+import {
+  GlassesDrawing,
+  NotebookDrawing,
+} from "./_components/line-drawings";
+import { PaperPlaneFlight } from "./_components/paper-plane-flight";
+import { TableDrawing } from "./_components/table-drawing";
 
 const PILLARS: { key: "planning" | "budget" | "quotes"; icon: LucideIcon }[] = [
   { key: "planning", icon: CalendarRange },
@@ -44,29 +52,30 @@ export default function Home({ params }: PageProps<"/[locale]">) {
 
       <main className="flex flex-1 flex-col">
         {/* Hero éditorial */}
-        <section className="relative mx-auto w-full max-w-6xl px-6 pt-16 pb-24 sm:px-10 sm:pt-24 sm:pb-36">
-          <div className="flex items-center gap-4">
-            <span className="h-px w-10 bg-terracotta" aria-hidden />
-            <p className="text-xs font-medium tracking-[0.25em] text-terracotta uppercase">
-              {t("eyebrow")}
-            </p>
-          </div>
+        <section className="relative mx-auto grid w-full max-w-6xl gap-16 px-6 pt-16 pb-24 sm:px-10 sm:pt-20 sm:pb-32 lg:grid-cols-12 lg:items-center lg:gap-10">
+          <div className="flex flex-col lg:col-span-7">
+            <div className="flex items-center gap-4">
+              <span className="h-px w-10 bg-terracotta" aria-hidden />
+              <p className="text-xs font-medium tracking-[0.25em] text-terracotta uppercase">
+                {t("eyebrow")}
+              </p>
+            </div>
 
-          <h1 className="mt-10 max-w-5xl text-[2.75rem] leading-[1.05] tracking-tight text-balance sm:text-7xl lg:text-[6.5rem]">
-            {t.rich("title", {
-              em: (chunks) => (
-                <em className="block font-normal text-stone italic">{chunks}</em>
-              ),
-            })}
-          </h1>
+            <h1 className="mt-10 text-[2.75rem] leading-[1.05] tracking-tight text-balance sm:text-7xl xl:text-[5.5rem]">
+              {t.rich("title", {
+                em: (chunks) => (
+                  <em className="block font-normal text-stone italic">{chunks}</em>
+                ),
+              })}
+            </h1>
 
-          <div className="mt-14 grid gap-12 sm:mt-20 lg:grid-cols-12">
-            <p className="text-lg leading-8 text-stone sm:text-xl sm:leading-9 lg:col-span-5 lg:col-start-8 lg:border-l lg:border-sand lg:pl-10">
+            <p className="mt-12 max-w-md border-l border-sand pl-8 text-lg leading-8 text-stone sm:text-xl sm:leading-9">
               {t("subtitle")}
             </p>
+
             <a
               href="#carrefour"
-              className="inline-flex items-center gap-3 self-end text-sm font-medium tracking-wide transition-colors hover:text-terracotta lg:col-span-4 lg:col-start-1 lg:row-start-1"
+              className="mt-12 inline-flex items-center gap-3 self-start text-sm font-medium tracking-wide transition-colors hover:text-terracotta"
             >
               <span className="flex size-10 items-center justify-center rounded-full border border-sand">
                 <ArrowDown className="size-4" strokeWidth={1.25} aria-hidden />
@@ -74,15 +83,32 @@ export default function Home({ params }: PageProps<"/[locale]">) {
               {t("heroCta")}
             </a>
           </div>
+
+          {/* Dessin au trait : la table se dresse d’elle-même à l’apparition */}
+          <RevealInk
+            className="relative mx-auto w-full max-w-sm lg:col-span-5 lg:max-w-none"
+          >
+            <div
+              className="absolute inset-0 translate-x-3 -translate-y-3 rounded-t-full border border-sand"
+              aria-hidden
+            />
+            <div className="relative aspect-[4/5] rounded-t-full bg-linen/70 px-6 pt-6 text-charcoal/85">
+              <TableDrawing label={t("illustrationTable")} />
+            </div>
+          </RevealInk>
         </section>
 
         {/* Les trois piliers */}
-        <section className="border-y border-sand/70 bg-linen/60">
+        <section className="overflow-hidden border-y border-sand/70 bg-linen/60">
           <div className="mx-auto w-full max-w-6xl px-6 py-20 sm:px-10 sm:py-28">
             <p className="text-xs font-medium tracking-[0.25em] text-stone uppercase">
               {t("pillarsEyebrow")}
             </p>
-            <ul className="mt-14 grid gap-14 md:grid-cols-3 md:gap-0">
+            {/* Le ciel de l'avion en papier : une bande réservée, sans texte */}
+            <div className="mt-8 aspect-[6/1] w-full">
+              <PaperPlaneFlight />
+            </div>
+            <ul className="mt-8 grid gap-14 md:grid-cols-3 md:gap-0">
               {PILLARS.map(({ key, icon: Icon }, i) => (
                 <li
                   key={key}
@@ -128,7 +154,10 @@ export default function Home({ params }: PageProps<"/[locale]">) {
               <p className="font-serif text-sm text-sage-deep italic">
                 {t("dateNight.label")}
               </p>
-              <h3 className="mt-8 text-3xl leading-tight tracking-tight sm:text-4xl">
+              <ScrollInk distance={0.55} className="mt-6 h-32 w-full max-w-60 text-charcoal/85 sm:h-36">
+                <GlassesDrawing label={t("illustrationGlasses")} />
+              </ScrollInk>
+              <h3 className="mt-6 text-3xl leading-tight tracking-tight sm:text-4xl">
                 {t("dateNight.title")}
               </h3>
               <p className="mt-5 max-w-sm leading-7 text-stone">{t("dateNight.body")}</p>
@@ -151,7 +180,10 @@ export default function Home({ params }: PageProps<"/[locale]">) {
               <p className="font-serif text-sm text-terracotta italic">
                 {t("organize.label")}
               </p>
-              <h3 className="mt-8 text-3xl leading-tight tracking-tight sm:text-4xl">
+              <ScrollInk distance={0.55} className="mt-6 h-32 w-full max-w-60 text-charcoal/85 sm:h-36">
+                <NotebookDrawing label={t("illustrationNotebook")} />
+              </ScrollInk>
+              <h3 className="mt-6 text-3xl leading-tight tracking-tight sm:text-4xl">
                 {t("organize.title")}
               </h3>
               <p className="mt-5 max-w-sm leading-7 text-stone">{t("organize.body")}</p>

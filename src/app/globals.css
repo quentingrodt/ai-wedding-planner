@@ -126,3 +126,44 @@
 @page {
   margin: 16mm 14mm;
 }
+
+/*
+ * Dessins au trait animés. <ScrollInk> fournit --p (0 → 1) ; chaque élément
+ * `.ink` en déduit son avancement local --t entre --s (début) et --e (fin).
+ * Les tracés utilisent pathLength="1".
+ */
+.ink {
+  --t: clamp(0, (var(--p, 1) - var(--s, 0)) / (var(--e, 1) - var(--s, 0)), 1);
+}
+.ink-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--t));
+}
+.ink-fade {
+  opacity: var(--t);
+}
+.ink-bloom {
+  opacity: var(--t);
+  transform: scale(calc(0.3 + 0.7 * var(--t)));
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.ink-fall {
+  transform: translate(calc(var(--t) * var(--dx, 0px)), calc(var(--t) * var(--dy, 0px)))
+    rotate(calc(var(--t) * var(--rot, 0deg)));
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.ink-rise {
+  opacity: var(--t);
+  transform: translateY(calc((1 - var(--t)) * var(--rise, 24px)));
+}
+/* Couverture qui pivote autour de la reliure (bord gauche). */
+.ink-flip {
+  transform: scaleX(calc(1 - 2 * var(--t)));
+  transform-box: fill-box;
+  transform-origin: left center;
+}
+.ink-hide {
+  opacity: clamp(0, 1 - 2 * var(--t), 1);
+}

@@ -36,7 +36,10 @@
       "body": "Generate your timeline and start coordinating your vendors.",
       "cta": "Create my wedding"
     },
-    "footer": "Crafted with care for the big days."
+    "footer": "Crafted with care for the big days.",
+    "illustrationTable": "Line drawing of a set wedding table with candles and a bouquet",
+    "illustrationGlasses": "Drawing of two champagne flutes clinking",
+    "illustrationNotebook": "Drawing of a notebook opening onto a planning timeline"
   },
   "Auth": {
     "emailLabel": "Email address",

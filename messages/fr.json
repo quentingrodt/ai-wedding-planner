@@ -36,7 +36,10 @@
       "body": "Générez votre rétroplanning et commencez à coordonner vos prestataires.",
       "cta": "Créer mon mariage"
     },
-    "footer": "Conçu avec soin pour les grands jours."
+    "footer": "Conçu avec soin pour les grands jours.",
+    "illustrationTable": "Dessin au trait d’une table de mariage dressée, avec bougies et bouquet",
+    "illustrationGlasses": "Dessin de deux flûtes de champagne qui trinquent",
+    "illustrationNotebook": "Dessin d’un carnet qui s’ouvre sur un rétroplanning"
   },
   "Auth": {
     "emailLabel": "Adresse email",
