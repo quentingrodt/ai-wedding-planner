@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
+import { BRAND_NAME } from "@/components/brand/logo";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -21,7 +22,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "AI Wedding Planner",
+  title: BRAND_NAME,
   description: "Votre copilote de mariage, discret et attentionné.",
 };
 

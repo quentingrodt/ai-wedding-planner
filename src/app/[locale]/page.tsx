@@ -11,6 +11,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { RevealInk } from "@/components/ink/reveal-ink";
+import { BRAND_NAME, Logo } from "@/components/brand/logo";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "next-intl";
@@ -50,7 +51,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      siteName: "AI Wedding Planner",
+      siteName: BRAND_NAME,
       locale,
       type: "website",
     },
@@ -66,17 +67,20 @@ export default function Home({ params }: PageProps<"/[locale]">) {
 
   return (
     <div className="flex flex-1 flex-col bg-ivory text-charcoal">
-      {/* Header */}
-      <header className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-6 py-7 sm:px-10">
-        <Link href="/" className="font-serif text-xl tracking-tight sm:text-2xl">
-          AI Wedding Planner
-        </Link>
-        <Link
-          href="/login"
-          className="text-right text-sm text-stone underline decoration-sand decoration-1 underline-offset-[6px] transition-colors hover:text-charcoal hover:decoration-terracotta"
-        >
-          {tCommon("login")}
-        </Link>
+      {/* En-tête façon titre de magazine : le logo, grand et centré */}
+      <header className="mx-auto w-full max-w-6xl px-6 pt-8 sm:px-10 sm:pt-10">
+        <div className="relative flex flex-col items-center gap-5 sm:block">
+          <Link
+            href="/login"
+            className="order-last text-sm text-stone underline decoration-sand decoration-1 underline-offset-[6px] transition-colors hover:text-charcoal hover:decoration-terracotta sm:absolute sm:top-1/2 sm:right-0 sm:-translate-y-1/2"
+          >
+            {tCommon("login")}
+          </Link>
+          <Link href="/" className="block text-center text-5xl text-charcoal sm:text-6xl">
+            <Logo animated />
+          </Link>
+        </div>
+        <div className="mt-6 h-px bg-sand/80 sm:mt-8" aria-hidden />
       </header>
 
       <main className="flex flex-1 flex-col">
@@ -233,9 +237,10 @@ export default function Home({ params }: PageProps<"/[locale]">) {
         </section>
       </main>
 
-      <footer className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-3 border-t border-sand/70 px-6 py-10 text-sm text-stone sm:flex-row sm:px-10">
-        <span className="font-serif text-base text-charcoal">AI Wedding Planner</span>
-        <span className="font-serif italic">{t("footer")}</span>
+      {/* Pied de page : le logo en signature */}
+      <footer className="mx-auto flex w-full max-w-6xl flex-col items-center gap-5 border-t border-sand/70 px-6 pt-16 pb-14 text-center sm:px-10 sm:pt-20">
+        <Logo className="text-6xl text-charcoal sm:text-7xl" />
+        <span className="font-serif text-stone italic">{t("footer")}</span>
       </footer>
     </div>
   );

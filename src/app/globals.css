@@ -167,3 +167,20 @@
 .ink-hide {
   opacity: clamp(0, 1 - 2 * var(--t), 1);
 }
+
+/* Logo : le C puis « éleste » apparaissent en fondu (components/brand/logo). */
+.logo-appear {
+  opacity: 0;
+  animation: logo-appear var(--appear-dur) var(--appear-delay) ease forwards;
+}
+@keyframes logo-appear {
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-appear {
+    animation: none;
+    opacity: 1;
+  }
+}
