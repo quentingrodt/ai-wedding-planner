@@ -251,7 +251,7 @@ export async function getConfirmedGuests(
 ): Promise<SeatedGuest[]> {
   const { data, error } = await supabase
     .from("guests")
-    .select("id, first_name, last_name, is_child, seating_table_id")
+    .select("id, first_name, last_name, is_child, dietary_requirements, seating_table_id")
     .eq("wedding_id", weddingId)
     .eq("status", "confirmed")
     .order("first_name", { ascending: true })

@@ -13,6 +13,8 @@ export type SeatedGuest = {
   first_name: string;
   last_name: string | null;
   is_child: boolean;
+  /** Allergies ou régime, pour le résumé logistique de la table (traiteur). */
+  dietary_requirements: string | null;
   seating_table_id: string | null;
 };
 

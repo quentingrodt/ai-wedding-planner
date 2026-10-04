@@ -35,6 +35,7 @@ import { FamilyDetailDialog } from "./family-detail-dialog";
 import { FamilyList, type FamilyGroup } from "./family-list";
 import { GuestKpis } from "./guest-kpis";
 import { GuestStatusBadge, GuestStatusSelect } from "./guest-status";
+import { RemindGuestDialog } from "./remind-guest-dialog";
 
 const FILTERS = ["all", "confirmed", "pending", "declined"] as const;
 type GuestFilter = (typeof FILTERS)[number];
@@ -100,10 +101,19 @@ type GuestBoardProps = {
   families: GuestFamily[];
   /** Owner ou partner : la RLS refuse de toute façon l'écriture aux témoins. */
   canEdit: boolean;
+  /** Signature et date des messages de relance. */
+  coupleNames: string;
+  weddingDateLabel: string | null;
 };
 
 /** Indicateurs, filtres et liste des invités, avec mises à jour instantanées. */
-export function GuestBoard({ guests, families, canEdit }: GuestBoardProps) {
+export function GuestBoard({
+  guests,
+  families,
+  canEdit,
+  coupleNames,
+  weddingDateLabel,
+}: GuestBoardProps) {
   const t = useTranslations("Guests");
   const [, startTransition] = useTransition();
   const [optimisticGuests, apply] = useOptimistic(guests, applyAction);
@@ -216,10 +226,22 @@ export function GuestBoard({ guests, families, canEdit }: GuestBoardProps) {
       <GuestStatusBadge status={guest.status} />
     );
 
-  const deleteAction = (guest: Guest) =>
-    canEdit ? (
-      <DeleteGuestButton guestName={fullName(guest)} onConfirm={() => remove(guest)} />
-    ) : null;
+  // Relance : ouverte à tous les membres (témoins compris), pour les réponses en attente.
+  const guestActions = (guest: Guest) => (
+    <span className="inline-flex items-center gap-1">
+      {(guest.status === "invited" || guest.status === "tentative") && (
+        <RemindGuestDialog
+          guestName={fullName(guest)}
+          firstName={guest.first_name}
+          coupleNames={coupleNames}
+          weddingDateLabel={weddingDateLabel}
+        />
+      )}
+      {canEdit && (
+        <DeleteGuestButton guestName={fullName(guest)} onConfirm={() => remove(guest)} />
+      )}
+    </span>
+  );
 
   const childBadge = (
     <span className="rounded-full bg-sand/50 px-2.5 py-0.5 text-xs text-charcoal">
@@ -250,11 +272,9 @@ export function GuestBoard({ guests, families, canEdit }: GuestBoardProps) {
                 <TableHead className="text-xs tracking-[0.15em] text-stone uppercase">
                   {t("table.dietary")}
                 </TableHead>
-                {canEdit && (
-                  <TableHead className="w-10">
-                    <span className="sr-only">{t("table.actions")}</span>
-                  </TableHead>
-                )}
+                <TableHead className="w-20">
+                  <span className="sr-only">{t("table.actions")}</span>
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -275,9 +295,7 @@ export function GuestBoard({ guests, families, canEdit }: GuestBoardProps) {
                   <TableCell className="max-w-56 truncate py-3 text-stone">
                     {guest.dietary_requirements ?? t("table.noDietary")}
                   </TableCell>
-                  {canEdit && (
-                    <TableCell className="py-3 text-right">{deleteAction(guest)}</TableCell>
-                  )}
+                  <TableCell className="py-3 text-right">{guestActions(guest)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -306,7 +324,7 @@ export function GuestBoard({ guests, families, canEdit }: GuestBoardProps) {
                     </span>
                   )}
                 </div>
-                {deleteAction(guest)}
+                {guestActions(guest)}
               </div>
               <div>{statusCell(guest)}</div>
             </li>

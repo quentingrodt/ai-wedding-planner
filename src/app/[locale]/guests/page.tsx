@@ -1,9 +1,10 @@
 import { ArrowLeftIcon } from "lucide-react";
 import type { Metadata } from "next";
 import type { Locale } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
 import { Toaster } from "@/components/ui/sonner";
 import { Link, redirect } from "@/i18n/navigation";
+import { isoDateToUtc } from "@/lib/weddings/dates";
 import {
   getCurrentMemberRole,
   getCurrentUserId,
@@ -42,11 +43,12 @@ export default async function GuestsPage({
     return redirect({ href: "/onboarding", locale });
   }
 
-  const [role, guests, families, t] = await Promise.all([
+  const [role, guests, families, t, format] = await Promise.all([
     getCurrentMemberRole(supabase, wedding.id, userId),
     getGuests(supabase, wedding.id),
     getGuestFamilies(supabase, wedding.id),
     getTranslations("Guests"),
+    getFormatter(),
   ]);
   const canEdit = role === "owner" || role === "partner";
 
@@ -75,7 +77,22 @@ export default async function GuestsPage({
           )}
         </header>
 
-        <GuestBoard guests={guests} families={families} canEdit={canEdit} />
+        <GuestBoard
+          guests={guests}
+          families={families}
+          canEdit={canEdit}
+          coupleNames={wedding.title}
+          weddingDateLabel={
+            wedding.wedding_date
+              ? format.dateTime(isoDateToUtc(wedding.wedding_date), {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                  timeZone: "UTC",
+                })
+              : null
+          }
+        />
       </div>
       <Toaster position="bottom-center" />
     </main>

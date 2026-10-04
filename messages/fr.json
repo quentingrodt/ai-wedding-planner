@@ -494,6 +494,18 @@
         "confirm": "Supprimer",
         "success": "{name} a été supprimée."
       }
+    },
+    "remind": {
+      "button": "Relancer {name}",
+      "title": "Relancer {name}",
+      "description": "Un message prêt à envoyer : copiez-le, puis collez-le dans votre messagerie (SMS, WhatsApp, e-mail). Vous pouvez l’ajuster avant.",
+      "textareaLabel": "Message de relance",
+      "message": "Coucou {firstName} ! On fait un point sur l’organisation de notre grand jour. Pensez à nous confirmer votre présence et vos éventuelles allergies ou régimes alimentaires. Merci, et à très vite ! {couple}",
+      "messageWithDate": "Coucou {firstName} ! On fait un point sur l’organisation de notre grand jour, le {date}. Pensez à nous confirmer votre présence et vos éventuelles allergies ou régimes alimentaires. Merci, et à très vite ! {couple}",
+      "copy": "Copier le texte",
+      "copied": "Texte copié : il ne reste plus qu’à l’envoyer.",
+      "copyError": "La copie a échoué. Sélectionnez le texte pour le copier vous-même.",
+      "close": "Fermer"
     }
   },
   "Seating": {
@@ -521,7 +533,13 @@
       "seats": "{seated}/{capacity} places",
       "full": "Complète",
       "noGuests": "Personne n’est encore installé à cette table.",
-      "unassign": "Retirer {name} de la table"
+      "unassign": "Retirer {name} de la table",
+      "logistics": {
+        "children": "{count, plural, one {# enfant} other {# enfants}}",
+        "dietary": "{count, plural, one {# régime alimentaire} other {# régimes alimentaires}}",
+        "dietaryTitle": "Pour le traiteur",
+        "dietaryEntry": "{name} : {diet}"
+      }
     },
     "create": {
       "trigger": "Nouvelle table",

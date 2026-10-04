@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils";
 import { assignGuestToTable, deleteTable } from "../actions";
 import { CreateTableDialog } from "./create-table-dialog";
 import { DeleteTableButton } from "./delete-table-button";
+import { TableLogistics } from "./table-logistics";
 
 type SeatingState = { tables: SeatingTable[]; guests: SeatedGuest[] };
 
@@ -227,6 +228,8 @@ export function SeatingBoard({ tables, guests, canEdit }: SeatingBoardProps) {
                       />
                     </div>
                   </div>
+
+                  <TableLogistics guests={seated} fullName={fullName} />
 
                   {seated.length === 0 ? (
                     <p className="text-sm text-stone">{t("tables.noGuests")}</p>
