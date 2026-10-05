@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/api/invitations/image": ["./assets/fonts/**"],
     "/api/invitations/pdf": ["./assets/fonts/**"],
+    "/api/seating/pdf": ["./assets/fonts/**"],
   },
   images: {
     // Photos du swipe d'inspiration (licences Unsplash et Pexels), toujours

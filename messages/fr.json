@@ -585,6 +585,35 @@
       "forbidden": "Seuls les mariés peuvent modifier le plan de table.",
       "tableFull": "Cette table est déjà complète : {name} n’a pas pu y être installé·e.",
       "generic": "La modification n’a pas pu être enregistrée. Merci de réessayer."
+    },
+    "pdf": {
+      "trigger": "Exporter en PDF",
+      "triggerHint": "Tables, index alphabétique et récapitulatif traiteur",
+      "documentTitle": "Plan de table — {names}",
+      "eyebrow": "Plan de table",
+      "summary": "{tables, plural, =0 {Aucune table} one {# table} other {# tables}} · {seated} invités placés sur {guests} · {children, plural, =0 {aucun enfant} one {# enfant} other {# enfants}} · {diets, plural, =0 {aucun régime particulier} one {# régime particulier} other {# régimes particuliers}}",
+      "tablesTitle": "Les tables",
+      "seats": "{seated} / {capacity} places",
+      "emptyTable": "Personne n’est encore installé à cette table.",
+      "child": "enfant",
+      "noTables": "Aucune table pour l’instant.",
+      "unseatedTitle": "Invités à placer",
+      "indexTitle": "Index alphabétique",
+      "toSeat": "à placer",
+      "catererTitle": "Récapitulatif pour le traiteur",
+      "columns": {
+        "table": "Table",
+        "guests": "Couverts",
+        "adults": "Adultes",
+        "children": "Enfants",
+        "diets": "Régimes"
+      },
+      "total": "Total",
+      "dietsTitle": "Régimes et allergies",
+      "noDiets": "Aucun régime particulier signalé.",
+      "footer": "Céleste · Plan de table — {names}",
+      "page": "{current} / {total}",
+      "fileName": "plan-de-table"
     }
   },
   "Itinerary": {
@@ -1479,6 +1508,36 @@
       "play": "Écouter {name} de {artist}",
       "pause": "Mettre en pause {name}",
       "playerError": "Le lecteur Spotify n’a pas pu se charger. Vérifiez qu’aucune extension ne le bloque."
+    }
+  },
+  "AppNav": {
+    "label": "Menu principal",
+    "home": "Céleste, retour à l’accueil",
+    "signOut": "Se déconnecter",
+    "close": "Fermer le menu",
+    "sheetDescription": "Rubriques de ce chapitre",
+    "groups": {
+      "prepare": "Préparer",
+      "guests": "Vos invités",
+      "day": "Le jour J"
+    },
+    "tabs": {
+      "prepare": "Préparer",
+      "guests": "Invités",
+      "day": "Jour J",
+      "more": "Plus"
+    },
+    "items": {
+      "dashboard": "Accueil",
+      "inspiration": "Inspiration",
+      "budget": "Budget",
+      "quotes": "Devis",
+      "guests": "Invités",
+      "invitations": "Faire-part",
+      "seating": "Plan de table",
+      "itinerary": "Programme",
+      "playlist": "Playlist",
+      "settings": "Équipe"
     }
   }
 }

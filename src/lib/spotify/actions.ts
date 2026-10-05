@@ -93,6 +93,6 @@ export async function disconnectSpotify(): Promise<SpotifyActionResult> {
   } catch (error) {
     return { ok: false, error: toError(error) };
   }
-  revalidatePath("/[locale]/playlist", "page");
+  revalidatePath("/[locale]/(app)/playlist", "page");
   return { ok: true };
 }

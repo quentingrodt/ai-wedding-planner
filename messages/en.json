@@ -585,6 +585,35 @@
       "forbidden": "Only the couple can edit the seating plan.",
       "tableFull": "This table is already full: {name} couldn't be seated.",
       "generic": "Your change couldn't be saved. Please try again."
+    },
+    "pdf": {
+      "trigger": "Export as PDF",
+      "triggerHint": "Tables, alphabetical index and caterer summary",
+      "documentTitle": "Seating plan — {names}",
+      "eyebrow": "Seating plan",
+      "summary": "{tables, plural, =0 {No tables} one {# table} other {# tables}} · {seated} of {guests} guests seated · {children, plural, =0 {no children} one {# child} other {# children}} · {diets, plural, =0 {no dietary requirements} one {# dietary requirement} other {# dietary requirements}}",
+      "tablesTitle": "The tables",
+      "seats": "{seated} / {capacity} seats",
+      "emptyTable": "No one is seated at this table yet.",
+      "child": "child",
+      "noTables": "No tables yet.",
+      "unseatedTitle": "Guests to seat",
+      "indexTitle": "Alphabetical index",
+      "toSeat": "to seat",
+      "catererTitle": "Caterer summary",
+      "columns": {
+        "table": "Table",
+        "guests": "Covers",
+        "adults": "Adults",
+        "children": "Children",
+        "diets": "Diets"
+      },
+      "total": "Total",
+      "dietsTitle": "Diets and allergies",
+      "noDiets": "No dietary requirements reported.",
+      "footer": "Céleste · Seating plan — {names}",
+      "page": "{current} / {total}",
+      "fileName": "seating-plan"
     }
   },
   "Itinerary": {
@@ -1479,6 +1508,36 @@
       "play": "Play {name} by {artist}",
       "pause": "Pause {name}",
       "playerError": "The Spotify player couldn’t load. Check that no extension is blocking it."
+    }
+  },
+  "AppNav": {
+    "label": "Main menu",
+    "home": "Céleste, back to home",
+    "signOut": "Sign out",
+    "close": "Close menu",
+    "sheetDescription": "Sections in this chapter",
+    "groups": {
+      "prepare": "Prepare",
+      "guests": "Your guests",
+      "day": "The big day"
+    },
+    "tabs": {
+      "prepare": "Prepare",
+      "guests": "Guests",
+      "day": "Big day",
+      "more": "More"
+    },
+    "items": {
+      "dashboard": "Home",
+      "inspiration": "Inspiration",
+      "budget": "Budget",
+      "quotes": "Quotes",
+      "guests": "Guests",
+      "invitations": "Invitations",
+      "seating": "Seating plan",
+      "itinerary": "Schedule",
+      "playlist": "Playlist",
+      "settings": "Team"
     }
   }
 }

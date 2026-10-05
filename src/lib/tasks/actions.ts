@@ -105,7 +105,7 @@ export async function updateTaskDate(
   if (!(await write(cascade.target))) return { ok: false, error: "generic" };
   const written = await Promise.all(cascade.dependents.map(write));
 
-  revalidatePath("/[locale]/dashboard", "page");
+  revalidatePath("/[locale]/(app)/dashboard", "page");
   return {
     ok: true,
     dependents: written.filter(Boolean).length,
