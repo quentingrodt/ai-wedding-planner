@@ -291,11 +291,17 @@
       "categories": {
         "venue": "Lieu de réception",
         "catering": "Traiteur",
+        "cake": "Pièce montée et desserts",
         "photography": "Photographie",
-        "attire": "Tenues",
-        "decoration": "Décoration",
         "music": "Musique",
+        "decoration": "Décoration et fleurs",
+        "attire": "Tenues",
+        "beauty": "Coiffure et maquillage",
+        "rings": "Alliances",
         "stationery": "Papeterie",
+        "officiant": "Officiant",
+        "transport": "Transport",
+        "honeymoon": "Voyage de noces",
         "contingency": "Imprévus",
         "other": "Autres dépenses"
       }
@@ -335,7 +341,8 @@
       "cta": "Continuer",
       "ctaDone": "Voir mon carnet"
     },
-    "invitationsLink": "Faire-part"
+    "invitationsLink": "Faire-part",
+    "playlistLink": "Playlist"
   },
   "Quotes": {
     "metaTitle": "Vos devis",
@@ -526,7 +533,11 @@
       "assignLabel": "Choisir une table pour {name}",
       "noTables": "Créez d’abord une table",
       "seatsLeft": "{count, plural, one {# place libre} other {# places libres}}",
-      "full": "Complète"
+      "full": "Complète",
+      "counter": {
+        "toSeat": "Invités à placer",
+        "total": "Invités totaux"
+      }
     },
     "tables": {
       "title": "Les Tables",
@@ -540,7 +551,8 @@
         "dietary": "{count, plural, one {# régime alimentaire} other {# régimes alimentaires}}",
         "dietaryTitle": "Pour le traiteur",
         "dietaryEntry": "{name} : {diet}"
-      }
+      },
+      "diagram": "{name} : {seated} places occupées sur {capacity}"
     },
     "create": {
       "trigger": "Nouvelle table",
@@ -713,16 +725,24 @@
       "unnamed": "Prestataire à choisir",
       "estimated": "Prévu",
       "actual": "Signé",
-      "notSigned": "En attente"
+      "notSigned": "En attente",
+      "indication": "Indication Céleste",
+      "indicationHint": "Moyenne du marché, à titre indicatif : elle ne compte pas dans votre budget tant que vous n’avez pas saisi votre propre montant."
     },
     "categories": {
       "venue": "Lieu de réception",
       "catering": "Traiteur",
+      "cake": "Pièce montée et desserts",
       "photography": "Photographie",
-      "attire": "Tenues",
-      "decoration": "Décoration",
       "music": "Musique",
+      "decoration": "Décoration et fleurs",
+      "attire": "Tenues",
+      "beauty": "Coiffure et maquillage",
+      "rings": "Alliances",
       "stationery": "Papeterie",
+      "officiant": "Officiant",
+      "transport": "Transport",
+      "honeymoon": "Voyage de noces",
       "contingency": "Imprévus",
       "other": "Autres dépenses"
     },
@@ -820,6 +840,21 @@
           "label": "Alliances"
         }
       }
+    },
+    "sourcing": {
+      "label": "Sourcing",
+      "network": "Mon réseau",
+      "celeste": "Trouver avec Céleste",
+      "undecided": "À définir",
+      "change": "Sourcing de « {name} » : {current}",
+      "updated": "Sourcing mis à jour."
+    },
+    "overBudget": {
+      "title": "Votre budget est dépassé",
+      "missing": "Il manque {amount}.",
+      "tip": "Astuce : cela représente un effort d’épargne de {perMonth} / mois jusqu’au jour J.",
+      "tipNoDate": "Astuce : fixez la date du mariage pour calculer l’effort d’épargne mensuel nécessaire.",
+      "months": "{count, plural, one {Il reste # mois avant le mariage.} other {Il reste # mois avant le mariage.}}"
     }
   },
   "Inspiration": {
@@ -1379,5 +1414,71 @@
       "generic": "Votre réponse n’a pas pu être envoyée. Merci de réessayer dans un instant."
     },
     "madeWith": "Créé avec Céleste"
+  },
+  "Playlist": {
+    "metaTitle": "Playlist",
+    "back": "Tableau de bord",
+    "eyebrow": "Musique",
+    "title": "La Playlist du Mariage",
+    "intro": "Les chansons qui vous ressemblent, réunies au fil des mois dans une playlist Spotify à votre nom.",
+    "status": {
+      "denied": "La connexion à Spotify a été annulée. Vous pourrez la reprendre quand vous voudrez.",
+      "error": "La connexion à Spotify n’a pas abouti. Merci de réessayer dans un instant.",
+      "forbidden": "Seuls les mariés peuvent lier un compte Spotify à la playlist."
+    },
+    "empty": {
+      "title": "Votre bande-son commence ici",
+      "body": "Liez votre compte Spotify : nous créons la playlist « Mariage de … » dans votre bibliothèque, et vous y ajoutez vos morceaux depuis Céleste.",
+      "connect": "Connecter mon compte Spotify",
+      "readOnly": "Les mariés lient leur compte Spotify pour composer la playlist.",
+      "privacy": "La playlist reste privée. Céleste ne lit ni vos écoutes ni vos autres playlists."
+    },
+    "connected": {
+      "welcome": "Votre playlist est prête",
+      "title": "Ajouter des morceaux",
+      "open": "Ouvrir dans Spotify",
+      "readOnly": "Les mariés composent la playlist : découvrez-la ici au fil de ses ajouts."
+    },
+    "search": {
+      "label": "Rechercher un morceau",
+      "placeholder": "Un titre, un artiste…",
+      "hint": "Cherchez la chanson de votre première danse, celle de l’entrée, celles qui feront danser tout le monde.",
+      "loading": "Recherche en cours",
+      "noResults": "Aucun morceau trouvé pour « {query} »."
+    },
+    "add": {
+      "trigger": "Ajouter {name} de {artist} à la playlist",
+      "done": "{name} est dans la playlist",
+      "success": "« {name} » a rejoint la playlist."
+    },
+    "disconnect": {
+      "trigger": "Délier Spotify",
+      "title": "Délier votre compte Spotify ?",
+      "description": "La playlist reste dans votre bibliothèque Spotify. Pour y ajouter des morceaux depuis Céleste, il faudra reconnecter votre compte.",
+      "cancel": "Annuler",
+      "confirm": "Délier"
+    },
+    "spotifyPlaylist": {
+      "name": "Mariage de {names}",
+      "description": "La bande-son de notre mariage, composée avec Céleste."
+    },
+    "errors": {
+      "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
+      "forbidden": "Seuls les mariés peuvent composer la playlist.",
+      "invalid": "Cette recherche n’est pas valide.",
+      "disconnected": "Le lien avec Spotify a expiré. Reconnectez votre compte.",
+      "playlistMissing": "La playlist est introuvable sur Spotify. Déliez puis reconnectez votre compte pour en créer une nouvelle.",
+      "rateLimited": "Spotify reçoit beaucoup de demandes. Patientez quelques secondes.",
+      "generic": "Spotify n’a pas répondu. Merci de réessayer."
+    },
+    "tracks": {
+      "title": "Votre playlist",
+      "count": "{count, plural, =0 {Aucun morceau} one {# morceau} other {# morceaux}}",
+      "empty": "Pas encore de morceau. Cherchez un titre à gauche et ajoutez-le avec +.",
+      "error": "La playlist n’a pas pu être lue depuis Spotify. Rechargez la page dans un instant.",
+      "play": "Écouter {name} de {artist}",
+      "pause": "Mettre en pause {name}",
+      "playerError": "Le lecteur Spotify n’a pas pu se charger. Vérifiez qu’aucune extension ne le bloque."
+    }
   }
 }

@@ -39,13 +39,15 @@ export async function addBudgetItem(input: BudgetItemInput): Promise<BudgetActio
     return { ok: false, error: "forbidden" };
   }
 
-  const { category, label, estimatedAmount, actualAmount } = parsed.data;
+  const { category, label, estimatedAmount, actualAmount, sourcing, suggestedAmount } = parsed.data;
   const { error } = await supabase.from("budget_items").insert({
     wedding_id: wedding.id,
     category,
     label,
     estimated_amount: estimatedAmount,
     actual_amount: actualAmount,
+    sourcing,
+    suggested_amount: suggestedAmount,
   });
 
   if (error) {
@@ -72,12 +74,14 @@ export async function updateBudgetItem(
   }
 
   // Sans ligne renvoyée, la ligne n'existe pas ou la RLS refuse l'écriture.
-  const { category, label, estimatedAmount, actualAmount } = parsed.data;
+  // L'indication de Céleste reste celle de la création : elle n'est pas réécrite.
+  const { category, label, estimatedAmount, actualAmount, sourcing } = parsed.data;
   const { data, error } = await supabase
     .from("budget_items")
     .update({
       category,
       label,
+      sourcing,
       estimated_amount: estimatedAmount,
       actual_amount: actualAmount,
     })

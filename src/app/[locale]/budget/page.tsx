@@ -4,6 +4,7 @@ import type { Locale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Toaster } from "@/components/ui/sonner";
 import { Link, redirect } from "@/i18n/navigation";
+import { monthsUntil } from "@/lib/budget/schema";
 import {
   getBudgetItems,
   getCurrentMemberRole,
@@ -79,6 +80,7 @@ export default async function BudgetPage({ params }: PageProps<"/[locale]/budget
           currency={wedding.currency_code}
           weddingId={wedding.id}
           likes={styleDna.likes}
+          monthsLeft={monthsUntil(wedding.wedding_date, new Date())}
         />
       </div>
       <Toaster position="bottom-center" />

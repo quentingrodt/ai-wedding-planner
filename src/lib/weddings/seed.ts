@@ -67,7 +67,10 @@ export async function seedWeddingDefaults(
       : DEFAULT_BUDGET_SPLIT.map(({ category, share }) => ({
           wedding_id: wedding.id,
           category,
-          estimated_amount: Math.round(total * share),
+          // Indication de Céleste : n'entre pas dans la jauge tant que le couple
+          // n'a pas saisi son propre montant prévu.
+          estimated_amount: 0,
+          suggested_amount: Math.round(total * share),
         }));
 
   const [tasksResult, budgetResult] = await Promise.all([

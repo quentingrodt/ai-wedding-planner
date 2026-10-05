@@ -1,18 +1,28 @@
 import { z } from "zod";
 
-/** Slugs de catégories, alignés sur la contrainte CHECK de budget_items (000003). */
+/** Slugs de catégories, alignés sur la contrainte CHECK de budget_items (000016). */
 export const BUDGET_CATEGORIES = [
   "venue",
   "catering",
+  "cake",
   "photography",
-  "attire",
-  "decoration",
   "music",
+  "decoration",
+  "attire",
+  "beauty",
+  "rings",
   "stationery",
+  "officiant",
+  "transport",
+  "honeymoon",
   "contingency",
   "other",
 ] as const;
 export type BudgetCategory = (typeof BUDGET_CATEGORIES)[number];
+
+/** Comment le couple compte trouver le prestataire (budget_items.sourcing). */
+export const BUDGET_SOURCINGS = ["network", "celeste", "undecided"] as const;
+export type BudgetSourcing = (typeof BUDGET_SOURCINGS)[number];
 
 /**
  * Répartition indicative du budget total, en part du total : lignes créées à
@@ -29,8 +39,12 @@ export type BudgetItem = {
   id: string;
   category: BudgetCategory;
   label: string | null;
+  /** Montant prévu saisi par le couple : seul compté dans la jauge. */
   estimated_amount: number;
   actual_amount: number | null;
+  /** Indication de marché de Céleste, affichée à titre indicatif, jamais comptée. */
+  suggested_amount: number | null;
+  sourcing: BudgetSourcing;
 };
 
 export type BudgetSummary = {
@@ -100,6 +114,9 @@ export const budgetItemSchema = z.object({
     .transform((value) => (value === "" ? null : value)),
   estimatedAmount: amount,
   actualAmount: optionalAmount,
+  sourcing: z.enum(BUDGET_SOURCINGS).default("undecided"),
+  // Fixée à la création (suggestion de Céleste) ; jamais modifiée ensuite.
+  suggestedAmount: z.number().int().min(0).max(BUDGET_LIMITS.amount).nullable().default(null),
 });
 export type BudgetItemInput = z.input<typeof budgetItemSchema>;
 export type BudgetItemData = z.output<typeof budgetItemSchema>;
@@ -188,4 +205,42 @@ export function groupBudgetItems(items: readonly BudgetItem[]): BudgetCategoryGr
       },
     ];
   });
+}
+
+/** Saisie équivalente à une ligne existante (changement de sourcing en un clic). */
+export function budgetItemToInput(
+  item: BudgetItem,
+  overrides: Partial<BudgetItemInput> = {},
+): BudgetItemInput {
+  return {
+    category: item.category,
+    label: item.label ?? "",
+    estimatedAmount: String(item.estimated_amount),
+    actualAmount: item.actual_amount === null ? "" : String(item.actual_amount),
+    sourcing: item.sourcing,
+    ...overrides,
+  };
+}
+
+/**
+ * Mois pleins restants avant le mariage (date ISO « AAAA-MM-JJ »), au moins 1
+ * tant que le jour J n'est pas passé ; null sans date ou après le mariage.
+ */
+export function monthsUntil(weddingDate: string | null, today: Date): number | null {
+  if (!weddingDate) return null;
+  const [year, month, day] = weddingDate.split("-").map(Number);
+  const months =
+    (year - today.getFullYear()) * 12 +
+    (month - 1 - today.getMonth()) -
+    (day < today.getDate() ? 1 : 0);
+  const wedding = new Date(year, month - 1, day);
+  const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  if (wedding < startOfToday) return null;
+  return Math.max(months, 1);
+}
+
+/** Effort d'épargne mensuel pour combler un dépassement (arrondi à l'unité supérieure). */
+export function monthlySaving(missing: number, monthsLeft: number | null): number | null {
+  if (missing <= 0 || monthsLeft === null) return null;
+  return Math.ceil(missing / monthsLeft);
 }

@@ -23,48 +23,58 @@ type SuggestionRule = {
   /** Poste de la répartition (allocateBudget) qui fournit l'estimation. */
   vendor: PlanVendor;
   /**
-   * Comment repérer que le poste est déjà couvert : toute ligne de la
-   * catégorie, ou (catégorie « other ») un mot-clé dans le libellé.
+   * Le poste est couvert dès qu'une ligne existe dans sa catégorie, ou qu'un
+   * libellé le mentionne (lignes saisies avant que la catégorie n'existe).
    */
-  covered: { anyInCategory: true } | { keywords: readonly string[] };
+  keywords?: readonly string[];
   /** Pertinence selon le carnet ; absente, la suggestion vaut pour tous. */
   relevant?: (likes: InspirationLikes) => boolean;
 };
 
 const RULES: Record<BudgetSuggestionId, SuggestionRule> = {
-  dj: { category: "music", vendor: "music", covered: { anyInCategory: true } },
-  photographer: { category: "photography", vendor: "photographer", covered: { anyInCategory: true } },
-  attire: { category: "attire", vendor: "attire", covered: { anyInCategory: true } },
-  florist: { category: "decoration", vendor: "florist", covered: { anyInCategory: true } },
-  stationery: { category: "stationery", vendor: "stationery", covered: { anyInCategory: true } },
+  dj: { category: "music", vendor: "music" },
+  photographer: { category: "photography", vendor: "photographer" },
+  attire: { category: "attire", vendor: "attire" },
+  florist: { category: "decoration", vendor: "florist" },
+  stationery: { category: "stationery", vendor: "stationery" },
   transport: {
-    category: "other",
+    category: "transport",
     vendor: "transport",
-    covered: { keywords: ["voiture", "transport", "caleche", "navette", "bus", "chauffeur", "car", "carriage", "shuttle"] },
+    keywords: [
+      "voiture",
+      "transport",
+      "caleche",
+      "navette",
+      "bus",
+      "chauffeur",
+      "car",
+      "carriage",
+      "shuttle",
+    ],
     relevant: (likes) => (likes.transport?.length ?? 0) > 0,
   },
   weddingCake: {
-    category: "other",
+    category: "cake",
     vendor: "weddingCake",
-    covered: { keywords: ["piece montee", "gateau", "cake", "dessert", "croquembouche"] },
+    keywords: ["piece montee", "gateau", "cake", "dessert", "croquembouche"],
     relevant: (likes) => (likes.dessert?.length ?? 0) > 0,
   },
   officiant: {
-    category: "other",
+    category: "officiant",
     vendor: "officiant",
-    covered: { keywords: ["officiant", "celebrant", "laique"] },
+    keywords: ["officiant", "celebrant", "laique"],
     relevant: (likes) => likes.ceremony?.includes("secular") ?? false,
   },
   honeymoon: {
-    category: "other",
+    category: "honeymoon",
     vendor: "honeymoon",
-    covered: { keywords: ["voyage", "lune de miel", "honeymoon", "trip"] },
+    keywords: ["voyage", "lune de miel", "honeymoon", "trip"],
     relevant: (likes) => (likes.honeymoon?.length ?? 0) > 0,
   },
   rings: {
-    category: "other",
+    category: "rings",
     vendor: "rings",
-    covered: { keywords: ["alliance", "bague", "ring"] },
+    keywords: ["alliance", "bague", "ring"],
   },
 };
 
@@ -77,7 +87,10 @@ export type BudgetSuggestion = {
 
 /** Minuscules sans accents, pour comparer les libellés aux mots-clés. */
 const normalize = (text: string) =>
-  text.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+  text
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase();
 
 /** Mot-clé en mot entier, pluriel accepté : « car » ne couvre pas « cartes ». */
 const mentions = (label: string, keyword: string) =>
@@ -97,9 +110,7 @@ export function suggestMissingVendors({
   likes: InspirationLikes;
   totalBudget: number | null;
 }): BudgetSuggestion[] {
-  const labels = items
-    .filter((item) => item.label)
-    .map((item) => normalize(item.label ?? ""));
+  const labels = items.filter((item) => item.label).map((item) => normalize(item.label ?? ""));
   const categories = new Set(items.map((item) => item.category));
   const allocation = totalBudget && totalBudget > 0 ? allocateBudget(totalBudget, likes) : null;
   const amountOf = new Map(allocation?.lines.map((line) => [line.vendor, line.amount]));
@@ -107,9 +118,8 @@ export function suggestMissingVendors({
   return BUDGET_SUGGESTIONS.filter((id) => {
     const rule = RULES[id];
     if (rule.relevant && !rule.relevant(likes)) return false;
-    return "anyInCategory" in rule.covered
-      ? !categories.has(rule.category)
-      : !rule.covered.keywords.some((keyword) => labels.some((label) => mentions(label, keyword)));
+    if (categories.has(rule.category)) return false;
+    return !rule.keywords?.some((keyword) => labels.some((label) => mentions(label, keyword)));
   })
     .map((id) => ({
       id,

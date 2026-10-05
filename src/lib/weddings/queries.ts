@@ -159,7 +159,7 @@ export async function getBudgetItems(
 ): Promise<BudgetItem[]> {
   const { data, error } = await supabase
     .from("budget_items")
-    .select("id, category, label, estimated_amount, actual_amount")
+    .select("id, category, label, estimated_amount, actual_amount, suggested_amount, sourcing")
     .eq("wedding_id", weddingId)
     .order("created_at", { ascending: true })
     .returns<BudgetItem[]>();

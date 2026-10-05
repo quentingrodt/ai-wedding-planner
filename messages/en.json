@@ -291,11 +291,17 @@
       "categories": {
         "venue": "Venue",
         "catering": "Catering",
+        "cake": "Wedding cake and desserts",
         "photography": "Photography",
-        "attire": "Attire",
-        "decoration": "Decoration",
         "music": "Music",
+        "decoration": "Decoration and flowers",
+        "attire": "Outfits",
+        "beauty": "Hair and make-up",
+        "rings": "Wedding rings",
         "stationery": "Stationery",
+        "officiant": "Celebrant",
+        "transport": "Transport",
+        "honeymoon": "Honeymoon",
         "contingency": "Contingency",
         "other": "Other expenses"
       }
@@ -335,7 +341,8 @@
       "cta": "Continue",
       "ctaDone": "View my book"
     },
-    "invitationsLink": "Invitation"
+    "invitationsLink": "Invitation",
+    "playlistLink": "Playlist"
   },
   "Quotes": {
     "metaTitle": "Your quotes",
@@ -526,7 +533,11 @@
       "assignLabel": "Choose a table for {name}",
       "noTables": "Create a table first",
       "seatsLeft": "{count, plural, one {# seat left} other {# seats left}}",
-      "full": "Full"
+      "full": "Full",
+      "counter": {
+        "toSeat": "Guests to seat",
+        "total": "Total guests"
+      }
     },
     "tables": {
       "title": "Tables",
@@ -540,7 +551,8 @@
         "dietary": "{count, plural, one {# dietary requirement} other {# dietary requirements}}",
         "dietaryTitle": "For the caterer",
         "dietaryEntry": "{name}: {diet}"
-      }
+      },
+      "diagram": "{name}: {seated} of {capacity} seats taken"
     },
     "create": {
       "trigger": "New table",
@@ -713,16 +725,24 @@
       "unnamed": "Vendor to be chosen",
       "estimated": "Planned",
       "actual": "Signed",
-      "notSigned": "Pending"
+      "notSigned": "Pending",
+      "indication": "Céleste estimate",
+      "indicationHint": "Market average, for guidance only: it doesn’t count in your budget until you enter your own amount."
     },
     "categories": {
       "venue": "Venue",
       "catering": "Catering",
+      "cake": "Wedding cake and desserts",
       "photography": "Photography",
-      "attire": "Attire",
-      "decoration": "Decoration",
       "music": "Music",
+      "decoration": "Decoration and flowers",
+      "attire": "Outfits",
+      "beauty": "Hair and make-up",
+      "rings": "Wedding rings",
       "stationery": "Stationery",
+      "officiant": "Celebrant",
+      "transport": "Transport",
+      "honeymoon": "Honeymoon",
       "contingency": "Contingency",
       "other": "Other expenses"
     },
@@ -820,6 +840,21 @@
           "label": "Wedding rings"
         }
       }
+    },
+    "sourcing": {
+      "label": "Sourcing",
+      "network": "My network",
+      "celeste": "Find with Céleste",
+      "undecided": "To be decided",
+      "change": "Sourcing for “{name}”: {current}",
+      "updated": "Sourcing updated."
+    },
+    "overBudget": {
+      "title": "Your budget is exceeded",
+      "missing": "You are {amount} short.",
+      "tip": "Tip: that means saving {perMonth} a month until the big day.",
+      "tipNoDate": "Tip: set the wedding date to work out the monthly saving needed.",
+      "months": "{count, plural, one {# month left before the wedding.} other {# months left before the wedding.}}"
     }
   },
   "Inspiration": {
@@ -1379,5 +1414,71 @@
       "generic": "Your reply could not be sent. Please try again in a moment."
     },
     "madeWith": "Made with Céleste"
+  },
+  "Playlist": {
+    "metaTitle": "Playlist",
+    "back": "Dashboard",
+    "eyebrow": "Music",
+    "title": "The Wedding Playlist",
+    "intro": "The songs that feel like you, gathered over the months in a Spotify playlist in your names.",
+    "status": {
+      "denied": "The Spotify connection was cancelled. You can pick it up whenever you like.",
+      "error": "The Spotify connection didn’t go through. Please try again in a moment.",
+      "forbidden": "Only the couple can link a Spotify account to the playlist."
+    },
+    "empty": {
+      "title": "Your soundtrack starts here",
+      "body": "Link your Spotify account: we create the “Wedding of …” playlist in your library, and you add songs to it from Céleste.",
+      "connect": "Connect my Spotify account",
+      "readOnly": "The couple links their Spotify account to build the playlist.",
+      "privacy": "The playlist stays private. Céleste never reads your listening history or your other playlists."
+    },
+    "connected": {
+      "welcome": "Your playlist is ready",
+      "title": "Add songs",
+      "open": "Open in Spotify",
+      "readOnly": "The couple is building the playlist: listen to it here as it grows."
+    },
+    "search": {
+      "label": "Search for a song",
+      "placeholder": "A title, an artist…",
+      "hint": "Look for your first dance, your entrance song, the ones that will get everyone dancing.",
+      "loading": "Searching",
+      "noResults": "No songs found for “{query}”."
+    },
+    "add": {
+      "trigger": "Add {name} by {artist} to the playlist",
+      "done": "{name} is in the playlist",
+      "success": "“{name}” joined the playlist."
+    },
+    "disconnect": {
+      "trigger": "Unlink Spotify",
+      "title": "Unlink your Spotify account?",
+      "description": "The playlist stays in your Spotify library. To add songs from Céleste again, you’ll need to reconnect your account.",
+      "cancel": "Cancel",
+      "confirm": "Unlink"
+    },
+    "spotifyPlaylist": {
+      "name": "Wedding of {names}",
+      "description": "The soundtrack of our wedding, put together with Céleste."
+    },
+    "errors": {
+      "unauthenticated": "Your session has expired. Please sign in again.",
+      "forbidden": "Only the couple can build the playlist.",
+      "invalid": "This search isn’t valid.",
+      "disconnected": "The Spotify link has expired. Please reconnect your account.",
+      "playlistMissing": "The playlist can’t be found on Spotify. Unlink and reconnect your account to create a new one.",
+      "rateLimited": "Spotify is busy. Please wait a few seconds.",
+      "generic": "Spotify didn’t respond. Please try again."
+    },
+    "tracks": {
+      "title": "Your playlist",
+      "count": "{count, plural, =0 {No songs} one {# song} other {# songs}}",
+      "empty": "No songs yet. Search for a title and add it with +.",
+      "error": "The playlist couldn’t be loaded from Spotify. Reload the page in a moment.",
+      "play": "Play {name} by {artist}",
+      "pause": "Pause {name}",
+      "playerError": "The Spotify player couldn’t load. Check that no extension is blocking it."
+    }
   }
 }

@@ -52,7 +52,7 @@ export default async function SeatingPage({
 
   return (
     <main className="flex flex-1 justify-center px-5 pt-14 pb-24 sm:px-6 sm:pt-20">
-      <div className="flex w-full min-w-0 max-w-4xl flex-col gap-10">
+      <div className="flex w-full min-w-0 max-w-6xl flex-col gap-10">
         <header className="flex flex-col gap-4">
           <Link
             href="/dashboard"

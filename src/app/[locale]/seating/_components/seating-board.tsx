@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils";
 import { assignGuestToTable, deleteTable } from "../actions";
 import { CreateTableDialog } from "./create-table-dialog";
 import { DeleteTableButton } from "./delete-table-button";
+import { RoundTable } from "./round-table";
 import { TableLogistics } from "./table-logistics";
 
 type SeatingState = { tables: SeatingTable[]; guests: SeatedGuest[] };
@@ -102,17 +103,40 @@ export function SeatingBoard({ tables, guests, canEdit }: SeatingBoardProps) {
   );
 
   return (
-    <div className="flex flex-col gap-12">
-      {/* Section 1 : invités à placer */}
-      <section aria-labelledby="unseated-title" className="flex flex-col gap-5">
-        <div className="flex items-baseline justify-between gap-4">
-          <h2 id="unseated-title" className="font-serif text-2xl">
-            {t("unseated.title")}
-          </h2>
-          <span className="text-sm text-stone">
-            {t("unseated.count", { count: unseated.length })}
-          </span>
-        </div>
+    <div className="flex flex-col gap-12 lg:grid lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:items-start lg:gap-10">
+      {/* Panneau latéral : invités à placer */}
+      <section
+        aria-labelledby="unseated-title"
+        className="flex flex-col gap-5 lg:sticky lg:top-8 lg:max-h-[calc(100dvh-4rem)] lg:overflow-y-auto lg:pb-2"
+      >
+        <h2 id="unseated-title" className="font-serif text-2xl">
+          {t("unseated.title")}
+        </h2>
+
+        <dl className="grid grid-cols-2 gap-3">
+          <div
+            className={cn(
+              "flex flex-col-reverse gap-1 rounded-3xl px-4 py-4",
+              unseated.length > 0 ? "bg-terracotta-soft/60" : "bg-sage-soft",
+            )}
+          >
+            <dt className="text-sm text-stone">{t("unseated.counter.toSeat")}</dt>
+            <dd
+              className={cn(
+                "font-serif text-3xl tabular-nums",
+                unseated.length > 0 ? "text-terracotta" : "text-sage-deep",
+              )}
+            >
+              {unseated.length}
+            </dd>
+          </div>
+          <div className="flex flex-col-reverse gap-1 rounded-3xl bg-linen px-4 py-4">
+            <dt className="text-sm text-stone">{t("unseated.counter.total")}</dt>
+            <dd className="font-serif text-3xl text-charcoal tabular-nums">
+              {state.guests.length}
+            </dd>
+          </div>
+        </dl>
 
         {state.guests.length === 0 ? (
           <p className="rounded-3xl bg-linen px-6 py-10 text-center text-stone">
@@ -123,7 +147,7 @@ export function SeatingBoard({ tables, guests, canEdit }: SeatingBoardProps) {
             {t("unseated.allSeated")}
           </p>
         ) : (
-          <ul className="grid gap-3 sm:grid-cols-2">
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
             {unseated.map((guest) => (
               <li
                 key={guest.id}
@@ -177,7 +201,7 @@ export function SeatingBoard({ tables, guests, canEdit }: SeatingBoardProps) {
         )}
       </section>
 
-      {/* Section 2 : les tables */}
+      {/* Les tables */}
       <section aria-labelledby="tables-title" className="flex flex-col gap-5">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <h2 id="tables-title" className="font-serif text-2xl">
@@ -195,7 +219,6 @@ export function SeatingBoard({ tables, guests, canEdit }: SeatingBoardProps) {
             {state.tables.map((table) => {
               const seated = guestsByTable.get(table.id) ?? [];
               const full = seated.length >= table.capacity;
-              const ratio = Math.min(seated.length / table.capacity, 1);
               return (
                 <li
                   key={table.id}
@@ -211,22 +234,18 @@ export function SeatingBoard({ tables, guests, canEdit }: SeatingBoardProps) {
                     )}
                   </div>
 
-                  <div className="flex flex-col gap-2">
-                    <div className="flex items-baseline justify-between text-sm">
-                      <span className={full ? "text-terracotta" : "text-sage-deep"}>
-                        {t("tables.seats", { seated: seated.length, capacity: table.capacity })}
-                      </span>
-                      {full && <span className="text-terracotta">{t("tables.full")}</span>}
-                    </div>
-                    <div aria-hidden className="h-1.5 overflow-hidden rounded-full bg-sand/60">
-                      <div
-                        className={cn(
-                          "h-full rounded-full transition-[width,background-color] duration-500",
-                          full ? "bg-terracotta" : "bg-sage",
-                        )}
-                        style={{ width: `${ratio * 100}%` }}
-                      />
-                    </div>
+                  <div className="flex flex-col items-center gap-2">
+                    <RoundTable
+                      capacity={table.capacity}
+                      seated={seated}
+                      fullName={fullName}
+                      label={t("tables.diagram", {
+                        name: table.name,
+                        seated: seated.length,
+                        capacity: table.capacity,
+                      })}
+                    />
+                    {full && <span className="text-sm text-terracotta">{t("tables.full")}</span>}
                   </div>
 
                   <TableLogistics guests={seated} fullName={fullName} />

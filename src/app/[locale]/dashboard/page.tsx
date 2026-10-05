@@ -133,6 +133,7 @@ export default async function DashboardPage({
                 { href: "/guests", label: t("guestsLink") },
                 { href: "/invitations", label: t("invitationsLink") },
                 { href: "/seating", label: t("seatingLink") },
+                { href: "/playlist", label: t("playlistLink") },
                 { href: "/itinerary", label: t("itineraryLink") },
                 { href: "/quotes", label: t("quotesLink") },
                 { href: "/settings", label: t("settingsLink") },

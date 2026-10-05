@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { useState, type FormEvent, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,13 +25,16 @@ import {
 import {
   BUDGET_CATEGORIES,
   BUDGET_LIMITS,
+  BUDGET_SOURCINGS,
   parseBudgetItem,
   type BudgetCategory,
   type BudgetItem,
   type BudgetItemField,
   type BudgetItemFieldErrors,
   type BudgetItemInput,
+  type BudgetSourcing,
 } from "@/lib/budget/schema";
+import { SourcingDot } from "./sourcing-select";
 
 type BudgetItemDialogProps = {
   /** Ligne à modifier ; absente, la modale crée un nouveau prestataire. */
@@ -46,10 +49,12 @@ type BudgetItemDialogProps = {
 /** Formulaire d'ajout ou de modification d'un prestataire, en modale. */
 export function BudgetItemDialog({ item, currency, trigger, onSubmit }: BudgetItemDialogProps) {
   const t = useTranslations("Budget");
+  const format = useFormatter();
   const mode = item ? "edit" : "add";
   const [open, setOpen] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<BudgetItemFieldErrors>({});
   const [category, setCategory] = useState<BudgetCategory | "">(item?.category ?? "");
+  const [sourcing, setSourcing] = useState<BudgetSourcing>(item?.sourcing ?? "undecided");
 
   // Le contenu de la modale est démonté à la fermeture : la saisie repart à zéro.
   function changeOpen(next: boolean) {
@@ -57,6 +62,7 @@ export function BudgetItemDialog({ item, currency, trigger, onSubmit }: BudgetIt
     if (!next) {
       setFieldErrors({});
       setCategory(item?.category ?? "");
+      setSourcing(item?.sourcing ?? "undecided");
     }
   }
 
@@ -68,6 +74,7 @@ export function BudgetItemDialog({ item, currency, trigger, onSubmit }: BudgetIt
       label: String(data.get("label") ?? ""),
       estimatedAmount: String(data.get("estimatedAmount") ?? ""),
       actualAmount: String(data.get("actualAmount") ?? ""),
+      sourcing,
     };
 
     // Même schéma que le serveur : on ne ferme qu'une saisie valide,
@@ -107,7 +114,10 @@ export function BudgetItemDialog({ item, currency, trigger, onSubmit }: BudgetIt
     <div className="relative">
       <Input
         {...fieldProps(field)}
-        aria-describedby={describedBy(field, field === "actualAmount" ? "budget-actual-hint" : undefined)}
+        aria-describedby={describedBy(
+          field,
+          field === "actualAmount" ? "budget-actual-hint" : undefined,
+        )}
         type="text"
         inputMode="numeric"
         autoComplete="off"
@@ -175,11 +185,41 @@ export function BudgetItemDialog({ item, currency, trigger, onSubmit }: BudgetIt
             {fieldError("label")}
           </div>
 
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="budget-sourcing">{t("sourcing.label")}</Label>
+            <Select
+              value={sourcing}
+              onValueChange={(value) => setSourcing(value as BudgetSourcing)}
+            >
+              <SelectTrigger id="budget-sourcing" className="h-11 w-full data-[size=default]:h-11">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {BUDGET_SOURCINGS.map((value) => (
+                  <SelectItem key={value} value={value}>
+                    <SourcingDot sourcing={value} />
+                    {t(`sourcing.${value}`)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
           <div className="grid gap-5 sm:grid-cols-2">
             <div className="flex flex-col gap-2">
               <Label htmlFor="budget-estimatedAmount">{t("form.estimated")}</Label>
               {amountInput("estimatedAmount", item?.estimated_amount ?? null)}
               {fieldError("estimatedAmount")}
+              {item?.suggested_amount != null && (
+                <p className="text-sm text-stone/70 tabular-nums">
+                  {t("vendors.indication")} ≈{" "}
+                  {format.number(item.suggested_amount, {
+                    style: "currency",
+                    currency,
+                    maximumFractionDigits: 0,
+                  })}
+                </p>
+              )}
             </div>
             <div className="flex flex-col gap-2">
               <Label htmlFor="budget-actualAmount">
