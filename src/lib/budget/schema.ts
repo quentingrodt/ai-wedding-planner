@@ -1,4 +1,14 @@
 import { z } from "zod";
+import {
+  BUDGET_LINE_KEYS,
+  BUDGET_PAYERS,
+  BUDGET_SECTION_KEYS,
+  lineDefinition,
+  SECTION_TRADITION,
+  type BudgetLineKey,
+  type BudgetPayer,
+  type BudgetSection,
+} from "./worksheet";
 
 /** Slugs de catégories, alignés sur la contrainte CHECK de budget_items (000016). */
 export const BUDGET_CATEGORIES = [
@@ -29,10 +39,15 @@ export type BudgetSourcing = (typeof BUDGET_SOURCINGS)[number];
  * l'onboarding, et aperçu montré à la fin de Date Night.
  */
 export const DEFAULT_BUDGET_SPLIT = [
-  { category: "venue", share: 0.4 },
-  { category: "catering", share: 0.3 },
-  { category: "contingency", share: 0.1 },
-] as const satisfies readonly { category: BudgetCategory; share: number }[];
+  { category: "venue", share: 0.4, section: "ceremonyReception", lineKey: "venueRental" },
+  { category: "catering", share: 0.3, section: "food", lineKey: "dinnerCatering" },
+  { category: "contingency", share: 0.1, section: "other", lineKey: "contingency" },
+] as const satisfies readonly {
+  category: BudgetCategory;
+  share: number;
+  section: BudgetSection;
+  lineKey: BudgetLineKey;
+}[];
 
 /** Ligne de la table budget_items ; montants en unités entières de la devise. */
 export type BudgetItem = {
@@ -45,6 +60,13 @@ export type BudgetItem = {
   /** Indication de marché de Céleste, affichée à titre indicatif, jamais comptée. */
   suggested_amount: number | null;
   sourcing: BudgetSourcing;
+  /** Rubrique de la grille (worksheet.ts). */
+  section: BudgetSection;
+  /** Poste de la grille ; null pour un poste ajouté par le couple (label requis). */
+  line_key: BudgetLineKey | null;
+  notes: string | null;
+  /** Null : le payeur traditionnel du poste s'applique. */
+  payer: BudgetPayer | null;
 };
 
 export type BudgetSummary = {
@@ -90,13 +112,6 @@ export const BUDGET_LIMITS = {
 const AMOUNT_PATTERN = /^\d+$/;
 const stripSpaces = (value: string) => value.replace(/[\s  ]/g, "");
 
-const amount = z
-  .string()
-  .transform(stripSpaces)
-  .pipe(z.string().min(1).regex(AMOUNT_PATTERN))
-  .transform(Number)
-  .pipe(z.number().int().max(BUDGET_LIMITS.amount));
-
 const optionalAmount = z
   .string()
   .transform(stripSpaces)
@@ -104,50 +119,51 @@ const optionalAmount = z
   .transform((value) => (value === "" ? null : Number(value)))
   .pipe(z.number().int().max(BUDGET_LIMITS.amount).nullable());
 
-export const budgetItemSchema = z.object({
-  category: z.enum(BUDGET_CATEGORIES),
-  // Nom du prestataire ; facultatif tant qu'il n'est pas choisi (la contrainte SQL refuse "").
-  label: z
+export const NOTES_MAX = 500;
+
+const nullableText = (max: number) =>
+  z
     .string()
     .trim()
-    .max(BUDGET_LIMITS.label)
-    .transform((value) => (value === "" ? null : value)),
-  estimatedAmount: amount,
-  actualAmount: optionalAmount,
-  sourcing: z.enum(BUDGET_SOURCINGS).default("undecided"),
-  // Fixée à la création (suggestion de Céleste) ; jamais modifiée ensuite.
-  suggestedAmount: z.number().int().min(0).max(BUDGET_LIMITS.amount).nullable().default(null),
-});
-export type BudgetItemInput = z.input<typeof budgetItemSchema>;
-export type BudgetItemData = z.output<typeof budgetItemSchema>;
-export type BudgetItemField = keyof BudgetItemInput;
-export type BudgetItemFieldError = "required" | "tooLong" | "amount";
-export type BudgetItemFieldErrors = Partial<Record<BudgetItemField, BudgetItemFieldError>>;
+    .max(max)
+    .transform((value) => (value === "" ? null : value));
 
-/** Traduit les erreurs Zod en clés d'erreur par champ (partagé client/serveur). */
-export function parseBudgetItem(
-  input: BudgetItemInput,
-): { ok: true; data: BudgetItemData } | { ok: false; fieldErrors: BudgetItemFieldErrors } {
-  const parsed = budgetItemSchema.safeParse(input);
-  if (parsed.success) return { ok: true, data: parsed.data };
+/**
+ * Saisie d'un poste de la grille (partagé client/serveur). Un poste de la
+ * grille est identifié par lineKey ; un poste ajouté par le couple, par son
+ * libellé dans sa rubrique.
+ */
+export const budgetLineSchema = z
+  .object({
+    id: z.uuid().nullable(),
+    lineKey: z.enum(BUDGET_LINE_KEYS as [BudgetLineKey, ...BudgetLineKey[]]).nullable(),
+    section: z.enum(BUDGET_SECTION_KEYS as [BudgetSection, ...BudgetSection[]]),
+    label: nullableText(BUDGET_LIMITS.label),
+    estimatedAmount: optionalAmount.transform((value) => value ?? 0),
+    actualAmount: optionalAmount,
+    notes: nullableText(NOTES_MAX),
+    payer: z.enum(BUDGET_PAYERS).nullable(),
+    sourcing: z.enum(BUDGET_SOURCINGS),
+  })
+  .refine((line) => line.lineKey !== null || line.label !== null, { path: ["label"] });
+export type BudgetLineInput = z.input<typeof budgetLineSchema>;
+export type BudgetLineData = z.output<typeof budgetLineSchema>;
 
-  const fieldErrors: BudgetItemFieldErrors = {};
-  for (const issue of parsed.error.issues) {
-    const field = issue.path[0] as BudgetItemField;
-    fieldErrors[field] ??=
-      field === "label"
-        ? "tooLong"
-        : field === "category" || (field === "estimatedAmount" && input.estimatedAmount.trim() === "")
-          ? "required"
-          : "amount";
-  }
-  return { ok: false, fieldErrors };
-}
+/** Un poste de la grille sans aucune saisie n'a pas besoin d'exister en base. */
+export const isEmptyLine = (line: BudgetLineData) =>
+  line.lineKey !== null &&
+  line.estimatedAmount === 0 &&
+  line.actualAmount === null &&
+  line.notes === null &&
+  line.payer === null &&
+  line.sourcing === "undecided";
 
 export const budgetItemIdSchema = z.uuid();
 
 export type BudgetActionError = "unauthenticated" | "forbidden" | "invalid" | "generic";
 export type BudgetActionResult = { ok: true } | { ok: false; error: BudgetActionError };
+export type BudgetLineResult =
+  { ok: true; item: BudgetItem | null } | { ok: false; error: BudgetActionError };
 
 export type EnvelopeSummary = {
   /** null tant que l'enveloppe n'est pas définie. */
@@ -179,47 +195,32 @@ export function summarizeEnvelope(
   };
 }
 
-export type BudgetCategoryGroup = {
-  category: BudgetCategory;
-  items: BudgetItem[];
-  estimated: number;
-  /** Somme des montants signés de la catégorie. */
-  actual: number;
-  /** Projection de la catégorie (signé, sinon prévu). */
-  projected: number;
-};
-
-/** Regroupe les lignes par catégorie, dans l'ordre de BUDGET_CATEGORIES ; catégories vides omises. */
-export function groupBudgetItems(items: readonly BudgetItem[]): BudgetCategoryGroup[] {
-  return BUDGET_CATEGORIES.flatMap((category) => {
-    const categoryItems = items.filter((item) => item.category === category);
-    if (categoryItems.length === 0) return [];
-    const { committed, projected } = summarizeEnvelope(null, categoryItems);
-    return [
-      {
-        category,
-        items: categoryItems,
-        estimated: categoryItems.reduce((sum, item) => sum + item.estimated_amount, 0),
-        actual: committed,
-        projected,
-      },
-    ];
-  });
+/** Payeur effectif d'une ligne : choix du couple, sinon la tradition. */
+export function effectivePayer(
+  item: Pick<BudgetItem, "payer" | "line_key" | "section">,
+): BudgetPayer {
+  if (item.payer) return item.payer;
+  const definition = item.line_key ? lineDefinition(item.line_key) : null;
+  return definition?.tradition ?? SECTION_TRADITION[item.section];
 }
 
-/** Saisie équivalente à une ligne existante (changement de sourcing en un clic). */
-export function budgetItemToInput(
-  item: BudgetItem,
-  overrides: Partial<BudgetItemInput> = {},
-): BudgetItemInput {
-  return {
-    category: item.category,
-    label: item.label ?? "",
-    estimatedAmount: String(item.estimated_amount),
-    actualAmount: item.actual_amount === null ? "" : String(item.actual_amount),
-    sourcing: item.sourcing,
-    ...overrides,
-  };
+/** Projection par payeur (signé, sinon prévu), dans l'ordre de BUDGET_PAYERS. */
+export function summarizeByPayer(
+  items: readonly Pick<
+    BudgetItem,
+    "payer" | "line_key" | "section" | "estimated_amount" | "actual_amount"
+  >[],
+): { payer: BudgetPayer; amount: number }[] {
+  const totals = new Map<BudgetPayer, number>();
+  for (const item of items) {
+    const amount = item.actual_amount ?? item.estimated_amount;
+    if (amount <= 0) continue;
+    const payer = effectivePayer(item);
+    totals.set(payer, (totals.get(payer) ?? 0) + amount);
+  }
+  return BUDGET_PAYERS.flatMap((payer) =>
+    totals.has(payer) ? [{ payer, amount: totals.get(payer)! }] : [],
+  );
 }
 
 /**

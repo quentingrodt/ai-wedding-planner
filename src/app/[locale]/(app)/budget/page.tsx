@@ -9,10 +9,11 @@ import {
   getCurrentMemberRole,
   getCurrentUserId,
   getCurrentWedding,
-  getWeddingStyleDna,
+  hasSeenBudgetIntro,
 } from "@/lib/weddings/queries";
 import { createClient } from "@/utils/supabase/client";
-import { BudgetBoard } from "./_components/budget-board";
+import { BudgetIntro } from "./_components/budget-intro";
+import { BudgetWorksheet } from "./_components/budget-worksheet";
 
 export async function generateMetadata({
   params,
@@ -47,15 +48,15 @@ export default async function BudgetPage({ params }: PageProps<"/[locale]/budget
     return redirect({ href: "/dashboard", locale });
   }
 
-  const [items, styleDna, t] = await Promise.all([
+  const [items, introSeen, t] = await Promise.all([
     getBudgetItems(supabase, wedding.id),
-    getWeddingStyleDna(supabase, wedding.id),
+    hasSeenBudgetIntro(supabase, userId),
     getTranslations("Budget"),
   ]);
 
   return (
     <main className="flex flex-1 justify-center px-5 pt-14 pb-24 sm:px-6 sm:pt-20">
-      <div className="flex w-full min-w-0 max-w-4xl flex-col gap-10">
+      <div className="flex w-full min-w-0 max-w-5xl flex-col gap-10">
         <header className="flex flex-col gap-4">
           <p className="text-xs font-medium tracking-[0.2em] text-terracotta uppercase">
             {t("eyebrow")}
@@ -63,15 +64,14 @@ export default async function BudgetPage({ params }: PageProps<"/[locale]/budget
           <h1 className="font-serif text-4xl leading-tight tracking-tight text-balance sm:text-5xl">
             {t("title")}
           </h1>
-          <p className="max-w-2xl text-lg text-pretty text-muted-foreground">{t("intro")}</p>
+          <p className="max-w-2xl text-lg text-pretty text-muted-foreground">{t("lead")}</p>
+          <BudgetIntro firstVisit={!introSeen} />
         </header>
 
-        <BudgetBoard
-          items={items}
+        <BudgetWorksheet
+          initialItems={items}
           total={wedding.total_budget}
           currency={wedding.currency_code}
-          weddingId={wedding.id}
-          likes={styleDna.likes}
           monthsLeft={monthsUntil(wedding.wedding_date, new Date())}
         />
       </div>

@@ -736,7 +736,142 @@
     "back": "Tableau de bord",
     "eyebrow": "Finances",
     "title": "Budget & Prestataires",
-    "intro": "Chaque poste, chaque prestataire et ce qu’il reste à répartir, réunis au même endroit.",
+    "intro": {
+      "trigger": "Qui paie quoi ?",
+      "close": "Fermer",
+      "eyebrow": "Avant de commencer",
+      "title": "Qui paie quoi ? Le point sur la tradition",
+      "lead": "En France, l’usage voulait que chaque famille prenne en charge certains postes. Ces repères varient d’une région et d’une famille à l’autre ; les voici, pour vous aider à ouvrir la discussion.",
+      "groups": {
+        "ceremony": {
+          "title": "La cérémonie",
+          "entries": {
+            "ceremonyVenue": {
+              "what": "Église, prêtre, musique de l’office",
+              "who": "Les mariés ou la famille du marié"
+            },
+            "officiant": {
+              "what": "Officiant, contrat de mariage",
+              "who": "Les mariés"
+            }
+          }
+        },
+        "attire": {
+          "title": "Les tenues",
+          "entries": {
+            "dress": {
+              "what": "Robe et accessoires de la mariée",
+              "who": "La mariée et sa famille"
+            },
+            "suit": {
+              "what": "Costume du marié",
+              "who": "Le marié et sa famille"
+            }
+          }
+        },
+        "flowers": {
+          "title": "Les fleurs",
+          "entries": {
+            "bouquet": {
+              "what": "Bouquet de la mariée, boutonnières",
+              "who": "La mariée et sa famille"
+            },
+            "floral": {
+              "what": "Le reste de la décoration florale",
+              "who": "Le marié et sa famille"
+            }
+          }
+        },
+        "reception": {
+          "title": "La réception",
+          "entries": {
+            "catering": {
+              "what": "Traiteur et frais de réception",
+              "who": "Partagés entre les deux familles"
+            },
+            "music": {
+              "what": "Musique et champagne",
+              "who": "La mariée et sa famille"
+            },
+            "photo": {
+              "what": "Photographe et vidéaste",
+              "who": "La mariée et sa famille"
+            }
+          }
+        },
+        "parties": {
+          "title": "Les fêtes avant le mariage",
+          "entries": {
+            "engagement": {
+              "what": "Fiançailles",
+              "who": "Famille de la mariée ou du marié"
+            },
+            "rehearsal": {
+              "what": "Dîner de veille",
+              "who": "Famille du marié"
+            },
+            "bachelorette": {
+              "what": "Enterrement de vie de jeune fille",
+              "who": "Témoins et amies de la mariée"
+            },
+            "bachelor": {
+              "what": "Enterrement de vie de garçon",
+              "who": "Témoins et amis du marié"
+            }
+          }
+        },
+        "rings": {
+          "title": "Les alliances",
+          "entries": {
+            "groomRing": {
+              "what": "Alliance du marié",
+              "who": "Offerte par la mariée et sa famille"
+            },
+            "brideRing": {
+              "what": "Alliance de la mariée",
+              "who": "Offerte par le marié et sa famille"
+            }
+          }
+        },
+        "stationery": {
+          "title": "La papeterie",
+          "entries": {
+            "invitations": {
+              "what": "Faire-part, invitations, remerciements",
+              "who": "Partagés entre les deux familles"
+            },
+            "programs": {
+              "what": "Menus, livrets de cérémonie",
+              "who": "Partagés entre les deux familles"
+            }
+          }
+        },
+        "transport": {
+          "title": "Le transport",
+          "entries": {
+            "car": {
+              "what": "Voiture des mariés",
+              "who": "Famille du marié ou de la mariée"
+            }
+          }
+        },
+        "honeymoon": {
+          "title": "Après le mariage",
+          "entries": {
+            "trip": {
+              "what": "Voyage de noces",
+              "who": "Le marié et sa famille"
+            }
+          }
+        }
+      },
+      "today": {
+        "title": "Aujourd’hui, chacun écrit sa propre règle",
+        "body": "Ce sont désormais souvent les mariés qui financent l’essentiel, parfois avec l’aide de leurs proches, chaque famille selon ses moyens et ses envies. Il n’y a pas de bonne ou de mauvaise répartition : seulement celle qui vous ressemble.",
+        "howTo": "Dans votre budget, chaque poste propose le payeur traditionnel par défaut. Changez-le d’un clic : Céleste calcule la part de chacun."
+      },
+      "start": "Composer notre budget"
+    },
     "kpis": {
       "envelope": "Enveloppe totale",
       "noEnvelope": "À définir",
@@ -747,15 +882,6 @@
       "overBy": "Au-delà de l’enveloppe"
     },
     "vendors": {
-      "title": "Vos prestataires",
-      "intro": "Un devis signé remplace l’estimation dans vos calculs.",
-      "empty": "Aucun prestataire pour l’instant. Ajoutez votre premier poste de dépense.",
-      "groupTotal": "{actual} engagés sur {estimated} prévus",
-      "unnamed": "Prestataire à choisir",
-      "estimated": "Prévu",
-      "actual": "Signé",
-      "notSigned": "En attente",
-      "indication": "Indication Céleste",
       "indicationHint": "Moyenne du marché, à titre indicatif : elle ne compte pas dans votre budget tant que vous n’avez pas saisi votre propre montant."
     },
     "categories": {
@@ -775,100 +901,11 @@
       "contingency": "Imprévus",
       "other": "Autres dépenses"
     },
-    "add": {
-      "trigger": "Ajouter un prestataire",
-      "title": "Ajouter un prestataire",
-      "description": "Une estimation suffit pour commencer ; le montant signé viendra avec le devis.",
-      "submit": "Ajouter"
-    },
-    "edit": {
-      "trigger": "Modifier {name}",
-      "title": "Modifier le prestataire",
-      "description": "Ajustez l’estimation ou reportez le montant du devis signé.",
-      "submit": "Enregistrer"
-    },
-    "form": {
-      "category": "Catégorie",
-      "categoryPlaceholder": "Choisir une catégorie",
-      "label": "Nom du prestataire",
-      "labelPlaceholder": "Domaine des Tilleuls",
-      "estimated": "Montant prévu",
-      "actual": "Montant signé",
-      "actualHint": "Montants arrondis à l’unité. Le montant signé est celui du devis accepté.",
-      "optional": "(facultatif)",
-      "cancel": "Annuler",
-      "close": "Fermer"
-    },
-    "delete": {
-      "trigger": "Retirer {name}",
-      "title": "Retirer {name} du budget ?",
-      "description": "Cette ligne ne sera plus prise en compte dans vos calculs.",
-      "cancel": "Annuler",
-      "confirm": "Retirer",
-      "success": "{name} a été retiré du budget."
-    },
-    "fieldErrors": {
-      "required": "Ce champ est requis.",
-      "tooLong": "Ce texte est trop long.",
-      "amount": "Saisissez un montant entier, sans centimes."
-    },
     "errors": {
       "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
       "forbidden": "Seuls les mariés peuvent modifier le budget.",
       "invalid": "Certaines informations sont incomplètes. Merci de vérifier la saisie.",
       "generic": "La modification n’a pas pu être enregistrée. Merci de réessayer."
-    },
-    "suggestions": {
-      "title": "Avez-vous pensé à tout ?",
-      "intro": "Quelques postes manquent souvent à l’appel. Ajoutez-les en un clic, avec une première estimation.",
-      "estimate": "Environ {amount}",
-      "add": "Ajouter",
-      "dismiss": "Ignorer",
-      "added": "« {name} » a été ajouté à votre budget.",
-      "showMore": "{count, plural, one {Voir # autre suggestion} other {Voir # autres suggestions}}",
-      "showLess": "Masquer",
-      "items": {
-        "dj": {
-          "question": "Avez-vous pensé au DJ ?",
-          "label": "DJ"
-        },
-        "photographer": {
-          "question": "Avez-vous pensé au photographe ?",
-          "label": "Photographe"
-        },
-        "attire": {
-          "question": "Avez-vous pensé à vos tenues ?",
-          "label": "Tenues des mariés"
-        },
-        "florist": {
-          "question": "Avez-vous pensé au fleuriste ?",
-          "label": "Fleuriste et décoration"
-        },
-        "stationery": {
-          "question": "Avez-vous pensé aux faire-part ?",
-          "label": "Faire-part et papeterie"
-        },
-        "transport": {
-          "question": "Avez-vous pensé au transport ?",
-          "label": "Transport des mariés"
-        },
-        "weddingCake": {
-          "question": "Avez-vous pensé à la pièce montée ?",
-          "label": "Pièce montée et desserts"
-        },
-        "officiant": {
-          "question": "Avez-vous pensé à l’officiant de cérémonie ?",
-          "label": "Officiant de cérémonie laïque"
-        },
-        "honeymoon": {
-          "question": "Avez-vous pensé au voyage de noces ?",
-          "label": "Voyage de noces"
-        },
-        "rings": {
-          "question": "Avez-vous pensé aux alliances ?",
-          "label": "Alliances"
-        }
-      }
     },
     "sourcing": {
       "label": "Sourcing",
@@ -884,7 +921,143 @@
       "tip": "Astuce : cela représente un effort d’épargne de {perMonth} / mois jusqu’au jour J.",
       "tipNoDate": "Astuce : fixez la date du mariage pour calculer l’effort d’épargne mensuel nécessaire.",
       "months": "{count, plural, one {Il reste # mois avant le mariage.} other {Il reste # mois avant le mariage.}}"
-    }
+    },
+    "payers": {
+      "couple": "Les mariés",
+      "brideFamily": "Famille de la mariée",
+      "groomFamily": "Famille du marié",
+      "shared": "Les deux familles",
+      "witnesses": "Témoins et amis"
+    },
+    "payersSummary": {
+      "title": "Qui finance quoi"
+    },
+    "worksheet": {
+      "title": "L’organisation du budget",
+      "intro": "Chaque champ s’enregistre dès que vous passez au suivant. Les postes laissés vides ne comptent pas.",
+      "filled": "{filled} / {total} postes renseignés",
+      "subtotal": "{estimated} prévus · {actual} engagés",
+      "columns": {
+        "line": "Poste",
+        "estimated": "Budget",
+        "actual": "Coût",
+        "payer": "Qui paie ?",
+        "notes": "Notes"
+      },
+      "estimatedLabel": "Budget prévu pour {name}",
+      "actualLabel": "Coût réel pour {name}",
+      "payerLabel": "Qui paie {name}",
+      "notesLabel": "Notes pour {name}",
+      "notesPlaceholder": "Prestataire, idée…",
+      "tradition": "· tradition",
+      "addLine": "Ajouter un poste",
+      "newLine": "Nouveau poste",
+      "lineName": "Nom du poste",
+      "lineNamePlaceholder": "Nom du poste",
+      "clear": "Effacer {name}",
+      "clearHint": "Vider ce poste",
+      "remove": "Retirer {name}",
+      "over": "Dépasse le budget prévu de {amount}.",
+      "sections": {
+        "ceremonyReception": "La cérémonie et la réception",
+        "food": "Repas et boissons",
+        "attire": "Les tenues",
+        "beauty": "Coiffure et maquillage",
+        "rings": "Les alliances",
+        "flowers": "Fleurs et décoration",
+        "photoVideo": "Photos et vidéo",
+        "entertainment": "Animation et équipement",
+        "stationery": "Papeterie et accueil",
+        "gifts": "Cadeaux",
+        "transport": "Transport",
+        "parties": "Fêtes avant le mariage",
+        "honeymoon": "Voyage de noces",
+        "other": "Autres dépenses"
+      },
+      "lines": {
+        "venueRental": "Location de la salle",
+        "tentRental": "Location d’une tente",
+        "ceremonyDecor": "Décoration de la cérémonie",
+        "receptionDecor": "Décoration de la salle",
+        "confetti": "Confettis et pétales",
+        "officiant": "Officiant",
+        "churchFees": "Église, prêtre, organiste",
+        "marriageContract": "Contrat de mariage",
+        "dinnerCatering": "Traiteur du dîner",
+        "cocktail": "Vin d’honneur",
+        "drinks": "Boissons et champagne",
+        "water": "Eaux",
+        "weddingCake": "Pièce montée",
+        "lateSnacks": "Buffet de fin de soirée",
+        "weddingDress": "Robe de la mariée",
+        "dressAlterations": "Retouches de la robe",
+        "veil": "Voile ou couronne",
+        "brideShoes": "Chaussures de la mariée",
+        "lingerie": "Lingerie",
+        "garter": "Jarretière",
+        "jewelry": "Bijoux",
+        "groomSuit": "Costume du marié",
+        "groomShoes": "Chaussures du marié",
+        "groomAccessories": "Accessoires du marié",
+        "bridesmaidsDresses": "Robes des demoiselles d’honneur",
+        "groomsmenSuits": "Tenues des garçons d’honneur",
+        "kidsOutfits": "Tenues des enfants d’honneur",
+        "hair": "Coiffure",
+        "makeup": "Maquillage",
+        "hairTrial": "Essai coiffure",
+        "makeupTrial": "Essai maquillage",
+        "groomRing": "Alliance du marié",
+        "brideRing": "Alliance de la mariée",
+        "brideBouquet": "Bouquet de la mariée",
+        "boutonnieres": "Boutonnières",
+        "bridesmaidsBouquets": "Bouquets des demoiselles d’honneur",
+        "centerpieces": "Centres de table",
+        "floralDecor": "Décoration florale",
+        "tableDecor": "Décoration des tables",
+        "photographer": "Photographe",
+        "videographer": "Vidéaste",
+        "album": "Album photo",
+        "dj": "DJ",
+        "liveBand": "Groupe live",
+        "musicians": "Musiciens",
+        "magician": "Magicien ou artiste",
+        "soundSystem": "Sonorisation",
+        "lighting": "Éclairage",
+        "danceFloor": "Piste de danse",
+        "partyFavors": "Cotillons",
+        "invitations": "Faire-part",
+        "thankYouCards": "Cartes de remerciement",
+        "menus": "Menus",
+        "programs": "Livrets de cérémonie",
+        "placeCards": "Marque-places",
+        "tableCards": "Noms de tables",
+        "welcomeSigns": "Panneaux de bienvenue",
+        "favorBoxes": "Contenants à dragées",
+        "giftTags": "Étiquettes cadeaux",
+        "engagementInvitations": "Invitations aux fiançailles",
+        "partyInvitations": "Invitations EVJF / EVG",
+        "favors": "Dragées",
+        "parentsGifts": "Cadeaux aux parents",
+        "brideWitnessGifts": "Cadeaux aux témoins de la mariée",
+        "groomWitnessGifts": "Cadeaux aux témoins du marié",
+        "kidsGifts": "Cadeaux aux enfants d’honneur",
+        "coupleCar": "Voiture des mariés",
+        "carDecor": "Décoration des voitures",
+        "chauffeur": "Chauffeur",
+        "guestShuttle": "Navette des invités",
+        "extraCars": "Voitures supplémentaires",
+        "parking": "Stationnement",
+        "engagementParty": "Fiançailles",
+        "rehearsalDinner": "Dîner de veille",
+        "bachelorette": "Enterrement de vie de jeune fille",
+        "bachelor": "Enterrement de vie de garçon",
+        "honeymoon": "Voyage de noces",
+        "contingency": "Imprévus"
+      },
+      "details": "Qui paie, notes",
+      "share": "{percent} du budget"
+    },
+    "lead": "Remplissez ce que vous savez déjà, poste par poste : le budget que vous vous fixez, le coût réel une fois le devis signé, et qui le prend en charge."
   },
   "Inspiration": {
     "steps": {
@@ -1250,6 +1423,180 @@
         "together": "Ensemble",
         "her": "Pour elle",
         "him": "Pour lui"
+      }
+    },
+    "tabs": {
+      "label": "Espace inspiration",
+      "favorites": "Coups de cœur",
+      "palette": "Identité visuelle",
+      "moodboard": "Planche de tendances"
+    },
+    "palette": {
+      "metaTitle": "Identité visuelle",
+      "eyebrow": "Identité visuelle",
+      "title": "Les couleurs de votre mariage",
+      "intro": "Choisissez les teintes qui vous ressemblent : Céleste en tire une palette complète, du faire-part aux fleurs, en accord avec votre style.",
+      "readOnly": "Les mariés composent la palette : vous pouvez la consulter ici.",
+      "save": "Enregistrer la palette",
+      "upToDate": "Palette enregistrée",
+      "saved": "Votre palette est enregistrée.",
+      "chosen": {
+        "title": "Vos couleurs",
+        "hint": "Jusqu’à {max} teintes, de la plus présente à la plus discrète. La première donne le ton.",
+        "empty": "Aucune couleur pour l’instant : partez d’une palette prête ou piochez dans le nuancier.",
+        "main": "Couleur principale",
+        "rank": "Teinte {rank}",
+        "promote": "Faire de {name} la couleur principale",
+        "remove": "Retirer {name}"
+      },
+      "presets": {
+        "title": "Palettes prêtes à l’emploi",
+        "forYou": "Pour votre lieu",
+        "items": {
+          "classicChateau": "Château classique",
+          "countryBoho": "Bohème champêtre",
+          "seaside": "Bord de mer",
+          "urbanChic": "Chic urbain",
+          "romantic": "Romantique",
+          "starryNight": "Nuit étoilée"
+        }
+      },
+      "swatchesTitle": "Le nuancier",
+      "suggestions": "Ces teintes s’accordent avec {name} :",
+      "families": {
+        "greens": "Verts",
+        "earth": "Terres",
+        "romance": "Romance",
+        "blues": "Bleus et mauves",
+        "light": "Lumière et neutres"
+      },
+      "swatches": {
+        "sage": "Sauge",
+        "eucalyptus": "Eucalyptus",
+        "olive": "Olive",
+        "emerald": "Émeraude",
+        "terracotta": "Terracotta",
+        "rust": "Rouille",
+        "caramel": "Caramel",
+        "sand": "Sable",
+        "blush": "Rose poudré",
+        "dustyRose": "Vieux rose",
+        "coral": "Corail",
+        "burgundy": "Bordeaux",
+        "dustyBlue": "Bleu poudré",
+        "lavender": "Lavande",
+        "navy": "Bleu nuit",
+        "plum": "Prune",
+        "ivory": "Ivoire",
+        "champagne": "Champagne",
+        "gold": "Or",
+        "charcoal": "Anthracite"
+      },
+      "custom": {
+        "label": "Une teinte bien à vous :",
+        "add": "Ajouter cette couleur"
+      },
+      "result": {
+        "title": "Votre palette",
+        "intro": "Chaque couleur trouve son rôle. Les tons clair et profond sont teintés de votre couleur principale pour rester dans la même famille.",
+        "lowContrast": "Le texte risque d’être peu lisible sur le fond clair : choisissez une couleur principale plus soutenue."
+      },
+      "roles": {
+        "main": {
+          "label": "Principale",
+          "use": "Fleurs, décor"
+        },
+        "secondary": {
+          "label": "Secondaire",
+          "use": "Nappes, tenues"
+        },
+        "accent": {
+          "label": "Accent",
+          "use": "Détails, rubans"
+        },
+        "light": {
+          "label": "Clair",
+          "use": "Papeterie, fonds"
+        },
+        "deep": {
+          "label": "Profond",
+          "use": "Textes, calligraphie"
+        }
+      },
+      "preview": {
+        "stationery": "Papeterie",
+        "flowers": "Fleurs",
+        "table": "Table",
+        "save": "Save the date"
+      },
+      "errors": {
+        "invalid": "Ces couleurs ne sont pas valides.",
+        "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
+        "forbidden": "Seuls les mariés peuvent modifier la palette.",
+        "generic": "La palette n’a pas pu être enregistrée. Merci de réessayer."
+      }
+    },
+    "moodboard": {
+      "metaTitle": "Planche de tendances",
+      "eyebrow": "Planche de tendances",
+      "title": "Rassemblez vos idées",
+      "intro": "Une photo prise au détour d’un salon, une robe repérée, un bouquet qui vous a émus : réunissez tout ce qui vous inspire, à deux et avec vos témoins.",
+      "photos": {
+        "title": "Vos photos",
+        "intro": "Légendez-les et classez-les pour retrouver vos envies d’un coup d’œil.",
+        "empty": "Votre planche est encore vierge. Déposez vos premières images ci-dessus.",
+        "untitled": "Photo d’inspiration",
+        "edit": "Modifier la légende",
+        "delete": "Retirer la photo"
+      },
+      "upload": {
+        "title": "Ajouter des photos",
+        "hint": "Glissez-les ici ou cliquez pour choisir : JPEG, PNG ou WebP, 10 Mo maximum.",
+        "uploading": "Envoi en cours"
+      },
+      "filters": {
+        "all": "Tout"
+      },
+      "categories": {
+        "venue": "Lieu",
+        "decor": "Décoration",
+        "flowers": "Fleurs",
+        "attire": "Tenues",
+        "beauty": "Beauté",
+        "cake": "Gâteau",
+        "stationery": "Papeterie",
+        "other": "Autre"
+      },
+      "dialog": {
+        "title": "Votre photo",
+        "description": "Une légende et une catégorie pour la retrouver facilement.",
+        "caption": "Légende",
+        "captionPlaceholder": "Les bouquets du mariage de Claire",
+        "category": "Catégorie",
+        "noCategory": "Sans catégorie",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "close": "Fermer"
+      },
+      "pinterest": {
+        "title": "Vos tableaux Pinterest",
+        "intro": "Vous épinglez déjà sur Pinterest ? Liez vos tableaux publics : ils s’affichent ici, toujours à jour.",
+        "label": "Lien d’un tableau Pinterest",
+        "placeholder": "https://www.pinterest.fr/vous/mariage/",
+        "submit": "Lier le tableau",
+        "hint": "Ouvrez votre tableau sur Pinterest et copiez son adresse. Il doit être public.",
+        "added": "Le tableau est lié à votre planche.",
+        "open": "Ouvrir « {name} » sur Pinterest",
+        "remove": "Retirer le tableau"
+      },
+      "errors": {
+        "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
+        "forbidden": "Vous ne pouvez pas modifier cet élément.",
+        "invalidType": "{name} n’est pas une image JPEG, PNG ou WebP.",
+        "tooLarge": "{name} dépasse 10 Mo.",
+        "invalidPinterest": "Ce lien n’est pas celui d’un tableau Pinterest (pinterest.fr/compte/tableau).",
+        "duplicate": "Ce tableau est déjà sur votre planche.",
+        "generic": "L’opération n’a pas abouti. Merci de réessayer."
       }
     }
   },

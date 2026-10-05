@@ -9,6 +9,7 @@ import {
   inspirationLikesSchema,
   type InspirationStep,
 } from "@/lib/inspiration/catalog";
+import { weddingPaletteSchema } from "@/lib/inspiration/palette";
 import { playedSteps, type StyleDna } from "@/lib/inspiration/style-dna";
 import {
   AiUnavailableError,
@@ -27,8 +28,7 @@ import {
 import { createClient } from "@/utils/supabase/client";
 
 export type InspirationActionResult =
-  | { ok: true }
-  | { ok: false; error: "invalid" | "unauthenticated" | "forbidden" | "generic" };
+  { ok: true } | { ok: false; error: "invalid" | "unauthenticated" | "forbidden" | "generic" };
 
 const stepSchema = z.enum(INSPIRATION_STEPS as [InspirationStep, ...InspirationStep[]]);
 
@@ -67,7 +67,9 @@ export async function saveInspirationStep(
   }
 
   const nextLikes = { ...current.likes, [step.data]: likes.data };
+  // Le reste du Style DNA (palette…) est conservé tel quel.
   const next: StyleDna = {
+    ...current,
     version: 2,
     // Sans ambiance de référence (Style DNA ancien ou vide), le premier lieu aimé la fixe.
     ambiance: current.ambiance ?? nextLikes.venue?.[0],
@@ -88,6 +90,53 @@ export async function saveInspirationStep(
   if (data.length === 0) return { ok: false, error: "forbidden" };
 
   revalidatePath("/[locale]/(app)/dashboard", "page");
+  return { ok: true };
+}
+
+/**
+ * Enregistre l'identité visuelle (couleurs choisies, dans l'ordre) dans le
+ * Style DNA du mariage courant. Une liste vide efface la palette.
+ */
+export async function saveWeddingPalette(
+  rawColors: readonly string[],
+): Promise<InspirationActionResult> {
+  const palette =
+    rawColors.length === 0 ? null : weddingPaletteSchema.safeParse({ colors: rawColors });
+  if (palette && !palette.success) return { ok: false, error: "invalid" };
+
+  const supabase = await createClient();
+  const userId = await getCurrentUserId(supabase);
+  if (!userId) return { ok: false, error: "unauthenticated" };
+
+  const wedding = await getCurrentWedding(supabase);
+  if (!wedding) return { ok: false, error: "forbidden" };
+
+  const role = await getCurrentMemberRole(supabase, wedding.id, userId);
+  if (role !== "owner" && role !== "partner") {
+    return { ok: false, error: "forbidden" };
+  }
+
+  let current: StyleDna;
+  try {
+    current = await getWeddingStyleDna(supabase, wedding.id);
+  } catch {
+    return { ok: false, error: "generic" };
+  }
+  const next: StyleDna = { ...current, palette: palette?.data };
+
+  const { data, error } = await supabase
+    .from("weddings")
+    .update({ style_dna: next })
+    .eq("id", wedding.id)
+    .select("id");
+
+  if (error) {
+    console.error("[inspiration] saveWeddingPalette:", error.code);
+    return { ok: false, error: error.code === "42501" ? "forbidden" : "generic" };
+  }
+  if (data.length === 0) return { ok: false, error: "forbidden" };
+
+  revalidatePath("/[locale]/(app)/inspiration/palette", "page");
   return { ok: true };
 }
 

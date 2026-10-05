@@ -64,9 +64,11 @@ export async function seedWeddingDefaults(
   const budgetItems =
     total === null
       ? []
-      : DEFAULT_BUDGET_SPLIT.map(({ category, share }) => ({
+      : DEFAULT_BUDGET_SPLIT.map(({ category, share, section, lineKey }) => ({
           wedding_id: wedding.id,
           category,
+          section,
+          line_key: lineKey,
           // Indication de Céleste : n'entre pas dans la jauge tant que le couple
           // n'a pas saisi son propre montant prévu.
           estimated_amount: 0,

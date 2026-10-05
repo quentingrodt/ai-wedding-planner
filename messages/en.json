@@ -736,7 +736,142 @@
     "back": "Dashboard",
     "eyebrow": "Finances",
     "title": "Budget & Vendors",
-    "intro": "Every expense, every vendor and what’s left to plan, all in one place.",
+    "intro": {
+      "trigger": "Who pays for what?",
+      "close": "Close",
+      "eyebrow": "Before you start",
+      "title": "Who pays for what? A word on tradition",
+      "lead": "In France, custom had each family cover certain costs. These markers vary from one region and one family to another; here they are, to help you start the conversation.",
+      "groups": {
+        "ceremony": {
+          "title": "The ceremony",
+          "entries": {
+            "ceremonyVenue": {
+              "what": "Church, priest, service music",
+              "who": "The couple or the groom’s family"
+            },
+            "officiant": {
+              "what": "Celebrant, marriage contract",
+              "who": "The couple"
+            }
+          }
+        },
+        "attire": {
+          "title": "Outfits",
+          "entries": {
+            "dress": {
+              "what": "Bride’s dress and accessories",
+              "who": "The bride and her family"
+            },
+            "suit": {
+              "what": "Groom’s suit",
+              "who": "The groom and his family"
+            }
+          }
+        },
+        "flowers": {
+          "title": "Flowers",
+          "entries": {
+            "bouquet": {
+              "what": "Bridal bouquet, buttonholes",
+              "who": "The bride and her family"
+            },
+            "floral": {
+              "what": "The rest of the floral decoration",
+              "who": "The groom and his family"
+            }
+          }
+        },
+        "reception": {
+          "title": "The reception",
+          "entries": {
+            "catering": {
+              "what": "Catering and reception costs",
+              "who": "Shared by both families"
+            },
+            "music": {
+              "what": "Music and champagne",
+              "who": "The bride and her family"
+            },
+            "photo": {
+              "what": "Photographer and videographer",
+              "who": "The bride and her family"
+            }
+          }
+        },
+        "parties": {
+          "title": "Pre-wedding parties",
+          "entries": {
+            "engagement": {
+              "what": "Engagement party",
+              "who": "The bride’s or groom’s family"
+            },
+            "rehearsal": {
+              "what": "Rehearsal dinner",
+              "who": "The groom’s family"
+            },
+            "bachelorette": {
+              "what": "Hen party",
+              "who": "The bride’s attendants and friends"
+            },
+            "bachelor": {
+              "what": "Stag party",
+              "who": "The groom’s attendants and friends"
+            }
+          }
+        },
+        "rings": {
+          "title": "Wedding rings",
+          "entries": {
+            "groomRing": {
+              "what": "Groom’s ring",
+              "who": "Given by the bride and her family"
+            },
+            "brideRing": {
+              "what": "Bride’s ring",
+              "who": "Given by the groom and his family"
+            }
+          }
+        },
+        "stationery": {
+          "title": "Stationery",
+          "entries": {
+            "invitations": {
+              "what": "Invitations and thank-you cards",
+              "who": "Shared by both families"
+            },
+            "programs": {
+              "what": "Menus, order of service",
+              "who": "Shared by both families"
+            }
+          }
+        },
+        "transport": {
+          "title": "Transport",
+          "entries": {
+            "car": {
+              "what": "Wedding car",
+              "who": "The groom’s or bride’s family"
+            }
+          }
+        },
+        "honeymoon": {
+          "title": "After the wedding",
+          "entries": {
+            "trip": {
+              "what": "Honeymoon",
+              "who": "The groom and his family"
+            }
+          }
+        }
+      },
+      "today": {
+        "title": "Today, everyone writes their own rules",
+        "body": "These days the couple often funds most of it, sometimes with help from loved ones, each family according to its means and wishes. There’s no right or wrong split: only the one that feels like you.",
+        "howTo": "In your budget, each line suggests the traditional payer by default. Change it in one click: Céleste works out everyone’s share."
+      },
+      "start": "Build our budget"
+    },
     "kpis": {
       "envelope": "Total budget",
       "noEnvelope": "Not set yet",
@@ -747,15 +882,6 @@
       "overBy": "Over your budget"
     },
     "vendors": {
-      "title": "Your vendors",
-      "intro": "A signed quote replaces the estimate in your totals.",
-      "empty": "No vendors yet. Add your first expense to get started.",
-      "groupTotal": "{actual} committed of {estimated} planned",
-      "unnamed": "Vendor to be chosen",
-      "estimated": "Planned",
-      "actual": "Signed",
-      "notSigned": "Pending",
-      "indication": "Céleste estimate",
       "indicationHint": "Market average, for guidance only: it doesn’t count in your budget until you enter your own amount."
     },
     "categories": {
@@ -775,100 +901,11 @@
       "contingency": "Contingency",
       "other": "Other expenses"
     },
-    "add": {
-      "trigger": "Add a vendor",
-      "title": "Add a vendor",
-      "description": "An estimate is enough to start; the signed amount will come with the quote.",
-      "submit": "Add"
-    },
-    "edit": {
-      "trigger": "Edit {name}",
-      "title": "Edit vendor",
-      "description": "Adjust the estimate or enter the amount from the signed quote.",
-      "submit": "Save"
-    },
-    "form": {
-      "category": "Category",
-      "categoryPlaceholder": "Choose a category",
-      "label": "Vendor name",
-      "labelPlaceholder": "Linden Estate",
-      "estimated": "Planned amount",
-      "actual": "Signed amount",
-      "actualHint": "Whole amounts only. The signed amount is the one on the accepted quote.",
-      "optional": "(optional)",
-      "cancel": "Cancel",
-      "close": "Close"
-    },
-    "delete": {
-      "trigger": "Remove {name}",
-      "title": "Remove {name} from the budget?",
-      "description": "This line will no longer count towards your totals.",
-      "cancel": "Cancel",
-      "confirm": "Remove",
-      "success": "{name} has been removed from the budget."
-    },
-    "fieldErrors": {
-      "required": "This field is required.",
-      "tooLong": "This text is too long.",
-      "amount": "Enter a whole amount, without cents."
-    },
     "errors": {
       "unauthenticated": "Your session has expired. Please sign in again.",
       "forbidden": "Only the couple can edit the budget.",
       "invalid": "Some details are missing. Please check your entry.",
       "generic": "Your change couldn’t be saved. Please try again."
-    },
-    "suggestions": {
-      "title": "Have you thought of everything?",
-      "intro": "A few items are often forgotten. Add them in one click, with a first estimate.",
-      "estimate": "About {amount}",
-      "add": "Add",
-      "dismiss": "Dismiss",
-      "added": "“{name}” was added to your budget.",
-      "showMore": "{count, plural, one {See # more suggestion} other {See # more suggestions}}",
-      "showLess": "Hide",
-      "items": {
-        "dj": {
-          "question": "Have you thought about a DJ?",
-          "label": "DJ"
-        },
-        "photographer": {
-          "question": "Have you thought about a photographer?",
-          "label": "Photographer"
-        },
-        "attire": {
-          "question": "Have you thought about your outfits?",
-          "label": "Wedding outfits"
-        },
-        "florist": {
-          "question": "Have you thought about a florist?",
-          "label": "Florist and decoration"
-        },
-        "stationery": {
-          "question": "Have you thought about invitations?",
-          "label": "Invitations and stationery"
-        },
-        "transport": {
-          "question": "Have you thought about transport?",
-          "label": "Wedding transport"
-        },
-        "weddingCake": {
-          "question": "Have you thought about the wedding cake?",
-          "label": "Wedding cake and desserts"
-        },
-        "officiant": {
-          "question": "Have you thought about a celebrant?",
-          "label": "Celebrant"
-        },
-        "honeymoon": {
-          "question": "Have you thought about the honeymoon?",
-          "label": "Honeymoon"
-        },
-        "rings": {
-          "question": "Have you thought about the rings?",
-          "label": "Wedding rings"
-        }
-      }
     },
     "sourcing": {
       "label": "Sourcing",
@@ -884,7 +921,143 @@
       "tip": "Tip: that means saving {perMonth} a month until the big day.",
       "tipNoDate": "Tip: set the wedding date to work out the monthly saving needed.",
       "months": "{count, plural, one {# month left before the wedding.} other {# months left before the wedding.}}"
-    }
+    },
+    "payers": {
+      "couple": "The couple",
+      "brideFamily": "Bride’s family",
+      "groomFamily": "Groom’s family",
+      "shared": "Both families",
+      "witnesses": "Wedding party"
+    },
+    "payersSummary": {
+      "title": "Who pays for what"
+    },
+    "worksheet": {
+      "title": "Budget planner",
+      "intro": "Each field is saved as soon as you move on. Lines left empty don’t count.",
+      "filled": "{filled} / {total} lines filled",
+      "subtotal": "{estimated} planned · {actual} committed",
+      "columns": {
+        "line": "Item",
+        "estimated": "Budget",
+        "actual": "Cost",
+        "payer": "Who pays?",
+        "notes": "Notes"
+      },
+      "estimatedLabel": "Planned budget for {name}",
+      "actualLabel": "Actual cost for {name}",
+      "payerLabel": "Who pays for {name}",
+      "notesLabel": "Notes for {name}",
+      "notesPlaceholder": "Supplier, idea…",
+      "tradition": "· tradition",
+      "addLine": "Add a line",
+      "newLine": "New line",
+      "lineName": "Line name",
+      "lineNamePlaceholder": "Line name",
+      "clear": "Clear {name}",
+      "clearHint": "Empty this line",
+      "remove": "Remove {name}",
+      "over": "Over the planned budget by {amount}.",
+      "sections": {
+        "ceremonyReception": "Ceremony and reception",
+        "food": "Food and drinks",
+        "attire": "Outfits",
+        "beauty": "Hair and make-up",
+        "rings": "Wedding rings",
+        "flowers": "Flowers and decoration",
+        "photoVideo": "Photo and video",
+        "entertainment": "Entertainment and equipment",
+        "stationery": "Stationery and welcome",
+        "gifts": "Gifts",
+        "transport": "Transport",
+        "parties": "Pre-wedding parties",
+        "honeymoon": "Honeymoon",
+        "other": "Other expenses"
+      },
+      "lines": {
+        "venueRental": "Venue hire",
+        "tentRental": "Marquee hire",
+        "ceremonyDecor": "Ceremony decoration",
+        "receptionDecor": "Reception decoration",
+        "confetti": "Confetti and petals",
+        "officiant": "Celebrant",
+        "churchFees": "Church, priest, organist",
+        "marriageContract": "Marriage contract",
+        "dinnerCatering": "Dinner catering",
+        "cocktail": "Drinks reception",
+        "drinks": "Drinks and champagne",
+        "water": "Water",
+        "weddingCake": "Wedding cake",
+        "lateSnacks": "Late-night buffet",
+        "weddingDress": "Wedding dress",
+        "dressAlterations": "Dress alterations",
+        "veil": "Veil or headpiece",
+        "brideShoes": "Bride’s shoes",
+        "lingerie": "Lingerie",
+        "garter": "Garter",
+        "jewelry": "Jewellery",
+        "groomSuit": "Groom’s suit",
+        "groomShoes": "Groom’s shoes",
+        "groomAccessories": "Groom’s accessories",
+        "bridesmaidsDresses": "Bridesmaids’ dresses",
+        "groomsmenSuits": "Groomsmen’s outfits",
+        "kidsOutfits": "Flower girls’ and page boys’ outfits",
+        "hair": "Hair",
+        "makeup": "Make-up",
+        "hairTrial": "Hair trial",
+        "makeupTrial": "Make-up trial",
+        "groomRing": "Groom’s ring",
+        "brideRing": "Bride’s ring",
+        "brideBouquet": "Bridal bouquet",
+        "boutonnieres": "Buttonholes",
+        "bridesmaidsBouquets": "Bridesmaids’ bouquets",
+        "centerpieces": "Centrepieces",
+        "floralDecor": "Floral decoration",
+        "tableDecor": "Table decoration",
+        "photographer": "Photographer",
+        "videographer": "Videographer",
+        "album": "Photo album",
+        "dj": "DJ",
+        "liveBand": "Live band",
+        "musicians": "Musicians",
+        "magician": "Magician or performer",
+        "soundSystem": "Sound system",
+        "lighting": "Lighting",
+        "danceFloor": "Dance floor",
+        "partyFavors": "Party favours",
+        "invitations": "Invitations",
+        "thankYouCards": "Thank-you cards",
+        "menus": "Menus",
+        "programs": "Order of service",
+        "placeCards": "Place cards",
+        "tableCards": "Table names",
+        "welcomeSigns": "Welcome signs",
+        "favorBoxes": "Favour boxes",
+        "giftTags": "Gift tags",
+        "engagementInvitations": "Engagement invitations",
+        "partyInvitations": "Hen and stag invitations",
+        "favors": "Wedding favours",
+        "parentsGifts": "Gifts for parents",
+        "brideWitnessGifts": "Gifts for the bride’s attendants",
+        "groomWitnessGifts": "Gifts for the groom’s attendants",
+        "kidsGifts": "Gifts for flower girls and page boys",
+        "coupleCar": "Wedding car",
+        "carDecor": "Car decoration",
+        "chauffeur": "Chauffeur",
+        "guestShuttle": "Guest shuttle",
+        "extraCars": "Extra cars",
+        "parking": "Parking",
+        "engagementParty": "Engagement party",
+        "rehearsalDinner": "Rehearsal dinner",
+        "bachelorette": "Hen party",
+        "bachelor": "Stag party",
+        "honeymoon": "Honeymoon",
+        "contingency": "Contingency"
+      },
+      "details": "Who pays, notes",
+      "share": "{percent} of the budget"
+    },
+    "lead": "Fill in what you already know, line by line: the budget you set, the actual cost once the quote is signed, and who covers it."
   },
   "Inspiration": {
     "steps": {
@@ -1250,6 +1423,180 @@
         "together": "Together",
         "her": "For her",
         "him": "For him"
+      }
+    },
+    "tabs": {
+      "label": "Inspiration space",
+      "favorites": "Favourites",
+      "palette": "Visual identity",
+      "moodboard": "Mood board"
+    },
+    "palette": {
+      "metaTitle": "Visual identity",
+      "eyebrow": "Visual identity",
+      "title": "Your wedding colours",
+      "intro": "Pick the shades that feel like you: Céleste turns them into a complete palette, from invitations to flowers, in tune with your style.",
+      "readOnly": "The couple is building the palette: you can view it here.",
+      "save": "Save palette",
+      "upToDate": "Palette saved",
+      "saved": "Your palette has been saved.",
+      "chosen": {
+        "title": "Your colours",
+        "hint": "Up to {max} shades, from the most present to the most subtle. The first one sets the tone.",
+        "empty": "No colours yet: start from a ready-made palette or pick from the swatches.",
+        "main": "Main colour",
+        "rank": "Shade {rank}",
+        "promote": "Make {name} the main colour",
+        "remove": "Remove {name}"
+      },
+      "presets": {
+        "title": "Ready-made palettes",
+        "forYou": "For your venue",
+        "items": {
+          "classicChateau": "Classic château",
+          "countryBoho": "Country boho",
+          "seaside": "Seaside",
+          "urbanChic": "Urban chic",
+          "romantic": "Romantic",
+          "starryNight": "Starry night"
+        }
+      },
+      "swatchesTitle": "Swatches",
+      "suggestions": "These shades go well with {name}:",
+      "families": {
+        "greens": "Greens",
+        "earth": "Earth tones",
+        "romance": "Romance",
+        "blues": "Blues and mauves",
+        "light": "Light and neutrals"
+      },
+      "swatches": {
+        "sage": "Sage",
+        "eucalyptus": "Eucalyptus",
+        "olive": "Olive",
+        "emerald": "Emerald",
+        "terracotta": "Terracotta",
+        "rust": "Rust",
+        "caramel": "Caramel",
+        "sand": "Sand",
+        "blush": "Blush",
+        "dustyRose": "Dusty rose",
+        "coral": "Coral",
+        "burgundy": "Burgundy",
+        "dustyBlue": "Dusty blue",
+        "lavender": "Lavender",
+        "navy": "Navy",
+        "plum": "Plum",
+        "ivory": "Ivory",
+        "champagne": "Champagne",
+        "gold": "Gold",
+        "charcoal": "Charcoal"
+      },
+      "custom": {
+        "label": "A shade of your own:",
+        "add": "Add this colour"
+      },
+      "result": {
+        "title": "Your palette",
+        "intro": "Each colour finds its role. The light and deep tones are tinted with your main colour so everything stays in the same family.",
+        "lowContrast": "Text may be hard to read on the light background: pick a stronger main colour."
+      },
+      "roles": {
+        "main": {
+          "label": "Main",
+          "use": "Flowers, decor"
+        },
+        "secondary": {
+          "label": "Secondary",
+          "use": "Linens, outfits"
+        },
+        "accent": {
+          "label": "Accent",
+          "use": "Details, ribbons"
+        },
+        "light": {
+          "label": "Light",
+          "use": "Stationery, backgrounds"
+        },
+        "deep": {
+          "label": "Deep",
+          "use": "Text, calligraphy"
+        }
+      },
+      "preview": {
+        "stationery": "Stationery",
+        "flowers": "Flowers",
+        "table": "Table",
+        "save": "Save the date"
+      },
+      "errors": {
+        "invalid": "These colours aren’t valid.",
+        "unauthenticated": "Your session has expired. Please sign in again.",
+        "forbidden": "Only the couple can edit the palette.",
+        "generic": "The palette couldn’t be saved. Please try again."
+      }
+    },
+    "moodboard": {
+      "metaTitle": "Mood board",
+      "eyebrow": "Mood board",
+      "title": "Gather your ideas",
+      "intro": "A photo from a wedding fair, a dress you spotted, a bouquet that moved you: collect everything that inspires you, together and with your wedding party.",
+      "photos": {
+        "title": "Your photos",
+        "intro": "Caption and sort them to find your ideas at a glance.",
+        "empty": "Your board is still blank. Drop your first images above.",
+        "untitled": "Inspiration photo",
+        "edit": "Edit caption",
+        "delete": "Remove photo"
+      },
+      "upload": {
+        "title": "Add photos",
+        "hint": "Drag them here or click to choose: JPEG, PNG or WebP, 10 MB max.",
+        "uploading": "Uploading"
+      },
+      "filters": {
+        "all": "All"
+      },
+      "categories": {
+        "venue": "Venue",
+        "decor": "Decor",
+        "flowers": "Flowers",
+        "attire": "Outfits",
+        "beauty": "Beauty",
+        "cake": "Cake",
+        "stationery": "Stationery",
+        "other": "Other"
+      },
+      "dialog": {
+        "title": "Your photo",
+        "description": "A caption and a category to find it easily.",
+        "caption": "Caption",
+        "captionPlaceholder": "The bouquets from Claire’s wedding",
+        "category": "Category",
+        "noCategory": "No category",
+        "cancel": "Cancel",
+        "save": "Save",
+        "close": "Close"
+      },
+      "pinterest": {
+        "title": "Your Pinterest boards",
+        "intro": "Already pinning on Pinterest? Link your public boards: they show up here, always up to date.",
+        "label": "Pinterest board link",
+        "placeholder": "https://www.pinterest.com/you/wedding/",
+        "submit": "Link board",
+        "hint": "Open your board on Pinterest and copy its address. It must be public.",
+        "added": "The board is linked to your mood board.",
+        "open": "Open “{name}” on Pinterest",
+        "remove": "Remove board"
+      },
+      "errors": {
+        "unauthenticated": "Your session has expired. Please sign in again.",
+        "forbidden": "You can’t edit this item.",
+        "invalidType": "{name} isn’t a JPEG, PNG or WebP image.",
+        "tooLarge": "{name} is larger than 10 MB.",
+        "invalidPinterest": "This isn’t a Pinterest board link (pinterest.com/account/board).",
+        "duplicate": "This board is already on your mood board.",
+        "generic": "That didn’t work. Please try again."
       }
     }
   },

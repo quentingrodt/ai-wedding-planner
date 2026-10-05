@@ -8,6 +8,7 @@ import {
   type StoredWeddingPlan,
 } from "@/lib/plan/schema";
 import { toTimeKey, type ItineraryEvent } from "@/lib/itinerary/schema";
+import type { MoodboardItem } from "@/lib/moodboard/schema";
 import type { Quote } from "@/lib/quotes/schema";
 import type { SeatedGuest, SeatingTable } from "@/lib/seating/schema";
 import type { Task } from "@/lib/tasks/schema";
@@ -159,7 +160,9 @@ export async function getBudgetItems(
 ): Promise<BudgetItem[]> {
   const { data, error } = await supabase
     .from("budget_items")
-    .select("id, category, label, estimated_amount, actual_amount, suggested_amount, sourcing")
+    .select(
+      "id, category, label, estimated_amount, actual_amount, suggested_amount, sourcing, section, line_key, notes, payer",
+    )
     .eq("wedding_id", weddingId)
     .order("created_at", { ascending: true })
     .returns<BudgetItem[]>();
@@ -339,4 +342,38 @@ export async function getTeamMembers(
       email: profiles?.email ?? null,
     }))
     .sort((a, b) => ROLE_ORDER[a.role] - ROLE_ORDER[b.role]);
+}
+
+/** Éléments de la planche de tendances, du plus récent au plus ancien. */
+export async function getMoodboardItems(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<MoodboardItem[]> {
+  const { data, error } = await supabase
+    .from("moodboard_items")
+    .select("id, kind, file_path, pinterest_url, caption, category, created_by, created_at")
+    .eq("wedding_id", weddingId)
+    .order("created_at", { ascending: false })
+    .returns<MoodboardItem[]>();
+
+  if (error) {
+    console.error("[weddings] getMoodboardItems:", error.code);
+    throw new Error("Unable to load mood board");
+  }
+  return data;
+}
+
+/** La notice « qui paie quoi » du budget a-t-elle déjà été lue par cet utilisateur ? */
+export async function hasSeenBudgetIntro(supabase: ServerClient, userId: string): Promise<boolean> {
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("budget_intro_seen_at")
+    .eq("id", userId)
+    .maybeSingle<{ budget_intro_seen_at: string | null }>();
+  if (error) {
+    console.error("[weddings] hasSeenBudgetIntro:", error.code);
+    // En cas de doute, on ne réimpose pas la notice.
+    return true;
+  }
+  return data?.budget_intro_seen_at != null;
 }

@@ -5,6 +5,7 @@ import {
   inspirationLikesSchema,
   type InspirationLikes,
 } from "./catalog";
+import { weddingPaletteSchema } from "./palette";
 
 /**
  * "Style DNA" stocké en JSONB (weddings.style_dna) : versionné pour pouvoir
@@ -16,6 +17,9 @@ export const styleDnaSchema = z.object({
   /** Lieu de référence (Reality Check, onboarding). */
   ambiance: z.enum(INSPIRATION_OPTIONS.venue).optional(),
   likes: inspirationLikesSchema,
+  /** Identité visuelle (onglet Palette) ; absente tant qu'elle n'est pas choisie. */
+  // Tolérante : une palette illisible est ignorée sans perdre les coups de cœur.
+  palette: weddingPaletteSchema.optional().catch(undefined),
 });
 export type StyleDna = z.infer<typeof styleDnaSchema>;
 

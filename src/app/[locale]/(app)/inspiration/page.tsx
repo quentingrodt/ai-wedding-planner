@@ -11,6 +11,7 @@ import {
 } from "@/lib/weddings/queries";
 import { createClient } from "@/utils/supabase/client";
 import { InspirationBook } from "./_components/inspiration-book";
+import { InspirationTabs } from "./_components/inspiration-tabs";
 
 export async function generateMetadata({
   params,
@@ -23,9 +24,7 @@ export async function generateMetadata({
   return { title: t("metaTitle") };
 }
 
-export default async function InspirationPage({
-  params,
-}: PageProps<"/[locale]/inspiration">) {
+export default async function InspirationPage({ params }: PageProps<"/[locale]/inspiration">) {
   const { locale: rawLocale } = await params;
   const locale = rawLocale as Locale;
   setRequestLocale(locale);
@@ -51,7 +50,8 @@ export default async function InspirationPage({
   return (
     // overflow-x-clip : les cartes swipées sortent de l'écran sans créer de défilement horizontal.
     <main className="flex flex-1 justify-center overflow-x-clip px-5 pt-8 pb-24 sm:px-6 sm:pt-16">
-      <div className="flex w-full min-w-0 max-w-3xl flex-col">
+      <div className="flex w-full min-w-0 max-w-3xl flex-col gap-8">
+        <InspirationTabs />
         <InspirationBook
           initialLikes={styleDna.likes}
           canEdit={isCouple}
