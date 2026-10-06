@@ -3,6 +3,7 @@ import { MomentIconSvg } from "./icons";
 import { CARD_VIEWBOX, MonogramWreath, Ornament } from "./ornaments";
 import {
   INVITATION_PALETTES,
+  type BookletPage,
   type InvitationDesign,
   type InvitationFonts,
   type InvitationMoment,
@@ -60,25 +61,22 @@ type InvitationCardProps = {
 };
 
 /**
- * Rendu d'un faire-part, en styles en ligne et flexbox uniquement : le même
- * composant sert à l'aperçu, à l'export image (ImageResponse) et au PDF.
- * Chaque div à plusieurs enfants déclare display: flex (exigence de satori).
+ * Éléments partagés par la carte simple et les pages du livret, à l'échelle
+ * de la largeur rendue. density resserre la composition quand le contenu
+ * est long, pour qu'il tienne sur la page.
  */
-export function InvitationCard({ design, width, families, watermark }: InvitationCardProps) {
+function buildBlocks(design: InvitationDesign, width: number, families: InvitationFamilies, density: number) {
   const { content, template, fonts } = design;
   const spec = TEMPLATE_SPECS[template];
   const palette = INVITATION_PALETTES[design.palette];
   const u = width / CARD_VIEWBOX.width;
   const moments = content.moments;
-  // Plus le programme est long, plus la composition se resserre pour tenir sur la carte.
-  const density = moments.length <= 1 ? 1 : moments.length === 2 ? 0.92 : 0.82;
   const px = (value: number) => value * u;
   const dx = (value: number) => value * u * density;
 
-  const body = families[BODY_FONT[fonts]];
   const sans = fonts === "modern";
   const textStyle: CSSProperties = {
-    fontFamily: body,
+    fontFamily: families[BODY_FONT[fonts]],
     color: palette.ink,
     textAlign: "center",
     fontWeight: sans ? 300 : 400,
@@ -91,30 +89,52 @@ export function InvitationCard({ design, width, families, watermark }: Invitatio
   };
   const column: CSSProperties = { display: "flex", flexDirection: "column", alignItems: "center" };
 
-  const nameLines = spec.splitNames ? splitNames(content.names) : [content.names];
-  const names = (
-    <div style={{ ...column }}>
-      {nameLines.map((line, index) => (
+  const names = (scale = 1) => {
+    const lines = spec.splitNames ? splitNames(content.names) : [content.names];
+    return (
+      <div style={{ ...column }}>
+        {lines.map((line, index) => (
+          <div
+            key={index}
+            style={{
+              fontFamily: families[NAME_FONT[fonts]],
+              fontSize: dx(NAME_SIZE[fonts] * scale),
+              fontStyle: fonts === "romantic" ? "italic" : "normal",
+              fontWeight: fonts === "engraved" ? 500 : 400,
+              letterSpacing: fonts === "engraved" ? px(1.5 * scale) : 0,
+              lineHeight: fonts === "modern" ? 0.95 : 1.15,
+              color: spec.monogram ? palette.accent : palette.ink,
+              textAlign: "center",
+              // « & Antoine » décalé vers la droite, comme une signature.
+              marginLeft: index > 0 && lines.length > 1 ? dx(70 * scale) : 0,
+            }}
+          >
+            {line}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  // Annonce des familles : une ligne par retour à la ligne saisi.
+  const familiesBlock = content.families ? (
+    <div style={{ ...column, marginBottom: dx(26) }}>
+      {content.families.split("\n").map((line, index) => (
         <div
           key={index}
           style={{
-            fontFamily: families[NAME_FONT[fonts]],
-            fontSize: dx(NAME_SIZE[fonts]),
-            fontStyle: fonts === "romantic" ? "italic" : "normal",
-            fontWeight: fonts === "engraved" ? 500 : 400,
-            letterSpacing: fonts === "engraved" ? px(1.5) : 0,
-            lineHeight: fonts === "modern" ? 0.95 : 1.15,
-            color: spec.monogram ? palette.accent : palette.ink,
-            textAlign: "center",
-            // « & Antoine » décalé vers la droite, comme une signature.
-            marginLeft: index > 0 && nameLines.length > 1 ? dx(70) : 0,
+            ...textStyle,
+            marginTop: index > 0 ? dx(4) : 0,
+            fontSize: dx(sans ? 15 : 18),
+            lineHeight: 1.35,
+            opacity: 0.85,
           }}
         >
           {line}
         </div>
       ))}
     </div>
-  );
+  ) : null;
 
   const intro = content.intro ? (
     <div
@@ -133,7 +153,7 @@ export function InvitationCard({ design, width, families, watermark }: Invitatio
 
   const dotRule = (
     <div style={{ display: "flex", alignItems: "center", marginTop: dx(30), marginBottom: dx(26) }}>
-      <div style={{ width: px(46), height: px(1), backgroundColor: palette.accent }} />
+      <div style={{ width: px(46), height: Math.max(1, px(1)), flexShrink: 0, backgroundColor: palette.accent }} />
       <div
         style={{
           width: px(6),
@@ -144,7 +164,7 @@ export function InvitationCard({ design, width, families, watermark }: Invitatio
           backgroundColor: palette.accent,
         }}
       />
-      <div style={{ width: px(46), height: px(1), backgroundColor: palette.accent }} />
+      <div style={{ width: px(46), height: Math.max(1, px(1)), flexShrink: 0, backgroundColor: palette.accent }} />
     </div>
   );
 
@@ -165,7 +185,7 @@ export function InvitationCard({ design, width, families, watermark }: Invitatio
     spec.layout === "timeline"
       ? { ...textStyle, marginTop: dx(30), fontSize: dx(40) }
       : spec.layout === "botanical"
-        ? { ...textStyle, fontSize: dx(sans ? 42 : 40), fontWeight: 400, letterSpacing: px(1) }
+        ? { ...textStyle, marginTop: dx(22), fontSize: dx(sans ? 42 : 40), fontWeight: 400, letterSpacing: px(1) }
         : spec.monogram
           ? {
               ...textStyle,
@@ -177,67 +197,126 @@ export function InvitationCard({ design, width, families, watermark }: Invitatio
           : caps;
   const date = content.dateText ? <div style={dateStyle}>{content.dateText}</div> : null;
 
-  const rsvp = (content.rsvpNote !== "" || content.contact !== "") && (
-    <div style={{ ...column, gap: dx(6) }}>
-      {content.rsvpNote && (
-        <div
-          style={
-            spec.layout === "timeline"
-              ? { ...textStyle, fontFamily: families.smallCaps, fontSize: dx(19), fontWeight: 500 }
-              : {
-                  ...textStyle,
-                  fontSize: dx(sans ? 15 : 17),
-                  fontStyle: sans ? "normal" : "italic",
-                  color: palette.accent,
-                }
-          }
-        >
-          {content.rsvpNote}
-        </div>
-      )}
-      {content.contact && (
-        <div style={{ ...textStyle, fontSize: dx(sans ? 13 : 16), opacity: 0.8 }}>
-          {content.contact}
-        </div>
-      )}
-    </div>
-  );
-
-  let main: ReactNode;
-  if (spec.layout === "timeline") {
-    main = (
+  /** Programme selon la mise en page du modèle. */
+  const programme =
+    spec.layout === "timeline" ? (
       <div style={{ ...column, width: "100%" }}>
-        {names}
-        {intro}
-        {date}
         {moments.length > 0 && (
           <Timeline moments={moments} u={u} density={density} palette={palette} textStyle={textStyle} smallCaps={families.smallCaps} />
         )}
         <Venues moments={moments} dx={dx} palette={palette} textStyle={textStyle} smallCaps={families.smallCaps} />
       </div>
-    );
-  } else if (spec.layout === "botanical") {
-    main = (
+    ) : spec.layout === "botanical" ? (
       <div style={{ ...column, width: "100%" }}>
-        {names}
-        {intro}
-        {date && <div style={{ display: "flex", marginTop: dx(22) }}>{date}</div>}
         <MomentParagraphs moments={moments} dx={dx} textStyle={textStyle} />
         {moments.length > 0 && sprigRule}
       </div>
+    ) : (
+      <StackedMoments moments={moments} dx={dx} textStyle={textStyle} caps={caps} venueFamily={families.playfair} palette={palette} />
     );
-  } else {
-    main = (
-      <div style={{ ...column, width: "100%" }}>
-        {names}
-        {intro}
-        {dotRule}
-        {date}
-        <StackedMoments moments={moments} dx={dx} textStyle={textStyle} caps={caps} venueFamily={families.playfair} palette={palette} />
-      </div>
-    );
-  }
 
+  const rsvp =
+    content.rsvpNote !== "" || content.contact !== "" ? (
+      <div style={{ ...column, gap: dx(6) }}>
+        {content.rsvpNote && (
+          <div
+            style={
+              spec.layout === "timeline"
+                ? { ...textStyle, fontFamily: families.smallCaps, fontSize: dx(19), fontWeight: 500 }
+                : {
+                    ...textStyle,
+                    fontSize: dx(sans ? 15 : 17),
+                    fontStyle: sans ? "normal" : "italic",
+                    color: palette.accent,
+                  }
+            }
+          >
+            {content.rsvpNote}
+          </div>
+        )}
+        {content.contact && (
+          <div style={{ ...textStyle, fontSize: dx(sans ? 13 : 16), opacity: 0.8 }}>{content.contact}</div>
+        )}
+      </div>
+    ) : null;
+
+  /** Initiales en couronne (modèle Monogramme) ou dans un cercle fin. */
+  const monogram = (size: number) => (
+    <div
+      style={{
+        position: "relative",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: px(size),
+        height: px(size),
+      }}
+    >
+      <div style={{ position: "absolute", top: 0, left: 0, display: "flex" }}>
+        {spec.monogram ? (
+          <MonogramWreath color={palette.accent} size={px(size)} />
+        ) : (
+          <div
+            style={{
+              width: px(size),
+              height: px(size),
+              borderRadius: px(size),
+              border: `${px(1)}px solid ${palette.accent}`,
+            }}
+          />
+        )}
+      </div>
+      <div
+        style={{
+          fontFamily: spec.monogram ? families.script : families[NAME_FONT[fonts]],
+          fontSize: px(size * (spec.monogram || fonts === "script" || fonts === "modern" ? 0.34 : 0.26)),
+          letterSpacing: fonts === "engraved" ? px(2) : 0,
+          color: palette.accent,
+        }}
+      >
+        {monogramInitials(content.names)}
+      </div>
+    </div>
+  );
+
+  return {
+    spec,
+    palette,
+    px,
+    dx,
+    textStyle,
+    caps,
+    column,
+    names,
+    familiesBlock,
+    intro,
+    dotRule,
+    sprigRule,
+    date,
+    programme,
+    rsvp,
+    monogram,
+  };
+}
+
+/** Page vierge du faire-part : papier, ornement, contenu, filigrane. */
+function Sheet({
+  design,
+  width,
+  families,
+  watermark,
+  variant,
+  children,
+}: {
+  design: InvitationDesign;
+  width: number;
+  families: InvitationFamilies;
+  watermark?: string;
+  variant: "full" | "light";
+  children: ReactNode;
+}) {
+  const palette = INVITATION_PALETTES[design.palette];
+  const u = width / CARD_VIEWBOX.width;
   return (
     <div
       style={{
@@ -251,8 +330,48 @@ export function InvitationCard({ design, width, families, watermark }: Invitatio
         overflow: "hidden",
       }}
     >
-      <Ornament template={template} color={palette.accent} />
+      <Ornament template={design.template} color={palette.accent} variant={variant} />
+      {children}
+      {watermark && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: 14 * u,
+            left: 0,
+            right: 0,
+            display: "flex",
+            justifyContent: "center",
+            fontFamily: families.cormorant,
+            fontSize: 12 * u,
+            letterSpacing: 3 * u,
+            textTransform: "uppercase",
+            color: palette.ink,
+            opacity: 0.45,
+          }}
+        >
+          {watermark}
+        </div>
+      )}
+    </div>
+  );
+}
 
+/** Densité de la carte simple : plus le programme est long, plus elle se resserre. */
+const cardDensity = (moments: number) => (moments <= 1 ? 1 : moments === 2 ? 0.92 : 0.82);
+
+/**
+ * Carte simple : toutes les informations au recto. En styles en ligne et
+ * flexbox uniquement : le même composant sert à l'aperçu, à l'export image
+ * (ImageResponse) et au PDF. Chaque div à plusieurs enfants déclare
+ * display: flex (exigence de satori).
+ */
+export function InvitationCard({ design, width, families, watermark }: InvitationCardProps) {
+  const density = cardDensity(design.content.moments.length);
+  const b = buildBlocks(design, width, families, density);
+  const { spec, px, column } = b;
+
+  return (
+    <Sheet design={design} width={width} families={families} watermark={watermark} variant="full">
       <div
         style={{
           ...column,
@@ -265,11 +384,18 @@ export function InvitationCard({ design, width, families, watermark }: Invitatio
           paddingRight: px(spec.space.side),
         }}
       >
-        {main}
+        <div style={{ ...column, width: "100%" }}>
+          {b.familiesBlock}
+          {b.names()}
+          {b.intro}
+          {spec.layout === "centered" && b.dotRule}
+          {b.date}
+          {b.programme}
+        </div>
       </div>
 
       {/* Dans le flux, en pied : elle repousse le contenu au lieu de le chevaucher. */}
-      {rsvp && (
+      {b.rsvp && (
         <div
           style={{
             display: "flex",
@@ -279,52 +405,124 @@ export function InvitationCard({ design, width, families, watermark }: Invitatio
             paddingRight: px(spec.space.side),
           }}
         >
-          {rsvp}
+          {b.rsvp}
         </div>
       )}
 
       {spec.monogram && (
-        <div
-          style={{
-            position: "absolute",
-            right: px(34),
-            bottom: px(30),
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: px(118),
-            height: px(118),
-          }}
-        >
-          <div style={{ position: "absolute", top: 0, left: 0, display: "flex" }}>
-            <MonogramWreath color={palette.accent} size={px(118)} />
-          </div>
-          <div style={{ fontFamily: families.script, fontSize: px(40), color: palette.accent }}>
-            {monogramInitials(content.names)}
-          </div>
+        <div style={{ position: "absolute", right: px(34), bottom: px(30), display: "flex" }}>
+          {b.monogram(118)}
         </div>
       )}
+    </Sheet>
+  );
+}
 
-      {watermark && (
-        <div
-          style={{
-            position: "absolute",
-            bottom: px(14),
-            left: 0,
-            right: 0,
-            display: "flex",
-            justifyContent: "center",
-            fontFamily: families.cormorant,
-            fontSize: px(12),
-            letterSpacing: px(3),
-            textTransform: "uppercase",
-            color: palette.ink,
-            opacity: 0.45,
-          }}
-        >
-          {watermark}
-        </div>
-      )}
+type BookletPageProps = InvitationCardProps & { page: BookletPage };
+
+/**
+ * Une page du livret plié : couverture (prénoms et repères), intérieur
+ * gauche (annonce et invitation), intérieur droit (programme et réponse),
+ * 4e de couverture (mot de fin et monogramme).
+ */
+export function InvitationBookletPage({ design, width, families, watermark, page }: BookletPageProps) {
+  const { content } = design;
+  const density = page === "inside-right" && content.moments.length > 2 ? 0.92 : 1;
+  const b = buildBlocks(design, width, families, density);
+  const { spec, px, dx, column, textStyle, palette } = b;
+  const full = page === "cover";
+  const space = full ? spec.space : { ...spec.inside, side: spec.space.side };
+
+  const body = (children: ReactNode) => (
+    <div
+      style={{
+        ...column,
+        justifyContent: "center",
+        width: "100%",
+        flexGrow: 1,
+        paddingTop: px(space.top),
+        paddingBottom: px(space.bottom),
+        paddingLeft: px(space.side),
+        paddingRight: px(space.side),
+      }}
+    >
+      {children}
+    </div>
+  );
+
+  let children: ReactNode;
+  switch (page) {
+    case "cover":
+      children = body(
+        <div style={{ ...column, width: "100%" }}>
+          {b.names(1.2)}
+          {content.coverHint && (
+            <div style={{ ...b.caps, marginTop: px(34), fontSize: px(16), color: palette.accent }}>
+              {content.coverHint}
+            </div>
+          )}
+        </div>,
+      );
+      break;
+    case "inside-left":
+      children = body(
+        <div style={{ ...column, width: "100%" }}>
+          {b.familiesBlock}
+          {b.names(0.8)}
+          {b.intro}
+          {spec.layout === "botanical" ? b.sprigRule : spec.layout === "centered" && b.dotRule}
+          {b.date}
+        </div>,
+      );
+      break;
+    case "inside-right":
+      children = body(
+        <div style={{ ...column, width: "100%" }}>
+          {b.programme}
+          {b.rsvp && <div style={{ display: "flex", marginTop: dx(content.moments.length > 0 ? 40 : 0) }}>{b.rsvp}</div>}
+        </div>,
+      );
+      break;
+    case "back":
+      children = body(
+        <div style={{ ...column, width: "100%" }}>
+          {content.closingNote && (
+            <div
+              style={{
+                ...textStyle,
+                fontSize: px(fontsAreSans(design) ? 19 : 23),
+                fontStyle: fontsAreSans(design) ? "normal" : "italic",
+                lineHeight: 1.5,
+                marginBottom: px(40),
+              }}
+            >
+              {content.closingNote}
+            </div>
+          )}
+          {b.monogram(spec.monogram ? 130 : 96)}
+        </div>,
+      );
+      break;
+  }
+
+  return (
+    <Sheet design={design} width={width} families={families} watermark={watermark} variant={full ? "full" : "light"}>
+      {children}
+    </Sheet>
+  );
+}
+
+const fontsAreSans = (design: InvitationDesign) => design.fonts === "modern";
+
+/** Deux pages côte à côte (intérieur, ou extérieur pour l'imprimeur). */
+export function InvitationBookletSpread({
+  pages,
+  ...props
+}: InvitationCardProps & { pages: readonly [BookletPage, BookletPage] }) {
+  return (
+    <div style={{ display: "flex" }}>
+      <InvitationBookletPage {...props} page={pages[0]} />
+      <InvitationBookletPage {...props} page={pages[1]} />
     </div>
   );
 }
@@ -442,7 +640,7 @@ function Timeline({
   smallCaps: string;
 }) {
   const px = (value: number) => value * u;
-  const line = { flexGrow: 1, height: px(1.2), backgroundColor: palette.ink };
+  const line = { flexGrow: 1, height: Math.max(1, px(1.2)), backgroundColor: palette.ink };
   return (
     <div style={{ display: "flex", width: "100%", marginTop: px(34 * density) }}>
       {moments.map((moment, index) => (

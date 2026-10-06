@@ -103,8 +103,69 @@ function Frame({ children }: { children: React.ReactNode }) {
 }
 
 /** Ornement du modèle, dans la couleur d'accent de la palette. */
-export function Ornament({ template, color }: { template: InvitationTemplate; color: string }) {
+export function Ornament({
+  template,
+  color,
+  variant = "full",
+}: {
+  template: InvitationTemplate;
+  color: string;
+  /** light : version allégée des pages intérieures et de la 4e de couverture. */
+  variant?: "full" | "light";
+}) {
   const stroke = { stroke: color, strokeWidth: 1.2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+
+  if (variant === "light") {
+    switch (template) {
+      // Le cadre gravé fait l'identité du modèle : il reste sur toutes les pages.
+      case "classic":
+        break;
+      case "garden":
+        return (
+          <Frame>
+            <path d={sprig([[220, 775], [260, 763], [320, 763], [380, 775]], 7, 18)} {...stroke} strokeWidth={1} />
+          </Frame>
+        );
+      case "seaside":
+        return (
+          <Frame>
+            {[0, 1, 2].map((i) => (
+              <path
+                key={i}
+                d={`M${170 + i * 20} ${764 + i * 16} q25 -14 50 0 t50 0 t50 0 t50 0 t50 0`}
+                {...stroke}
+                strokeWidth={1.1 - i * 0.2}
+              />
+            ))}
+          </Frame>
+        );
+      case "loft":
+        return (
+          <Frame>
+            <path d="M44 821 V300 A256 256 0 0 1 556 300 V821" {...stroke} />
+            <path d="M56 821 V300 A244 244 0 0 1 544 300 V821" {...stroke} strokeWidth={0.6} />
+          </Frame>
+        );
+      case "chronology":
+        return null;
+      case "eucalyptus":
+        return (
+          <Frame>
+            <path d={eucalyptusBranch([[612, 30], [560, 60], [520, 95], [455, 128]], 7, 15)} {...stroke} />
+            <path d={eucalyptusBranch([[590, -6], [555, 20], [520, 30], [488, 36]], 5, 11)} {...stroke} strokeWidth={0.9} />
+          </Frame>
+        );
+      case "monogram":
+        return (
+          <Frame>
+            <path d={autumnBranch([[-10, 40], [60, 60], [110, 100], [150, 170]], 5, 42)} {...stroke} />
+            <path d={autumnBranch([[20, -10], [70, 30], [150, 40], [210, 30]], 4, 34)} {...stroke} strokeWidth={1} />
+            <path d="M150 170 Q158 186 170 192" {...stroke} strokeWidth={0.9} />
+            {berries(172, 196, color)}
+          </Frame>
+        );
+    }
+  }
 
   switch (template) {
     // Double filet et coins en volute : l'élégance d'un carton gravé.

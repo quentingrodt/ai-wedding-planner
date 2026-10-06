@@ -1697,9 +1697,12 @@
       "palette": "Les couleurs",
       "fonts": "La typographie",
       "you": "Vous",
-      "when": "La date",
       "program": "Le programme",
-      "reply": "La réponse"
+      "reply": "La réponse",
+      "format": "Le format",
+      "cover": "La couverture",
+      "invitation": "L’invitation",
+      "back": "La 4e de couverture"
     },
     "templates": {
       "classic": "Gravure classique",
@@ -1730,16 +1733,22 @@
       "intro": "Phrase d’invitation",
       "dateText": "Date",
       "rsvpNote": "Mention de réponse",
-      "contact": "Contact"
+      "contact": "Contact",
+      "coverHint": "Repères de couverture",
+      "families": "Annonce des familles",
+      "closingNote": "Mot de fin"
     },
     "placeholders": {
-      "contact": "Camille : 06 12 34 56 78 · Thomas : 06 98 76 54 32"
+      "contact": "Camille : 06 12 34 56 78 · Thomas : 06 98 76 54 32",
+      "coverHint": "24 · 06 · 2027 — Beaune"
     },
     "otherIntro": "Autre formulation",
     "defaults": {
       "intro": "ont la joie de vous convier à la célébration de leur mariage",
       "rsvpNote": "Réponse souhaitée avant le {date}",
-      "rsvpNoteNoDate": "Merci de nous confirmer votre présence"
+      "rsvpNoteNoDate": "Merci de nous confirmer votre présence",
+      "families": "M. et Mme Martin\nM. et Mme Durand\nont la joie de vous annoncer le mariage de leurs enfants",
+      "closingNote": "Votre présence à nos côtés sera notre plus beau cadeau."
     },
     "introSuggestions": [
       "ont la joie de vous convier à la célébration de leur mariage",
@@ -1840,7 +1849,33 @@
         "address": "Route des Vignes, Beaune",
         "icon": "cake"
       }
-    ]
+    ],
+    "formats": {
+      "booklet": {
+        "title": "Livret 4 pages",
+        "description": "Le format traditionnel plié : couverture, invitation et programme à l’intérieur, mot de fin au dos."
+      },
+      "card": {
+        "title": "Carte simple",
+        "description": "Toutes les informations sur une seule face : plus simple et moins cher à imprimer."
+      }
+    },
+    "views": {
+      "label": "Page affichée",
+      "cover": "Couverture",
+      "inside": "Intérieur",
+      "back": "4e de couverture"
+    },
+    "familiesToggle": "Ajouter l’annonce des familles",
+    "familiesHint": "Facultatif : la formule traditionnelle où les parents annoncent le mariage.",
+    "fullscreen": {
+      "button": "Plein écran",
+      "open": "Afficher l’aperçu en plein écran",
+      "title": "Aperçu du faire-part en plein écran",
+      "close": "Fermer le plein écran",
+      "previous": "Page précédente",
+      "next": "Page suivante"
+    }
   },
   "Rsvp": {
     "metaTitle": "Faire-part de {couple}",
@@ -1880,7 +1915,11 @@
       "invalid": "Votre réponse n’a pas pu être prise en compte. Vérifiez vos informations.",
       "generic": "Votre réponse n’a pas pu être envoyée. Merci de réessayer dans un instant."
     },
-    "madeWith": "Créé avec Céleste"
+    "madeWith": "Créé avec Céleste",
+    "booklet": {
+      "open": "Ouvrir le faire-part",
+      "close": "Refermer le faire-part"
+    }
   },
   "Playlist": {
     "metaTitle": "Playlist",

@@ -66,6 +66,18 @@ export default async function InvitationsPage({ params }: PageProps<"/[locale]/i
       likes: styleDna.likes,
       ambiance: styleDna.ambiance,
       names: wedding.title,
+      // Repère de couverture : « 24 · 06 · 2027 » (le lieu s'ajoute à la main).
+      coverHint: date
+        ? format
+            .dateTime(isoDateToUtc(date), {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              timeZone: "UTC",
+            })
+            .replace(/[/.-]/g, " · ")
+        : "",
+      closingNote: t("defaults.closingNote"),
       dateText: longDate.charAt(0).toLocaleUpperCase(locale) + longDate.slice(1),
       intro: t("defaults.intro"),
       rsvpNote: date

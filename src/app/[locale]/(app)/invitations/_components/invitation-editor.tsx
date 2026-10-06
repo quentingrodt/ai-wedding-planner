@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckIcon, DownloadIcon, FileTextIcon, RefreshCwIcon } from "lucide-react";
+import { CheckIcon, DownloadIcon, FileTextIcon, Maximize2Icon, RefreshCwIcon } from "lucide-react";
 import { useLocale, useMessages, useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
@@ -27,7 +27,12 @@ import {
 import { cn } from "@/lib/utils";
 import { saveInvitation } from "../actions";
 import { BROWSER_FAMILIES } from "@/components/invitations/fonts";
-import { ResponsiveInvitation } from "@/components/invitations/responsive-invitation";
+import {
+  defaultView,
+  ResponsiveInvitation,
+  type InvitationView,
+} from "@/components/invitations/responsive-invitation";
+import { FullscreenPreview } from "./fullscreen-preview";
 import { MomentsEditor } from "./moments-editor";
 
 type InvitationEditorProps = {
@@ -44,13 +49,27 @@ type InvitationEditorProps = {
 
 type TextField = Exclude<keyof InvitationContent, "moments">;
 
-/** Champs de texte, regroupés comme on lit un faire-part ; le programme a son propre éditeur. */
+/**
+ * Champs regroupés dans l'ordre des pages du livret ; le programme a son
+ * propre éditeur. view : la page montrée par l'aperçu quand on édite le groupe.
+ */
 const TEXT_GROUPS = [
-  { key: "you", fields: ["names", "intro"] },
-  { key: "when", fields: ["dateText"] },
-  { key: "program", fields: [] },
-  { key: "reply", fields: ["rsvpNote", "contact"] },
-] as const satisfies readonly { key: string; fields: readonly TextField[] }[];
+  { key: "cover", view: "cover", fields: ["names", "coverHint"] },
+  { key: "invitation", view: "inside", fields: ["families", "intro", "dateText"] },
+  { key: "program", view: "inside", fields: [] },
+  { key: "reply", view: "inside", fields: ["rsvpNote", "contact"] },
+  { key: "back", view: "back", fields: ["closingNote"] },
+] as const satisfies readonly {
+  key: string;
+  view: Exclude<InvitationView, "card">;
+  fields: readonly TextField[];
+}[];
+
+/** Champs propres au livret, masqués pour une carte simple. */
+const BOOKLET_ONLY: readonly TextField[] = ["coverHint", "closingNote"];
+
+/** Pages proposées par le sélecteur de l'aperçu. */
+const BOOKLET_VIEWS = ["cover", "inside", "back"] as const;
 
 /** Éditeur du faire-part : réglages à gauche, aperçu en direct à droite. */
 export function InvitationEditor({
@@ -72,9 +91,29 @@ export function InvitationEditor({
   const [savedDesign, setSavedDesign] = useState(initialDesign);
   const [pending, startTransition] = useTransition();
   const dirty = JSON.stringify(design) !== JSON.stringify(savedDesign);
+  const booklet = design.format === "booklet";
+  const [view, setView] = useState<InvitationView>(defaultView(initialDesign));
+  // L'annonce des familles est facultative : ouverte si elle a déjà un texte.
+  const [familiesOpen, setFamiliesOpen] = useState(initialDesign.content.families !== "");
 
   const set = <K extends keyof InvitationDesign>(key: K, value: InvitationDesign[K]) =>
     setDesign((current) => ({ ...current, [key]: value }));
+  const chooseFormat = (format: InvitationDesign["format"]) => {
+    // Un faire-part composé en carte simple n'a pas encore de mot de fin : on en propose un.
+    setDesign((current) => ({
+      ...current,
+      format,
+      content:
+        format === "booklet" && current.content.closingNote === ""
+          ? { ...current.content, closingNote: t("defaults.closingNote") }
+          : current.content,
+    }));
+    setView(format === "card" ? "card" : "cover");
+  };
+  const toggleFamilies = (open: boolean) => {
+    setFamiliesOpen(open);
+    setText("families", open ? t("defaults.families") : "");
+  };
   const setText = (field: TextField, value: string) =>
     setDesign((current) => ({ ...current, content: { ...current.content, [field]: value } }));
   const setMoments = (moments: InvitationMoment[]) =>
@@ -120,22 +159,97 @@ export function InvitationEditor({
     });
   }
 
+  const watermark = watermarked ? t("signature") : undefined;
+  // Cliquer sur l'aperçu l'ouvre aussi en plein écran.
   const preview = (
-    <ResponsiveInvitation design={design} watermark={watermarked ? t("signature") : undefined} />
+    <FullscreenPreview
+      design={design}
+      watermark={watermark}
+      initialView={view}
+      trigger={
+        <button
+          type="button"
+          aria-label={t("fullscreen.open")}
+          className="block w-full cursor-zoom-in rounded-sm focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+        >
+          <ResponsiveInvitation design={design} view={view} watermark={watermark} />
+        </button>
+      }
+    />
+  );
+  const fullscreenButton = (
+    <FullscreenPreview
+      design={design}
+      watermark={watermark}
+      initialView={view}
+      trigger={
+        <button
+          type="button"
+          className="inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-sm text-stone transition-colors hover:bg-linen hover:text-charcoal focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+        >
+          <Maximize2Icon aria-hidden className="size-3.5" strokeWidth={1.5} />
+          {t("fullscreen.button")}
+        </button>
+      }
+    />
+  );
+  const viewPicker = booklet && (
+    <div role="group" aria-label={t("views.label")} className="inline-flex w-fit rounded-full bg-linen p-1">
+      {BOOKLET_VIEWS.map((value) => (
+        <button
+          key={value}
+          type="button"
+          aria-pressed={view === value}
+          onClick={() => setView(value)}
+          className={cn(
+            "h-8 rounded-full px-3.5 text-sm text-stone transition-colors focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
+            view === value && "bg-card text-charcoal shadow-sm",
+          )}
+        >
+          {t(`views.${value}`)}
+        </button>
+      ))}
+    </div>
   );
 
   if (!canEdit) {
     return (
       <div className="flex flex-col items-center gap-6">
         <p className="w-full rounded-3xl bg-linen px-6 py-5 text-stone">{t("readOnly")}</p>
-        <div className="w-full max-w-md">{preview}</div>
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          {viewPicker}
+          {fullscreenButton}
+        </div>
+        <div className={cn("w-full", view === "inside" ? "max-w-3xl" : "max-w-md")}>{preview}</div>
       </div>
     );
   }
 
   return (
-    <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-start">
+    <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:items-start">
       <div className="flex flex-col gap-10">
+        <Section title={t("sections.format")}>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {(["booklet", "card"] as const).map((format) => (
+              <button
+                key={format}
+                type="button"
+                aria-pressed={design.format === format}
+                onClick={() => chooseFormat(format)}
+                className={cn(
+                  "flex flex-col gap-1 rounded-2xl p-4 text-left transition",
+                  design.format === format
+                    ? "bg-card ring-2 ring-terracotta"
+                    : "ring-1 ring-border hover:ring-sand",
+                )}
+              >
+                <span className="font-medium">{t(`formats.${format}.title`)}</span>
+                <span className="text-sm text-stone">{t(`formats.${format}.description`)}</span>
+              </button>
+            ))}
+          </div>
+        </Section>
+
         <Section title={t("sections.template")}>
           <div role="group" aria-label={t("ambiances.label")} className="flex flex-wrap gap-2">
             {[null, ...TEMPLATE_AMBIANCES].map((ambiance) => (
@@ -237,13 +351,47 @@ export function InvitationEditor({
           </div>
         </Section>
 
-        {TEXT_GROUPS.map(({ key, fields }) => (
-          <Section key={key} title={t(`sections.${key}`)}>
+        {TEXT_GROUPS.filter(({ key }) => booklet || key !== "back").map(({ key, view: page, fields }) => (
+          <Section
+            key={key}
+            // Carte simple : pas de couverture, le premier groupe parle du couple.
+            title={t(`sections.${!booklet && key === "cover" ? "you" : key}`)}
+            // Éditer un groupe montre la page concernée dans l'aperçu.
+            onFocus={booklet ? () => setView(page) : undefined}
+          >
             {key === "program" ? (
               <MomentsEditor moments={design.content.moments} onChange={setMoments} />
             ) : (
               <div className="flex flex-col gap-5">
-                {fields.map((field: TextField) => (
+                {fields
+                  .filter((field: TextField) => booklet || !BOOKLET_ONLY.includes(field))
+                  .map((field: TextField) =>
+                    field === "families" ? (
+                      <div key={field} className="flex flex-col gap-2">
+                        <label className="flex cursor-pointer items-center gap-3 text-sm">
+                          <input
+                            type="checkbox"
+                            checked={familiesOpen}
+                            onChange={(event) => toggleFamilies(event.target.checked)}
+                            className="size-5 cursor-pointer rounded accent-sage"
+                          />
+                          {t("familiesToggle")}
+                        </label>
+                        {familiesOpen ? (
+                          <textarea
+                            id="invitation-families"
+                            aria-label={t("fields.families")}
+                            value={design.content.families}
+                            maxLength={INVITATION_LIMITS.families}
+                            onChange={(event) => setText("families", event.target.value)}
+                            rows={4}
+                            className="w-full resize-none rounded-xl border border-input bg-card px-3 py-2.5 text-base leading-6 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+                          />
+                        ) : (
+                          <p className="text-xs text-stone">{t("familiesHint")}</p>
+                        )}
+                      </div>
+                    ) : (
                   <div key={field} className="flex flex-col gap-2">
                     <div className="flex items-baseline justify-between gap-3">
                       <Label htmlFor={`invitation-${field}`}>{t(`fields.${field}`)}</Label>
@@ -263,12 +411,17 @@ export function InvitationEditor({
                       value={design.content[field]}
                       maxLength={INVITATION_LIMITS[field]}
                       onChange={(event) => setText(field, event.target.value)}
-                      placeholder={field === "contact" ? t("placeholders.contact") : undefined}
+                      placeholder={
+                        field === "contact" || field === "coverHint"
+                          ? t(`placeholders.${field}`)
+                          : undefined
+                      }
                       required={field === "names"}
                       className="h-11 rounded-xl bg-card text-base"
                     />
                   </div>
-                ))}
+                    ),
+                  )}
               </div>
             )}
           </Section>
@@ -277,7 +430,13 @@ export function InvitationEditor({
 
       {/* Aperçu : en tête sur mobile, collant à droite sur grand écran */}
       <div className="order-first flex flex-col gap-4 lg:sticky lg:top-8 lg:order-none">
-        <p className="text-xs font-medium tracking-[0.2em] text-stone uppercase">{t("preview")}</p>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <p className="text-xs font-medium tracking-[0.2em] text-stone uppercase">{t("preview")}</p>
+            {fullscreenButton}
+          </div>
+          {viewPicker}
+        </div>
         {preview}
         <div className="flex items-center justify-between gap-4">
           <span className="text-sm text-stone">{dirty ? t("unsaved") : null}</span>
@@ -380,9 +539,18 @@ function PrintFile({ locale, ready, proof }: { locale: string; ready: boolean; p
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({
+  title,
+  onFocus,
+  children,
+}: {
+  title: string;
+  /** Appelé quand un champ de la section prend le focus. */
+  onFocus?: () => void;
+  children: React.ReactNode;
+}) {
   return (
-    <section className="flex flex-col gap-4">
+    <section className="flex flex-col gap-4" onFocusCapture={onFocus}>
       <h2 className="font-serif text-2xl">{title}</h2>
       {children}
     </section>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { Locale } from "next-intl";
 import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
 import { cache } from "react";
-import { ResponsiveInvitation } from "@/components/invitations/responsive-invitation";
+import { InvitationViewer } from "@/components/invitations/invitation-viewer";
 import { Link } from "@/i18n/navigation";
 import { guestRsvpSchema, rsvpTokenSchema, type GuestRsvp } from "@/lib/rsvp/schema";
 import { isoDateToUtc } from "@/lib/weddings/dates";
@@ -72,7 +72,7 @@ export default async function RsvpPage({ params }: PageProps<"/[locale]/i/[token
     <main className="flex flex-1 justify-center bg-linen/40 px-5 pt-10 pb-20 sm:px-6 sm:pt-16">
       <div className="flex w-full min-w-0 max-w-md flex-col gap-10">
         {guest.design ? (
-          <ResponsiveInvitation design={guest.design} />
+          <InvitationViewer design={guest.design} />
         ) : (
           <header className="flex flex-col items-center gap-3 rounded-sm bg-ivory px-6 py-16 text-center shadow-[0_30px_60px_-30px_rgba(43,42,40,0.45)]">
             <h1 className="font-serif text-4xl leading-tight tracking-tight">{guest.wedding_title}</h1>

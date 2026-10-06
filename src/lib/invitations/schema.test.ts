@@ -21,7 +21,8 @@ describe("invitationDesignSchema", () => {
 
   it("convertit un design v1 : l'heure et le lieu deviennent le premier moment", () => {
     const design = invitationDesignSchema.parse(v1);
-    expect(design.version).toBe(2);
+    expect(design.version).toBe(3);
+    expect(design.format).toBe("card");
     expect(design.content.moments).toEqual([
       {
         time: "à seize heures",
@@ -40,6 +41,26 @@ describe("invitationDesignSchema", () => {
       content: { ...v1.content, time: "", venue: "", address: "" },
     });
     expect(design.content.moments).toEqual([]);
+  });
+
+  it("garde un design v2 en carte simple, sans couverture ni mot de fin", () => {
+    const { names, intro, dateText, rsvpNote } = v1.content;
+    const design = invitationDesignSchema.parse({
+      ...v1,
+      version: 2,
+      template: "eucalyptus",
+      fonts: "modern",
+      content: { names, intro, dateText, rsvpNote, moments: [], contact: "Camille : 06 12 34 56 78" },
+    });
+    expect(design.version).toBe(3);
+    expect(design.format).toBe("card");
+    expect(design.template).toBe("eucalyptus");
+    expect(design.content).toMatchObject({
+      contact: "Camille : 06 12 34 56 78",
+      coverHint: "",
+      families: "",
+      closingNote: "",
+    });
   });
 
   it("refuse plus de quatre moments", () => {

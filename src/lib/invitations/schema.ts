@@ -59,9 +59,23 @@ export const MAX_MOMENTS = 4;
 /** Pictogramme proposé pour le n-ième moment ajouté. */
 export const DEFAULT_MOMENT_ICONS: readonly MomentIcon[] = ["cityhall", "church", "glass", "dinner"];
 
+
+/**
+ * booklet — livret plié de 4 pages A5 : couverture, intérieur (pages 2 et 3),
+ * 4e de couverture. card — carte simple, toutes les informations au recto.
+ */
+export const INVITATION_FORMATS = ["booklet", "card"] as const;
+export type InvitationFormat = (typeof INVITATION_FORMATS)[number];
+
+/** Pages d'un livret, dans l'ordre de lecture. */
+export const BOOKLET_PAGES = ["cover", "inside-left", "inside-right", "back"] as const;
+export type BookletPage = (typeof BOOKLET_PAGES)[number];
+
 /** Limites de saisie (affichage soigné sur un faire-part A5). */
 export const INVITATION_LIMITS = {
   names: 60,
+  coverHint: 60,
+  families: 240,
   intro: 160,
   dateText: 60,
   time: 30,
@@ -70,6 +84,7 @@ export const INVITATION_LIMITS = {
   address: 120,
   rsvpNote: 140,
   contact: 140,
+  closingNote: 200,
 } as const;
 
 const text = (max: number) => z.string().trim().max(max);
@@ -88,6 +103,13 @@ export type InvitationMoment = z.infer<typeof invitationMomentSchema>;
 export const invitationContentSchema = z.object({
   /** Prénoms du couple, ex. « Camille & Thomas ». */
   names: text(INVITATION_LIMITS.names).min(1),
+  /** Repères de couverture, ex. « 24 · 06 · 2027 — Beaune ». */
+  coverHint: text(INVITATION_LIMITS.coverHint),
+  /**
+   * Annonce des familles, facultative (chaîne vide = absente), sur plusieurs
+   * lignes : « M. et Mme Martin… ont la joie de vous annoncer… ».
+   */
+  families: text(INVITATION_LIMITS.families),
   /** Phrase d'invitation, ex. « ont la joie de vous convier à leur mariage ». */
   intro: text(INVITATION_LIMITS.intro),
   /** Date en toutes lettres, libre (ex. « Samedi 12 juin 2027 »). */
@@ -98,15 +120,30 @@ export const invitationContentSchema = z.object({
   rsvpNote: text(INVITATION_LIMITS.rsvpNote),
   /** Contact libre, ex. « Camille : 06 12 34 56 78 ». */
   contact: text(INVITATION_LIMITS.contact),
+  /** Mot de fin de la 4e de couverture. */
+  closingNote: text(INVITATION_LIMITS.closingNote),
 });
 export type InvitationContent = z.infer<typeof invitationContentSchema>;
 
-const designV2Schema = z.object({
-  version: z.literal(2),
+const style = {
   template: z.enum(INVITATION_TEMPLATES),
   palette: z.enum(PALETTE_KEYS as [InvitationPalette, ...InvitationPalette[]]),
   fonts: z.enum(INVITATION_FONTS),
+};
+
+const designV3Schema = z.object({
+  version: z.literal(3),
+  format: z.enum(INVITATION_FORMATS),
+  ...style,
   content: invitationContentSchema,
+});
+export type InvitationDesign = z.infer<typeof designV3Schema>;
+
+/** Deuxième version : carte simple uniquement, sans couverture ni mot de fin. */
+const designV2Schema = z.object({
+  version: z.literal(2),
+  ...style,
+  content: invitationContentSchema.omit({ coverHint: true, families: true, closingNote: true }),
 });
 
 /** Première version : une seule heure, un seul lieu, pas de contact. */
@@ -126,10 +163,20 @@ const designV1Schema = z.object({
   }),
 });
 
-/** Convertit un design v1 : son heure et son lieu deviennent le premier moment. */
-export function upgradeDesignV1(design: z.infer<typeof designV1Schema>): InvitationDesign {
-  const { time, venue, address, ...content } = design.content;
+/** v2 → v3 : le faire-part reste une carte simple, telle que le couple l'a composée. */
+function upgradeDesignV2(design: z.infer<typeof designV2Schema>): InvitationDesign {
   return {
+    ...design,
+    version: 3,
+    format: "card",
+    content: { ...design.content, coverHint: "", families: "", closingNote: "" },
+  };
+}
+
+/** v1 → v3 : son heure et son lieu deviennent le premier moment du programme. */
+function upgradeDesignV1(design: z.infer<typeof designV1Schema>): InvitationDesign {
+  const { time, venue, address, ...content } = design.content;
+  return upgradeDesignV2({
     ...design,
     version: 2,
     content: {
@@ -137,15 +184,15 @@ export function upgradeDesignV1(design: z.infer<typeof designV1Schema>): Invitat
       moments: time || venue || address ? [{ time, title: "", venue, address, icon: "church" }] : [],
       contact: "",
     },
-  };
+  });
 }
 
-/** Design lu ou écrit : les designs v1 enregistrés sont convertis à la lecture. */
+/** Design lu ou écrit : les versions précédentes sont converties à la lecture. */
 export const invitationDesignSchema = z.union([
-  designV2Schema,
+  designV3Schema,
+  designV2Schema.transform(upgradeDesignV2),
   designV1Schema.transform(upgradeDesignV1),
 ]);
-export type InvitationDesign = z.infer<typeof designV2Schema>;
 
 /** Modèle et palette suggérés par l'ambiance de lieu du carnet. */
 const BY_VENUE = {
@@ -159,36 +206,44 @@ const BY_VENUE = {
 >;
 
 /**
- * Premier design proposé : style déduit du carnet (lieu aimé), textes
- * pré-remplis avec les informations du mariage. Les textes traduits sont
- * fournis par l'appelant (aucun texte en dur ici).
+ * Premier design proposé : un livret, style déduit du carnet (lieu aimé),
+ * textes pré-remplis avec les informations du mariage. Les textes traduits
+ * sont fournis par l'appelant (aucun texte en dur ici).
  */
 export function suggestInvitationDesign({
   likes,
   ambiance,
   names,
+  coverHint,
   dateText,
   intro,
   rsvpNote,
+  closingNote,
 }: {
   likes: InspirationLikes;
   ambiance?: keyof typeof BY_VENUE;
   names: string;
+  coverHint: string;
   dateText: string;
   intro: string;
   rsvpNote: string;
+  closingNote: string;
 }): InvitationDesign {
   const venue = likes.venue?.[0] ?? ambiance ?? "chateau";
   return {
-    version: 2,
+    version: 3,
+    format: "booklet",
     ...BY_VENUE[venue],
     content: {
       names: names.slice(0, INVITATION_LIMITS.names),
+      coverHint,
+      families: "",
       intro,
       dateText,
       moments: [],
       rsvpNote,
       contact: "",
+      closingNote,
     },
   };
 }

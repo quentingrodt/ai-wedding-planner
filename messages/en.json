@@ -1697,9 +1697,12 @@
       "palette": "Colours",
       "fonts": "Typography",
       "you": "You",
-      "when": "The date",
       "program": "The programme",
-      "reply": "Replies"
+      "reply": "Replies",
+      "format": "Format",
+      "cover": "The cover",
+      "invitation": "The invitation",
+      "back": "The back cover"
     },
     "templates": {
       "classic": "Classic engraving",
@@ -1730,16 +1733,22 @@
       "intro": "Invitation line",
       "dateText": "Date",
       "rsvpNote": "RSVP note",
-      "contact": "Contact"
+      "contact": "Contact",
+      "coverHint": "Cover details",
+      "families": "Parents’ announcement",
+      "closingNote": "Closing word"
     },
     "placeholders": {
-      "contact": "Camille: +44 7700 900123 · Thomas: +44 7700 900456"
+      "contact": "Camille: +44 7700 900123 · Thomas: +44 7700 900456",
+      "coverHint": "24 · 06 · 2027 — Bath"
     },
     "otherIntro": "Another wording",
     "defaults": {
       "intro": "joyfully invite you to celebrate their wedding",
       "rsvpNote": "Kindly reply by {date}",
-      "rsvpNoteNoDate": "Kindly let us know if you can join us"
+      "rsvpNoteNoDate": "Kindly let us know if you can join us",
+      "families": "Mr and Mrs Martin\nMr and Mrs Durand\nrequest the pleasure of your company at the marriage of their children",
+      "closingNote": "Your presence by our side will be our most beautiful gift."
     },
     "introSuggestions": [
       "joyfully invite you to celebrate their wedding",
@@ -1840,7 +1849,33 @@
         "address": "Orchard Lane, Bath",
         "icon": "cake"
       }
-    ]
+    ],
+    "formats": {
+      "booklet": {
+        "title": "4-page booklet",
+        "description": "The traditional folded format: cover, invitation and programme inside, a closing word on the back."
+      },
+      "card": {
+        "title": "Flat card",
+        "description": "Everything on a single side: simpler and cheaper to print."
+      }
+    },
+    "views": {
+      "label": "Page shown",
+      "cover": "Cover",
+      "inside": "Inside",
+      "back": "Back cover"
+    },
+    "familiesToggle": "Add the parents’ announcement",
+    "familiesHint": "Optional: the traditional wording where the parents announce the wedding.",
+    "fullscreen": {
+      "button": "Full screen",
+      "open": "Show the preview full screen",
+      "title": "Full-screen invitation preview",
+      "close": "Exit full screen",
+      "previous": "Previous page",
+      "next": "Next page"
+    }
   },
   "Rsvp": {
     "metaTitle": "{couple}’s wedding invitation",
@@ -1880,7 +1915,11 @@
       "invalid": "Your reply could not be recorded. Please check your details.",
       "generic": "Your reply could not be sent. Please try again in a moment."
     },
-    "madeWith": "Made with Céleste"
+    "madeWith": "Made with Céleste",
+    "booklet": {
+      "open": "Open the invitation",
+      "close": "Close the invitation"
+    }
   },
   "Playlist": {
     "metaTitle": "Playlist",
