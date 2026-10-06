@@ -1,7 +1,5 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
-import fontkit from "@pdf-lib/fontkit";
-import { PDFDocument, rgb, type PDFFont, type PDFPage, type RGB } from "pdf-lib";
+import type { PDFDocument, PDFFont, PDFPage, RGB } from "pdf-lib";
+import { A4, COLOR, createDocument, fit, wrap, type Fonts } from "@/lib/pdf/kit";
 import type { ListingGuest, SeatingListing } from "./listing";
 
 /*
@@ -36,55 +34,10 @@ export type SeatingPdfLabels = {
   page: (current: number, total: number) => string;
 };
 
-const A4 = { width: 595.28, height: 841.89 };
 const MARGIN = { x: 56, top: 64, bottom: 72 };
 const CONTENT_WIDTH = A4.width - 2 * MARGIN.x;
 const GUTTER = 28;
 const COLUMN_WIDTH = (CONTENT_WIDTH - GUTTER) / 2;
-
-const hex = (value: string): RGB =>
-  rgb(
-    parseInt(value.slice(1, 3), 16) / 255,
-    parseInt(value.slice(3, 5), 16) / 255,
-    parseInt(value.slice(5, 7), 16) / 255,
-  );
-const COLOR = {
-  charcoal: hex("#2b2a28"),
-  stone: hex("#6b665f"),
-  terracotta: hex("#a9533a"),
-  sage: hex("#8a9a82"),
-  sand: hex("#e3d5c1"),
-  linen: hex("#efe9e1"),
-};
-
-type Fonts = { title: PDFFont; body: PDFFont; italic: PDFFont };
-
-const font = (file: string) => readFile(join(process.cwd(), "assets/fonts", file));
-
-/** Coupe un texte en lignes tenant dans width. */
-function wrap(text: string, f: PDFFont, size: number, width: number): string[] {
-  const lines: string[] = [];
-  let line = "";
-  for (const word of text.split(/\s+/)) {
-    const candidate = line ? `${line} ${word}` : word;
-    if (f.widthOfTextAtSize(candidate, size) <= width || !line) {
-      line = candidate;
-    } else {
-      lines.push(line);
-      line = word;
-    }
-  }
-  if (line) lines.push(line);
-  return lines.map((value) => fit(value, f, size, width));
-}
-
-/** Tronque avec « … » ce qui dépasse width. */
-function fit(text: string, f: PDFFont, size: number, width: number): string {
-  if (f.widthOfTextAtSize(text, size) <= width) return text;
-  let end = text.length;
-  while (end > 1 && f.widthOfTextAtSize(`${text.slice(0, end)}…`, size) > width) end--;
-  return `${text.slice(0, end)}…`;
-}
 
 /** Curseur de mise en page : ajoute les pages au besoin. */
 class Layout {
@@ -406,21 +359,7 @@ export async function buildSeatingPdf(
   listing: SeatingListing,
   labels: SeatingPdfLabels,
 ): Promise<Uint8Array> {
-  const pdf = await PDFDocument.create();
-  pdf.registerFontkit(fontkit);
-  pdf.setTitle(labels.documentTitle);
-  pdf.setCreator("Céleste");
-
-  const [title, body, italic] = await Promise.all([
-    font("PlayfairDisplay-Regular.ttf"),
-    font("CrimsonText-Regular.ttf"),
-    font("CrimsonText-Italic.ttf"),
-  ]);
-  const fonts: Fonts = {
-    title: await pdf.embedFont(title, { subset: true }),
-    body: await pdf.embedFont(body, { subset: true }),
-    italic: await pdf.embedFont(italic, { subset: true }),
-  };
+  const { pdf, fonts } = await createDocument(labels.documentTitle);
   const layout = new Layout(pdf, fonts);
 
   // En-tête du document.

@@ -55,11 +55,12 @@ export default async function DashboardPage({
   const role = await getCurrentMemberRole(supabase, wedding.id, userId);
   const canSeeBudget = role === "owner" || role === "partner";
 
-  const [tasks, budgetItems, styleDna, t, format] = await Promise.all([
+  const [tasks, budgetItems, styleDna, t, tPlanning, format] = await Promise.all([
     getUpcomingTasks(supabase, wedding.id, 5),
     canSeeBudget ? getBudgetItems(supabase, wedding.id) : Promise.resolve([]),
     getWeddingStyleDna(supabase, wedding.id),
     getTranslations("Dashboard"),
+    getTranslations("Planning.tasks"),
     getFormatter(),
   ]);
 
@@ -76,7 +77,7 @@ export default async function DashboardPage({
   const timelineTasks: TimelineTask[] = tasks.map((task) => ({
     id: task.id,
     label: isTaskTemplateKey(task.template_key)
-      ? t(`timeline.templates.${task.template_key}`)
+      ? tPlanning(task.template_key)
       : task.title,
     dueDate: task.due_date,
     dueLabel: task.due_date === null ? null : formatDate(task.due_date),

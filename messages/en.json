@@ -316,17 +316,7 @@
       "doneToast": "“{task}” is done.",
       "undo": "Undo",
       "error": "This step could not be updated. Please try again.",
-      "templates": {
-        "set_budget": "Set your overall budget",
-        "guest_list": "Draw up the guest list",
-        "book_venue": "Book the venue",
-        "book_catering": "Choose the caterer",
-        "book_dj": "Book the DJ or musicians",
-        "book_photographer": "Book the photographer",
-        "choose_attire": "Choose your outfits",
-        "send_invitations": "Send the invitations",
-        "seating_plan": "Finalise the seating plan"
-      }
+      "seeAll": "See the full timeline"
     },
     "quotesLink": "Decode your quotes",
     "guestsLink": "Your guests",
@@ -1876,6 +1866,7 @@
     },
     "items": {
       "dashboard": "Home",
+      "planning": "Timeline",
       "inspiration": "Inspiration",
       "budget": "Budget",
       "quotes": "Quotes",
@@ -1884,7 +1875,407 @@
       "seating": "Seating plan",
       "itinerary": "Schedule",
       "playlist": "Playlist",
-      "settings": "Team"
+      "settings": "Team",
+      "calendar": "Calendar"
     }
+  },
+  "Planning": {
+    "metaTitle": "Timeline",
+    "eyebrow": "Timeline",
+    "title": "Every step, at the right time",
+    "intro": "Céleste set each deadline from the time you have left. Tick steps off as you go and move a date if needed: the steps that depend on it follow.",
+    "horizon": "{days, plural, one {Just # day} other {Just # days}} until the big day.",
+    "tension": {
+      "comfortable": "Time is on your side: every step falls at the ideal moment.",
+      "tight": "A tighter calendar: the key steps should start in the coming weeks.",
+      "urgent": "A short countdown: a few steps call for going straight to the essentials."
+    },
+    "progress": "{done} of {total} steps done",
+    "adjust": "Adjust my answers",
+    "readOnly": "The couple shapes the timeline; you can tick steps off, adjust dates and add your own steps.",
+    "notPersonalized": "This timeline is still generic: answer a few questions to tailor it to your wedding.",
+    "personalize": "Personalise my timeline",
+    "empty": "No steps yet.",
+    "past": "The big day has passed: we hope it was everything you wished for.",
+    "custom": "Personal step",
+    "pace": {
+      "tight": "Tight",
+      "urgent": "Urgent"
+    },
+    "open": "Go",
+    "categories": {
+      "foundations": "Foundations",
+      "vendors": "Vendors",
+      "attire": "Outfits & beauty",
+      "guests": "Guests & celebrations",
+      "admin": "Ceremony & paperwork",
+      "final": "The big day & final touches"
+    },
+    "tasks": {
+      "set_budget": "Set your budget",
+      "guest_list": "Draw up the guest list",
+      "book_venue": "Book the ceremony and reception venues",
+      "book_town_hall": "Book the date with the town hall",
+      "book_officiant": "Meet the celebrant",
+      "book_accommodation": "Book hotel rooms for guests",
+      "book_catering": "Book the caterer",
+      "book_photographer": "Book the photographer",
+      "book_videographer": "Book the videographer",
+      "book_dj": "Book the entertainment: DJ or musicians",
+      "book_florist": "Book the florist",
+      "book_beauty": "Book hair and make-up",
+      "rent_equipment": "Rent equipment: sound, chairs, marquee…",
+      "taste_menu": "Arrange the caterer’s tasting",
+      "book_cake": "Order the wedding cake",
+      "book_transport": "Book wedding-day transport",
+      "choose_attire": "Find your outfits: browsing and fittings",
+      "choose_rings": "Buy the wedding rings",
+      "party_attire": "Choose the wedding party’s outfits",
+      "attire_fittings": "Fittings and alterations",
+      "save_the_date": "Send the save-the-dates",
+      "design_invitations": "Choose and order the stationery: invitations, menus, seating chart",
+      "send_invitations": "Send the invitations, with a reply-by date",
+      "rsvp_follow_up": "Check replies and follow up with guests",
+      "seating_plan": "Draw up the seating plan",
+      "table_stationery": "Prepare menus and place cards",
+      "religious_preparation": "Attend marriage preparation",
+      "marriage_contract": "Meet the notary about a marriage contract",
+      "choose_witnesses": "Choose your witnesses and guests of honour",
+      "birth_certificates": "Request your birth certificates",
+      "town_hall_file": "Prepare and file the marriage application",
+      "book_honeymoon": "Book the honeymoon",
+      "playlist": "Build the playlist and give it to the DJ",
+      "day_of_program": "Prepare the day-of schedule",
+      "final_headcount": "Confirm guest numbers with vendors",
+      "confirm_vendors": "Final checks with vendors",
+      "vendor_payments": "Settle vendor payments and prepare envelopes",
+      "emergency_kit": "Pack the day-of survival kit",
+      "explore_venues": "Explore potential venues",
+      "announce_date": "Share the date with family and friends",
+      "gather_inspiration": "Gather inspiration: theme, decor, outfits, music",
+      "assign_roles": "Agree who does what, before and on the day",
+      "book_other_vendors": "Book any other useful vendors",
+      "cake_tasting": "Schedule a cake tasting",
+      "confirm_menu": "Confirm the menu",
+      "decor_items": "Rent or buy the decor items",
+      "attire_style": "Define the style of your outfits",
+      "order_attire": "Order outfits, shoes and accessories",
+      "beauty_trials": "Hair and make-up trials",
+      "beauty_care": "Plan your beauty treatments",
+      "final_fitting": "Final outfit fitting",
+      "pickup_attire": "Collect your outfits",
+      "wedding_website": "Create the wedding website",
+      "wedding_registry": "Open your wedding registry",
+      "guest_gifts": "Choose gifts for guests and guests of honour",
+      "order_favors": "Order the favours",
+      "bachelor_parties": "Organise the hen and stag parties",
+      "buy_guest_gifts": "Buy the guest gifts",
+      "rehearsal_dinner": "Organise the rehearsal dinner",
+      "small_items": "Gather the little essentials: guest book, welcome sign, dancing shoes",
+      "dietary_needs": "Confirm dietary needs and allergies",
+      "finalize_ceremony": "Finalise the ceremony running order",
+      "ceremony_readings": "Choose the ceremony texts and readings",
+      "wedding_vows": "Write your vows",
+      "speeches": "Organise the reception speeches",
+      "bans_publication": "Check the banns have been published",
+      "plan_honeymoon": "Choose the honeymoon destination and budget",
+      "wedding_night": "Book the wedding-night hotel",
+      "dance_lessons": "Take lessons for the first dance",
+      "partner_gifts": "Plan gifts to exchange with each other",
+      "honeymoon_packing": "Pack for the honeymoon",
+      "shot_list": "Prepare the photographer’s shot list",
+      "confirm_transport": "Confirm the wedding car",
+      "vendor_contacts": "Give the vendor list to someone you trust",
+      "decor_check": "Check the decor one last time",
+      "thank_you_words": "Write a few words of thanks",
+      "travel_prep": "Get ready to leave: tickets, currency, suitcase",
+      "weather_check": "Check the forecast and plan B",
+      "review_schedule": "Read through the day-of schedule",
+      "eve_evening": "Enjoy a lovely evening with your loved ones"
+    },
+    "advice": {
+      "default": "Go for the essentials: call rather than email, and decide within the week.",
+      "book_venue": "Popular venues book up a year ahead: ask about weekday availability or cancellations.",
+      "book_town_hall": "Call the town hall today to secure the date and time of the civil ceremony.",
+      "book_officiant": "Contact the parish or celebrant this week: their diaries fill quickly.",
+      "book_catering": "Favour a caterer already listed by your venue: they know the kitchens and constraints.",
+      "book_photographer": "In-demand photographers are booked: widen your search to nearby regions.",
+      "choose_attire": "Made-to-measure takes months: look at ready-to-wear or in-stock collections.",
+      "design_invitations": "Pick a design and approve the wording in one evening: sending can’t wait.",
+      "send_invitations": "Send an online invitation now; the paper one can follow.",
+      "birth_certificates": "Request them online from your birthplace’s town hall: they must be under 3 months old when you file.",
+      "town_hall_file": "Call the town hall today: the banns must be published 10 days before the ceremony.",
+      "religious_preparation": "Ask the parish for an accelerated preparation.",
+      "book_accommodation": "Hold a block of rooms with free cancellation, then share the link with guests.",
+      "explore_venues": "Visit three venues at most this week, and ask for their free dates before you go.",
+      "order_attire": "Made-to-measure is out of reach: go for ready-to-wear and alterations.",
+      "bans_publication": "Call the town hall: the banns must be displayed 10 days before the ceremony."
+    },
+    "questionnaire": {
+      "eyebrow": "Your timeline",
+      "title": "A few questions, and Céleste shapes the rest",
+      "intro": "Your answers define the list of steps and their deadlines. You can adjust them at any time.",
+      "step": "Question {current} of {total}",
+      "back": "Previous question",
+      "saving": "Céleste is building your timeline…",
+      "cancel": "Keep my current timeline",
+      "error": "The timeline could not be built. Please try again.",
+      "saved": "Your timeline is ready.",
+      "keptNote": "Steps already done, or whose date you moved, are kept as they are.",
+      "questions": {
+        "ceremony": {
+          "title": "What kind of ceremony do you have in mind?",
+          "options": {
+            "civil": "Civil ceremony only",
+            "religious": "Civil and religious ceremonies",
+            "secular": "Civil and a celebrant-led ceremony",
+            "both": "All three"
+          }
+        },
+        "catering": {
+          "title": "Does the venue require its own caterer?",
+          "options": {
+            "yes": "Yes, catering is included",
+            "no": "No, we choose our own",
+            "unknown": "We don’t know yet"
+          }
+        },
+        "music": {
+          "title": "Who will get your guests dancing?",
+          "options": {
+            "dj": "A DJ",
+            "band": "A band or musicians",
+            "none": "No dancing",
+            "playlist": "Our own playlist"
+          }
+        },
+        "accommodation": {
+          "title": "Do some guests need somewhere to stay?",
+          "options": {
+            "yes": "Yes, many are travelling",
+            "no": "No, everyone heads home"
+          }
+        },
+        "honeymoon": {
+          "title": "Is a honeymoon planned?",
+          "options": {
+            "right_after": "Yes, straight after",
+            "later": "Yes, but later",
+            "none": "No"
+          }
+        },
+        "contract": {
+          "title": "Are you considering a marriage contract?",
+          "options": {
+            "yes": "Yes",
+            "no": "No",
+            "unknown": "We don’t know yet"
+          }
+        },
+        "done": {
+          "title": "What have you already sorted?",
+          "empty": "Nothing yet",
+          "options": {
+            "budget": "The budget",
+            "guest_list": "The guest list",
+            "venue": "The venue",
+            "town_hall": "The town hall date",
+            "catering": "The caterer",
+            "photographer": "The photographer",
+            "music": "The music",
+            "attire": "Our outfits",
+            "rings": "The rings"
+          }
+        },
+        "photo": {
+          "title": "Who will capture the day?",
+          "options": {
+            "photographer": "A photographer",
+            "photo_video": "A photographer and a videographer",
+            "friends": "Our loved ones, with their cameras"
+          }
+        },
+        "attire": {
+          "title": "How do you picture your outfits?",
+          "options": {
+            "custom": "Made to measure, by a designer",
+            "ready": "From a shop, ready to wear",
+            "undecided": "We don’t know yet"
+          }
+        },
+        "party": {
+          "title": "Will you have a wedding party?",
+          "options": {
+            "yes": "Yes: bridesmaids, groomsmen or flower children",
+            "no": "No, our witnesses are enough"
+          }
+        },
+        "stationery": {
+          "title": "How will you invite your guests?",
+          "options": {
+            "paper": "With a paper invitation",
+            "online": "With an online invitation and website",
+            "both": "Both"
+          }
+        },
+        "traditions": {
+          "title": "Which traditions feel like you?",
+          "empty": "None of these",
+          "options": {
+            "save_the_date": "Save-the-dates",
+            "registry": "A wedding registry",
+            "guest_gifts": "Gifts for guests",
+            "favors": "Sugared almonds",
+            "bachelor": "Hen and stag parties",
+            "rehearsal": "A dinner the night before",
+            "speeches": "Speeches at the reception",
+            "first_dance": "A first dance",
+            "wedding_night": "A wedding night in a hotel",
+            "partner_gifts": "Gifts for each other"
+          }
+        }
+      },
+      "continue": "Continue",
+      "multiHint": "Choose as many as you like."
+    },
+    "groups": {
+      "overdue": "To catch up",
+      "none": "No deadline"
+    },
+    "filters": {
+      "label": "Filter by chapter",
+      "all": "All",
+      "hideDone": "Hide completed steps",
+      "empty": "No steps match this filter."
+    },
+    "add": {
+      "trigger": "Add a step",
+      "title": "A step of your own",
+      "description": "An appointment to prepare, an idea not to forget: it joins your timeline.",
+      "close": "Close",
+      "fields": {
+        "title": "Title",
+        "titlePlaceholder": "E.g. Choose the favours",
+        "dueDate": "Deadline",
+        "category": "Chapter",
+        "noCategory": "Personal step"
+      },
+      "errors": {
+        "title": "Give this step a title.",
+        "dueDate": "Choose a date, no later than the day before the wedding."
+      },
+      "cancel": "Cancel",
+      "submit": "Add",
+      "added": "“{task}” has joined your timeline.",
+      "error": "The step could not be added. Please try again."
+    },
+    "delete": {
+      "trigger": "Delete “{task}”",
+      "title": "Delete “{task}”?",
+      "description": "This personal step will be removed from the timeline.",
+      "cancel": "Keep",
+      "confirm": "Delete",
+      "deleted": "“{task}” has been deleted.",
+      "error": "The step could not be deleted. Please try again."
+    },
+    "export": {
+      "list": "List as PDF",
+      "listHint": "Every step by deadline, with tick boxes",
+      "calendar": "Calendar as PDF",
+      "calendarHint": "One month per page, one box per day, up to the wedding"
+    },
+    "pdf": {
+      "listDocumentTitle": "Wedding timeline — {names}",
+      "listEyebrow": "Timeline",
+      "calendarDocumentTitle": "Calendar — {names}",
+      "summary": "{days, plural, one {# day} other {# days}} until the big day · {done} of {total} steps done",
+      "summaryNoCountdown": "{done} of {total} steps done",
+      "weddingLabel": "The big day",
+      "legend": {
+        "event": "Appointment",
+        "task": "Timeline step"
+      },
+      "more": "+{count} more",
+      "footer": "{names} · Céleste",
+      "page": "{current} / {total}",
+      "listFileName": "wedding-timeline",
+      "calendarFileName": "wedding-calendar"
+    }
+  },
+  "Calendar": {
+    "metaTitle": "Calendar",
+    "eyebrow": "Calendar",
+    "title": "Your appointments, month by month",
+    "intro": "Note your visits, tastings and fittings: your timeline’s deadlines slot in on their own.",
+    "previous": "Previous month",
+    "next": "Next month",
+    "today": "Today",
+    "weddingDay": "The big day",
+    "itemsCount": "{count, plural, one {# item} other {# items}}",
+    "more": "+{count}",
+    "legend": {
+      "event": "Appointment",
+      "task": "Timeline step",
+      "wedding": "The big day"
+    },
+    "addCta": "Add an appointment",
+    "emptyDay": "Nothing planned that day.",
+    "taskLabel": "Timeline step",
+    "openPlanning": "Timeline",
+    "upcoming": "Upcoming appointments",
+    "allDay": "All day",
+    "editLabel": "Edit “{title}”",
+    "kinds": {
+      "appointment": "Vendor meeting",
+      "visit": "Visit",
+      "tasting": "Tasting",
+      "fitting": "Fitting",
+      "deadline": "Deadline",
+      "other": "Other"
+    },
+    "add": {
+      "title": "New appointment",
+      "description": "A vendor to meet, a venue to visit, a date not to miss.",
+      "submit": "Add"
+    },
+    "edit": {
+      "title": "Edit appointment",
+      "description": "Adjust the date, time or details.",
+      "submit": "Save"
+    },
+    "form": {
+      "title": "Title",
+      "titlePlaceholder": "E.g. Tasting with the caterer",
+      "kind": "Type",
+      "date": "Date",
+      "time": "Time",
+      "location": "Place",
+      "locationPlaceholder": "E.g. Olive Grove Estate",
+      "notes": "Notes",
+      "notesPlaceholder": "Questions to ask, documents to bring…",
+      "optional": "(optional)",
+      "cancel": "Cancel",
+      "close": "Close"
+    },
+    "fieldErrors": {
+      "required": "This field is required.",
+      "tooLong": "This text is too long.",
+      "invalid": "This value is not valid."
+    },
+    "delete": {
+      "trigger": "Delete “{title}”",
+      "title": "Delete “{title}”?",
+      "description": "This appointment will be removed from the calendar.",
+      "cancel": "Keep",
+      "confirm": "Delete"
+    },
+    "toasts": {
+      "add": "“{title}” is in the calendar.",
+      "edit": "“{title}” has been updated.",
+      "deleted": "“{title}” has been deleted.",
+      "error": "The calendar could not be updated. Please try again."
+    },
+    "export": "Export as PDF",
+    "exportHint": "One month per page, one box per day, up to the wedding"
   }
 }

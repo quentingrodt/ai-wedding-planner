@@ -1,24 +1,15 @@
 import { z } from "zod";
+import { PLANNING_TASK_KEYS, type PlanningTaskKey } from "@/lib/planning/catalog";
+import { TASK_CATEGORIES } from "@/lib/planning/schema";
 
 export const TASK_STATUSES = ["todo", "done"] as const;
 export type TaskStatus = (typeof TASK_STATUSES)[number];
 
-/** Clés des tâches par défaut, traduites via Dashboard.timeline.templates.<key>. */
-export const TASK_TEMPLATE_KEYS = [
-  "set_budget",
-  "guest_list",
-  "book_venue",
-  "book_catering",
-  "book_dj",
-  "book_photographer",
-  "choose_attire",
-  "send_invitations",
-  "seating_plan",
-] as const;
-export type TaskTemplateKey = (typeof TASK_TEMPLATE_KEYS)[number];
+/** Tâches du catalogue (src/lib/planning/catalog.ts), traduites via Planning.tasks.<key>. */
+export type TaskTemplateKey = PlanningTaskKey;
 
 export function isTaskTemplateKey(value: string | null): value is TaskTemplateKey {
-  return (TASK_TEMPLATE_KEYS as readonly (string | null)[]).includes(value);
+  return (PLANNING_TASK_KEYS as readonly (string | null)[]).includes(value);
 }
 
 /** Ligne de la table tasks, telle que lue par le dashboard. */
@@ -30,6 +21,33 @@ export type Task = {
   target_offset_days: number;
   due_date: string | null;
 };
+
+/** Ligne de la table tasks, telle que lue par le rétroplanning. */
+export type PlanningTaskRow = Task & {
+  category: string | null;
+  depends_on_key: string | null;
+  rescheduled: boolean;
+};
+
+/** Limite alignée sur la contrainte CHECK de tasks.title (000003). */
+export const TASK_TITLE_MAX = 200;
+
+/** Étape personnelle ajoutée par le couple ou un témoin. */
+export const addTaskSchema = z.object({
+  title: z.string().trim().min(1).max(TASK_TITLE_MAX),
+  dueDate: z.iso.date(),
+  // Saisie vide : étape sans chapitre (affichée comme « Étape personnelle »).
+  category: z
+    .enum(TASK_CATEGORIES)
+    .or(z.literal(""))
+    .transform((value) => (value === "" ? null : value)),
+});
+export type AddTaskInput = z.input<typeof addTaskSchema>;
+export type AddTaskField = "title" | "dueDate";
+
+export type TaskActionResult =
+  | { ok: true }
+  | { ok: false; error: "invalid" | "unauthenticated" | "forbidden" | "tooLate" | "generic" };
 
 export const toggleTaskSchema = z.object({
   taskId: z.uuid(),

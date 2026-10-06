@@ -1,10 +1,12 @@
 import {
   ArmchairIcon,
   BookHeartIcon,
+  CalendarDaysIcon,
   CalendarHeartIcon,
   ClockIcon,
   FileTextIcon,
   HouseIcon,
+  ListChecksIcon,
   MailIcon,
   MusicIcon,
   NotebookPenIcon,
@@ -18,6 +20,8 @@ import {
 export type NavItem = {
   key:
     | "dashboard"
+    | "planning"
+    | "calendar"
     | "inspiration"
     | "budget"
     | "quotes"
@@ -29,6 +33,8 @@ export type NavItem = {
     | "settings";
   href:
     | "/dashboard"
+    | "/planning"
+    | "/calendar"
     | "/inspiration"
     | "/budget"
     | "/quotes"
@@ -54,6 +60,8 @@ export const NAV_GROUPS: NavGroup[] = [
     key: "prepare",
     icon: NotebookPenIcon,
     items: [
+      { key: "planning", href: "/planning", icon: ListChecksIcon },
+      { key: "calendar", href: "/calendar", icon: CalendarDaysIcon },
       { key: "inspiration", href: "/inspiration", icon: BookHeartIcon },
       { key: "budget", href: "/budget", icon: WalletIcon, coupleOnly: true },
       { key: "quotes", href: "/quotes", icon: FileTextIcon },

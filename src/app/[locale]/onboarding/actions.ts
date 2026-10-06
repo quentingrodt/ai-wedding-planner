@@ -118,6 +118,7 @@ export async function createWedding(
       id: wedding.id,
       wedding_date: input.weddingDate,
       total_budget: input.budget,
+      country_code: DEFAULT_COUNTRY,
     },
     locale,
   ).catch((seedError: unknown) => {

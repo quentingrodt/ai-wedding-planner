@@ -1,4 +1,5 @@
 import type { BudgetItem } from "@/lib/budget/schema";
+import type { CalendarEvent } from "@/lib/calendar/schema";
 import type { Guest, GuestFamily } from "@/lib/guests/schema";
 import { readStyleDna, type StyleDna } from "@/lib/inspiration/style-dna";
 import { invitationDesignSchema, type InvitationDesign } from "@/lib/invitations/schema";
@@ -11,7 +12,8 @@ import { toTimeKey, type ItineraryEvent } from "@/lib/itinerary/schema";
 import type { MoodboardItem } from "@/lib/moodboard/schema";
 import type { Quote } from "@/lib/quotes/schema";
 import type { SeatedGuest, SeatingTable } from "@/lib/seating/schema";
-import type { Task } from "@/lib/tasks/schema";
+import { planningAnswersSchema, type PlanningAnswers } from "@/lib/planning/schema";
+import type { PlanningTaskRow, Task } from "@/lib/tasks/schema";
 import { ROLE_ORDER, type TeamMember } from "@/lib/team/schema";
 import type { createClient } from "@/utils/supabase/client";
 
@@ -151,6 +153,79 @@ export async function getUpcomingTasks(
     throw new Error("Unable to load tasks");
   }
   return data;
+}
+
+/** Toutes les tâches du mariage, par échéance (rétroplanning). */
+export async function getPlanningTasks(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<PlanningTaskRow[]> {
+  const { data, error } = await supabase
+    .from("tasks")
+    .select(
+      "id, template_key, title, status, target_offset_days, due_date, category, depends_on_key, rescheduled",
+    )
+    .eq("wedding_id", weddingId)
+    .order("due_date", { ascending: true, nullsFirst: false })
+    .order("target_offset_days", { ascending: true })
+    .order("created_at", { ascending: true })
+    .returns<PlanningTaskRow[]>();
+
+  if (error) {
+    console.error("[weddings] getPlanningTasks:", error.code);
+    throw new Error("Unable to load tasks");
+  }
+  return data;
+}
+
+/**
+ * Réponses du questionnaire de rétroplanning (null : pas encore rempli, ou
+ * illisibles) et pays du mariage.
+ */
+export async function getPlanningSetup(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<{ answers: PlanningAnswers | null; countryCode: string | null }> {
+  const { data, error } = await supabase
+    .from("weddings")
+    .select("planning_answers, country_code")
+    .eq("id", weddingId)
+    .single<{ planning_answers: unknown; country_code: string | null }>();
+
+  if (error) {
+    console.error("[weddings] getPlanningSetup:", error.code);
+    throw new Error("Unable to load planning answers");
+  }
+  const answers = planningAnswersSchema.safeParse(data.planning_answers);
+  return {
+    answers: answers.success ? answers.data : null,
+    countryCode: data.country_code,
+  };
+}
+
+/** Rendez-vous du calendrier, par date puis par heure (journée entière d'abord). */
+export async function getCalendarEvents(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<CalendarEvent[]> {
+  const { data, error } = await supabase
+    .from("calendar_events")
+    .select("id, kind, title, event_date, start_time, location, notes")
+    .eq("wedding_id", weddingId)
+    .order("event_date", { ascending: true })
+    .order("start_time", { ascending: true, nullsFirst: true })
+    .order("created_at", { ascending: true })
+    .returns<CalendarEvent[]>();
+
+  if (error) {
+    console.error("[weddings] getCalendarEvents:", error.code);
+    throw new Error("Unable to load calendar");
+  }
+  // PostgreSQL renvoie « HH:MM:SS » : on garde « HH:MM ».
+  return data.map((event) => ({
+    ...event,
+    start_time: event.start_time === null ? null : toTimeKey(event.start_time),
+  }));
 }
 
 /** Lignes de budget du mariage, dans l'ordre de création. */

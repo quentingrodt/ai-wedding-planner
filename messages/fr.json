@@ -316,17 +316,7 @@
       "doneToast": "« {task} » est terminée.",
       "undo": "Annuler",
       "error": "Cette étape n'a pas pu être mise à jour. Merci de réessayer.",
-      "templates": {
-        "set_budget": "Définir votre budget global",
-        "guest_list": "Établir la liste d'invités",
-        "book_venue": "Réserver le lieu de réception",
-        "book_catering": "Choisir le traiteur",
-        "book_dj": "Réserver le DJ ou les musiciens",
-        "book_photographer": "Réserver le photographe",
-        "choose_attire": "Choisir vos tenues",
-        "send_invitations": "Envoyer les faire-part",
-        "seating_plan": "Finaliser le plan de table"
-      }
+      "seeAll": "Voir tout le rétroplanning"
     },
     "quotesLink": "Décryptez vos devis",
     "guestsLink": "Vos invités",
@@ -1876,6 +1866,7 @@
     },
     "items": {
       "dashboard": "Accueil",
+      "planning": "Rétroplanning",
       "inspiration": "Inspiration",
       "budget": "Budget",
       "quotes": "Devis",
@@ -1884,7 +1875,407 @@
       "seating": "Plan de table",
       "itinerary": "Programme",
       "playlist": "Playlist",
-      "settings": "Équipe"
+      "settings": "Équipe",
+      "calendar": "Calendrier"
     }
+  },
+  "Planning": {
+    "metaTitle": "Rétroplanning",
+    "eyebrow": "Rétroplanning",
+    "title": "Chaque étape, à son heure",
+    "intro": "Céleste a calculé chaque échéance d’après le temps qui vous reste. Cochez au fil de l’eau, déplacez une date si besoin : les étapes qui en dépendent suivent.",
+    "horizon": "{days, plural, one {Plus que # jour} other {Plus que # jours}} avant le grand jour.",
+    "tension": {
+      "comfortable": "Le temps joue pour vous : chaque étape tombe au moment idéal.",
+      "tight": "Un calendrier resserré : les étapes clés sont à lancer dans les prochaines semaines.",
+      "urgent": "Un compte à rebours serré : quelques étapes demandent d’aller à l’essentiel."
+    },
+    "progress": "{done} sur {total} étapes terminées",
+    "adjust": "Ajuster mes réponses",
+    "readOnly": "Les mariés composent le rétroplanning ; vous pouvez cocher les étapes, ajuster les dates et ajouter vos propres étapes.",
+    "notPersonalized": "Ce rétroplanning est encore générique : répondez à quelques questions pour l’adapter à votre mariage.",
+    "personalize": "Personnaliser mon rétroplanning",
+    "empty": "Aucune étape pour l’instant.",
+    "past": "Le grand jour est passé : nous espérons qu’il a été à votre image.",
+    "custom": "Étape personnelle",
+    "pace": {
+      "tight": "Serré",
+      "urgent": "Urgent"
+    },
+    "open": "Y aller",
+    "categories": {
+      "foundations": "Fondations",
+      "vendors": "Prestataires",
+      "attire": "Tenues & beauté",
+      "guests": "Invités & festivités",
+      "admin": "Cérémonie & démarches",
+      "final": "Jour J & derniers préparatifs"
+    },
+    "tasks": {
+      "set_budget": "Fixer votre budget",
+      "guest_list": "Établir la liste des invités",
+      "book_venue": "Réserver les lieux de cérémonie et de réception",
+      "book_town_hall": "Réserver la date du mariage à la mairie",
+      "book_officiant": "Prendre rendez-vous avec l’officiant",
+      "book_accommodation": "Réserver des chambres d’hôtel pour les invités",
+      "book_catering": "Réserver le traiteur",
+      "book_photographer": "Réserver le photographe",
+      "book_videographer": "Réserver le vidéaste",
+      "book_dj": "Réserver l’animation : DJ ou musiciens",
+      "book_florist": "Réserver le fleuriste",
+      "book_beauty": "Réserver coiffure et maquillage",
+      "rent_equipment": "Réserver le matériel : sonorisation, chaises, tente…",
+      "taste_menu": "Organiser la dégustation chez le traiteur",
+      "book_cake": "Commander la pièce montée et les gâteaux",
+      "book_transport": "Réserver le transport du jour J",
+      "choose_attire": "Trouver vos tenues : recherches et essayages",
+      "choose_rings": "Acheter les alliances",
+      "party_attire": "Définir les tenues du cortège : demoiselles, garçons et enfants d’honneur",
+      "attire_fittings": "Faire les essayages et retouches",
+      "save_the_date": "Envoyer les save-the-date",
+      "design_invitations": "Choisir et commander la papeterie : faire-part, menus, plan de table",
+      "send_invitations": "Envoyer les faire-part, avec une date limite de réponse",
+      "rsvp_follow_up": "Vérifier les réponses et relancer les invités",
+      "seating_plan": "Élaborer le plan de table",
+      "table_stationery": "Préparer menus et marque-places",
+      "religious_preparation": "Suivre la préparation religieuse",
+      "marriage_contract": "Prendre rendez-vous chez le notaire pour le contrat de mariage",
+      "choose_witnesses": "Choisir vos témoins et invités d’honneur",
+      "birth_certificates": "Demander les actes de naissance",
+      "town_hall_file": "Préparer et déposer le dossier de mariage en mairie",
+      "book_honeymoon": "Réserver le voyage de noces",
+      "playlist": "Préparer la playlist et la remettre au DJ",
+      "day_of_program": "Préparer l’emploi du temps du jour J",
+      "final_headcount": "Confirmer le nombre d’invités aux prestataires",
+      "confirm_vendors": "Faire les dernières vérifications avec les prestataires",
+      "vendor_payments": "Régler les prestations et préparer les enveloppes",
+      "emergency_kit": "Préparer le kit de survie du jour J",
+      "explore_venues": "Explorer les lieux de mariage potentiels",
+      "announce_date": "Annoncer la date à vos proches",
+      "gather_inspiration": "Chercher vos inspirations : thème, décoration, tenues, musique",
+      "assign_roles": "Répartir les rôles de chacun pour les préparatifs et le jour J",
+      "book_other_vendors": "Réserver les autres prestataires utiles",
+      "cake_tasting": "Planifier une dégustation chez le pâtissier",
+      "confirm_menu": "Valider le menu",
+      "decor_items": "Réserver ou acheter les accessoires de décoration",
+      "attire_style": "Définir le style de vos tenues",
+      "order_attire": "Commander tenues, chaussures et accessoires",
+      "beauty_trials": "Faire les essais coiffure et maquillage",
+      "beauty_care": "Planifier les soins esthétiques",
+      "final_fitting": "Faire le dernier essayage des tenues",
+      "pickup_attire": "Récupérer vos tenues",
+      "wedding_website": "Créer le site du mariage",
+      "wedding_registry": "Ouvrir votre liste de mariage",
+      "guest_gifts": "Choisir les cadeaux des invités et des invités d’honneur",
+      "order_favors": "Commander les dragées",
+      "bachelor_parties": "Organiser les enterrements de vie de jeune fille et de garçon",
+      "buy_guest_gifts": "Acheter les cadeaux des invités",
+      "rehearsal_dinner": "Organiser le dîner de la veille",
+      "small_items": "Rassembler les petits indispensables : livre d’or, panneau d’accueil, chaussures de danse",
+      "dietary_needs": "Confirmer régimes alimentaires et allergies",
+      "finalize_ceremony": "Finaliser le déroulé de la cérémonie",
+      "ceremony_readings": "Choisir les textes et lectures de la cérémonie",
+      "wedding_vows": "Écrire vos vœux",
+      "speeches": "Organiser les discours de la réception",
+      "bans_publication": "Vérifier la publication des bans",
+      "plan_honeymoon": "Choisir la destination et le budget du voyage de noces",
+      "wedding_night": "Réserver l’hôtel de la nuit de noces",
+      "dance_lessons": "Prendre des cours pour l’ouverture de bal",
+      "partner_gifts": "Prévoir les cadeaux à échanger entre vous",
+      "honeymoon_packing": "Préparer la valise du voyage de noces",
+      "shot_list": "Préparer la liste des photos souhaitées pour le photographe",
+      "confirm_transport": "Confirmer la location de la voiture",
+      "vendor_contacts": "Confier la liste des prestataires à une personne de confiance",
+      "decor_check": "Vérifier une dernière fois la décoration",
+      "thank_you_words": "Rédiger quelques mots de remerciement",
+      "travel_prep": "Préparer le départ : billets, devises, valise",
+      "weather_check": "Vérifier la météo et prévoir un plan B",
+      "review_schedule": "Relire l’emploi du temps du jour J",
+      "eve_evening": "Profiter d’une belle soirée avec vos proches"
+    },
+    "advice": {
+      "default": "Allez à l’essentiel : un appel plutôt qu’un e-mail, et une décision dans la semaine.",
+      "book_venue": "Les lieux prisés sont souvent réservés un an à l’avance : demandez les disponibilités en semaine ou les désistements.",
+      "book_town_hall": "Appelez la mairie dès aujourd’hui pour bloquer la date et l’heure de la cérémonie civile.",
+      "book_officiant": "Contactez la paroisse ou l’officiant cette semaine : leurs agendas se remplissent vite.",
+      "book_catering": "Privilégiez un traiteur déjà référencé par votre lieu : il connaît les cuisines et les contraintes.",
+      "book_photographer": "Les photographes très demandés sont complets : élargissez la recherche aux régions voisines.",
+      "choose_attire": "Le sur-mesure demande plusieurs mois : orientez-vous vers le prêt-à-porter ou les collections en stock.",
+      "design_invitations": "Choisissez un modèle et validez les textes en une soirée : l’envoi ne peut plus attendre.",
+      "send_invitations": "Envoyez une invitation en ligne dès maintenant ; le faire-part papier peut suivre.",
+      "birth_certificates": "Demandez les actes en ligne auprès de votre commune de naissance : ils doivent dater de moins de 3 mois au dépôt du dossier.",
+      "town_hall_file": "Appelez la mairie dès aujourd’hui : les bans doivent être publiés 10 jours avant la cérémonie.",
+      "religious_preparation": "Demandez à la paroisse une préparation accélérée.",
+      "book_accommodation": "Réservez un bloc de chambres avec annulation gratuite, puis partagez le lien aux invités.",
+      "explore_venues": "Visitez trois lieux maximum cette semaine et demandez leurs dates libres avant même de vous déplacer.",
+      "order_attire": "Le sur-mesure n’est plus tenable : misez sur le prêt-à-porter et les retouches.",
+      "bans_publication": "Appelez la mairie : les bans doivent être affichés 10 jours avant la cérémonie."
+    },
+    "questionnaire": {
+      "eyebrow": "Votre rétroplanning",
+      "title": "Quelques questions, et Céleste compose le reste",
+      "intro": "Vos réponses dessinent la liste des étapes et leurs échéances. Vous pourrez les ajuster à tout moment.",
+      "step": "Question {current} sur {total}",
+      "back": "Question précédente",
+      "saving": "Céleste compose votre rétroplanning…",
+      "cancel": "Garder mon rétroplanning actuel",
+      "error": "Le rétroplanning n’a pas pu être composé. Merci de réessayer.",
+      "saved": "Votre rétroplanning est prêt.",
+      "keptNote": "Les étapes déjà terminées ou dont vous avez déplacé la date sont conservées.",
+      "questions": {
+        "ceremony": {
+          "title": "Quelle cérémonie imaginez-vous ?",
+          "options": {
+            "civil": "La mairie seulement",
+            "religious": "La mairie et une cérémonie religieuse",
+            "secular": "La mairie et une cérémonie laïque",
+            "both": "Les trois"
+          }
+        },
+        "catering": {
+          "title": "Le lieu impose-t-il son traiteur ?",
+          "options": {
+            "yes": "Oui, le traiteur est inclus",
+            "no": "Non, nous le choisissons",
+            "unknown": "Nous ne savons pas encore"
+          }
+        },
+        "music": {
+          "title": "Qui fera danser vos invités ?",
+          "options": {
+            "dj": "Un DJ",
+            "band": "Un groupe ou des musiciens",
+            "none": "Pas de soirée dansante",
+            "playlist": "Notre propre playlist"
+          }
+        },
+        "accommodation": {
+          "title": "Faut-il loger une partie des invités ?",
+          "options": {
+            "yes": "Oui, beaucoup viennent de loin",
+            "no": "Non, chacun rentre chez soi"
+          }
+        },
+        "honeymoon": {
+          "title": "Un voyage de noces est-il prévu ?",
+          "options": {
+            "right_after": "Oui, dans la foulée",
+            "later": "Oui, mais plus tard",
+            "none": "Non"
+          }
+        },
+        "contract": {
+          "title": "Envisagez-vous un contrat de mariage ?",
+          "options": {
+            "yes": "Oui",
+            "no": "Non",
+            "unknown": "Nous ne savons pas encore"
+          }
+        },
+        "done": {
+          "title": "Qu’avez-vous déjà réglé ?",
+          "empty": "Rien pour l’instant",
+          "options": {
+            "budget": "Le budget",
+            "guest_list": "La liste des invités",
+            "venue": "Le lieu de réception",
+            "town_hall": "La date à la mairie",
+            "catering": "Le traiteur",
+            "photographer": "Le photographe",
+            "music": "La musique",
+            "attire": "Nos tenues",
+            "rings": "Les alliances"
+          }
+        },
+        "photo": {
+          "title": "Qui gardera la mémoire de la journée ?",
+          "options": {
+            "photographer": "Un photographe",
+            "photo_video": "Un photographe et un vidéaste",
+            "friends": "Nos proches, avec leurs appareils"
+          }
+        },
+        "attire": {
+          "title": "Comment imaginez-vous vos tenues ?",
+          "options": {
+            "custom": "Sur mesure, chez un créateur",
+            "ready": "En boutique, prêtes à porter",
+            "undecided": "Nous ne savons pas encore"
+          }
+        },
+        "party": {
+          "title": "Aurez-vous un cortège ?",
+          "options": {
+            "yes": "Oui : demoiselles, garçons ou enfants d’honneur",
+            "no": "Non, nos témoins suffiront"
+          }
+        },
+        "stationery": {
+          "title": "Comment inviterez-vous vos proches ?",
+          "options": {
+            "paper": "Avec un faire-part papier",
+            "online": "Avec une invitation et un site en ligne",
+            "both": "Les deux"
+          }
+        },
+        "traditions": {
+          "title": "Quelles traditions vous ressemblent ?",
+          "empty": "Aucune de celles-ci",
+          "options": {
+            "save_the_date": "Les save-the-date",
+            "registry": "Une liste de mariage",
+            "guest_gifts": "Des cadeaux pour les invités",
+            "favors": "Les dragées",
+            "bachelor": "Les enterrements de vie de jeune fille et de garçon",
+            "rehearsal": "Un dîner la veille",
+            "speeches": "Des discours à la réception",
+            "first_dance": "L’ouverture de bal",
+            "wedding_night": "Une nuit de noces à l’hôtel",
+            "partner_gifts": "Des cadeaux échangés entre vous"
+          }
+        }
+      },
+      "continue": "Continuer",
+      "multiHint": "Plusieurs réponses possibles."
+    },
+    "groups": {
+      "overdue": "À rattraper",
+      "none": "Sans échéance"
+    },
+    "filters": {
+      "label": "Filtrer par chapitre",
+      "all": "Toutes",
+      "hideDone": "Masquer les étapes terminées",
+      "empty": "Aucune étape ne correspond à ce filtre."
+    },
+    "add": {
+      "trigger": "Ajouter une étape",
+      "title": "Une étape à vous",
+      "description": "Un rendez-vous à préparer, une idée à ne pas oublier : elle rejoint votre rétroplanning.",
+      "close": "Fermer",
+      "fields": {
+        "title": "Intitulé",
+        "titlePlaceholder": "Ex. Choisir les dragées",
+        "dueDate": "Échéance",
+        "category": "Chapitre",
+        "noCategory": "Étape personnelle"
+      },
+      "errors": {
+        "title": "Donnez un intitulé à cette étape.",
+        "dueDate": "Choisissez une date, au plus tard la veille du mariage."
+      },
+      "cancel": "Annuler",
+      "submit": "Ajouter",
+      "added": "« {task} » a rejoint votre rétroplanning.",
+      "error": "L’étape n’a pas pu être ajoutée. Merci de réessayer."
+    },
+    "delete": {
+      "trigger": "Supprimer « {task} »",
+      "title": "Supprimer « {task} » ?",
+      "description": "Cette étape personnelle disparaîtra du rétroplanning.",
+      "cancel": "Garder",
+      "confirm": "Supprimer",
+      "deleted": "« {task} » a été supprimée.",
+      "error": "L’étape n’a pas pu être supprimée. Merci de réessayer."
+    },
+    "export": {
+      "list": "Liste en PDF",
+      "listHint": "Toutes les étapes, par ordre d’échéance, avec des cases à cocher",
+      "calendar": "Calendrier en PDF",
+      "calendarHint": "Un mois par page, une case par jour, jusqu’au mariage"
+    },
+    "pdf": {
+      "listDocumentTitle": "Rétroplanning — {names}",
+      "listEyebrow": "Rétroplanning",
+      "calendarDocumentTitle": "Calendrier — {names}",
+      "summary": "{days, plural, one {# jour} other {# jours}} avant le grand jour · {done} sur {total} étapes terminées",
+      "summaryNoCountdown": "{done} sur {total} étapes terminées",
+      "weddingLabel": "Le grand jour",
+      "legend": {
+        "event": "Rendez-vous",
+        "task": "Étape du rétroplanning"
+      },
+      "more": "+{count} autres",
+      "footer": "{names} · Céleste",
+      "page": "{current} / {total}",
+      "listFileName": "retroplanning",
+      "calendarFileName": "calendrier-mariage"
+    }
+  },
+  "Calendar": {
+    "metaTitle": "Calendrier",
+    "eyebrow": "Calendrier",
+    "title": "Vos rendez-vous, mois par mois",
+    "intro": "Notez vos visites, dégustations et essayages : les échéances de votre rétroplanning s’y glissent d’elles-mêmes.",
+    "previous": "Mois précédent",
+    "next": "Mois suivant",
+    "today": "Aujourd’hui",
+    "weddingDay": "Le grand jour",
+    "itemsCount": "{count, plural, one {# élément} other {# éléments}}",
+    "more": "+{count}",
+    "legend": {
+      "event": "Rendez-vous",
+      "task": "Étape du rétroplanning",
+      "wedding": "Le grand jour"
+    },
+    "addCta": "Ajouter un rendez-vous",
+    "emptyDay": "Rien de prévu ce jour-là.",
+    "taskLabel": "Étape du rétroplanning",
+    "openPlanning": "Rétroplanning",
+    "upcoming": "Prochains rendez-vous",
+    "allDay": "Journée",
+    "editLabel": "Modifier « {title} »",
+    "kinds": {
+      "appointment": "Rendez-vous prestataire",
+      "visit": "Visite",
+      "tasting": "Dégustation",
+      "fitting": "Essayage",
+      "deadline": "Échéance",
+      "other": "Autre"
+    },
+    "add": {
+      "title": "Nouveau rendez-vous",
+      "description": "Un prestataire à rencontrer, un lieu à visiter, une date à ne pas manquer.",
+      "submit": "Ajouter"
+    },
+    "edit": {
+      "title": "Modifier le rendez-vous",
+      "description": "Ajustez la date, l’heure ou les détails.",
+      "submit": "Enregistrer"
+    },
+    "form": {
+      "title": "Intitulé",
+      "titlePlaceholder": "Ex. Dégustation chez le traiteur",
+      "kind": "Type",
+      "date": "Date",
+      "time": "Heure",
+      "location": "Lieu",
+      "locationPlaceholder": "Ex. Domaine des Oliviers",
+      "notes": "Notes",
+      "notesPlaceholder": "Questions à poser, documents à apporter…",
+      "optional": "(facultatif)",
+      "cancel": "Annuler",
+      "close": "Fermer"
+    },
+    "fieldErrors": {
+      "required": "Ce champ est requis.",
+      "tooLong": "Ce texte est trop long.",
+      "invalid": "Cette valeur n’est pas valide."
+    },
+    "delete": {
+      "trigger": "Supprimer « {title} »",
+      "title": "Supprimer « {title} » ?",
+      "description": "Ce rendez-vous disparaîtra du calendrier.",
+      "cancel": "Garder",
+      "confirm": "Supprimer"
+    },
+    "toasts": {
+      "add": "« {title} » est dans le calendrier.",
+      "edit": "« {title} » a été mis à jour.",
+      "deleted": "« {title} » a été supprimé.",
+      "error": "Le calendrier n’a pas pu être mis à jour. Merci de réessayer."
+    },
+    "export": "Exporter en PDF",
+    "exportHint": "Un mois par page, une case par jour, jusqu’au mariage"
   }
 }
