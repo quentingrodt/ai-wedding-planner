@@ -213,9 +213,10 @@ export function GuestBoard({
     setCollapsed(allCollapsed ? new Set() : new Set(shownHouseholds.map(({ id }) => id)));
   }
 
-  // Réponses attendues, toutes familles confondues, pour l'encart de relance.
+  // Réponses attendues des adultes, toutes familles confondues, pour l'encart de
+  // relance : les enfants répondent par leurs parents.
   const pending = optimisticGuests
-    .filter((guest) => FILTER_MATCHERS.pending(guest.status))
+    .filter((guest) => !guest.is_child && FILTER_MATCHERS.pending(guest.status))
     .sort(byName);
 
   const openFamily = openFamilyId ? (familyById.get(openFamilyId) ?? null) : null;

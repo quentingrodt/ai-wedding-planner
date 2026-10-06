@@ -389,7 +389,7 @@
       "title": "{count, plural, one {# réponse à obtenir} other {# réponses à obtenir}}",
       "description": "Touchez un nom pour préparer son message de relance.",
       "remind": "Relancer {name}",
-      "showAll": "Voir les {count}"
+      "showAll": "Voir toutes les réponses en attente"
     },
     "filters": {
       "all": "Tous",

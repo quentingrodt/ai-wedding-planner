@@ -389,7 +389,7 @@
       "title": "{count, plural, one {# reply to chase} other {# replies to chase}}",
       "description": "Tap a name to prepare a reminder message.",
       "remind": "Remind {name}",
-      "showAll": "See all {count}"
+      "showAll": "See all pending replies"
     },
     "filters": {
       "all": "All",

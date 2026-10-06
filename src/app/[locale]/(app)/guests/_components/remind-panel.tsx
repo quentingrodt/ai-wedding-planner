@@ -11,7 +11,7 @@ import { RemindGuestDialog } from "./remind-guest-dialog";
 const MAX_NAMES = 6;
 
 type RemindPanelProps = {
-  /** Invités sans réponse ou incertains, déjà triés. */
+  /** Adultes sans réponse ou incertains, déjà triés. */
   pending: Guest[];
   fullName: (guest: Guest) => string;
   remind: RemindContext;
@@ -62,7 +62,7 @@ export function RemindPanel({ pending, fullName, remind, onShowAll }: RemindPane
               onClick={onShowAll}
               className="inline-flex h-9 items-center rounded-full px-3.5 text-sm text-stone underline-offset-4 hover:text-charcoal hover:underline focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
             >
-              {t("showAll", { count: pending.length })}
+              {t("showAll")}
             </button>
           </li>
         )}
