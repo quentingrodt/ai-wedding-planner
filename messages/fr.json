@@ -2176,7 +2176,8 @@
       "itinerary": "Programme",
       "playlist": "Playlist",
       "settings": "Équipe",
-      "calendar": "Calendrier"
+      "calendar": "Calendrier",
+      "registry": "Liste de mariage"
     }
   },
   "Planning": {
@@ -2577,5 +2578,309 @@
     },
     "export": "Exporter en PDF",
     "exportHint": "Un mois par page, une case par jour, jusqu’au mariage"
+  },
+  "Registry": {
+    "metaTitle": "Liste de mariage",
+    "eyebrow": "Vos invités",
+    "title": "Votre Liste de Mariage",
+    "intro": "Ce qui embellira votre quotidien, ce qui nourrit vos passions, et les projets que vos proches pourront accompagner.",
+    "readOnly": "Les mariés composent leur liste : vous pouvez la consulter ici.",
+    "close": "Fermer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "empty": {
+      "title": "Une liste qui vous ressemble",
+      "body": "Quelques questions suffisent pour composer une liste qui fera plaisir à vos invités autant qu’à vous.",
+      "readOnly": "Les mariés n’ont pas encore ouvert leur liste de mariage.",
+      "open": "Ouvrir ma liste"
+    },
+    "kpis": {
+      "gifts": "Cadeaux",
+      "value": "Valeur de la liste",
+      "funds": "Projets de l’urne"
+    },
+    "note": {
+      "title": "Votre mot à vos invités",
+      "empty": "Aucun mot pour l’instant. Quelques lignes aident vos proches à choisir avec le cœur.",
+      "suggestionsOn": "Vos proches peuvent vous suggérer leurs propres idées.",
+      "suggestionsOff": "Les suggestions de vos proches sont désactivées."
+    },
+    "groups": {
+      "home": "La maison",
+      "passions": "Vos passions"
+    },
+    "sections": {
+      "kitchen": "Cuisine",
+      "table": "Arts de la table",
+      "linen": "Linge de maison",
+      "appliances": "Électroménager",
+      "bathroom": "Salle de bain",
+      "decor": "Décoration",
+      "outdoor": "Extérieur",
+      "cooking": "Cuisine à deux",
+      "travel": "Voyages",
+      "garden": "Jardin",
+      "wine": "Vin & gastronomie",
+      "outdoors": "Plein air",
+      "culture": "Culture",
+      "wellbeing": "Bien-être",
+      "music": "Musique",
+      "heirloom": "Pièces de transmission",
+      "other": "Autres envies"
+    },
+    "gifts": {
+      "title": "Les cadeaux",
+      "lead": "Rangés par pièce et par passion, comme vos invités les découvriront.",
+      "empty": "Aucun cadeau pour l’instant. Ajoutez le premier, ou collez simplement le lien d’une boutique.",
+      "noPrice": "Prix à préciser",
+      "quantity": "{count, plural, one {# exemplaire} other {# exemplaires}}",
+      "heirloom": "Cadeau d’exception",
+      "shop": "Voir en boutique"
+    },
+    "gift": {
+      "add": "Ajouter un cadeau",
+      "addTitle": "Un nouveau cadeau",
+      "editTitle": "Modifier le cadeau",
+      "description": "Collez le lien d’une boutique pour tout pré-remplir, ou décrivez-le à votre façon.",
+      "descriptionPlaceholder": "Couleur, taille, modèle préféré…",
+      "titleRequired": "Donnez un nom à ce cadeau.",
+      "heirloomHint": "Une belle pièce que plusieurs proches pourront offrir ensemble.",
+      "added": "« {title} » a rejoint votre liste.",
+      "updated": "Cadeau mis à jour.",
+      "deleted": "« {title} » ne figure plus sur votre liste.",
+      "editLabel": "Modifier « {title} »",
+      "deleteLabel": "Retirer « {title} »",
+      "deleteTitle": "Retirer « {title} » de la liste ?",
+      "deleteDescription": "Vos invités ne le verront plus.",
+      "fields": {
+        "url": "Lien de la boutique",
+        "title": "Le cadeau",
+        "price": "Prix",
+        "quantity": "Quantité",
+        "section": "Rubrique",
+        "description": "Une précision",
+        "heirloom": "Cadeau d’exception"
+      },
+      "link": {
+        "fill": "Remplir",
+        "fetching": "Lecture…",
+        "hint": "Titre, prix et photo se remplissent depuis la page du produit, sur la plupart des boutiques.",
+        "filled": "C’est rempli : vérifiez les informations avant d’enregistrer.",
+        "otherCurrency": "Le prix lu sur la boutique est en {currency} : ajustez-le si besoin.",
+        "empty": "Cette boutique ne partage pas ses informations : complétez à la main.",
+        "invalid": "Ce lien ne semble pas valide.",
+        "unreachable": "La boutique n’a pas répondu : complétez à la main, le lien sera tout de même gardé."
+      }
+    },
+    "funds": {
+      "title": "L’urne",
+      "lead": "Une contribution libre est plus belle quand elle raconte un projet.",
+      "add": "Ajouter un projet",
+      "addTitle": "Un projet pour l’urne",
+      "editTitle": "Modifier le projet",
+      "description": "Dites à vos invités à quoi servira leur geste.",
+      "empty": "Aucun projet pour l’instant. Donnez un sens à l’urne : un voyage, la maison, une cause qui vous est chère…",
+      "noPayment": "Indiquez comment vos invités pourront participer (lien de cagnotte ou virement) dans « Votre mot à vos invités ».",
+      "goal": "Objectif : {amount}",
+      "titleRequired": "Donnez un nom à ce projet.",
+      "max": "{count} projets au plus : l’urne garde ainsi tout son sens.",
+      "added": "« {title} » rejoint l’urne.",
+      "updated": "Projet mis à jour.",
+      "deleted": "« {title} » ne figure plus dans l’urne.",
+      "editLabel": "Modifier « {title} »",
+      "deleteLabel": "Retirer « {title} »",
+      "deleteTitle": "Retirer « {title} » de l’urne ?",
+      "deleteDescription": "Vos invités ne verront plus ce projet.",
+      "fields": {
+        "kind": "Le projet",
+        "title": "Son nom",
+        "description": "Quelques mots pour vos invités",
+        "goal": "Objectif (facultatif)"
+      },
+      "kinds": {
+        "honeymoon": {
+          "label": "Le voyage de noces",
+          "hint": "Une destination rêvée, une parenthèse rien qu’à deux.",
+          "defaultTitle": "Notre voyage de noces",
+          "placeholder": "Deux semaines au Japon, entre Kyoto et les Alpes japonaises…"
+        },
+        "home": {
+          "label": "Notre chez-nous",
+          "hint": "Un premier appartement, une maison à rénover, un jardin à créer.",
+          "defaultTitle": "Notre futur chez-nous",
+          "placeholder": "La cuisine de notre nouvelle maison, que nous rêvons ouverte sur le jardin…"
+        },
+        "life": {
+          "label": "Nos projets de vie",
+          "hint": "Une formation, un projet créatif, l’agrandissement de la famille.",
+          "defaultTitle": "Nos projets de vie",
+          "placeholder": "Ce qui nous attend après le mariage, et que nous aimerions construire avec vous…"
+        },
+        "cause": {
+          "label": "Une cause qui nous tient à cœur",
+          "hint": "Une association soutenue en votre nom, au lieu d’un cadeau.",
+          "defaultTitle": "Un don pour une cause qui nous est chère",
+          "placeholder": "Nous reverserons l’intégralité à une association qui nous touche…"
+        },
+        "free": {
+          "label": "Une participation libre",
+          "hint": "Pour ceux qui préfèrent laisser le choix aux mariés.",
+          "defaultTitle": "Une participation libre",
+          "placeholder": "Pour tout ce que la vie à deux nous réserve…"
+        }
+      }
+    },
+    "settings": {
+      "title": "Votre mot à vos invités",
+      "description": "Ce que vos proches liront en ouvrant votre liste.",
+      "note": "Votre mot",
+      "notePlaceholder": "Nous aimons les objets beaux et durables, les matières naturelles… et nous avons déjà tout le petit électroménager !",
+      "suggestions": "Accepter les idées de vos proches",
+      "suggestionsHint": "Une petite boîte à idées sur votre liste : vos invités pourront vous proposer un cadeau qui leur tient à cœur.",
+      "paymentTitle": "Comment participer à l’urne",
+      "paymentHint": "Céleste n’encaisse rien : vos invités participent par le moyen que vous choisissez.",
+      "paymentLink": "Lien de votre cagnotte",
+      "paymentLinkPlaceholder": "https://lydia-app.com/… ou https://paypal.me/…",
+      "paymentLinkInvalid": "Indiquez un lien complet, commençant par https://",
+      "paymentDetails": "Ou vos coordonnées de virement",
+      "paymentDetailsPlaceholder": "IBAN FR76 … au nom de Camille et Thomas",
+      "saved": "Votre mot est enregistré."
+    },
+    "errors": {
+      "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
+      "forbidden": "Seuls les mariés peuvent modifier la liste de mariage.",
+      "invalid": "Vérifiez les informations : certaines sont incomplètes ou trop longues.",
+      "generic": "La modification n’a pas pu être enregistrée. Merci de réessayer."
+    },
+    "wizard": {
+      "eyebrow": "Liste de mariage",
+      "stepOf": "Étape {step} sur {total}",
+      "close": "Fermer",
+      "back": "Retour",
+      "next": "Continuer",
+      "start": "Commencer",
+      "compose": "Composer ma liste",
+      "roomsLabel": "Les pièces de la maison",
+      "everydayHint": "Passez d’une pièce à l’autre : chaque idée cochée rejoint votre liste, et vous pourrez préciser modèle et prix ensuite.",
+      "lastingHint": "Ces pièces seront marquées « cadeau d’exception » : vos invités pourront les offrir à plusieurs, chacun selon ses moyens.",
+      "composingTitle": "Céleste compose votre liste",
+      "composing": [
+        "Rangement pièce par pièce…",
+        "Une place pour vos passions…",
+        "Mise en valeur des pièces d’exception…",
+        "Préparation de l’urne…"
+      ],
+      "done": {
+        "title": "Votre liste est prête",
+        "summary": "{gifts, plural, =0 {Aucun cadeau pour l’instant} one {# cadeau} other {# cadeaux}} et {funds, plural, =0 {pas encore de projet pour l’urne} one {# projet pour l’urne} other {# projets pour l’urne}}. Précisez modèles et prix à votre rythme.",
+        "discover": "Découvrir ma liste"
+      },
+      "steps": {
+        "welcome": {
+          "title": "Une liste qui vous ressemble",
+          "lead": "Une belle liste ne se résume pas à un inventaire : elle raconte votre vie à deux, celle d’aujourd’hui et celle que vous imaginez. Prenez dix minutes, à deux de préférence. Tout restera modifiable."
+        },
+        "everyday": {
+          "title": "Votre quotidien, pièce par pièce",
+          "lead": "Faites le tour de chez vous. Ce qui manque, ce qui s’use, ce que vous rêvez de remplacer depuis longtemps : de la vaisselle du dimanche au linge de lit, c’est souvent là que se cachent les cadeaux qui embelliront chaque jour."
+        },
+        "passions": {
+          "title": "Ce qui vous anime à deux",
+          "lead": "Pensez à vos plus beaux moments partagés : un dîner que vous cuisinez ensemble, un week-end improvisé, un potager qui grandit. Les cadeaux qui nourrissent ces instants sont ceux dont on se souvient le plus longtemps, objets comme expériences."
+        },
+        "lasting": {
+          "title": "Des objets qui traversent les années",
+          "lead": "Certains cadeaux se transmettent. Préférez la qualité à la quantité, les matières nobles aux tendances passagères : une belle pièce choisie aujourd’hui vous accompagnera dans vingt ans, et peut-être vos enfants après vous."
+        },
+        "openness": {
+          "title": "Une place pour les idées de vos proches",
+          "lead": "Vos proches aiment vous faire plaisir à leur façon, avec un objet qui leur ressemble ou un souvenir qu’ils veulent partager. Dites-leur ce qui compte pour vous, et laissez-leur la liberté de vous surprendre."
+        },
+        "fund": {
+          "title": "L’urne : donnez-lui un sens",
+          "lead": "Une contribution libre touche davantage quand elle raconte un projet. Dites à vos invités à quoi servira leur geste : le voyage dont vous rêvez, votre futur chez-vous, une cause qui vous est chère. Trois projets au plus, pour que chacun garde tout son sens."
+        }
+      }
+    },
+    "catalog": {
+      "ideas": {
+        "dutchOven": "Une cocotte en fonte",
+        "knives": "Des couteaux de chef",
+        "cuttingBoard": "Une planche en bois massif",
+        "pans": "Une batterie de poêles",
+        "jars": "Des bocaux de conservation",
+        "mortar": "Un mortier en marbre",
+        "dinnerware": "Un service de table pour huit",
+        "wineGlasses": "Des verres à vin en cristal",
+        "flatware": "Une ménagère",
+        "tablecloth": "Une nappe en lin",
+        "servingDishes": "Des plats de service",
+        "carafe": "Une carafe",
+        "sheets": "Des draps en lin lavé",
+        "duvet": "Une couette naturelle",
+        "towels": "Des serviettes de bain moelleuses",
+        "throw": "Un plaid en laine",
+        "pillows": "Des oreillers de qualité",
+        "coffee": "Une machine à café",
+        "mixer": "Un robot pâtissier",
+        "vacuum": "Un aspirateur sans fil",
+        "blender": "Un blender",
+        "steamer": "Un défroisseur vapeur",
+        "bathrobes": "Des peignoirs assortis",
+        "bathMat": "Un tapis de bain",
+        "mirror": "Un miroir",
+        "diffuser": "Un diffuseur de parfum",
+        "vase": "Un vase de créateur",
+        "lamp": "Une lampe d’ambiance",
+        "frames": "Des cadres pour vos photos de mariage",
+        "rug": "Un tapis",
+        "plants": "De belles plantes",
+        "gardenFurniture": "Un salon de jardin",
+        "barbecue": "Un barbecue",
+        "hammock": "Un hamac",
+        "lanterns": "Des lanternes",
+        "parasol": "Un parasol",
+        "cookingClass": "Un cours de cuisine à deux",
+        "cookbooks": "Des livres de chefs",
+        "pastaMaker": "Une machine à pâtes",
+        "pizzaOven": "Un four à pizza",
+        "luggage": "Des valises assorties",
+        "weekendAway": "Un week-end surprise",
+        "camera": "Un appareil photo",
+        "travelJournal": "Un carnet de voyage relié",
+        "gardenTools": "Des outils de jardin",
+        "raisedBed": "Un potager surélevé",
+        "fruitTrees": "Des arbres fruitiers",
+        "greenhouse": "Une petite serre",
+        "wineCellar": "Une cave à vin",
+        "tasting": "Une dégustation dans un domaine",
+        "decanter": "Une carafe à décanter",
+        "wineCourse": "Un cours d’œnologie",
+        "tent": "Une tente",
+        "bikes": "Des vélos",
+        "paddle": "Un paddle",
+        "mountainHut": "Une nuit en refuge",
+        "museumPass": "Des abonnements au musée",
+        "concertTickets": "Des places de concert ou d’opéra",
+        "artBooks": "De beaux livres d’art",
+        "theatre": "Une saison au théâtre",
+        "spaDuo": "Un massage en duo",
+        "yogaClasses": "Des cours de yoga",
+        "retreat": "Une retraite bien-être",
+        "turntable": "Une platine vinyle",
+        "speaker": "Une enceinte de qualité",
+        "musicLessons": "Des cours de musique",
+        "festival": "Des billets de festival",
+        "silverFlatware": "Une ménagère en argent",
+        "crystalService": "Un service en cristal",
+        "embroideredLinen": "Du linge brodé à vos initiales",
+        "porcelain": "Un service en porcelaine",
+        "artwork": "Une œuvre d’art",
+        "craftFurniture": "Un meuble d’artisan"
+      }
+    }
   }
 }

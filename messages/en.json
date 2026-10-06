@@ -2176,7 +2176,8 @@
       "itinerary": "Schedule",
       "playlist": "Playlist",
       "settings": "Team",
-      "calendar": "Calendar"
+      "calendar": "Calendar",
+      "registry": "Registry"
     }
   },
   "Planning": {
@@ -2577,5 +2578,309 @@
     },
     "export": "Export as PDF",
     "exportHint": "One month per page, one box per day, up to the wedding"
+  },
+  "Registry": {
+    "metaTitle": "Wedding registry",
+    "eyebrow": "Your guests",
+    "title": "Your Wedding Registry",
+    "intro": "What will brighten your everyday life, what feeds your passions, and the projects your loved ones can support.",
+    "readOnly": "The couple composes their registry: you can view it here.",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving…",
+    "edit": "Edit",
+    "delete": "Delete",
+    "empty": {
+      "title": "A registry that feels like you",
+      "body": "A few questions are enough to compose a registry your guests will enjoy as much as you do.",
+      "readOnly": "The couple hasn’t opened their registry yet.",
+      "open": "Open my registry"
+    },
+    "kpis": {
+      "gifts": "Gifts",
+      "value": "Registry value",
+      "funds": "Fund projects"
+    },
+    "note": {
+      "title": "Your word to your guests",
+      "empty": "No message yet. A few lines help your loved ones choose with their heart.",
+      "suggestionsOn": "Your loved ones can suggest their own ideas.",
+      "suggestionsOff": "Suggestions from your loved ones are turned off."
+    },
+    "groups": {
+      "home": "The home",
+      "passions": "Your passions"
+    },
+    "sections": {
+      "kitchen": "Kitchen",
+      "table": "Tableware",
+      "linen": "Linens",
+      "appliances": "Appliances",
+      "bathroom": "Bathroom",
+      "decor": "Decor",
+      "outdoor": "Outdoors at home",
+      "cooking": "Cooking together",
+      "travel": "Travel",
+      "garden": "Garden",
+      "wine": "Wine & food",
+      "outdoors": "The great outdoors",
+      "culture": "Culture",
+      "wellbeing": "Wellbeing",
+      "music": "Music",
+      "heirloom": "Heirloom pieces",
+      "other": "Other wishes"
+    },
+    "gifts": {
+      "title": "The gifts",
+      "lead": "Sorted by room and by passion, as your guests will discover them.",
+      "empty": "No gifts yet. Add the first one, or simply paste a shop link.",
+      "noPrice": "Price to be set",
+      "quantity": "{count, plural, one {# item} other {# items}}",
+      "heirloom": "Signature gift",
+      "shop": "See in shop"
+    },
+    "gift": {
+      "add": "Add a gift",
+      "addTitle": "A new gift",
+      "editTitle": "Edit the gift",
+      "description": "Paste a shop link to prefill everything, or describe it your way.",
+      "descriptionPlaceholder": "Colour, size, preferred model…",
+      "titleRequired": "Give this gift a name.",
+      "heirloomHint": "A beautiful piece several loved ones can give together.",
+      "added": "“{title}” joined your registry.",
+      "updated": "Gift updated.",
+      "deleted": "“{title}” is no longer on your registry.",
+      "editLabel": "Edit “{title}”",
+      "deleteLabel": "Remove “{title}”",
+      "deleteTitle": "Remove “{title}” from the registry?",
+      "deleteDescription": "Your guests won’t see it anymore.",
+      "fields": {
+        "url": "Shop link",
+        "title": "The gift",
+        "price": "Price",
+        "quantity": "Quantity",
+        "section": "Section",
+        "description": "A detail",
+        "heirloom": "Signature gift"
+      },
+      "link": {
+        "fill": "Fill in",
+        "fetching": "Reading…",
+        "hint": "Title, price and photo fill in from the product page, on most shops.",
+        "filled": "Filled in: check the details before saving.",
+        "otherCurrency": "The shop price is in {currency}: adjust it if needed.",
+        "empty": "This shop doesn’t share its details: fill them in by hand.",
+        "invalid": "This link doesn’t look valid.",
+        "unreachable": "The shop didn’t respond: fill in by hand, the link will still be kept."
+      }
+    },
+    "funds": {
+      "title": "The cash fund",
+      "lead": "A free contribution is more meaningful when it tells a story.",
+      "add": "Add a project",
+      "addTitle": "A project for the fund",
+      "editTitle": "Edit the project",
+      "description": "Tell your guests what their gift will be used for.",
+      "empty": "No project yet. Give the fund a purpose: a trip, the home, a cause you care about…",
+      "noPayment": "Tell your guests how to contribute (fund link or bank transfer) in “Your word to your guests”.",
+      "goal": "Goal: {amount}",
+      "titleRequired": "Give this project a name.",
+      "max": "{count} projects at most, so each keeps its meaning.",
+      "added": "“{title}” joins the fund.",
+      "updated": "Project updated.",
+      "deleted": "“{title}” is no longer in the fund.",
+      "editLabel": "Edit “{title}”",
+      "deleteLabel": "Remove “{title}”",
+      "deleteTitle": "Remove “{title}” from the fund?",
+      "deleteDescription": "Your guests won’t see this project anymore.",
+      "fields": {
+        "kind": "The project",
+        "title": "Its name",
+        "description": "A few words for your guests",
+        "goal": "Goal (optional)"
+      },
+      "kinds": {
+        "honeymoon": {
+          "label": "The honeymoon",
+          "hint": "A dream destination, time just for the two of you.",
+          "defaultTitle": "Our honeymoon",
+          "placeholder": "Two weeks in Japan, between Kyoto and the Japanese Alps…"
+        },
+        "home": {
+          "label": "Our home",
+          "hint": "A first flat, a house to renovate, a garden to create.",
+          "defaultTitle": "Our future home",
+          "placeholder": "The kitchen of our new house, which we dream of opening onto the garden…"
+        },
+        "life": {
+          "label": "Our life projects",
+          "hint": "Training, a creative project, a growing family.",
+          "defaultTitle": "Our life projects",
+          "placeholder": "What awaits us after the wedding, and what we’d love to build with you…"
+        },
+        "cause": {
+          "label": "A cause close to our hearts",
+          "hint": "A charity supported in your name, instead of a gift.",
+          "defaultTitle": "A donation to a cause we care about",
+          "placeholder": "We will give everything to a charity that moves us…"
+        },
+        "free": {
+          "label": "A free contribution",
+          "hint": "For those who’d rather leave the choice to the couple.",
+          "defaultTitle": "A free contribution",
+          "placeholder": "For everything life together has in store…"
+        }
+      }
+    },
+    "settings": {
+      "title": "Your word to your guests",
+      "description": "What your loved ones will read when they open your registry.",
+      "note": "Your message",
+      "notePlaceholder": "We love beautiful, lasting things and natural materials… and we already have every small appliance!",
+      "suggestions": "Accept ideas from your loved ones",
+      "suggestionsHint": "A small idea box on your registry: guests can suggest a gift that matters to them.",
+      "paymentTitle": "How to contribute to the fund",
+      "paymentHint": "Céleste never collects money: guests contribute through the means you choose.",
+      "paymentLink": "Your fund link",
+      "paymentLinkPlaceholder": "https://paypal.me/… or https://www.leetchi.com/…",
+      "paymentLinkInvalid": "Enter a full link starting with https://",
+      "paymentDetails": "Or your bank details",
+      "paymentDetailsPlaceholder": "IBAN GB… in the name of Camille and Thomas",
+      "saved": "Your message is saved."
+    },
+    "errors": {
+      "unauthenticated": "Your session has expired. Please sign in again.",
+      "forbidden": "Only the couple can edit the wedding registry.",
+      "invalid": "Check the details: some are incomplete or too long.",
+      "generic": "The change couldn’t be saved. Please try again."
+    },
+    "wizard": {
+      "eyebrow": "Wedding registry",
+      "stepOf": "Step {step} of {total}",
+      "close": "Close",
+      "back": "Back",
+      "next": "Continue",
+      "start": "Start",
+      "compose": "Compose my registry",
+      "roomsLabel": "Rooms of the home",
+      "everydayHint": "Move from room to room: every idea you tick joins your registry, and you can set model and price later.",
+      "lastingHint": "These pieces will be marked “signature gift”: guests can give them together, each according to their means.",
+      "composingTitle": "Céleste is composing your registry",
+      "composing": [
+        "Sorting room by room…",
+        "Making room for your passions…",
+        "Highlighting the signature pieces…",
+        "Preparing the fund…"
+      ],
+      "done": {
+        "title": "Your registry is ready",
+        "summary": "{gifts, plural, =0 {No gifts yet} one {# gift} other {# gifts}} and {funds, plural, =0 {no fund project yet} one {# fund project} other {# fund projects}}. Set models and prices at your own pace.",
+        "discover": "Discover my registry"
+      },
+      "steps": {
+        "welcome": {
+          "title": "A registry that feels like you",
+          "lead": "A beautiful registry is more than an inventory: it tells the story of your life together, today’s and the one you imagine. Take ten minutes, ideally together. Everything stays editable."
+        },
+        "everyday": {
+          "title": "Your everyday, room by room",
+          "lead": "Walk around your home. What’s missing, what’s worn out, what you’ve long dreamt of replacing: from Sunday tableware to bed linen, that’s often where the gifts that brighten every day are hiding."
+        },
+        "passions": {
+          "title": "What you love doing together",
+          "lead": "Think of your best shared moments: a dinner you cook together, an impromptu weekend, a vegetable garden that grows. Gifts that feed these moments are the ones remembered longest, objects and experiences alike."
+        },
+        "lasting": {
+          "title": "Things that last through the years",
+          "lead": "Some gifts are passed down. Choose quality over quantity, noble materials over passing trends: a beautiful piece chosen today will still be with you in twenty years, and perhaps your children after you."
+        },
+        "openness": {
+          "title": "Room for your loved ones’ ideas",
+          "lead": "Your loved ones enjoy pleasing you in their own way, with something that reflects them or a memory they want to share. Tell them what matters to you, and leave them free to surprise you."
+        },
+        "fund": {
+          "title": "The cash fund: give it meaning",
+          "lead": "A free contribution moves people more when it tells a story. Tell your guests what their gift will be for: the trip you dream of, your future home, a cause you care about. Three projects at most, so each keeps its meaning."
+        }
+      }
+    },
+    "catalog": {
+      "ideas": {
+        "dutchOven": "A cast-iron Dutch oven",
+        "knives": "Chef’s knives",
+        "cuttingBoard": "A solid wood board",
+        "pans": "A set of pans",
+        "jars": "Storage jars",
+        "mortar": "A marble mortar",
+        "dinnerware": "A dinner service for eight",
+        "wineGlasses": "Crystal wine glasses",
+        "flatware": "A flatware set",
+        "tablecloth": "A linen tablecloth",
+        "servingDishes": "Serving dishes",
+        "carafe": "A carafe",
+        "sheets": "Washed linen sheets",
+        "duvet": "A natural duvet",
+        "towels": "Soft bath towels",
+        "throw": "A wool throw",
+        "pillows": "Quality pillows",
+        "coffee": "A coffee machine",
+        "mixer": "A stand mixer",
+        "vacuum": "A cordless vacuum",
+        "blender": "A blender",
+        "steamer": "A garment steamer",
+        "bathrobes": "Matching bathrobes",
+        "bathMat": "A bath mat",
+        "mirror": "A mirror",
+        "diffuser": "A scent diffuser",
+        "vase": "A designer vase",
+        "lamp": "A mood lamp",
+        "frames": "Frames for your wedding photos",
+        "rug": "A rug",
+        "plants": "Beautiful plants",
+        "gardenFurniture": "Garden furniture",
+        "barbecue": "A barbecue",
+        "hammock": "A hammock",
+        "lanterns": "Lanterns",
+        "parasol": "A parasol",
+        "cookingClass": "A cooking class for two",
+        "cookbooks": "Chefs’ cookbooks",
+        "pastaMaker": "A pasta maker",
+        "pizzaOven": "A pizza oven",
+        "luggage": "Matching luggage",
+        "weekendAway": "A surprise weekend",
+        "camera": "A camera",
+        "travelJournal": "A bound travel journal",
+        "gardenTools": "Garden tools",
+        "raisedBed": "A raised vegetable bed",
+        "fruitTrees": "Fruit trees",
+        "greenhouse": "A small greenhouse",
+        "wineCellar": "A wine fridge",
+        "tasting": "A tasting at a winery",
+        "decanter": "A decanter",
+        "wineCourse": "A wine course",
+        "tent": "A tent",
+        "bikes": "Bikes",
+        "paddle": "A paddleboard",
+        "mountainHut": "A night in a mountain hut",
+        "museumPass": "Museum memberships",
+        "concertTickets": "Concert or opera tickets",
+        "artBooks": "Beautiful art books",
+        "theatre": "A theatre season",
+        "spaDuo": "A massage for two",
+        "yogaClasses": "Yoga classes",
+        "retreat": "A wellness retreat",
+        "turntable": "A record player",
+        "speaker": "A quality speaker",
+        "musicLessons": "Music lessons",
+        "festival": "Festival tickets",
+        "silverFlatware": "A silver flatware set",
+        "crystalService": "A crystal service",
+        "embroideredLinen": "Linen embroidered with your initials",
+        "porcelain": "A porcelain service",
+        "artwork": "A work of art",
+        "craftFurniture": "A piece of handcrafted furniture"
+      }
+    }
   }
 }

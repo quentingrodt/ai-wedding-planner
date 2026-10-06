@@ -5,6 +5,7 @@ import {
   CalendarHeartIcon,
   ClockIcon,
   FileTextIcon,
+  GiftIcon,
   HouseIcon,
   ListChecksIcon,
   MailIcon,
@@ -27,6 +28,7 @@ export type NavItem = {
     | "quotes"
     | "guests"
     | "invitations"
+    | "registry"
     | "seating"
     | "itinerary"
     | "playlist"
@@ -40,6 +42,7 @@ export type NavItem = {
     | "/quotes"
     | "/guests"
     | "/invitations"
+    | "/registry"
     | "/seating"
     | "/itinerary"
     | "/playlist"
@@ -73,6 +76,7 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { key: "guests", href: "/guests", icon: UsersIcon },
       { key: "invitations", href: "/invitations", icon: MailIcon },
+      { key: "registry", href: "/registry", icon: GiftIcon },
       { key: "seating", href: "/seating", icon: ArmchairIcon },
     ],
   },

@@ -10,6 +10,7 @@ import {
 } from "@/lib/plan/schema";
 import { toTimeKey, type ItineraryEvent } from "@/lib/itinerary/schema";
 import type { MoodboardItem } from "@/lib/moodboard/schema";
+import type { Registry, RegistryFund, RegistryGift } from "@/lib/registry/schema";
 import type { Quote } from "@/lib/quotes/schema";
 import type { SeatedGuest, SeatingTable } from "@/lib/seating/schema";
 import { planningAnswersSchema, type PlanningAnswers } from "@/lib/planning/schema";
@@ -458,4 +459,42 @@ export async function hasSeenBudgetIntro(supabase: ServerClient, userId: string)
     return true;
   }
   return data?.budget_intro_seen_at != null;
+}
+
+/**
+ * Liste de mariage : réglages (null tant que le parcours d'ouverture n'a pas
+ * été mené), cadeaux par rubrique et projets de l'urne.
+ */
+export async function getRegistry(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<{ registry: Registry | null; gifts: RegistryGift[]; funds: RegistryFund[] }> {
+  const [registry, gifts, funds] = await Promise.all([
+    supabase
+      .from("registries")
+      .select("note, accepts_suggestions, payment_link, payment_details")
+      .eq("wedding_id", weddingId)
+      .maybeSingle<Registry>(),
+    supabase
+      .from("registry_gifts")
+      .select("id, section, title, description, price, quantity, url, image_url, is_heirloom, position")
+      .eq("wedding_id", weddingId)
+      .order("position", { ascending: true })
+      .order("created_at", { ascending: true })
+      .returns<RegistryGift[]>(),
+    supabase
+      .from("registry_funds")
+      .select("id, kind, title, description, goal, position")
+      .eq("wedding_id", weddingId)
+      .order("position", { ascending: true })
+      .order("created_at", { ascending: true })
+      .returns<RegistryFund[]>(),
+  ]);
+
+  const error = registry.error ?? gifts.error ?? funds.error;
+  if (error) {
+    console.error("[weddings] getRegistry:", error.code);
+    throw new Error("Unable to load the registry");
+  }
+  return { registry: registry.data, gifts: gifts.data ?? [], funds: funds.data ?? [] };
 }

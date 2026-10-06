@@ -18,6 +18,7 @@ export type PlanningHref =
   | "/budget"
   | "/guests"
   | "/invitations"
+  | "/registry"
   | "/seating"
   | "/itinerary"
   | "/playlist"
@@ -137,7 +138,10 @@ export const TASK_CATALOG = [
     key: "wedding_website", category: "guests", ideal: 300, floor: 60, priority: 3, href: "/invitations",
     when: ({ answers }) => answers.stationery !== "paper",
   },
-  { key: "wedding_registry", category: "guests", ideal: 180, floor: 45, priority: 3, when: withTradition("registry") },
+  {
+    key: "wedding_registry", category: "guests", ideal: 180, floor: 45, priority: 3,
+    when: withTradition("registry"), href: "/registry",
+  },
   { key: "guest_gifts", category: "guests", ideal: 150, floor: 21, priority: 3, when: withTradition("guest_gifts") },
   { key: "order_favors", category: "guests", ideal: 150, floor: 21, priority: 3, when: withTradition("favors") },
   {
