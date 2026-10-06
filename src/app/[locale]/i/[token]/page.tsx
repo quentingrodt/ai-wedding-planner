@@ -1,3 +1,4 @@
+import { GiftIcon } from "lucide-react";
 import type { Metadata } from "next";
 import type { Locale } from "next-intl";
 import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
@@ -108,6 +109,22 @@ export default async function RsvpPage({ params }: PageProps<"/[locale]/i/[token
             dietary={guest.dietary_requirements}
           />
         </section>
+
+        {guest.has_registry && (
+          <section className="flex flex-col items-center gap-4 rounded-3xl bg-card px-6 py-8 text-center ring-1 ring-border">
+            <GiftIcon aria-hidden className="size-6 text-terracotta" strokeWidth={1.3} />
+            <div className="flex flex-col gap-1">
+              <h2 className="font-serif text-2xl">{t("registry.title")}</h2>
+              <p className="text-stone">{t("registry.lead")}</p>
+            </div>
+            <Link
+              href={`/i/${token}/registry`}
+              className="inline-flex h-11 items-center rounded-full bg-sage-deep px-6 text-sm font-medium text-ivory transition-colors hover:bg-[#35402f]"
+            >
+              {t("registry.open")}
+            </Link>
+          </section>
+        )}
 
         <Link
           href="/"

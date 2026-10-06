@@ -2079,6 +2079,11 @@
     "booklet": {
       "open": "Open the invitation",
       "close": "Close the invitation"
+    },
+    "registry": {
+      "title": "Our wedding registry",
+      "lead": "If you’d like, discover the ideas that would make us happy.",
+      "open": "Discover our registry"
     }
   },
   "Playlist": {
@@ -2638,7 +2643,9 @@
       "noPrice": "Price to be set",
       "quantity": "{count, plural, one {# item} other {# items}}",
       "heirloom": "Signature gift",
-      "shop": "See in shop"
+      "shop": "See in shop",
+      "reservedBy": "Reserved by {names}",
+      "offeredTogether": "Given together by {names}"
     },
     "gift": {
       "add": "Add a gift",
@@ -2673,7 +2680,8 @@
         "empty": "This shop doesn’t share its details: fill them in by hand.",
         "invalid": "This link doesn’t look valid.",
         "unreachable": "The shop didn’t respond: fill in by hand, the link will still be kept."
-      }
+      },
+      "deleteReserved": "A guest has already reserved it: their reservation will disappear with the gift."
     },
     "funds": {
       "title": "The cash fund",
@@ -2731,7 +2739,10 @@
           "defaultTitle": "A free contribution",
           "placeholder": "For everything life together has in store…"
         }
-      }
+      },
+      "raised": "{raised} pledged",
+      "raisedOfGoal": "{raised} pledged of {goal}",
+      "contributors": "{count, plural, =0 {No contributions yet} one {# loved one contributes} other {# loved ones contribute}}"
     },
     "settings": {
       "title": "Your word to your guests",
@@ -2881,6 +2892,108 @@
         "artwork": "A work of art",
         "craftFurniture": "A piece of handcrafted furniture"
       }
+    },
+    "ideas": {
+      "title": "Ideas from your loved ones",
+      "lead": "What your guests slipped into the idea box.",
+      "empty": "No ideas yet. They will appear here as soon as your loved ones suggest some.",
+      "deleteLabel": "Remove this idea",
+      "deleteTitle": "Remove this idea?",
+      "deleteDescription": "It will no longer appear in your idea box.",
+      "deleted": "Idea removed."
+    },
+    "thanks": {
+      "title": "What your loved ones are giving you",
+      "lead": "{count, plural, one {# loved one, and their note} other {# loved ones, and their notes}}: everything you need for your thank-you cards.",
+      "giftShare": "Contributes to “{title}” ({amount})",
+      "giftQuantity": "{title} (×{count})",
+      "fund": "{title}: {amount}"
+    }
+  },
+  "GuestRegistry": {
+    "metaTitle": "{couple}’s wedding registry",
+    "notFound": {
+      "title": "This registry isn’t available",
+      "body": "The link is no longer valid, or the couple hasn’t opened their registry yet."
+    },
+    "back": "Back to the invitation",
+    "title": "Our wedding registry",
+    "hello": "Hello {firstName}, thank you for thinking of us.",
+    "madeWith": "Made with Céleste",
+    "close": "Close",
+    "funds": {
+      "title": "The cash fund",
+      "lead": "Contribute to one of our projects, with whatever amount suits you.",
+      "progressLabel": "Progress of “{title}”",
+      "progress": "{raised} of {goal}",
+      "mine": "Your contribution: {amount}",
+      "contribute": "Contribute",
+      "dialogLead": "Enter the amount of your contribution: we will then tell you how to pay it."
+    },
+    "gifts": {
+      "title": "The gifts",
+      "lead": "Reserve a gift to avoid duplicates, then buy it wherever you like.",
+      "given": "Already given",
+      "reserveLead": "Your reservation stops another guest from giving the same gift. Then buy it wherever you like: the couple will see it comes from you.",
+      "heirloomLead": "A signature gift, given together: join the other guests, with whatever amount suits you.",
+      "reserve": "I’ll give it",
+      "join": "Contribute",
+      "mine": "You’re giving it",
+      "mineHeirloom": "You’re contributing",
+      "left": "{count, plural, =0 {None left} one {# item available} other {# items available}}",
+      "heirloom": "Signature gift · {count, plural, =0 {be the first to contribute} one {# contributor} other {# contributors}}",
+      "shop": "See in shop"
+    },
+    "sections": {
+      "kitchen": "Kitchen",
+      "table": "Tableware",
+      "linen": "Linens",
+      "appliances": "Appliances",
+      "bathroom": "Bathroom",
+      "decor": "Decor",
+      "outdoor": "Outdoors at home",
+      "cooking": "Cooking together",
+      "travel": "Travel",
+      "garden": "Garden",
+      "wine": "Wine & food",
+      "outdoors": "The great outdoors",
+      "culture": "Culture",
+      "wellbeing": "Wellbeing",
+      "music": "Music",
+      "heirloom": "Heirloom pieces",
+      "other": "Other wishes"
+    },
+    "dialog": {
+      "thanks": "Thank you! It’s noted, and the couple will be touched.",
+      "howToPay": "To pay your contribution:",
+      "payLink": "Open the fund",
+      "shopLink": "Buy in the shop",
+      "quantity": "Number of items",
+      "amount": "Your contribution",
+      "amountOptional": "Your contribution (optional)",
+      "message": "A note for the couple (optional)",
+      "messagePlaceholder": "Wishing you every happiness…",
+      "messageHint": "The couple will read it with your first name.",
+      "withdraw": "Cancel my reservation",
+      "sending": "Sending…",
+      "update": "Update",
+      "confirm": "Confirm",
+      "withdrawPledge": "Withdraw my contribution"
+    },
+    "ideas": {
+      "title": "An idea to whisper to them?",
+      "lead": "The couple love surprises: suggest a gift that matters to you.",
+      "label": "Your idea",
+      "placeholder": "A pottery workshop for two, a beautiful cookbook from my region…",
+      "send": "Send my idea",
+      "sent": "Thank you, your idea has been passed on."
+    },
+    "errors": {
+      "invalid": "Your request couldn’t be processed. Please check the details.",
+      "unavailable": "Another guest just reserved this gift: there aren’t enough left.",
+      "closed": "The couple has closed their idea box.",
+      "limit": "You’ve already suggested five ideas: thank you for your generosity!",
+      "generic": "Something went wrong. Please try again in a moment."
     }
   }
 }

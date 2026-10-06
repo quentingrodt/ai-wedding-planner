@@ -120,3 +120,33 @@ export type RegistryActionResult = { ok: true } | { ok: false; error: RegistryAc
 export function registryTotal(gifts: readonly Pick<RegistryGift, "price" | "quantity">[]): number {
   return gifts.reduce((sum, gift) => sum + (gift.price ?? 0) * gift.quantity, 0);
 }
+
+/** Invité à l'origine d'une réservation ou d'une idée. */
+export type PledgeGuest = { first_name: string; last_name: string | null };
+
+/** Ligne de registry_pledges, avec l'invité (cf. 000026). */
+export type RegistryPledge = {
+  guest_id: string;
+  id: string;
+  gift_id: string | null;
+  fund_id: string | null;
+  quantity: number | null;
+  amount: number | null;
+  message: string | null;
+  created_at: string;
+  guests: PledgeGuest | null;
+};
+
+/** Ligne de registry_suggestions, avec l'invité. */
+export type RegistrySuggestion = {
+  id: string;
+  idea: string;
+  created_at: string;
+  guests: PledgeGuest | null;
+};
+
+/** Total promis à un projet de l'urne et nombre de proches qui y participent. */
+export function fundTotals(pledges: readonly RegistryPledge[], fundId: string) {
+  const mine = pledges.filter((pledge) => pledge.fund_id === fundId);
+  return { raised: mine.reduce((sum, pledge) => sum + (pledge.amount ?? 0), 0), contributors: mine.length };
+}

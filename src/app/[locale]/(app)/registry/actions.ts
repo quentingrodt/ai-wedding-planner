@@ -164,13 +164,18 @@ export async function saveFund(fundId: string | null, input: FundInput): Promise
   return { ok: true };
 }
 
+/** Retire une idée de la boîte à idées. */
+export async function deleteSuggestion(suggestionId: string): Promise<RegistryActionResult> {
+  return deleteRow("registry_suggestions", suggestionId);
+}
+
 /** Retire un projet de l'urne. */
 export async function deleteFund(fundId: string): Promise<RegistryActionResult> {
   return deleteRow("registry_funds", fundId);
 }
 
 async function deleteRow(
-  table: "registry_gifts" | "registry_funds",
+  table: "registry_gifts" | "registry_funds" | "registry_suggestions",
   id: string,
 ): Promise<RegistryActionResult> {
   if (!idSchema.safeParse(id).success) return { ok: false, error: "invalid" };

@@ -17,23 +17,35 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { MAX_FUNDS, REGISTRY_SECTIONS } from "@/lib/registry/catalog";
+import { FundIcon } from "@/components/registry/fund-icon";
 import {
+  fundTotals,
   registryTotal,
+  type PledgeGuest,
   type Registry,
   type RegistryFund,
   type RegistryGift,
+  type RegistryPledge,
+  type RegistrySuggestion,
 } from "@/lib/registry/schema";
-import { deleteFund, deleteGift } from "../actions";
+import { deleteFund, deleteGift, deleteSuggestion } from "../actions";
 import { FundDialog } from "./fund-dialog";
-import { FundIcon } from "./fund-icon";
 import { GiftDialog } from "./gift-dialog";
 import { RegistryWizard } from "./registry-wizard";
 import { SettingsDialog } from "./settings-dialog";
+import { ThanksList } from "./thanks-list";
+
+const guestName = (guest: PledgeGuest | null) =>
+  guest ? [guest.first_name, guest.last_name].filter(Boolean).join(" ") : "";
 
 type RegistryBoardProps = {
   registry: Registry | null;
   gifts: RegistryGift[];
   funds: RegistryFund[];
+  /** Ce que les invités ont réservé ou promis, avec leur nom. */
+  pledges: RegistryPledge[];
+  /** La boîte à idées des invités. */
+  suggestions: RegistrySuggestion[];
   /** Devise du mariage (ISO 4217). */
   currency: string;
   /** Owner ou partner : la RLS refuse de toute façon l'écriture aux témoins. */
@@ -41,7 +53,15 @@ type RegistryBoardProps = {
 };
 
 /** Liste de mariage des mariés : leur mot, l'urne, puis les cadeaux par rubrique. */
-export function RegistryBoard({ registry, gifts, funds, currency, canEdit }: RegistryBoardProps) {
+export function RegistryBoard({
+  registry,
+  gifts,
+  funds,
+  pledges,
+  suggestions,
+  currency,
+  canEdit,
+}: RegistryBoardProps) {
   const t = useTranslations("Registry");
   const format = useFormatter();
   const locale = useLocale();
@@ -102,6 +122,7 @@ export function RegistryBoard({ registry, gifts, funds, currency, canEdit }: Reg
   const total = registryTotal(gifts);
 
   const giftDialogProps = { currency, currencySymbol };
+  const pledgesOf = (giftId: string) => pledges.filter((pledge) => pledge.gift_id === giftId);
 
   return (
     <div className="flex flex-col gap-12">
@@ -196,9 +217,25 @@ export function RegistryBoard({ registry, gifts, funds, currency, canEdit }: Reg
                 </div>
                 <h3 className="font-serif text-xl leading-snug">{fund.title}</h3>
                 {fund.description && <p className="text-sm leading-6 text-stone">{fund.description}</p>}
-                {fund.goal !== null && (
-                  <p className="mt-auto text-sm text-charcoal">{t("funds.goal", { amount: money(fund.goal) })}</p>
-                )}
+                {(() => {
+                  const { raised, contributors } = fundTotals(pledges, fund.id);
+                  const progress = fund.goal ? Math.min(1, raised / fund.goal) : null;
+                  return (
+                    <div className="mt-auto flex flex-col gap-1.5 pt-1">
+                      {progress !== null && (
+                        <div aria-hidden className="h-1.5 overflow-hidden rounded-full bg-card">
+                          <div className="h-full rounded-full bg-sage" style={{ width: `${progress * 100}%` }} />
+                        </div>
+                      )}
+                      <p className="text-sm text-charcoal">
+                        {fund.goal !== null
+                          ? t("funds.raisedOfGoal", { raised: money(raised), goal: money(fund.goal) })
+                          : t("funds.raised", { raised: money(raised) })}
+                      </p>
+                      <p className="text-xs text-stone">{t("funds.contributors", { count: contributors })}</p>
+                    </div>
+                  );
+                })()}
               </li>
             ))}
           </ul>
@@ -273,7 +310,11 @@ export function RegistryBoard({ registry, gifts, funds, currency, canEdit }: Reg
                             <ConfirmDelete
                               label={t("gift.deleteLabel", { title: gift.title })}
                               title={t("gift.deleteTitle", { title: gift.title })}
-                              description={t("gift.deleteDescription")}
+                              description={
+                                pledgesOf(gift.id).length > 0
+                                  ? t("gift.deleteReserved")
+                                  : t("gift.deleteDescription")
+                              }
                               onConfirm={() => remove(() => deleteGift(gift.id), t("gift.deleted", { title: gift.title }))}
                             />
                           </span>
@@ -284,6 +325,13 @@ export function RegistryBoard({ registry, gifts, funds, currency, canEdit }: Reg
                         {gift.price !== null ? money(gift.price) : <span className="text-stone">{t("gifts.noPrice")}</span>}
                         {gift.quantity > 1 && <span className="text-stone"> · {t("gifts.quantity", { count: gift.quantity })}</span>}
                       </p>
+                      {pledgesOf(gift.id).length > 0 && (
+                        <p className="text-sm text-sage-deep">
+                          {t(gift.is_heirloom ? "gifts.offeredTogether" : "gifts.reservedBy", {
+                            names: format.list(pledgesOf(gift.id).map((pledge) => guestName(pledge.guests))),
+                          })}
+                        </p>
+                      )}
                       <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1 pt-1">
                         {gift.is_heirloom && (
                           <span className="inline-flex items-center gap-1 text-xs text-terracotta">
@@ -311,6 +359,40 @@ export function RegistryBoard({ registry, gifts, funds, currency, canEdit }: Reg
           ))
         )}
       </section>
+
+      {pledges.length > 0 && <ThanksList pledges={pledges} gifts={gifts} funds={funds} money={money} />}
+
+      {/* La boîte à idées des invités. */}
+      {(registry.accepts_suggestions || suggestions.length > 0) && (
+        <section aria-labelledby="ideas-title" className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
+            <h2 id="ideas-title" className="font-serif text-3xl">{t("ideas.title")}</h2>
+            <p className="text-stone">{t("ideas.lead")}</p>
+          </div>
+          {suggestions.length === 0 ? (
+            <p className="rounded-3xl bg-linen px-6 py-8 text-center text-stone">{t("ideas.empty")}</p>
+          ) : (
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {suggestions.map((suggestion) => (
+                <li key={suggestion.id} className="flex items-start gap-3 rounded-3xl bg-card p-5 ring-1 ring-border">
+                  <div className="flex min-w-0 flex-1 flex-col gap-1">
+                    <p className="leading-6 wrap-break-word">{suggestion.idea}</p>
+                    <p className="text-xs text-stone">{guestName(suggestion.guests)}</p>
+                  </div>
+                  {canEdit && (
+                    <ConfirmDelete
+                      label={t("ideas.deleteLabel")}
+                      title={t("ideas.deleteTitle")}
+                      description={t("ideas.deleteDescription")}
+                      onConfirm={() => remove(() => deleteSuggestion(suggestion.id), t("ideas.deleted"))}
+                    />
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
     </div>
   );
 }

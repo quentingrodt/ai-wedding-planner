@@ -2079,6 +2079,11 @@
     "booklet": {
       "open": "Ouvrir le faire-part",
       "close": "Refermer le faire-part"
+    },
+    "registry": {
+      "title": "Notre liste de mariage",
+      "lead": "Si le cœur vous en dit, découvrez les idées qui nous feraient plaisir.",
+      "open": "Découvrir notre liste"
     }
   },
   "Playlist": {
@@ -2638,7 +2643,9 @@
       "noPrice": "Prix à préciser",
       "quantity": "{count, plural, one {# exemplaire} other {# exemplaires}}",
       "heirloom": "Cadeau d’exception",
-      "shop": "Voir en boutique"
+      "shop": "Voir en boutique",
+      "reservedBy": "Réservé par {names}",
+      "offeredTogether": "Offert ensemble par {names}"
     },
     "gift": {
       "add": "Ajouter un cadeau",
@@ -2673,7 +2680,8 @@
         "empty": "Cette boutique ne partage pas ses informations : complétez à la main.",
         "invalid": "Ce lien ne semble pas valide.",
         "unreachable": "La boutique n’a pas répondu : complétez à la main, le lien sera tout de même gardé."
-      }
+      },
+      "deleteReserved": "Un proche l’a déjà réservé : sa réservation disparaîtra avec le cadeau."
     },
     "funds": {
       "title": "L’urne",
@@ -2731,7 +2739,10 @@
           "defaultTitle": "Une participation libre",
           "placeholder": "Pour tout ce que la vie à deux nous réserve…"
         }
-      }
+      },
+      "raised": "{raised} promis",
+      "raisedOfGoal": "{raised} promis sur {goal}",
+      "contributors": "{count, plural, =0 {Aucune participation pour l’instant} one {# proche participe} other {# proches participent}}"
     },
     "settings": {
       "title": "Votre mot à vos invités",
@@ -2881,6 +2892,108 @@
         "artwork": "Une œuvre d’art",
         "craftFurniture": "Un meuble d’artisan"
       }
+    },
+    "ideas": {
+      "title": "Les idées de vos proches",
+      "lead": "Ce que vos invités ont glissé dans la boîte à idées.",
+      "empty": "Aucune idée pour l’instant. Elles apparaîtront ici dès que vos proches en proposeront.",
+      "deleteLabel": "Retirer cette idée",
+      "deleteTitle": "Retirer cette idée ?",
+      "deleteDescription": "Elle ne figurera plus dans votre boîte à idées.",
+      "deleted": "Idée retirée."
+    },
+    "thanks": {
+      "title": "Ce que vos proches vous offrent",
+      "lead": "{count, plural, one {# proche, et son petit mot} other {# proches, et leurs petits mots}} : de quoi préparer vos remerciements.",
+      "giftShare": "Participe à « {title} » ({amount})",
+      "giftQuantity": "{title} (×{count})",
+      "fund": "{title} : {amount}"
+    }
+  },
+  "GuestRegistry": {
+    "metaTitle": "Liste de mariage de {couple}",
+    "notFound": {
+      "title": "Cette liste n’est pas disponible",
+      "body": "Le lien n’est plus valide, ou les mariés n’ont pas encore ouvert leur liste."
+    },
+    "back": "Retour au faire-part",
+    "title": "Notre liste de mariage",
+    "hello": "Bonjour {firstName}, merci de penser à nous.",
+    "madeWith": "Créé avec Céleste",
+    "close": "Fermer",
+    "funds": {
+      "title": "L’urne",
+      "lead": "Participez à l’un de nos projets, du montant qui vous convient.",
+      "progressLabel": "Avancement de « {title} »",
+      "progress": "{raised} sur {goal}",
+      "mine": "Votre participation : {amount}",
+      "contribute": "Participer",
+      "dialogLead": "Indiquez le montant de votre participation : nous vous dirons ensuite comment la régler."
+    },
+    "gifts": {
+      "title": "Les cadeaux",
+      "lead": "Réservez un cadeau pour éviter les doublons, puis offrez-le où vous le souhaitez.",
+      "given": "Déjà offert",
+      "reserveLead": "Votre réservation évite qu’un autre invité offre le même cadeau. Offrez-le ensuite où vous le souhaitez : les mariés verront qu’il vient de vous.",
+      "heirloomLead": "Un cadeau d’exception, offert à plusieurs : joignez-vous aux autres invités, du montant qui vous convient.",
+      "reserve": "Je l’offre",
+      "join": "Participer",
+      "mine": "Vous l’offrez",
+      "mineHeirloom": "Vous participez",
+      "left": "{count, plural, =0 {Plus aucun exemplaire} one {# exemplaire disponible} other {# exemplaires disponibles}}",
+      "heirloom": "Cadeau d’exception · {count, plural, =0 {soyez le premier à participer} one {# participant} other {# participants}}",
+      "shop": "Voir en boutique"
+    },
+    "sections": {
+      "kitchen": "Cuisine",
+      "table": "Arts de la table",
+      "linen": "Linge de maison",
+      "appliances": "Électroménager",
+      "bathroom": "Salle de bain",
+      "decor": "Décoration",
+      "outdoor": "Extérieur",
+      "cooking": "Cuisine à deux",
+      "travel": "Voyages",
+      "garden": "Jardin",
+      "wine": "Vin & gastronomie",
+      "outdoors": "Plein air",
+      "culture": "Culture",
+      "wellbeing": "Bien-être",
+      "music": "Musique",
+      "heirloom": "Pièces de transmission",
+      "other": "Autres envies"
+    },
+    "dialog": {
+      "thanks": "Merci ! C’est noté, et les mariés en seront touchés.",
+      "howToPay": "Pour régler votre participation :",
+      "payLink": "Ouvrir la cagnotte",
+      "shopLink": "Acheter en boutique",
+      "quantity": "Nombre d’exemplaires",
+      "amount": "Votre participation",
+      "amountOptional": "Votre participation (facultatif)",
+      "message": "Un petit mot pour les mariés (facultatif)",
+      "messagePlaceholder": "Tous nos vœux de bonheur…",
+      "messageHint": "Les mariés le liront avec votre prénom.",
+      "withdraw": "Annuler ma réservation",
+      "sending": "Envoi…",
+      "update": "Mettre à jour",
+      "confirm": "Confirmer",
+      "withdrawPledge": "Retirer ma participation"
+    },
+    "ideas": {
+      "title": "Une idée à leur souffler ?",
+      "lead": "Les mariés aiment les surprises : proposez-leur un cadeau qui vous tient à cœur.",
+      "label": "Votre idée",
+      "placeholder": "Un atelier de poterie à deux, un beau livre de recettes de ma région…",
+      "send": "Envoyer mon idée",
+      "sent": "Merci, votre idée a bien été transmise."
+    },
+    "errors": {
+      "invalid": "Votre demande n’a pas pu être prise en compte. Vérifiez les informations.",
+      "unavailable": "Un autre invité vient de réserver ce cadeau : il n’en reste plus assez.",
+      "closed": "Les mariés ont fermé leur boîte à idées.",
+      "limit": "Vous avez déjà proposé cinq idées : merci pour votre générosité !",
+      "generic": "Une erreur est survenue. Merci de réessayer dans un instant."
     }
   }
 }

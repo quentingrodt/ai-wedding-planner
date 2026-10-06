@@ -35,7 +35,7 @@ export default async function RegistryPage({ params }: PageProps<"/[locale]/regi
     return redirect({ href: "/onboarding", locale });
   }
 
-  const [role, { registry, gifts, funds }, t] = await Promise.all([
+  const [role, { registry, gifts, funds, pledges, suggestions }, t] = await Promise.all([
     getCurrentMemberRole(supabase, wedding.id, userId),
     getRegistry(supabase, wedding.id),
     getTranslations("Registry"),
@@ -58,6 +58,8 @@ export default async function RegistryPage({ params }: PageProps<"/[locale]/regi
           registry={registry}
           gifts={gifts}
           funds={funds}
+          pledges={pledges}
+          suggestions={suggestions}
           currency={wedding.currency_code}
           canEdit={canEdit}
         />

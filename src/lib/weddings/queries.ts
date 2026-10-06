@@ -10,7 +10,13 @@ import {
 } from "@/lib/plan/schema";
 import { toTimeKey, type ItineraryEvent } from "@/lib/itinerary/schema";
 import type { MoodboardItem } from "@/lib/moodboard/schema";
-import type { Registry, RegistryFund, RegistryGift } from "@/lib/registry/schema";
+import type {
+  Registry,
+  RegistryFund,
+  RegistryGift,
+  RegistryPledge,
+  RegistrySuggestion,
+} from "@/lib/registry/schema";
 import type { Quote } from "@/lib/quotes/schema";
 import type { SeatedGuest, SeatingTable } from "@/lib/seating/schema";
 import { planningAnswersSchema, type PlanningAnswers } from "@/lib/planning/schema";
@@ -463,13 +469,20 @@ export async function hasSeenBudgetIntro(supabase: ServerClient, userId: string)
 
 /**
  * Liste de mariage : réglages (null tant que le parcours d'ouverture n'a pas
- * été mené), cadeaux par rubrique et projets de l'urne.
+ * été mené), cadeaux par rubrique, projets de l'urne, et ce que les invités
+ * ont réservé, promis ou suggéré.
  */
 export async function getRegistry(
   supabase: ServerClient,
   weddingId: string,
-): Promise<{ registry: Registry | null; gifts: RegistryGift[]; funds: RegistryFund[] }> {
-  const [registry, gifts, funds] = await Promise.all([
+): Promise<{
+  registry: Registry | null;
+  gifts: RegistryGift[];
+  funds: RegistryFund[];
+  pledges: RegistryPledge[];
+  suggestions: RegistrySuggestion[];
+}> {
+  const [registry, gifts, funds, pledges, suggestions] = await Promise.all([
     supabase
       .from("registries")
       .select("note, accepts_suggestions, payment_link, payment_details")
@@ -489,12 +502,31 @@ export async function getRegistry(
       .order("position", { ascending: true })
       .order("created_at", { ascending: true })
       .returns<RegistryFund[]>(),
+    // Réservations et participations des invités, avec leur nom (cf. 000026).
+    supabase
+      .from("registry_pledges")
+      .select("id, guest_id, gift_id, fund_id, quantity, amount, message, created_at, guests(first_name, last_name)")
+      .eq("wedding_id", weddingId)
+      .order("created_at", { ascending: true })
+      .returns<RegistryPledge[]>(),
+    supabase
+      .from("registry_suggestions")
+      .select("id, idea, created_at, guests(first_name, last_name)")
+      .eq("wedding_id", weddingId)
+      .order("created_at", { ascending: false })
+      .returns<RegistrySuggestion[]>(),
   ]);
 
-  const error = registry.error ?? gifts.error ?? funds.error;
+  const error = registry.error ?? gifts.error ?? funds.error ?? pledges.error ?? suggestions.error;
   if (error) {
     console.error("[weddings] getRegistry:", error.code);
     throw new Error("Unable to load the registry");
   }
-  return { registry: registry.data, gifts: gifts.data ?? [], funds: funds.data ?? [] };
+  return {
+    registry: registry.data,
+    gifts: gifts.data ?? [],
+    funds: funds.data ?? [],
+    pledges: pledges.data ?? [],
+    suggestions: suggestions.data ?? [],
+  };
 }

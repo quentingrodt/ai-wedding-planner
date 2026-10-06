@@ -26,7 +26,7 @@ import {
 import { FUND_KINDS, type FundKind } from "@/lib/registry/catalog";
 import { REGISTRY_LIMITS, type RegistryFund } from "@/lib/registry/schema";
 import { saveFund } from "../actions";
-import { FundIcon } from "./fund-icon";
+import { FundIcon } from "@/components/registry/fund-icon";
 
 type FundDialogProps = {
   /** Projet à modifier, ou null pour en créer un. */

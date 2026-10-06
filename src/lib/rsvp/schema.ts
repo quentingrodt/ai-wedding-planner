@@ -23,6 +23,8 @@ export const guestRsvpSchema = z.object({
   wedding_date: z.iso.date().nullable(),
   // Faire-part absent ou illisible : la page affiche un en-tête simple.
   design: invitationDesignSchema.nullable().catch(null),
+  // Liste de mariage ouverte par les mariés (cf. 000026).
+  has_registry: z.boolean().catch(false),
 });
 export type GuestRsvp = z.infer<typeof guestRsvpSchema>;
 

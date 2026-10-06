@@ -25,7 +25,7 @@ import {
 import { REGISTRY_LIMITS, type SetUpRegistryInput } from "@/lib/registry/schema";
 import { cn } from "@/lib/utils";
 import { setUpRegistry } from "../actions";
-import { FundIcon } from "./fund-icon";
+import { FundIcon } from "@/components/registry/fund-icon";
 
 const STEPS = ["welcome", "everyday", "passions", "lasting", "openness", "fund"] as const;
 type Step = (typeof STEPS)[number];
