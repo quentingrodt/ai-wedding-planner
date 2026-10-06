@@ -330,14 +330,15 @@ export async function getQuotes(
   return data;
 }
 
-/** Tables du plan de table, dans l'ordre de création. */
+/** Tables du plan de table : la table d'honneur d'abord, puis l'ordre de création. */
 export async function getSeatingTables(
   supabase: ServerClient,
   weddingId: string,
 ): Promise<SeatingTable[]> {
   const { data, error } = await supabase
     .from("seating_tables")
-    .select("id, name, capacity")
+    .select("id, name, capacity, is_head")
+    .order("is_head", { ascending: false })
     .eq("wedding_id", weddingId)
     .order("created_at", { ascending: true })
     .returns<SeatingTable[]>();

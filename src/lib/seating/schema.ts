@@ -5,6 +5,8 @@ export type SeatingTable = {
   id: string;
   name: string;
   capacity: number;
+  /** Table d'honneur (une au plus par mariage, cf. 000024). */
+  is_head: boolean;
 };
 
 /** Invité confirmé, avec sa table éventuelle. */
@@ -27,9 +29,10 @@ export const SEATING_LIMITS = {
 export const createTableSchema = z.object({
   name: z.string().trim().min(1).max(SEATING_LIMITS.name),
   capacity: z.number().int().min(1).max(SEATING_LIMITS.capacity),
+  head: z.boolean(),
 });
 export type CreateTableInput = z.input<typeof createTableSchema>;
-export type TableField = keyof CreateTableInput;
+export type TableField = Exclude<keyof CreateTableInput, "head">;
 export type TableFieldError = "required" | "tooLong" | "capacity";
 
 export const deleteTableSchema = z.object({

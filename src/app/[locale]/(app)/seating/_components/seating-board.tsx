@@ -17,7 +17,9 @@ import { cn } from "@/lib/utils";
 import { assignGuestToTable, deleteTable } from "../actions";
 import { CreateTableDialog } from "./create-table-dialog";
 import { DeleteTableButton } from "./delete-table-button";
+import { HeadTableAdviceButton } from "./head-table-advice";
 import { RoundTable } from "./round-table";
+import { SeatingTips } from "./seating-tips";
 import { TableLogistics } from "./table-logistics";
 
 type SeatingState = { tables: SeatingTable[]; guests: SeatedGuest[] };
@@ -75,6 +77,7 @@ export function SeatingBoard({ tables, guests, canEdit }: SeatingBoardProps) {
     guestsByTable.set(guest.seating_table_id, seated);
   }
   const seatedCount = (tableId: string) => guestsByTable.get(tableId)?.length ?? 0;
+  const hasHead = state.tables.some((table) => table.is_head);
 
   function assign(guest: SeatedGuest, tableId: string | null) {
     startTransition(async () => {
@@ -137,6 +140,8 @@ export function SeatingBoard({ tables, guests, canEdit }: SeatingBoardProps) {
             </dd>
           </div>
         </dl>
+
+        <SeatingTips />
 
         {state.guests.length === 0 ? (
           <p className="rounded-3xl bg-linen px-6 py-10 text-center text-stone">
@@ -207,7 +212,13 @@ export function SeatingBoard({ tables, guests, canEdit }: SeatingBoardProps) {
           <h2 id="tables-title" className="font-serif text-2xl">
             {t("tables.title")}
           </h2>
-          {canEdit && <CreateTableDialog />}
+          {canEdit && (
+            <div className="flex flex-wrap gap-3">
+              {/* Tant qu'elle n'existe pas, la table d'honneur a son propre bouton. */}
+              {!hasHead && <CreateTableDialog head />}
+              <CreateTableDialog />
+            </div>
+          )}
         </div>
 
         {state.tables.length === 0 ? (
@@ -222,10 +233,23 @@ export function SeatingBoard({ tables, guests, canEdit }: SeatingBoardProps) {
               return (
                 <li
                   key={table.id}
-                  className="flex flex-col gap-4 rounded-3xl border border-sage bg-linen p-6"
+                  className={cn(
+                    "flex flex-col gap-4 rounded-3xl border p-6",
+                    // La table d'honneur se distingue, comme le jour J.
+                    table.is_head
+                      ? "border-terracotta/60 bg-terracotta-soft/25 sm:col-span-2"
+                      : "border-sage bg-linen",
+                  )}
                 >
                   <div className="flex items-start justify-between gap-3">
-                    <h3 className="min-w-0 font-serif text-xl wrap-break-word">{table.name}</h3>
+                    <div className="flex min-w-0 flex-col gap-1">
+                      {table.is_head && (
+                        <p className="text-xs font-medium tracking-[0.2em] text-terracotta uppercase">
+                          {t("headTable.eyebrow")}
+                        </p>
+                      )}
+                      <h3 className="font-serif text-xl wrap-break-word">{table.name}</h3>
+                    </div>
                     {canEdit && (
                       <DeleteTableButton
                         tableName={table.name}
@@ -234,7 +258,12 @@ export function SeatingBoard({ tables, guests, canEdit }: SeatingBoardProps) {
                     )}
                   </div>
 
-                  <div className="flex flex-col items-center gap-2">
+                  <div className="relative flex flex-col items-center gap-2">
+                    {table.is_head && (
+                      <div className="absolute top-0 right-0">
+                        <HeadTableAdviceButton />
+                      </div>
+                    )}
                     <RoundTable
                       capacity={table.capacity}
                       seated={seated}

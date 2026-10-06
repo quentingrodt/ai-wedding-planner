@@ -557,7 +557,7 @@
     },
     "tables": {
       "title": "Tables",
-      "empty": "No tables yet. Start with the first one, such as the Head Table.",
+      "empty": "No tables yet. Start with the head table, then add your guests’ tables.",
       "seats": "{seated}/{capacity} seats",
       "full": "Full",
       "noGuests": "No one is seated at this table yet.",
@@ -581,7 +581,10 @@
       "submit": "Create table",
       "submitting": "Creating…",
       "close": "Close",
-      "success": "“{name}” is ready."
+      "success": "“{name}” is ready.",
+      "headTrigger": "Create the head table",
+      "headTitle": "The head table",
+      "headName": "Head table"
     },
     "delete": {
       "trigger": "Delete table {name}",
@@ -630,6 +633,55 @@
       "footer": "Céleste · Seating plan — {names}",
       "page": "{current} / {total}",
       "fileName": "seating-plan"
+    },
+    "headTable": {
+      "eyebrow": "Head table",
+      "title": "Who sits at the head table?",
+      "who": "Seat yourselves and your parents at the head table, surrounded by grandparents, witnesses and close friends.",
+      "decoration": "Make sure this table stands out, with special decoration.",
+      "acknowledge": "OK, got it",
+      "reopen": "See the head table advice again",
+      "close": "Close"
+    },
+    "tips": {
+      "eyebrow": "Tip",
+      "position": "{current} / {total}",
+      "previous": "Previous tip",
+      "next": "Next tip",
+      "items": {
+        "interactions": {
+          "title": "Encourage conversation",
+          "body": "Seat guests who share a passion, a job or an age together: conversations will start on their own."
+        },
+        "inclusion": {
+          "title": "Include every guest",
+          "body": "Nobody should feel left out: seat everyone next to at least one person they know."
+        },
+        "singles": {
+          "title": "Celebrate the singles",
+          "body": "Rather than a “singles table”, spread them across lively tables where new friendships can bloom."
+        },
+        "conflicts": {
+          "title": "Avoid conflicts",
+          "body": "Quietly keep apart people who don’t get along: one table between them is often enough to keep the evening serene."
+        },
+        "children": {
+          "title": "A space for children",
+          "body": "A children’s table close to their parents, with a few activities, lets everyone enjoy the meal."
+        },
+        "generations": {
+          "title": "Mix the generations",
+          "body": "Blend ages: a storytelling great-uncle and young cousins often make the merriest table."
+        },
+        "comfort": {
+          "title": "Comfort first",
+          "body": "Think of older guests and those with reduced mobility: away from the speakers, close to exits and restrooms."
+        },
+        "flexibility": {
+          "title": "Stay flexible",
+          "body": "Keep one or two seats free for last-minute surprises: an extra guest, a change of plus-one."
+        }
+      }
     }
   },
   "Itinerary": {

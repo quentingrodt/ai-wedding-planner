@@ -557,7 +557,7 @@
     },
     "tables": {
       "title": "Les Tables",
-      "empty": "Aucune table pour l’instant. Créez la première, la Table d’Honneur par exemple.",
+      "empty": "Aucune table pour l’instant. Commencez par la table d’honneur, puis ajoutez les tables de vos invités.",
       "seats": "{seated}/{capacity} places",
       "full": "Complète",
       "noGuests": "Personne n’est encore installé à cette table.",
@@ -581,7 +581,10 @@
       "submit": "Créer la table",
       "submitting": "Création…",
       "close": "Fermer",
-      "success": "La table « {name} » est prête."
+      "success": "La table « {name} » est prête.",
+      "headTrigger": "Créer la table d’honneur",
+      "headTitle": "La table d’honneur",
+      "headName": "Table d’honneur"
     },
     "delete": {
       "trigger": "Supprimer la table {name}",
@@ -630,6 +633,55 @@
       "footer": "Céleste · Plan de table — {names}",
       "page": "{current} / {total}",
       "fileName": "plan-de-table"
+    },
+    "headTable": {
+      "eyebrow": "Table d’honneur",
+      "title": "Qui s’assoit à la table d’honneur ?",
+      "who": "Placez-vous, avec vos parents, à la table d’honneur, entourés des grands-parents, des témoins et des amis proches.",
+      "decoration": "Assurez-vous que cette table soit mise en valeur, avec une décoration spéciale.",
+      "acknowledge": "OK, j’ai compris",
+      "reopen": "Revoir les conseils de la table d’honneur",
+      "close": "Fermer"
+    },
+    "tips": {
+      "eyebrow": "Astuce",
+      "position": "{current} / {total}",
+      "previous": "Astuce précédente",
+      "next": "Astuce suivante",
+      "items": {
+        "interactions": {
+          "title": "Favoriser les interactions",
+          "body": "Rapprochez les invités qui partagent une passion, un métier ou un âge : les conversations s’engagent d’elles-mêmes."
+        },
+        "inclusion": {
+          "title": "Inclure tous les invités",
+          "body": "Personne ne doit se sentir isolé : installez chacun à côté d’au moins une personne qu’il connaît."
+        },
+        "singles": {
+          "title": "Célébrer les célibataires",
+          "body": "Plutôt qu’une « table des célibataires », répartissez-les à des tables animées, propices aux belles rencontres."
+        },
+        "conflicts": {
+          "title": "Éviter les conflits",
+          "body": "Éloignez discrètement les personnes en froid : une table d’écart suffit souvent à préserver la sérénité de la soirée."
+        },
+        "children": {
+          "title": "Un espace pour les enfants",
+          "body": "Une table des enfants proche des parents, avec quelques activités, permet à chacun de profiter du repas."
+        },
+        "generations": {
+          "title": "Des échanges multigénérationnels",
+          "body": "Mêlez les générations : un grand-oncle conteur et de jeunes cousins font souvent la plus joyeuse des tablées."
+        },
+        "comfort": {
+          "title": "Le confort avant tout",
+          "body": "Pensez aux personnes âgées ou à mobilité réduite : loin des enceintes, près des sorties et des sanitaires."
+        },
+        "flexibility": {
+          "title": "Garder de la flexibilité",
+          "body": "Gardez une ou deux places libres pour les imprévus de dernière minute : un invité de plus, un couple qui change."
+        }
+      }
     }
   },
   "Itinerary": {

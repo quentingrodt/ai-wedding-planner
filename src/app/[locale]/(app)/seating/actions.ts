@@ -22,8 +22,12 @@ import { createClient } from "@/utils/supabase/client";
 const revalidateSeating = () => revalidatePath("/[locale]/(app)/seating", "page");
 
 /** Crée une table dans le mariage courant (owner ou partner). */
-export async function createTable(name: string, capacity: number): Promise<CreateTableResult> {
-  const parsed = createTableSchema.safeParse({ name, capacity });
+export async function createTable(
+  name: string,
+  capacity: number,
+  head = false,
+): Promise<CreateTableResult> {
+  const parsed = createTableSchema.safeParse({ name, capacity, head });
   if (!parsed.success) {
     const fieldErrors: Partial<Record<TableField, TableFieldError>> = {};
     for (const issue of parsed.error.issues) {
@@ -51,6 +55,7 @@ export async function createTable(name: string, capacity: number): Promise<Creat
     wedding_id: wedding.id,
     name: parsed.data.name,
     capacity: parsed.data.capacity,
+    is_head: parsed.data.head,
   });
 
   if (error) {
