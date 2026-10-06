@@ -1875,6 +1875,114 @@
       "close": "Exit full screen",
       "previous": "Previous page",
       "next": "Next page"
+    },
+    "wizard": {
+      "stepOf": "Step {step} of {total}",
+      "close": "Close the questionnaire",
+      "back": "Back",
+      "next": "Continue",
+      "compose": "Compose my invitation",
+      "replacing": "Answer a few questions: we will compose a new invitation, which will replace the current one.",
+      "restartHint": "Fancy starting afresh? A few questions are enough to compose a new proposal.",
+      "restart": "Recompose with the questionnaire",
+      "steps": {
+        "you": {
+          "title": "Let’s start with you",
+          "hint": "Your names and the date, as they will appear on the invitation."
+        },
+        "format": {
+          "title": "Which format do you have in mind?",
+          "hint": "You can change your mind at any time."
+        },
+        "style": {
+          "title": "Which mood feels like you?",
+          "hint": "The venue and the tone guide the template, colours and typography."
+        },
+        "program": {
+          "title": "How will the day unfold?",
+          "hint": "Pick up to four moments. Times are optional."
+        },
+        "places": {
+          "title": "Where will guests find you?",
+          "hint": "The venue name is enough; the address helps guests get there."
+        },
+        "finish": {
+          "title": "The final touches",
+          "hint": "A few details so guests know how to reply."
+        }
+      },
+      "fields": {
+        "names": "Your names",
+        "date": "The date",
+        "venue": "Venue name",
+        "address": "Address",
+        "contact": "A contact for your guests (optional)"
+      },
+      "placeholders": {
+        "date": "Saturday 24 June 2027"
+      },
+      "ambianceLabel": "Venue mood",
+      "toneLabel": "The tone",
+      "tones": {
+        "classic": "Classic",
+        "romantic": "Romantic",
+        "modern": "Modern"
+      },
+      "timesLabel": "At what time?",
+      "momentTitles": {
+        "cityhall": "Civil ceremony",
+        "church": "Church ceremony",
+        "arch": "Outdoor ceremony",
+        "glass": "Cocktail hour",
+        "dinner": "Dinner",
+        "cake": "Dessert",
+        "music": "Party",
+        "brunch": "Day-after brunch"
+      },
+      "places": {
+        "cityhall": {
+          "title": "The town hall",
+          "venue": "Bath Guildhall",
+          "address": "High Street, Bath BA1 5AW"
+        },
+        "ceremony": {
+          "title": "The ceremony",
+          "venue": "St Mary’s Church",
+          "address": "Church Street, Bath"
+        },
+        "reception": {
+          "title": "The reception",
+          "venue": "The Old Orchard",
+          "address": "Orchard Lane, Bath"
+        },
+        "brunch": {
+          "title": "The day after",
+          "venue": "The Old Orchard",
+          "address": "Orchard Lane, Bath"
+        }
+      },
+      "sameAsReception": "Same place as the reception? Leave it empty.",
+      "noPlaces": "No moment chosen: you can add the venues later.",
+      "familiesQuestion": "Would you like the parents’ announcement?",
+      "familiesNo": {
+        "title": "No, thank you",
+        "description": "You invite in your own names, as most couples do today."
+      },
+      "familiesYes": {
+        "title": "Yes, the traditional way",
+        "description": "Your parents announce the wedding, above your invitation."
+      },
+      "composingTitle": "Céleste is composing your invitation",
+      "composing": [
+        "Choosing paper and colours…",
+        "Pairing the typefaces…",
+        "Laying out the programme…",
+        "Final touches…"
+      ],
+      "proposalTitle": "Here is your invitation",
+      "proposalHint": "It is saved. Fine-tune every detail, or discover another proposal.",
+      "another": "See another proposal",
+      "adjust": "Fine-tune the details"
     }
   },
   "Rsvp": {

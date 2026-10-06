@@ -4,6 +4,7 @@ import { CheckIcon, DownloadIcon, FileTextIcon, Maximize2Icon, RefreshCwIcon } f
 import { useLocale, useMessages, useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { InvitationCard, NAME_FONT } from "@/lib/invitations/card";
@@ -33,6 +34,7 @@ import {
   type InvitationView,
 } from "@/components/invitations/responsive-invitation";
 import { FullscreenPreview } from "./fullscreen-preview";
+import { InvitationWizard, type WizardDefaults } from "./invitation-wizard";
 import { MomentsEditor } from "./moments-editor";
 
 type InvitationEditorProps = {
@@ -45,6 +47,8 @@ type InvitationEditorProps = {
   saved: boolean;
   /** Ambiance du carnet d'inspiration : ses modèles passent en tête. */
   recommendedAmbiance: TemplateAmbiance | null;
+  /** Ce qu'on sait déjà du mariage, pour pré-remplir le questionnaire. */
+  wizardDefaults: WizardDefaults;
 };
 
 type TextField = Exclude<keyof InvitationContent, "moments">;
@@ -78,6 +82,7 @@ export function InvitationEditor({
   watermarked,
   saved,
   recommendedAmbiance,
+  wizardDefaults,
 }: InvitationEditorProps) {
   const t = useTranslations("Invitations");
   const locale = useLocale();
@@ -95,6 +100,25 @@ export function InvitationEditor({
   const [view, setView] = useState<InvitationView>(defaultView(initialDesign));
   // L'annonce des familles est facultative : ouverte si elle a déjà un texte.
   const [familiesOpen, setFamiliesOpen] = useState(initialDesign.content.families !== "");
+  // Première création : le questionnaire s'ouvre de lui-même.
+  const [wizardOpen, setWizardOpen] = useState(!saved && canEdit);
+  const [wizardKey, setWizardKey] = useState(0);
+  const openWizard = () => {
+    setWizardKey((key) => key + 1);
+    setWizardOpen(true);
+  };
+  /** La proposition du questionnaire devient le faire-part en cours d'édition. */
+  const applyComposition = (composed: InvitationDesign, wasSaved: boolean) => {
+    setDesign(composed);
+    if (wasSaved) {
+      setSavedDesign(composed);
+      setHasSaved(true);
+    } else {
+      toast.error(t("errors.generic"));
+    }
+    setView(defaultView(composed));
+    setFamiliesOpen(composed.content.families !== "");
+  };
 
   const set = <K extends keyof InvitationDesign>(key: K, value: InvitationDesign[K]) =>
     setDesign((current) => ({ ...current, [key]: value }));
@@ -227,7 +251,29 @@ export function InvitationEditor({
 
   return (
     <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:items-start">
+      <InvitationWizard
+        key={wizardKey}
+        open={wizardOpen}
+        onOpenChange={setWizardOpen}
+        defaults={wizardDefaults}
+        replacing={hasSaved}
+        watermark={watermark}
+        onComposed={applyComposition}
+      />
+
       <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-3 rounded-3xl bg-linen/70 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-pretty text-stone">{t("wizard.restartHint")}</p>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={openWizard}
+            className="h-10 shrink-0 rounded-full bg-card px-4"
+          >
+            {t("wizard.restart")}
+          </Button>
+        </div>
+
         <Section title={t("sections.format")}>
           <div className="grid gap-3 sm:grid-cols-2">
             {(["booklet", "card"] as const).map((format) => (

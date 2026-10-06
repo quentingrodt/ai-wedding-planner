@@ -10,10 +10,12 @@ import {
   getCurrentUserId,
   getCurrentWedding,
   getInvitation,
+  getPlanningSetup,
   getWeddingStyleDna,
 } from "@/lib/weddings/queries";
 import { createClient } from "@/utils/supabase/client";
 import { InvitationEditor } from "./_components/invitation-editor";
+import type { WizardDefaults } from "./_components/invitation-wizard";
 
 /** Délai de réponse proposé par défaut : environ six semaines avant le mariage. */
 const RSVP_DAYS_BEFORE = 45;
@@ -41,15 +43,16 @@ export default async function InvitationsPage({ params }: PageProps<"/[locale]/i
     return redirect({ href: "/onboarding", locale });
   }
 
-  const [role, invitation, styleDna, t, format] = await Promise.all([
+  const [role, invitation, styleDna, planning, t, format] = await Promise.all([
     getCurrentMemberRole(supabase, wedding.id, userId),
     getInvitation(supabase, wedding.id),
     getWeddingStyleDna(supabase, wedding.id),
+    getPlanningSetup(supabase, wedding.id),
     getTranslations("Invitations"),
     getFormatter(),
   ]);
 
-  // Premier design : pré-composé d'après le carnet et les informations du mariage.
+  // Ce qu'on sait déjà du mariage : il pré-remplit le questionnaire et le premier design.
   const date = wedding.wedding_date;
   const longDate = date
     ? format.dateTime(isoDateToUtc(date), {
@@ -60,35 +63,46 @@ export default async function InvitationsPage({ params }: PageProps<"/[locale]/i
         timeZone: "UTC",
       })
     : "";
+  const ambiance = styleDna.likes.venue?.[0] ?? styleDna.ambiance ?? null;
+  const wizardDefaults: WizardDefaults = {
+    names: wedding.title,
+    dateText: longDate.charAt(0).toLocaleUpperCase(locale) + longDate.slice(1),
+    // Repère de couverture : « 24 · 06 · 2027 ».
+    coverDate: date
+      ? format
+          .dateTime(isoDateToUtc(date), {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            timeZone: "UTC",
+          })
+          .replace(/[/.-]/g, " · ")
+      : "",
+    rsvpNote: date
+      ? t("defaults.rsvpNote", {
+          date: format.dateTime(isoDateToUtc(addDaysToIsoDate(date, -RSVP_DAYS_BEFORE)), {
+            day: "numeric",
+            month: "long",
+            timeZone: "UTC",
+          }),
+        })
+      : t("defaults.rsvpNoteNoDate"),
+    ambiance,
+    religious: planning.answers?.religiousCeremony ?? false,
+    secular: planning.answers?.secularCeremony ?? false,
+  };
+
   const design =
     invitation?.design ??
     suggestInvitationDesign({
       likes: styleDna.likes,
       ambiance: styleDna.ambiance,
-      names: wedding.title,
-      // Repère de couverture : « 24 · 06 · 2027 » (le lieu s'ajoute à la main).
-      coverHint: date
-        ? format
-            .dateTime(isoDateToUtc(date), {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-              timeZone: "UTC",
-            })
-            .replace(/[/.-]/g, " · ")
-        : "",
+      names: wizardDefaults.names,
+      coverHint: wizardDefaults.coverDate,
       closingNote: t("defaults.closingNote"),
-      dateText: longDate.charAt(0).toLocaleUpperCase(locale) + longDate.slice(1),
+      dateText: wizardDefaults.dateText,
       intro: t("defaults.intro"),
-      rsvpNote: date
-        ? t("defaults.rsvpNote", {
-            date: format.dateTime(isoDateToUtc(addDaysToIsoDate(date, -RSVP_DAYS_BEFORE)), {
-              day: "numeric",
-              month: "long",
-              timeZone: "UTC",
-            }),
-          })
-        : t("defaults.rsvpNoteNoDate"),
+      rsvpNote: wizardDefaults.rsvpNote,
     });
 
   return (
@@ -109,7 +123,8 @@ export default async function InvitationsPage({ params }: PageProps<"/[locale]/i
           canEdit={role === "owner" || role === "partner"}
           watermarked={!invitation?.unlockedAt}
           saved={invitation !== null}
-          recommendedAmbiance={styleDna.likes.venue?.[0] ?? styleDna.ambiance ?? null}
+          recommendedAmbiance={ambiance}
+          wizardDefaults={wizardDefaults}
         />
       </div>
       <Toaster position="bottom-center" />

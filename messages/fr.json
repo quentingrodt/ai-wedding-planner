@@ -1875,6 +1875,114 @@
       "close": "Fermer le plein écran",
       "previous": "Page précédente",
       "next": "Page suivante"
+    },
+    "wizard": {
+      "stepOf": "Étape {step} sur {total}",
+      "close": "Fermer le questionnaire",
+      "back": "Retour",
+      "next": "Continuer",
+      "compose": "Composer mon faire-part",
+      "replacing": "Répondez à quelques questions : nous composons un nouveau faire-part, qui remplacera l’actuel.",
+      "restartHint": "Envie de repartir de zéro ? Quelques questions suffisent pour composer une nouvelle proposition.",
+      "restart": "Recomposer avec le questionnaire",
+      "steps": {
+        "you": {
+          "title": "Commençons par vous",
+          "hint": "Vos prénoms et la date, tels qu’ils apparaîtront sur le faire-part."
+        },
+        "format": {
+          "title": "Quel format imaginez-vous ?",
+          "hint": "Vous pourrez changer d’avis à tout moment."
+        },
+        "style": {
+          "title": "Quelle ambiance vous ressemble ?",
+          "hint": "Le lieu et le ton guident le modèle, les couleurs et la typographie."
+        },
+        "program": {
+          "title": "Comment se déroulera la journée ?",
+          "hint": "Choisissez jusqu’à quatre moments. Les heures sont facultatives."
+        },
+        "places": {
+          "title": "Où vous retrouvera-t-on ?",
+          "hint": "Le nom du lieu suffit ; l’adresse aide vos invités à s’y rendre."
+        },
+        "finish": {
+          "title": "Les derniers détails",
+          "hint": "Quelques touches pour que vos invités sachent comment vous répondre."
+        }
+      },
+      "fields": {
+        "names": "Vos prénoms",
+        "date": "La date",
+        "venue": "Nom du lieu",
+        "address": "Adresse",
+        "contact": "Un contact pour vos invités (facultatif)"
+      },
+      "placeholders": {
+        "date": "Samedi 24 juin 2027"
+      },
+      "ambianceLabel": "Ambiance du lieu",
+      "toneLabel": "Le ton",
+      "tones": {
+        "classic": "Classique",
+        "romantic": "Romantique",
+        "modern": "Moderne"
+      },
+      "timesLabel": "À quelle heure ?",
+      "momentTitles": {
+        "cityhall": "Cérémonie civile",
+        "church": "Cérémonie religieuse",
+        "arch": "Cérémonie laïque",
+        "glass": "Vin d’honneur",
+        "dinner": "Dîner",
+        "cake": "Dessert",
+        "music": "Soirée dansante",
+        "brunch": "Brunch du lendemain"
+      },
+      "places": {
+        "cityhall": {
+          "title": "La mairie",
+          "venue": "Mairie de Beaune",
+          "address": "Place de l’Hôtel de Ville, 21200 Beaune"
+        },
+        "ceremony": {
+          "title": "La cérémonie",
+          "venue": "Église Saint-Martin",
+          "address": "Place de l’Église, 21200 Beaune"
+        },
+        "reception": {
+          "title": "La réception",
+          "venue": "Domaine des Tilleuls",
+          "address": "Route des Vignes, 21200 Beaune"
+        },
+        "brunch": {
+          "title": "Le lendemain",
+          "venue": "Domaine des Tilleuls",
+          "address": "Route des Vignes, 21200 Beaune"
+        }
+      },
+      "sameAsReception": "Au même endroit que la réception ? Laissez vide.",
+      "noPlaces": "Aucun moment choisi : vous pourrez ajouter les lieux plus tard.",
+      "familiesQuestion": "Souhaitez-vous l’annonce des familles ?",
+      "familiesNo": {
+        "title": "Non, merci",
+        "description": "Vous invitez en votre nom, comme le font la plupart des couples aujourd’hui."
+      },
+      "familiesYes": {
+        "title": "Oui, à l’ancienne",
+        "description": "Vos parents annoncent le mariage, au-dessus de votre invitation."
+      },
+      "composingTitle": "Céleste compose votre faire-part",
+      "composing": [
+        "Choix du papier et des couleurs…",
+        "Accord des typographies…",
+        "Mise en page du programme…",
+        "Derniers ajustements…"
+      ],
+      "proposalTitle": "Voici votre faire-part",
+      "proposalHint": "Il est enregistré. Ajustez chaque détail, ou découvrez une autre proposition.",
+      "another": "Voir une autre proposition",
+      "adjust": "Ajuster les détails"
     }
   },
   "Rsvp": {
