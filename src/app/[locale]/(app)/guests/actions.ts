@@ -8,6 +8,8 @@ import {
   deleteGuestSchema,
   familyNameSchema,
   renameFamilySchema,
+  SEATED_EVENT,
+  updateGuestEventsSchema,
   updateGuestStatusSchema,
   type AddGuestInput,
   type AddGuestResult,
@@ -17,6 +19,7 @@ import {
   type RenameFamilyResult,
   type GuestField,
   type GuestFieldError,
+  type GuestEvent,
   type GuestStatus,
 } from "@/lib/guests/schema";
 import {
@@ -58,7 +61,8 @@ export async function addGuest(input: AddGuestInput): Promise<AddGuestResult> {
     return { ok: false, error: "forbidden" };
   }
 
-  const { firstName, lastName, status, dietaryRequirements, isChild, familyId } = parsed.data;
+  const { firstName, lastName, status, dietaryRequirements, isChild, familyId, events } =
+    parsed.data;
   // La clé étrangère composite refuse une famille d'un autre mariage.
   const { error } = await supabase.from("guests").insert({
     wedding_id: wedding.id,
@@ -68,6 +72,7 @@ export async function addGuest(input: AddGuestInput): Promise<AddGuestResult> {
     dietary_requirements: dietaryRequirements,
     is_child: isChild,
     family_id: familyId,
+    events,
   });
 
   if (error) {
@@ -107,6 +112,40 @@ export async function updateGuestStatus(
 
   if (error) {
     console.error("[guests] updateGuestStatus:", error.code);
+    return { ok: false, error: "generic" };
+  }
+  if (data.length === 0) return { ok: false, error: "forbidden" };
+
+  revalidateGuests();
+  return { ok: true };
+}
+
+/** Choisit les étapes de la journée auxquelles un invité est convié. */
+export async function updateGuestEvents(
+  guestId: string,
+  events: GuestEvent[],
+): Promise<GuestActionResult> {
+  const parsed = updateGuestEventsSchema.safeParse({ guestId, events });
+  if (!parsed.success) return { ok: false, error: "generic" };
+
+  const supabase = await createClient();
+  if (!(await getCurrentUserId(supabase))) {
+    return { ok: false, error: "unauthenticated" };
+  }
+
+  // Sans le dîner, l'invité n'a plus de place à table (cf. 000022).
+  const { data, error } = await supabase
+    .from("guests")
+    .update(
+      parsed.data.events.includes(SEATED_EVENT)
+        ? { events: parsed.data.events }
+        : { events: parsed.data.events, seating_table_id: null },
+    )
+    .eq("id", parsed.data.guestId)
+    .select("id");
+
+  if (error) {
+    console.error("[guests] updateGuestEvents:", error.code);
     return { ok: false, error: "generic" };
   }
   if (data.length === 0) return { ok: false, error: "forbidden" };

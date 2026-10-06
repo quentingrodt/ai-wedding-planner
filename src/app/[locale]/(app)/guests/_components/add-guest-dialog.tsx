@@ -25,14 +25,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
+  DEFAULT_GUEST_EVENTS,
   GUEST_LIMITS,
   type GuestFamily,
   type AddGuestInput,
   type GuestField,
+  type GuestEvent,
   type GuestFieldError,
   type GuestStatus,
 } from "@/lib/guests/schema";
 import { addGuest } from "../actions";
+import { GuestEventsPicker } from "./guest-events";
 import { GuestStatusSelect } from "./guest-status";
 
 type FieldErrors = Partial<Record<GuestField, GuestFieldError>>;
@@ -56,6 +59,7 @@ export function AddGuestDialog({ families, defaultFamilyId = null, trigger }: Ad
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<GuestStatus>("invited");
   const [familyId, setFamilyId] = useState<string | null>(defaultFamilyId);
+  const [events, setEvents] = useState<GuestEvent[]>([...DEFAULT_GUEST_EVENTS]);
 
   // Le contenu de la modale est démonté à la fermeture : la saisie repart à zéro.
   function changeOpen(next: boolean) {
@@ -64,6 +68,7 @@ export function AddGuestDialog({ families, defaultFamilyId = null, trigger }: Ad
       setFieldErrors({});
       setStatus("invited");
       setFamilyId(defaultFamilyId);
+      setEvents([...DEFAULT_GUEST_EVENTS]);
     }
   }
 
@@ -77,6 +82,7 @@ export function AddGuestDialog({ families, defaultFamilyId = null, trigger }: Ad
       dietaryRequirements: String(data.get("dietaryRequirements") ?? ""),
       isChild: data.get("isChild") === "on",
       familyId,
+      events,
     };
 
     startTransition(async () => {
@@ -164,6 +170,14 @@ export function AddGuestDialog({ families, defaultFamilyId = null, trigger }: Ad
               onChange={setStatus}
               className="h-11 w-full data-[size=sm]:h-11"
             />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <span aria-hidden className="text-sm leading-none font-medium">
+              {t("events.label")}
+            </span>
+            <GuestEventsPicker value={events} onChange={setEvents} label={t("events.label")} />
+            <p className="text-sm text-muted-foreground">{t("events.hint")}</p>
           </div>
 
           {families.length > 0 && (

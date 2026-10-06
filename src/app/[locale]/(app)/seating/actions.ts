@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { SEATED_EVENT } from "@/lib/guests/schema";
 import {
   assignGuestSchema,
   createTableSchema,
@@ -107,6 +108,7 @@ export async function assignGuestToTable(
     .update({ seating_table_id: parsed.data.tableId })
     .eq("id", parsed.data.guestId)
     .eq("status", "confirmed")
+    .contains("events", [SEATED_EVENT])
     .select("id");
 
   if (error) {

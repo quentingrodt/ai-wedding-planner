@@ -381,27 +381,25 @@
       "pending": "En attente",
       "children": "Enfants"
     },
+    "headcounts": {
+      "title": "Par étape",
+      "confirmed": "{count, plural, =0 {aucun confirmé} one {dont # confirmé} other {dont # confirmés}}"
+    },
+    "remindPanel": {
+      "title": "{count, plural, one {# réponse à obtenir} other {# réponses à obtenir}}",
+      "description": "Touchez un nom pour préparer son message de relance.",
+      "remind": "Relancer {name}",
+      "showAll": "Voir les {count}"
+    },
     "filters": {
       "all": "Tous",
       "confirmed": "Confirmés",
       "pending": "En attente",
       "declined": "Déclinés"
     },
-    "views": {
-      "label": "Affichage",
-      "list": "Liste",
-      "families": "Familles"
-    },
     "search": {
       "label": "Rechercher un invité",
       "placeholder": "Rechercher…"
-    },
-    "table": {
-      "name": "Nom",
-      "status": "Réponse",
-      "dietary": "Préférences alimentaires",
-      "actions": "Actions",
-      "noDietary": "—"
     },
     "status": {
       "invited": "Sans réponse",
@@ -411,6 +409,38 @@
     },
     "statusLabel": "Réponse de {name}",
     "childBadge": "Enfant",
+    "events": {
+      "label": "Étapes de la journée",
+      "hint": "Par défaut, toute la journée sauf le lendemain.",
+      "ceremony": "Cérémonie",
+      "cocktail": "Vin d’honneur",
+      "dinner": "Dîner",
+      "dessert": "Dessert & soirée",
+      "brunch": "Lendemain",
+      "fullDay": "Toute la journée",
+      "fullDayAndBrunch": "Journée + lendemain",
+      "edit": "Étapes de {name}",
+      "title": "Étapes de {name}",
+      "description": "Choisissez les moments auxquels cette personne est conviée.",
+      "noDinner": "Sans le dîner, cette personne n’aura pas de place au plan de table.",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "close": "Fermer"
+    },
+    "list": {
+      "others": "Autres invités",
+      "emptyHousehold": "Aucun membre pour l’instant",
+      "manage": "Gérer {name}",
+      "collapseAll": "Tout replier",
+      "expandAll": "Tout déplier"
+    },
+    "row": {
+      "menu": "Actions pour {name}",
+      "events": "Étapes de la journée…",
+      "remind": "Relancer…",
+      "detach": "Retirer de la famille",
+      "delete": "Retirer de la liste…"
+    },
     "empty": "Votre liste est encore vide. Ajoutez vos premiers invités pour commencer.",
     "emptyFilter": "Aucun invité ne correspond à votre recherche.",
     "add": {
@@ -451,9 +481,6 @@
       "generic": "La modification n’a pas pu être enregistrée. Merci de réessayer."
     },
     "families": {
-      "empty": "Regroupez vos invités par famille pour suivre chaque foyer d’un coup d’œil.",
-      "emptyReadOnly": "Aucune famille n’a encore été créée.",
-      "unassigned": "{count, plural, one {# invité sans famille} other {# invités sans famille}}",
       "composition": {
         "adults": "{count, plural, =0 {Aucun adulte} one {# adulte} other {# adultes}}",
         "children": "{count, plural, one {# enfant} other {# enfants}}"
@@ -480,7 +507,6 @@
         "renameLabel": "Nom de la famille",
         "renameSave": "Enregistrer le nom",
         "empty": "Cette famille n’a pas encore de membres.",
-        "detach": "Retirer {name} de la famille",
         "attach": "Rattacher un invité existant…",
         "attachLabel": "Rattacher un invité existant",
         "addMember": "Nouveau membre"

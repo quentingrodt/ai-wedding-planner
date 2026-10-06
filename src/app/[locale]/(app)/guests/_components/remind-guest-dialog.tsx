@@ -1,6 +1,6 @@
 "use client";
 
-import { CopyIcon, MessageCircleIcon } from "lucide-react";
+import { CopyIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
@@ -13,7 +13,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { getPathname } from "@/i18n/navigation";
 
@@ -26,12 +25,15 @@ type RemindGuestDialogProps = {
   weddingDateLabel: string | null;
   /** Jeton du lien personnel de réponse de l'invité. */
   rsvpToken: string;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 };
 
 /**
  * Relance RSVP : un message pré-rédigé, modifiable, avec le lien personnel
  * de réponse de l'invité, à copier puis envoyer depuis sa messagerie. Rien n'est écrit en base : accessible à tous les
  * membres, y compris les témoins, pour décharger les mariés.
+ * Le message est rédigé au montage : le parent remonte la modale à chaque ouverture.
  */
 export function RemindGuestDialog({
   guestName,
@@ -39,6 +41,8 @@ export function RemindGuestDialog({
   coupleNames,
   weddingDateLabel,
   rsvpToken,
+  open,
+  onOpenChange,
 }: RemindGuestDialogProps) {
   const t = useTranslations("Guests.remind");
   const locale = useLocale();
@@ -70,17 +74,7 @@ export function RemindGuestDialog({
   }
 
   return (
-    <Dialog onOpenChange={(open) => open && setMessage(draft())}>
-      <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          aria-label={t("button", { name: guestName })}
-          className="text-stone hover:bg-sage-soft/60 hover:text-sage-deep"
-        >
-          <MessageCircleIcon aria-hidden strokeWidth={1.5} />
-        </Button>
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent closeLabel={t("close")} className="gap-6 rounded-3xl p-6 sm:max-w-lg">
         <DialogHeader>
           <DialogTitle className="font-serif text-2xl">{t("title", { name: guestName })}</DialogTitle>

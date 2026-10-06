@@ -1,6 +1,6 @@
 import type { BudgetItem } from "@/lib/budget/schema";
 import type { CalendarEvent } from "@/lib/calendar/schema";
-import type { Guest, GuestFamily } from "@/lib/guests/schema";
+import { SEATED_EVENT, type Guest, type GuestFamily } from "@/lib/guests/schema";
 import { readStyleDna, type StyleDna } from "@/lib/inspiration/style-dna";
 import { invitationDesignSchema, type InvitationDesign } from "@/lib/invitations/schema";
 import {
@@ -278,7 +278,9 @@ export async function getGuests(
 ): Promise<Guest[]> {
   const { data, error } = await supabase
     .from("guests")
-    .select("id, first_name, last_name, status, dietary_requirements, is_child, family_id, rsvp_token")
+    .select(
+      "id, first_name, last_name, status, dietary_requirements, is_child, family_id, events, rsvp_token",
+    )
     .eq("wedding_id", weddingId)
     .order("created_at", { ascending: false })
     .returns<Guest[]>();
@@ -347,7 +349,10 @@ export async function getSeatingTables(
   return data;
 }
 
-/** Invités confirmés, seuls concernés par le plan de table, par ordre alphabétique. */
+/**
+ * Invités confirmés et conviés au dîner, seuls concernés par le plan de table,
+ * par ordre alphabétique.
+ */
 export async function getConfirmedGuests(
   supabase: ServerClient,
   weddingId: string,
@@ -357,6 +362,7 @@ export async function getConfirmedGuests(
     .select("id, first_name, last_name, is_child, dietary_requirements, seating_table_id")
     .eq("wedding_id", weddingId)
     .eq("status", "confirmed")
+    .contains("events", [SEATED_EVENT])
     .order("first_name", { ascending: true })
     .returns<SeatedGuest[]>();
 

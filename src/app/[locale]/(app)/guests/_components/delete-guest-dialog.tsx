@@ -1,6 +1,5 @@
 "use client";
 
-import { Trash2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import {
   AlertDialog,
@@ -11,30 +10,25 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
 
-type DeleteGuestButtonProps = {
+type DeleteGuestDialogProps = {
   guestName: string;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
 };
 
 /** Retrait d'un invité, après confirmation. */
-export function DeleteGuestButton({ guestName, onConfirm }: DeleteGuestButtonProps) {
+export function DeleteGuestDialog({
+  guestName,
+  open,
+  onOpenChange,
+  onConfirm,
+}: DeleteGuestDialogProps) {
   const t = useTranslations("Guests.delete");
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          aria-label={t("trigger", { name: guestName })}
-          className="text-stone hover:text-terracotta"
-        >
-          <Trash2Icon aria-hidden />
-        </Button>
-      </AlertDialogTrigger>
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle className="font-serif text-xl">

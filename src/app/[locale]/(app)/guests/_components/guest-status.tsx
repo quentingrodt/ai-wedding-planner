@@ -32,14 +32,26 @@ function StatusDot({ status }: { status: GuestStatus }) {
   );
 }
 
+/**
+ * pill : pastille colorée (formulaires, fiche famille).
+ * quiet : simple point de couleur et libellé, pour alléger les listes.
+ */
+type StatusVariant = "pill" | "quiet";
+
 /** Pastille de statut en lecture seule (témoins). */
-export function GuestStatusBadge({ status }: { status: GuestStatus }) {
+export function GuestStatusBadge({
+  status,
+  variant = "pill",
+}: {
+  status: GuestStatus;
+  variant?: StatusVariant;
+}) {
   const t = useTranslations("Guests.status");
   return (
     <span
       className={cn(
-        "inline-flex h-7 items-center gap-2 rounded-full px-3 text-sm text-charcoal",
-        STATUS_SURFACE[status],
+        "inline-flex h-7 items-center gap-2 rounded-full text-sm",
+        variant === "pill" ? ["px-3 text-charcoal", STATUS_SURFACE[status]] : "text-stone",
       )}
     >
       <StatusDot status={status} />
@@ -54,6 +66,7 @@ type GuestStatusSelectProps = {
   /** Nom complet de l'invité, pour le libellé accessible. */
   guestName?: string;
   id?: string;
+  variant?: StatusVariant;
   className?: string;
 };
 
@@ -63,6 +76,7 @@ export function GuestStatusSelect({
   onChange,
   guestName,
   id,
+  variant = "pill",
   className,
 }: GuestStatusSelectProps) {
   const t = useTranslations("Guests");
@@ -78,8 +92,10 @@ export function GuestStatusSelect({
         size="sm"
         aria-label={guestName ? t("statusLabel", { name: guestName }) : undefined}
         className={cn(
-          "rounded-full border-transparent px-3 text-charcoal",
-          STATUS_SURFACE[status],
+          "rounded-full border-transparent px-3",
+          variant === "pill"
+            ? ["text-charcoal", STATUS_SURFACE[status]]
+            : "bg-transparent text-stone shadow-none hover:bg-linen/70 dark:bg-transparent",
           className,
         )}
       >

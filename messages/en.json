@@ -381,27 +381,25 @@
       "pending": "Awaiting reply",
       "children": "Children"
     },
+    "headcounts": {
+      "title": "By part of the day",
+      "confirmed": "{count, plural, =0 {none confirmed} other {# confirmed}}"
+    },
+    "remindPanel": {
+      "title": "{count, plural, one {# reply to chase} other {# replies to chase}}",
+      "description": "Tap a name to prepare a reminder message.",
+      "remind": "Remind {name}",
+      "showAll": "See all {count}"
+    },
     "filters": {
       "all": "All",
       "confirmed": "Confirmed",
       "pending": "Awaiting reply",
       "declined": "Declined"
     },
-    "views": {
-      "label": "View",
-      "list": "List",
-      "families": "Families"
-    },
     "search": {
       "label": "Search guests",
       "placeholder": "Search…"
-    },
-    "table": {
-      "name": "Name",
-      "status": "Reply",
-      "dietary": "Dietary preferences",
-      "actions": "Actions",
-      "noDietary": "—"
     },
     "status": {
       "invited": "No reply yet",
@@ -411,6 +409,38 @@
     },
     "statusLabel": "Reply from {name}",
     "childBadge": "Child",
+    "events": {
+      "label": "Parts of the day",
+      "hint": "By default, the whole day except the day after.",
+      "ceremony": "Ceremony",
+      "cocktail": "Cocktail hour",
+      "dinner": "Dinner",
+      "dessert": "Dessert & party",
+      "brunch": "Day after",
+      "fullDay": "Whole day",
+      "fullDayAndBrunch": "Whole day + day after",
+      "edit": "Parts of the day for {name}",
+      "title": "{name}’s invitation",
+      "description": "Choose the moments this person is invited to.",
+      "noDinner": "Without dinner, this person won’t have a seat on the seating plan.",
+      "cancel": "Cancel",
+      "save": "Save",
+      "close": "Close"
+    },
+    "list": {
+      "others": "Other guests",
+      "emptyHousehold": "No members yet",
+      "manage": "Manage {name}",
+      "collapseAll": "Collapse all",
+      "expandAll": "Expand all"
+    },
+    "row": {
+      "menu": "Actions for {name}",
+      "events": "Parts of the day…",
+      "remind": "Send a reminder…",
+      "detach": "Remove from family",
+      "delete": "Remove from list…"
+    },
     "empty": "Your list is still empty. Add your first guests to get started.",
     "emptyFilter": "No guests match your search.",
     "add": {
@@ -451,9 +481,6 @@
       "generic": "Your change couldn’t be saved. Please try again."
     },
     "families": {
-      "empty": "Group your guests by family to follow each household at a glance.",
-      "emptyReadOnly": "No families have been created yet.",
-      "unassigned": "{count, plural, one {# guest without a family} other {# guests without a family}}",
       "composition": {
         "adults": "{count, plural, =0 {No adults} one {# adult} other {# adults}}",
         "children": "{count, plural, one {# child} other {# children}}"
@@ -480,7 +507,6 @@
         "renameLabel": "Family name",
         "renameSave": "Save name",
         "empty": "This family has no members yet.",
-        "detach": "Remove {name} from the family",
         "attach": "Add an existing guest…",
         "attachLabel": "Add an existing guest",
         "addMember": "New member"

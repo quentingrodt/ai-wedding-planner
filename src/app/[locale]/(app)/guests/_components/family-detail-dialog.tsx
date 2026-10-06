@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckIcon, PencilIcon, Trash2Icon, UserMinusIcon, UserPlusIcon } from "lucide-react";
+import { CheckIcon, PencilIcon, Trash2Icon, UserPlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState, type FormEvent } from "react";
 import {
@@ -37,11 +37,12 @@ import {
   type FamilyNameError,
   type Guest,
   type GuestFamily,
+  type GuestEvent,
   type GuestStatus,
 } from "@/lib/guests/schema";
 import { AddGuestDialog } from "./add-guest-dialog";
 import { FamilyComposition } from "./family-composition";
-import { GuestStatusBadge, GuestStatusSelect } from "./guest-status";
+import { GuestRow, type RemindContext } from "./guest-row";
 
 type FamilyDetailDialogProps = {
   family: GuestFamily | null;
@@ -51,8 +52,10 @@ type FamilyDetailDialogProps = {
   families: GuestFamily[];
   canEdit: boolean;
   fullName: (guest: Guest) => string;
+  remind: RemindContext;
   onClose: () => void;
   onStatusChange: (guest: Guest, status: GuestStatus) => void;
+  onEventsChange: (guest: Guest, events: GuestEvent[]) => void;
   onAssign: (guest: Guest, familyId: string | null) => void;
   onRename: (family: GuestFamily, name: string) => void;
   onDelete: (family: GuestFamily) => void;
@@ -66,8 +69,10 @@ export function FamilyDetailDialog({
   families,
   canEdit,
   fullName,
+  remind,
   onClose,
   onStatusChange,
+  onEventsChange,
   onAssign,
   onRename,
   onDelete,
@@ -181,49 +186,18 @@ export function FamilyDetailDialog({
                 {t("families.detail.empty")}
               </p>
             ) : (
-              <ul className="flex flex-col divide-y divide-border">
+              <ul className="-mt-3 flex flex-col divide-y divide-border">
                 {members.map((guest) => (
-                  <li key={guest.id} className="flex flex-col gap-2 py-3 first:pt-0">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex min-w-0 flex-col gap-0.5">
-                        <span className="flex flex-wrap items-center gap-2">
-                          <span className="text-base wrap-break-word">{fullName(guest)}</span>
-                          {guest.is_child && (
-                            <span className="rounded-full bg-sand/50 px-2.5 py-0.5 text-xs text-charcoal">
-                              {t("childBadge")}
-                            </span>
-                          )}
-                        </span>
-                        {guest.dietary_requirements && (
-                          <span className="text-sm wrap-break-word text-stone">
-                            {guest.dietary_requirements}
-                          </span>
-                        )}
-                      </div>
-                      {canEdit && (
-                        <Button
-                          variant="ghost"
-                          size="icon-sm"
-                          aria-label={t("families.detail.detach", { name: fullName(guest) })}
-                          onClick={() => onAssign(guest, null)}
-                          className="shrink-0 text-stone hover:text-terracotta"
-                        >
-                          <UserMinusIcon aria-hidden />
-                        </Button>
-                      )}
-                    </div>
-                    <div>
-                      {canEdit ? (
-                        <GuestStatusSelect
-                          status={guest.status}
-                          guestName={fullName(guest)}
-                          onChange={(status) => onStatusChange(guest, status)}
-                        />
-                      ) : (
-                        <GuestStatusBadge status={guest.status} />
-                      )}
-                    </div>
-                  </li>
+                  <GuestRow
+                    key={guest.id}
+                    guest={guest}
+                    fullName={fullName}
+                    canEdit={canEdit}
+                    remind={remind}
+                    onStatusChange={onStatusChange}
+                    onEventsChange={onEventsChange}
+                    onDetach={(member) => onAssign(member, null)}
+                  />
                 ))}
               </ul>
             )}
