@@ -1696,39 +1696,44 @@
       "template": "Template",
       "palette": "Colours",
       "fonts": "Typography",
-      "texts": "Wording"
+      "you": "You",
+      "when": "The date",
+      "program": "The programme",
+      "reply": "Replies"
     },
     "templates": {
       "classic": "Classic engraving",
       "garden": "Olive garden",
       "seaside": "Seaside",
-      "loft": "Glasshouse"
+      "loft": "Glasshouse",
+      "chronology": "Timeline",
+      "eucalyptus": "Eucalyptus",
+      "monogram": "Autumn monogram"
     },
     "palettes": {
       "terracotta": "Terracotta",
       "sage": "Sage",
       "sand": "Sand",
       "mist": "Mist",
-      "ink": "Ink"
+      "ink": "Ink",
+      "autumn": "Autumn"
     },
     "fonts": {
       "editorial": "Editorial",
       "romantic": "Romantic",
-      "script": "Calligraphy"
+      "script": "Calligraphy",
+      "engraved": "Engraved",
+      "modern": "Modern"
     },
     "fields": {
       "names": "Your names",
       "intro": "Invitation line",
       "dateText": "Date",
-      "time": "Time",
-      "venue": "Venue",
-      "address": "Address",
-      "rsvpNote": "RSVP note"
+      "rsvpNote": "RSVP note",
+      "contact": "Contact"
     },
     "placeholders": {
-      "time": "at four o’clock",
-      "venue": "The Linden Estate",
-      "address": "Vineyard Road, Beaune, France"
+      "contact": "Camille: +44 7700 900123 · Thomas: +44 7700 900456"
     },
     "otherIntro": "Another wording",
     "defaults": {
@@ -1773,7 +1778,69 @@
       "proofMark": "Proof",
       "fileName": "invitation-print",
       "documentTitle": "{names} wedding invitation"
-    }
+    },
+    "ambiances": {
+      "label": "Mood",
+      "all": "All",
+      "chateau": "Château",
+      "countryside": "Countryside",
+      "beach": "Seaside",
+      "urban": "Urban"
+    },
+    "recommended": "For you",
+    "program": {
+      "empty": "Add the moments of your day: civil ceremony, ceremony, cocktail hour, dinner…",
+      "add": "Add a moment",
+      "remove": "Remove this moment",
+      "moveUp": "Move this moment up",
+      "max": "{count} moments at most: beyond that, the invitation gets hard to read.",
+      "icon": "Pictogram",
+      "icons": {
+        "cityhall": "Town hall",
+        "church": "Church",
+        "arch": "Outdoor ceremony",
+        "glass": "Cocktail hour",
+        "dinner": "Dinner",
+        "cake": "Dessert",
+        "music": "Party",
+        "brunch": "Day after"
+      },
+      "fields": {
+        "time": "Time",
+        "title": "Moment",
+        "venue": "Venue",
+        "address": "Address"
+      },
+      "placeholders": {
+        "time": "4.30pm",
+        "title": "Outdoor ceremony",
+        "venue": "The Old Orchard",
+        "address": "Orchard Lane, Bath"
+      }
+    },
+    "sampleMoments": [
+      {
+        "time": "3pm",
+        "title": "Church ceremony",
+        "venue": "St Mary’s Church",
+        "address": "Church Street, Bath",
+        "icon": "church"
+      },
+      {
+        "time": "5.30pm",
+        "title": "Cocktail hour",
+        "venue": "The Old Orchard",
+        "address": "Orchard Lane, Bath",
+        "icon": "glass"
+      },
+      {
+        "time": "7.30pm",
+        "title": "Dinner and party",
+        "venue": "The Old Orchard",
+        "address": "Orchard Lane, Bath",
+        "icon": "cake"
+      }
+    ]
   },
   "Rsvp": {
     "metaTitle": "{couple}’s wedding invitation",

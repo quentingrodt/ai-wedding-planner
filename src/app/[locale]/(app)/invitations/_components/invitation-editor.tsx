@@ -6,7 +6,7 @@ import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { InvitationCard } from "@/lib/invitations/card";
+import { InvitationCard, NAME_FONT } from "@/lib/invitations/card";
 import {
   INVITATION_FONTS,
   INVITATION_LIMITS,
@@ -15,11 +15,20 @@ import {
   PALETTE_KEYS,
   type InvitationContent,
   type InvitationDesign,
+  type InvitationMoment,
+  type InvitationTemplate,
 } from "@/lib/invitations/schema";
+import {
+  sortTemplatesFor,
+  TEMPLATE_AMBIANCES,
+  TEMPLATE_SPECS,
+  type TemplateAmbiance,
+} from "@/lib/invitations/templates";
 import { cn } from "@/lib/utils";
 import { saveInvitation } from "../actions";
 import { BROWSER_FAMILIES } from "@/components/invitations/fonts";
 import { ResponsiveInvitation } from "@/components/invitations/responsive-invitation";
+import { MomentsEditor } from "./moments-editor";
 
 type InvitationEditorProps = {
   initialDesign: InvitationDesign;
@@ -29,9 +38,19 @@ type InvitationEditorProps = {
   watermarked: boolean;
   /** Un design est déjà enregistré (l'export lit la version enregistrée). */
   saved: boolean;
+  /** Ambiance du carnet d'inspiration : ses modèles passent en tête. */
+  recommendedAmbiance: TemplateAmbiance | null;
 };
 
-const FIELDS = ["names", "intro", "dateText", "time", "venue", "address", "rsvpNote"] as const;
+type TextField = Exclude<keyof InvitationContent, "moments">;
+
+/** Champs de texte, regroupés comme on lit un faire-part ; le programme a son propre éditeur. */
+const TEXT_GROUPS = [
+  { key: "you", fields: ["names", "intro"] },
+  { key: "when", fields: ["dateText"] },
+  { key: "program", fields: [] },
+  { key: "reply", fields: ["rsvpNote", "contact"] },
+] as const satisfies readonly { key: string; fields: readonly TextField[] }[];
 
 /** Éditeur du faire-part : réglages à gauche, aperçu en direct à droite. */
 export function InvitationEditor({
@@ -39,11 +58,16 @@ export function InvitationEditor({
   canEdit,
   watermarked,
   saved,
+  recommendedAmbiance,
 }: InvitationEditorProps) {
   const t = useTranslations("Invitations");
   const locale = useLocale();
   const [hasSaved, setHasSaved] = useState(saved);
-  const suggestions = useMessages().Invitations.introSuggestions as string[];
+  const messages = useMessages().Invitations;
+  const suggestions = messages.introSuggestions as string[];
+  // Programme d'exemple des vignettes, tant que le couple n'a pas saisi le sien.
+  const sampleMoments = messages.sampleMoments as InvitationMoment[];
+  const [ambianceFilter, setAmbianceFilter] = useState<TemplateAmbiance | null>(null);
   const [design, setDesign] = useState(initialDesign);
   const [savedDesign, setSavedDesign] = useState(initialDesign);
   const [pending, startTransition] = useTransition();
@@ -51,8 +75,27 @@ export function InvitationEditor({
 
   const set = <K extends keyof InvitationDesign>(key: K, value: InvitationDesign[K]) =>
     setDesign((current) => ({ ...current, [key]: value }));
-  const setText = (field: keyof InvitationContent, value: string) =>
+  const setText = (field: TextField, value: string) =>
     setDesign((current) => ({ ...current, content: { ...current.content, [field]: value } }));
+  const setMoments = (moments: InvitationMoment[]) =>
+    setDesign((current) => ({ ...current, content: { ...current.content, moments } }));
+
+  // Choisir un modèle applique son style complet ; couleurs et typographie restent modifiables.
+  const chooseTemplate = (template: InvitationTemplate) =>
+    setDesign((current) => ({ ...current, template, ...TEMPLATE_SPECS[template].defaults }));
+  const templateLook = (template: InvitationTemplate): InvitationDesign => ({
+    ...design,
+    template,
+    ...TEMPLATE_SPECS[template].defaults,
+    content: {
+      ...design.content,
+      moments: design.content.moments.length > 0 ? design.content.moments : sampleMoments,
+    },
+  });
+  const templates = sortTemplatesFor(recommendedAmbiance, INVITATION_TEMPLATES).filter(
+    (template) =>
+      ambianceFilter === null || TEMPLATE_SPECS[template].ambiances.includes(ambianceFilter),
+  );
 
   function nextIntro() {
     const index = suggestions.indexOf(design.content.intro);
@@ -94,18 +137,42 @@ export function InvitationEditor({
     <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-start">
       <div className="flex flex-col gap-10">
         <Section title={t("sections.template")}>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {INVITATION_TEMPLATES.map((template) => (
+          <div role="group" aria-label={t("ambiances.label")} className="flex flex-wrap gap-2">
+            {[null, ...TEMPLATE_AMBIANCES].map((ambiance) => (
+              <button
+                key={ambiance ?? "all"}
+                type="button"
+                aria-pressed={ambianceFilter === ambiance}
+                onClick={() => setAmbianceFilter(ambiance)}
+                className={cn(
+                  "h-9 rounded-full px-4 text-sm ring-1 transition",
+                  ambianceFilter === ambiance
+                    ? "bg-card text-charcoal ring-2 ring-terracotta"
+                    : "text-stone ring-border hover:ring-sand",
+                )}
+              >
+                {t(`ambiances.${ambiance ?? "all"}`)}
+              </button>
+            ))}
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
+            {templates.map((template) => (
               <OptionButton
                 key={template}
                 selected={design.template === template}
-                onClick={() => set("template", template)}
+                onClick={() => chooseTemplate(template)}
                 label={t(`templates.${template}`)}
+                badge={
+                  recommendedAmbiance &&
+                  TEMPLATE_SPECS[template].ambiances.includes(recommendedAmbiance)
+                    ? t("recommended")
+                    : undefined
+                }
               >
                 <div className="pointer-events-none overflow-hidden rounded-lg ring-1 ring-border">
                   <InvitationCard
-                    design={{ ...design, template }}
-                    width={140}
+                    design={templateLook(template)}
+                    width={180}
                     families={BROWSER_FAMILIES}
                   />
                 </div>
@@ -145,7 +212,7 @@ export function InvitationEditor({
         </Section>
 
         <Section title={t("sections.fonts")}>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-3 sm:grid-cols-5">
             {INVITATION_FONTS.map((fonts) => (
               <OptionButton
                 key={fonts}
@@ -157,13 +224,10 @@ export function InvitationEditor({
                   aria-hidden
                   className="flex h-16 items-center justify-center rounded-lg bg-linen/60 text-3xl"
                   style={{
-                    fontFamily:
-                      fonts === "script"
-                        ? BROWSER_FAMILIES.script
-                        : fonts === "romantic"
-                          ? BROWSER_FAMILIES.cormorant
-                          : BROWSER_FAMILIES.playfair,
+                    fontFamily: BROWSER_FAMILIES[NAME_FONT[fonts]],
                     fontStyle: fonts === "romantic" ? "italic" : "normal",
+                    // Allison a un petit œil : on la grossit pour un aperçu comparable.
+                    fontSize: fonts === "modern" ? "2.75rem" : undefined,
                   }}
                 >
                   Aa
@@ -173,40 +237,42 @@ export function InvitationEditor({
           </div>
         </Section>
 
-        <Section title={t("sections.texts")}>
-          <div className="flex flex-col gap-5">
-            {FIELDS.map((field) => (
-              <div key={field} className="flex flex-col gap-2">
-                <div className="flex items-baseline justify-between gap-3">
-                  <Label htmlFor={`invitation-${field}`}>{t(`fields.${field}`)}</Label>
-                  {field === "intro" && (
-                    <button
-                      type="button"
-                      onClick={nextIntro}
-                      className="inline-flex items-center gap-1.5 text-xs text-sage-deep underline decoration-sage/40 underline-offset-4 hover:decoration-sage-deep"
-                    >
-                      <RefreshCwIcon aria-hidden className="size-3" strokeWidth={1.5} />
-                      {t("otherIntro")}
-                    </button>
-                  )}
-                </div>
-                <Input
-                  id={`invitation-${field}`}
-                  value={design.content[field]}
-                  maxLength={INVITATION_LIMITS[field]}
-                  onChange={(event) => setText(field, event.target.value)}
-                  placeholder={
-                    field === "time" || field === "venue" || field === "address"
-                      ? t(`placeholders.${field}`)
-                      : undefined
-                  }
-                  required={field === "names"}
-                  className="h-11 rounded-xl bg-card text-base"
-                />
+        {TEXT_GROUPS.map(({ key, fields }) => (
+          <Section key={key} title={t(`sections.${key}`)}>
+            {key === "program" ? (
+              <MomentsEditor moments={design.content.moments} onChange={setMoments} />
+            ) : (
+              <div className="flex flex-col gap-5">
+                {fields.map((field: TextField) => (
+                  <div key={field} className="flex flex-col gap-2">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <Label htmlFor={`invitation-${field}`}>{t(`fields.${field}`)}</Label>
+                      {field === "intro" && (
+                        <button
+                          type="button"
+                          onClick={nextIntro}
+                          className="inline-flex items-center gap-1.5 text-xs text-sage-deep underline decoration-sage/40 underline-offset-4 hover:decoration-sage-deep"
+                        >
+                          <RefreshCwIcon aria-hidden className="size-3" strokeWidth={1.5} />
+                          {t("otherIntro")}
+                        </button>
+                      )}
+                    </div>
+                    <Input
+                      id={`invitation-${field}`}
+                      value={design.content[field]}
+                      maxLength={INVITATION_LIMITS[field]}
+                      onChange={(event) => setText(field, event.target.value)}
+                      placeholder={field === "contact" ? t("placeholders.contact") : undefined}
+                      required={field === "names"}
+                      className="h-11 rounded-xl bg-card text-base"
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </Section>
+            )}
+          </Section>
+        ))}
       </div>
 
       {/* Aperçu : en tête sur mobile, collant à droite sur grand écran */}
@@ -327,11 +393,14 @@ function OptionButton({
   selected,
   onClick,
   label,
+  badge,
   children,
 }: {
   selected: boolean;
   onClick: () => void;
   label: string;
+  /** Mention discrète sous le libellé (ex. « Pour vous »). */
+  badge?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -345,7 +414,10 @@ function OptionButton({
       )}
     >
       {children}
-      <span className="px-1 pb-1">{label}</span>
+      <span className="flex flex-col gap-0.5 px-1 pb-1">
+        {label}
+        {badge && <span className="text-xs text-terracotta">{badge}</span>}
+      </span>
       {selected && (
         <span className="absolute top-3.5 right-3.5 flex size-6 items-center justify-center rounded-full bg-terracotta text-ivory">
           <CheckIcon aria-hidden className="size-3.5" strokeWidth={2} />

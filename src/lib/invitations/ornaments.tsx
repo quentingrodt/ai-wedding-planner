@@ -36,6 +36,58 @@ function sprig(points: readonly [Point, Point, Point, Point], leaves: number, si
   return parts.join(" ");
 }
 
+/** Feuille ronde d'eucalyptus, attachée à la tige par sa base. */
+function roundLeafPath(x: number, y: number, angle: number, size: number) {
+  const r = (angle * Math.PI) / 180;
+  const rot = (px: number, py: number): string =>
+    `${(x + px * Math.cos(r) - py * Math.sin(r)).toFixed(1)} ${(y + px * Math.sin(r) + py * Math.cos(r)).toFixed(1)}`;
+  return `M${rot(0, 0)} C${rot(size * 0.2, -size * 0.62)} ${rot(size * 1.05, -size * 0.55)} ${rot(size, 0)} C${rot(size * 1.05, size * 0.55)} ${rot(size * 0.2, size * 0.62)} ${rot(0, 0)} Z`;
+}
+
+/** Tige d'eucalyptus : feuilles rondes par paires, plus petites vers la pointe. */
+function eucalyptusBranch(points: readonly [Point, Point, Point, Point], pairs: number, size: number) {
+  const parts = [`M${points[0][0]} ${points[0][1]} C${points[1].join(" ")} ${points[2].join(" ")} ${points[3].join(" ")}`];
+  for (let i = 1; i <= pairs; i++) {
+    const { x, y, angle } = bezier(points, i / (pairs + 0.6));
+    const leaf = size * (1.1 - (i / pairs) * 0.55);
+    parts.push(roundLeafPath(x, y, angle - 68, leaf), roundLeafPath(x, y, angle + 68, leaf));
+  }
+  const tip = bezier(points, 1);
+  parts.push(roundLeafPath(tip.x, tip.y, tip.angle, size * 0.45));
+  return parts.join(" ");
+}
+
+/** Feuille pointue avec sa nervure centrale. */
+function veinedLeafPath(x: number, y: number, angle: number, size: number) {
+  const r = (angle * Math.PI) / 180;
+  const tipX = x + size * Math.cos(r);
+  const tipY = y + size * Math.sin(r);
+  return `${leafPath(x, y, angle, size)} M${x.toFixed(1)} ${y.toFixed(1)} L${tipX.toFixed(1)} ${tipY.toFixed(1)}`;
+}
+
+/** Rameau d'automne : grandes feuilles nervurées alternées. */
+function autumnBranch(points: readonly [Point, Point, Point, Point], leaves: number, size: number) {
+  const parts = [`M${points[0][0]} ${points[0][1]} C${points[1].join(" ")} ${points[2].join(" ")} ${points[3].join(" ")}`];
+  for (let i = 1; i <= leaves; i++) {
+    const { x, y, angle } = bezier(points, i / (leaves + 0.4));
+    parts.push(veinedLeafPath(x, y, angle + (i % 2 === 0 ? -48 : 48), size * (1 - i / (leaves * 2.6))));
+  }
+  return parts.join(" ");
+}
+
+/** Grappe de baies au bout d'un pédoncule. */
+// Fonction et non composant : satori n'accepte que des éléments natifs dans un <svg>.
+function berries(x: number, y: number, color: string) {
+  return [
+    [0, 0],
+    [9, 5],
+    [2, 11],
+    [-7, 6],
+  ].map(([dx, dy]) => (
+    <circle key={`${x}-${dx}-${dy}`} cx={x + dx} cy={y + dy} r={4.2} fill={color} stroke="none" />
+  ));
+}
+
 function Frame({ children }: { children: React.ReactNode }) {
   return (
     <svg
@@ -133,5 +185,69 @@ export function Ornament({ template, color }: { template: InvitationTemplate; co
           })}
         </Frame>
       );
+
+    // Alliances entrelacées en tête : la frise horaire fait le reste.
+    case "chronology":
+      return (
+        <Frame>
+          {[
+            [284, 92, -18],
+            [314, 98, 14],
+          ].map(([cx, cy, rotate]) => (
+            <g key={cx} transform={`rotate(${rotate} ${cx} ${cy})`}>
+              <ellipse cx={cx} cy={cy} rx={27} ry={18} {...stroke} />
+              <ellipse cx={cx} cy={cy - 3} rx={23} ry={13} {...stroke} strokeWidth={0.8} />
+            </g>
+          ))}
+        </Frame>
+      );
+
+    // Branches d'eucalyptus en coins opposés : haut droit, bas gauche.
+    case "eucalyptus":
+      return (
+        <Frame>
+          <path d={eucalyptusBranch([[612, 30], [560, 60], [520, 95], [455, 128]], 7, 15)} {...stroke} />
+          <path d={eucalyptusBranch([[608, 8], [585, 70], [560, 120], [548, 190]], 6, 13)} {...stroke} strokeWidth={1} />
+          <path d={eucalyptusBranch([[590, -6], [555, 20], [520, 30], [488, 36]], 5, 11)} {...stroke} strokeWidth={0.9} />
+          <path d={eucalyptusBranch([[-12, 820], [40, 790], [80, 755], [140, 728]], 7, 15)} {...stroke} />
+          <path d={eucalyptusBranch([[-8, 845], [18, 790], [40, 740], [52, 668]], 6, 13)} {...stroke} strokeWidth={1} />
+          <path d={eucalyptusBranch([[10, 860], [50, 840], [90, 832], [120, 826]], 5, 11)} {...stroke} strokeWidth={0.9} />
+        </Frame>
+      );
+
+    // Rameaux d'automne et baies aux coins hauts, un rameau couché en pied à gauche.
+    case "monogram":
+      return (
+        <Frame>
+          <path d={autumnBranch([[-10, 40], [60, 60], [110, 100], [150, 170]], 5, 42)} {...stroke} />
+          <path d={autumnBranch([[20, -10], [70, 30], [150, 40], [210, 30]], 4, 34)} {...stroke} strokeWidth={1} />
+          <path d="M150 170 Q158 186 170 192" {...stroke} strokeWidth={0.9} />
+          {berries(172, 196, color)}
+          <path d={autumnBranch([[610, 40], [540, 60], [490, 100], [450, 170]], 5, 42)} {...stroke} />
+          <path d={autumnBranch([[580, -10], [530, 30], [450, 40], [390, 30]], 4, 34)} {...stroke} strokeWidth={1} />
+          <path d="M450 170 Q442 186 430 192" {...stroke} strokeWidth={0.9} />
+          {berries(428, 196, color)}
+          <path d={autumnBranch([[-10, 800], [50, 770], [110, 760], [170, 770]], 5, 34)} {...stroke} />
+        </Frame>
+      );
   }
+}
+
+/** Couronne de feuillage du monogramme, dans un repère 200 × 200. */
+export function MonogramWreath({ color, size }: { color: string; size: number }) {
+  const stroke = { stroke: color, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+  const leaves = Array.from({ length: 22 }, (_, i) => {
+    // Couronne ouverte en pied : de 110° à 430°.
+    const a = ((110 + (i * 320) / 21) * Math.PI) / 180;
+    const x = 100 + Math.cos(a) * 78;
+    const y = 100 + Math.sin(a) * 78;
+    const tangent = (a * 180) / Math.PI + 90;
+    return leafPath(x, y, tangent + (i % 2 === 0 ? -35 : 35), 16);
+  }).join(" ");
+  return (
+    <svg width={size} height={size} viewBox="0 0 200 200" fill="none">
+      <path d="M100 100 m-78 0 a78 78 0 1 0 156 0 a78 78 0 1 0 -156 0" {...stroke} strokeWidth={1} />
+      <path d={leaves} {...stroke} strokeWidth={1.1} />
+    </svg>
+  );
 }

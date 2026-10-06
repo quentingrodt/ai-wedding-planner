@@ -1696,39 +1696,44 @@
       "template": "Le modèle",
       "palette": "Les couleurs",
       "fonts": "La typographie",
-      "texts": "Les textes"
+      "you": "Vous",
+      "when": "La date",
+      "program": "Le programme",
+      "reply": "La réponse"
     },
     "templates": {
       "classic": "Gravure classique",
       "garden": "Jardin d’olivier",
       "seaside": "Bord de mer",
-      "loft": "Verrière"
+      "loft": "Verrière",
+      "chronology": "Chronologie",
+      "eucalyptus": "Eucalyptus",
+      "monogram": "Monogramme d’automne"
     },
     "palettes": {
       "terracotta": "Terracotta",
       "sage": "Sauge",
       "sand": "Sable",
       "mist": "Brume",
-      "ink": "Encre"
+      "ink": "Encre",
+      "autumn": "Automne"
     },
     "fonts": {
       "editorial": "Éditoriale",
       "romantic": "Romantique",
-      "script": "Calligraphiée"
+      "script": "Calligraphiée",
+      "engraved": "Gravée",
+      "modern": "Moderne"
     },
     "fields": {
       "names": "Vos prénoms",
       "intro": "Phrase d’invitation",
       "dateText": "Date",
-      "time": "Heure",
-      "venue": "Lieu",
-      "address": "Adresse",
-      "rsvpNote": "Mention de réponse"
+      "rsvpNote": "Mention de réponse",
+      "contact": "Contact"
     },
     "placeholders": {
-      "time": "à seize heures",
-      "venue": "Domaine des Tilleuls",
-      "address": "Route des Vignes, 21200 Beaune"
+      "contact": "Camille : 06 12 34 56 78 · Thomas : 06 98 76 54 32"
     },
     "otherIntro": "Autre formulation",
     "defaults": {
@@ -1773,7 +1778,69 @@
       "proofMark": "Épreuve",
       "fileName": "faire-part-impression",
       "documentTitle": "Faire-part de {names}"
-    }
+    },
+    "ambiances": {
+      "label": "Ambiance",
+      "all": "Tous",
+      "chateau": "Château",
+      "countryside": "Champêtre",
+      "beach": "Bord de mer",
+      "urban": "Urbain"
+    },
+    "recommended": "Pour vous",
+    "program": {
+      "empty": "Ajoutez les moments de votre journée : mairie, cérémonie, vin d’honneur, dîner…",
+      "add": "Ajouter un moment",
+      "remove": "Retirer ce moment",
+      "moveUp": "Monter ce moment",
+      "max": "{count} moments au maximum : au-delà, le faire-part devient difficile à lire.",
+      "icon": "Pictogramme",
+      "icons": {
+        "cityhall": "Mairie",
+        "church": "Église",
+        "arch": "Cérémonie laïque",
+        "glass": "Vin d’honneur",
+        "dinner": "Dîner",
+        "cake": "Dessert",
+        "music": "Soirée",
+        "brunch": "Lendemain"
+      },
+      "fields": {
+        "time": "Heure",
+        "title": "Moment",
+        "venue": "Lieu",
+        "address": "Adresse"
+      },
+      "placeholders": {
+        "time": "16h30",
+        "title": "Cérémonie laïque",
+        "venue": "Domaine des Tilleuls",
+        "address": "Route des Vignes, 21200 Beaune"
+      }
+    },
+    "sampleMoments": [
+      {
+        "time": "15h00",
+        "title": "Cérémonie à l’église",
+        "venue": "Église Saint-Martin",
+        "address": "Place de l’Église, Beaune",
+        "icon": "church"
+      },
+      {
+        "time": "17h30",
+        "title": "Vin d’honneur",
+        "venue": "Domaine des Tilleuls",
+        "address": "Route des Vignes, Beaune",
+        "icon": "glass"
+      },
+      {
+        "time": "19h30",
+        "title": "Dîner et soirée",
+        "venue": "Domaine des Tilleuls",
+        "address": "Route des Vignes, Beaune",
+        "icon": "cake"
+      }
+    ]
   },
   "Rsvp": {
     "metaTitle": "Faire-part de {couple}",

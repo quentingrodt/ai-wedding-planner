@@ -7,6 +7,9 @@ pas le WOFF2 servi par `next/font`). Toutes sous licence SIL Open Font License
 - Playfair Display — Claus Eggers Sørensen
 - Cormorant Garamond (romain et italique) — Christian Thalmann
 - Pinyon Script — Nicole Fally
+- Cormorant SC (regular et medium) — Christian Thalmann
+- Allison — Robert Leuschke
+- Jost (light et regular) — Owen Earl (indestructible type*)
 - Crimson Text (romain et italique) — The Crimson Text Project Authors. Texte
   courant du PDF du plan de table : fontkit (pdf-lib) n'intègre pas
   correctement Cormorant Garamond (glyphes perdus en sous-ensemble, erreur en
