@@ -1778,6 +1778,14 @@
   "Rsvp": {
     "metaTitle": "Faire-part de {couple}",
     "hello": "Bonjour {firstName},",
+    "events": {
+      "title": "Vous êtes convié·e à",
+      "ceremony": "La cérémonie",
+      "cocktail": "Le vin d’honneur",
+      "dinner": "Le dîner",
+      "dessert": "Le dessert et la soirée",
+      "brunch": "Le lendemain"
+    },
     "question": "Serez-vous des nôtres ?",
     "options": {
       "confirmed": "Avec joie, je serai là",

@@ -1778,6 +1778,14 @@
   "Rsvp": {
     "metaTitle": "{couple}’s wedding invitation",
     "hello": "Hello {firstName},",
+    "events": {
+      "title": "You are invited to",
+      "ceremony": "The ceremony",
+      "cocktail": "The cocktail hour",
+      "dinner": "The dinner",
+      "dessert": "Dessert and the party",
+      "brunch": "The day after"
+    },
     "question": "Will you join us?",
     "options": {
       "confirmed": "Joyfully, I’ll be there",

@@ -86,6 +86,21 @@ export default async function RsvpPage({ params }: PageProps<"/[locale]/i/[token
 
         <section className="flex flex-col gap-6">
           <p className="text-lg text-stone">{t("hello", { firstName: guest.first_name })}</p>
+          {guest.events && (
+            <div className="flex flex-col gap-3 rounded-3xl bg-ivory px-6 py-5 ring-1 ring-border">
+              <p className="text-xs font-medium tracking-[0.2em] text-terracotta uppercase">
+                {t("events.title")}
+              </p>
+              <ul className="flex flex-col gap-2">
+                {guest.events.map((event) => (
+                  <li key={event} className="flex items-center gap-3 font-serif text-xl">
+                    <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-sage" />
+                    {t(`events.${event}`)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <RsvpForm
             token={token}
             firstName={guest.first_name}
