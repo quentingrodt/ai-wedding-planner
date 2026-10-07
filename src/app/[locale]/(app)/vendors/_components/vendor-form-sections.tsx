@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDownIcon } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -239,35 +240,41 @@ export function QuestionChecklist({
   const questions = t(`categories.${category}.questions`).split("|").slice(0, QUESTION_COUNTS[category]);
 
   return (
-    <fieldset className="flex flex-col gap-3">
-      <legend className="flex w-full flex-wrap items-baseline justify-between gap-2">
-        <span className="text-sm font-medium">{t("questionsUi.title")}</span>
-        <span className="text-xs text-stone">
-          {t("questionsUi.progress", { count: asked.length, total: questions.length })}
+    // Repliée par défaut : on l'ouvre pour cocher les questions posées.
+    <details className="group">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
+        <span className="flex flex-col gap-0.5">
+          <span className="text-sm font-medium">{t("questionsUi.title")}</span>
+          <span className="text-xs text-stone">
+            {t("questionsUi.progress", { count: asked.length, total: questions.length })}
+          </span>
         </span>
-      </legend>
-      <p className="text-xs text-stone">{t("questionsUi.lead")}</p>
-      <ul className="flex flex-col gap-1.5">
-        {questions.map((question, index) => (
-          <li key={question}>
-            <label className="flex items-start gap-3 rounded-xl px-2 py-1.5 text-sm leading-5 hover:bg-linen/60">
-              <input
-                type="checkbox"
-                checked={asked.includes(index)}
-                onChange={(event) =>
-                  onChange(
-                    event.target.checked
-                      ? [...asked, index].sort((a, b) => a - b)
-                      : asked.filter((value) => value !== index),
-                  )
-                }
-                className="mt-0.5 size-4 shrink-0 accent-sage-deep"
-              />
-              <span className={asked.includes(index) ? "text-stone line-through decoration-sand" : ""}>{question}</span>
-            </label>
-          </li>
-        ))}
-      </ul>
-    </fieldset>
+        <ChevronDownIcon aria-hidden className="size-4 shrink-0 text-stone transition-transform group-open:rotate-180" />
+      </summary>
+      <div className="mt-3 flex flex-col gap-3">
+        <p className="text-xs text-stone">{t("questionsUi.lead")}</p>
+        <ul className="flex flex-col gap-1.5">
+          {questions.map((question, index) => (
+            <li key={question}>
+              <label className="flex items-start gap-3 rounded-xl px-2 py-1.5 text-sm leading-5 hover:bg-linen/60">
+                <input
+                  type="checkbox"
+                  checked={asked.includes(index)}
+                  onChange={(event) =>
+                    onChange(
+                      event.target.checked
+                        ? [...asked, index].sort((a, b) => a - b)
+                        : asked.filter((value) => value !== index),
+                    )
+                  }
+                  className="mt-0.5 size-4 shrink-0 accent-sage-deep"
+                />
+                <span className={asked.includes(index) ? "text-stone line-through decoration-sand" : ""}>{question}</span>
+              </label>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </details>
   );
 }

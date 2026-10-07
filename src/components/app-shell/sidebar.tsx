@@ -104,29 +104,22 @@ function saveOpenGroups(keys: string[]) {
 
 /**
  * Les chapitres du menu : un en-tête à déplier, puis ses rubriques.
- * Au premier affichage, seul le chapitre de la page ouverte est déplié ;
- * ensuite, chacun reste comme le couple l'a laissé.
+ * Tous repliés par défaut : le couple ouvre ceux qu'il veut, et chacun reste
+ * comme il l'a laissé. Le chapitre de la page ouverte garde une pastille.
  */
 function SidebarGroups({ pathname, canSeeBudget }: { pathname: string; canSeeBudget: boolean }) {
   const groups = visibleGroups(canSeeBudget);
   const currentGroup = groups.find((group) =>
     visibleItems(group.items, canSeeBudget).some((item) => isActive(pathname, item.href)),
   )?.key;
-  const [open, setOpen] = useState<string[]>(() => (currentGroup ? [currentGroup] : []));
+  const [open, setOpen] = useState<string[]>([]);
 
   // Après le rendu serveur : reprend les chapitres laissés ouverts.
   useEffect(() => {
     const saved = readOpenGroups();
     // eslint-disable-next-line react-hooks/set-state-in-effect -- lecture unique du stockage du navigateur après hydratation
-    if (saved) setOpen((current) => [...new Set([...saved, ...current])]);
+    if (saved) setOpen(saved);
   }, []);
-
-  // Arriver sur une page déplie son chapitre.
-  useEffect(() => {
-    if (!currentGroup) return;
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- suit la navigation
-    setOpen((current) => (current.includes(currentGroup) ? current : [...current, currentGroup]));
-  }, [currentGroup]);
 
   function toggle(key: string) {
     setOpen((current) => {

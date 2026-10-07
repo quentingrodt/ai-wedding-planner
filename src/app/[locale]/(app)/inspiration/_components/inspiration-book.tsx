@@ -46,12 +46,8 @@ export function InspirationBook({
   const [likes, setLikes] = useState<InspirationLikes>(initialLikes);
   const [playing, setPlaying] = useState<Playing | null>(null);
   const [saveError, setSaveError] = useState(false);
-  // Seule la section de la prochaine étape à jouer est dépliée à l'arrivée.
-  const [openSections, setOpenSections] = useState<ReadonlySet<InspirationSection>>(() => {
-    const next = INSPIRATION_STEPS.find((step) => initialLikes[step] === undefined);
-    const section = INSPIRATION_SECTIONS.find((s) => (s.steps as readonly string[]).includes(next ?? ""));
-    return new Set(section ? [section.key] : []);
-  });
+  // Sections repliées à l'arrivée : le couple ouvre celle qu'il veut jouer.
+  const [openSections, setOpenSections] = useState<ReadonlySet<InspirationSection>>(() => new Set());
 
   function toggleSection(key: InspirationSection) {
     setOpenSections((current) => {

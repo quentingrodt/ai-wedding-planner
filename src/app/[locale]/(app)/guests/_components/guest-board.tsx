@@ -134,7 +134,8 @@ export function GuestBoard({
   const [eventFilter, setEventFilter] = useState<GuestEvent | null>(null);
   const [query, setQuery] = useState("");
   const [openFamilyId, setOpenFamilyId] = useState<string | null>(null);
-  const [collapsed, setCollapsed] = useState<ReadonlySet<string>>(new Set());
+  // Foyers repliés par défaut : le couple ouvre ceux qu'il veut voir.
+  const [expanded, setExpanded] = useState<ReadonlySet<string>>(new Set());
 
   const familyById = new Map(optimisticFamilies.map((family) => [family.id, family]));
   const familyName = (guest: Guest) =>
@@ -200,17 +201,17 @@ export function GuestBoard({
   const flat = optimisticFamilies.length === 0;
 
   // Une recherche déplie tout : un résultat ne doit jamais être caché.
-  const isExpanded = (id: string) => needle !== "" || !collapsed.has(id);
-  const allCollapsed = shownHouseholds.every(({ id }) => collapsed.has(id));
+  const isExpanded = (id: string) => needle !== "" || expanded.has(id);
+  const allCollapsed = shownHouseholds.every(({ id }) => !expanded.has(id));
   function toggle(id: string) {
-    setCollapsed((current) => {
+    setExpanded((current) => {
       const next = new Set(current);
       if (!next.delete(id)) next.add(id);
       return next;
     });
   }
   function toggleAll() {
-    setCollapsed(allCollapsed ? new Set() : new Set(shownHouseholds.map(({ id }) => id)));
+    setExpanded(allCollapsed ? new Set(shownHouseholds.map(({ id }) => id)) : new Set());
   }
 
   // Réponses attendues des adultes, toutes familles confondues, pour l'encart de

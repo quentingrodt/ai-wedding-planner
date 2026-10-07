@@ -15,8 +15,6 @@ type FarGuestsProps = {
   guests: LodgingGuest[];
   families: GuestFamily[];
   canEdit: boolean;
-  /** Ouvert d'office tant que personne n'est marqué. */
-  defaultOpen: boolean;
   summary: string;
   /** Nom de chaque hébergement, pour dire où dort chacun. */
   lodgingNames: Map<string, string>;
@@ -25,7 +23,7 @@ type FarGuestsProps = {
 const fullName = (guest: LodgingGuest) => [guest.first_name, guest.last_name].filter(Boolean).join(" ");
 
 /** « Qui vient de loin ? » : un foyer se marque d'un geste, un invité seul aussi. */
-export function FarGuests({ guests, families, canEdit, defaultOpen, summary, lodgingNames }: FarGuestsProps) {
+export function FarGuests({ guests, families, canEdit, summary, lodgingNames }: FarGuestsProps) {
   const t = useTranslations("Lodging");
   const [, startTransition] = useTransition();
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -63,7 +61,7 @@ export function FarGuests({ guests, families, canEdit, defaultOpen, summary, lod
   };
 
   return (
-    <details open={defaultOpen} className="group rounded-3xl bg-card ring-1 ring-border">
+    <details className="group rounded-3xl bg-card ring-1 ring-border">
       <summary className="flex cursor-pointer list-none items-start justify-between gap-4 p-6 [&::-webkit-details-marker]:hidden">
         <span className="flex flex-col gap-1">
           <span className="font-serif text-2xl">{t("far.title")}</span>

@@ -167,7 +167,6 @@ export function AccommodationBoard({
         guests={attending}
         families={families}
         canEdit={canEdit}
-        defaultOpen={needs.people === 0}
         summary={summary}
         lodgingNames={lodgingNames}
       />

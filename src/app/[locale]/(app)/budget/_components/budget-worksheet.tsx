@@ -52,10 +52,8 @@ export function BudgetWorksheet({
   const [items, setItems] = useState(initialItems);
   const [drafts, setDrafts] = useState<Draft[]>([]);
   // Rubriques ouvertes : celles qui contiennent déjà une ligne, sinon la première.
-  const [open, setOpen] = useState<ReadonlySet<BudgetSection>>(() => {
-    const withItems = new Set(initialItems.map((item) => item.section));
-    return withItems.size > 0 ? withItems : new Set([BUDGET_SECTIONS[0].key]);
-  });
+  // Rubriques repliées par défaut : le couple ouvre celles qu'il veut travailler.
+  const [open, setOpen] = useState<ReadonlySet<BudgetSection>>(() => new Set());
 
   const money = (amount: number) =>
     format.number(amount, { style: "currency", currency, maximumFractionDigits: 0 });

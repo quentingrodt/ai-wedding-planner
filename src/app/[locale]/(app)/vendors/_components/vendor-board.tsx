@@ -164,7 +164,7 @@ export function VendorBoard({
         <p className="rounded-3xl bg-terracotta-soft/40 px-6 py-5 text-charcoal">{t(`venueCatering.${venueCatering}`)}</p>
       )}
 
-      <details className="group rounded-3xl bg-card ring-1 ring-border" open={vendors.length === 0}>
+      <details className="group rounded-3xl bg-card ring-1 ring-border">
         <summary className="flex cursor-pointer list-none items-start justify-between gap-4 p-6 [&::-webkit-details-marker]:hidden">
           <span className="flex flex-col gap-1">
             <span className="font-serif text-2xl">{t("guide.title")}</span>
