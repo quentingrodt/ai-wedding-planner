@@ -33,7 +33,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { GuestFamily } from "@/lib/guests/schema";
-import { LODGING_STATUSES, type LodgingStatus } from "@/lib/lodging/catalog";
+import { LODGING_STATUSES, SECURED_STATUSES, type LodgingStatus } from "@/lib/lodging/catalog";
 import {
   bookingTimeline,
   groupLeverage,
@@ -212,6 +212,7 @@ export function AccommodationBoard({
               <div className="flex flex-col gap-1">
                 <h2 id="lodgings-title" className="font-serif text-3xl">{t("list.title")}</h2>
                 <p className="text-stone">{t("list.lead")}</p>
+                <p className="text-sm text-stone">{t("list.shared")}</p>
               </div>
               {addButton}
             </div>
@@ -311,6 +312,9 @@ function LodgingCard({ lodging, today, currencySymbol, money, canEdit, run }: Ca
             {t(`statuses.${lodging.status}`)}
           </span>
           <span className="text-xs text-stone">{t(`kinds.${lodging.kind}`)}</span>
+          {SECURED_STATUSES.includes(lodging.status) && lodging.kind !== "family" && (
+            <span className="rounded-full bg-linen px-2.5 py-0.5 text-xs text-charcoal">{t("facts.shared")}</span>
+          )}
           {lodging.group_rate && (
             <span className="rounded-full bg-sage-soft px-2.5 py-0.5 text-xs text-sage-deep">{t("facts.groupRate")}</span>
           )}

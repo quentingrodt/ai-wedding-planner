@@ -6,8 +6,9 @@ import { cache } from "react";
 import { InvitationViewer } from "@/components/invitations/invitation-viewer";
 import { Link } from "@/i18n/navigation";
 import { guestRsvpSchema, rsvpTokenSchema, type GuestRsvp } from "@/lib/rsvp/schema";
-import { isoDateToUtc } from "@/lib/weddings/dates";
+import { isoDateToUtc, todayIsoDate } from "@/lib/weddings/dates";
 import { createClient } from "@/utils/supabase/client";
+import { GuestLodgingSection } from "./guest-lodging";
 import { RsvpForm } from "./rsvp-form";
 
 /**
@@ -109,6 +110,15 @@ export default async function RsvpPage({ params }: PageProps<"/[locale]/i/[token
             dietary={guest.dietary_requirements}
           />
         </section>
+
+        {guest.lodgings.length > 0 && (
+          <GuestLodgingSection
+            lodgings={guest.lodgings}
+            weddingDate={guest.wedding_date}
+            today={todayIsoDate()}
+            currency={guest.currency}
+          />
+        )}
 
         {guest.has_registry && (
           <section className="flex flex-col items-center gap-4 rounded-3xl bg-card px-6 py-8 text-center ring-1 ring-border">

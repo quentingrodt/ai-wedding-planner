@@ -302,6 +302,7 @@ export function LodgingDialog({
               rows={3}
               className="w-full resize-none rounded-xl border border-input bg-card px-3 py-2.5 text-base leading-6 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
             />
+            <p className="text-xs text-stone">{t("fields.notesHint")}</p>
           </div>
 
           <DialogFooter className="mx-0 mt-2 mb-0 rounded-none border-t-0 bg-transparent p-0">

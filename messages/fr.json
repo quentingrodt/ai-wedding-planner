@@ -2084,6 +2084,17 @@
       "title": "Notre liste de mariage",
       "lead": "Si le cœur vous en dit, découvrez les idées qui nous feraient plaisir.",
       "open": "Découvrir notre liste"
+    },
+    "lodging": {
+      "title": "Pour votre nuit",
+      "lead": "Vous venez de loin : voici les adresses que nous avons choisies pour vous, tout près de la fête.",
+      "bookBy": "Pensez à réserver avant le {date}.",
+      "travel": "à {minutes} min du lieu",
+      "perNight": "{price} la nuit",
+      "groupRate": "Tarif négocié pour nos invités",
+      "code": "À mentionner en réservant :",
+      "deadline": "Réservez avant le {date}",
+      "book": "Réserver"
     }
   },
   "Playlist": {
@@ -3321,7 +3332,8 @@
       "title": "Les hébergements",
       "lead": "Hôtels, gîtes, maisons : ceux où des chambres sont tenues en tête.",
       "empty": "Aucun hébergement pour l’instant. Commencez par les adresses les plus proches du lieu.",
-      "declined": "{count, plural, one {# piste écartée} other {# pistes écartées}}"
+      "declined": "{count, plural, one {# piste écartée} other {# pistes écartées}}",
+      "shared": "Les hébergements en option ou confirmés apparaissent sur le lien personnel des invités qui viennent de loin, avec le code et la date limite. Vos notes et les solutions « chez des proches » restent entre vous."
     },
     "venueSuggestion": {
       "body": "{name}, votre lieu, propose {count, plural, one {# couchage} other {# couchages}} sur place.",
@@ -3350,7 +3362,8 @@
       "travel": "{minutes} min du lieu",
       "groupRate": "Tarif de groupe",
       "code": "Code à donner aux invités :",
-      "deadline": "Date limite : {date}"
+      "deadline": "Date limite : {date}",
+      "shared": "Visible par vos invités"
     },
     "checks": {
       "optionExpired": "L’option a expiré : rappelez l’établissement pour la prolonger.",
@@ -3389,7 +3402,8 @@
       "contact": "Contact",
       "contactPlaceholder": "Mme Martin, 03 80 00 00 00",
       "notes": "Notes",
-      "notesPlaceholder": "Petit-déjeuner inclus, parking gratuit…"
+      "notesPlaceholder": "Petit-déjeuner inclus, parking gratuit…",
+      "notesHint": "Visibles par vous seuls."
     },
     "units": {
       "minutes": "min",

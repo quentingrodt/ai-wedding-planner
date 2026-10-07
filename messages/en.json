@@ -2084,6 +2084,17 @@
       "title": "Our wedding registry",
       "lead": "If you’d like, discover the ideas that would make us happy.",
       "open": "Discover our registry"
+    },
+    "lodging": {
+      "title": "For your night",
+      "lead": "You are travelling far: here are the places we chose for you, close to the celebration.",
+      "bookBy": "Remember to book before {date}.",
+      "travel": "{minutes} min from the venue",
+      "perNight": "{price} a night",
+      "groupRate": "Special rate for our guests",
+      "code": "Mention when booking:",
+      "deadline": "Book before {date}",
+      "book": "Book"
     }
   },
   "Playlist": {
@@ -3321,7 +3332,8 @@
       "title": "Accommodation",
       "lead": "Hotels, cottages, houses: those holding rooms come first.",
       "empty": "No accommodation yet. Start with the places closest to the venue.",
-      "declined": "{count, plural, one {# lead set aside} other {# leads set aside}}"
+      "declined": "{count, plural, one {# lead set aside} other {# leads set aside}}",
+      "shared": "Accommodation on hold or confirmed appears on the personal link of guests travelling far, with the code and deadline. Your notes and stays with family or friends stay between you."
     },
     "venueSuggestion": {
       "body": "{name}, your venue, has {count, plural, one {# bed} other {# beds}} on site.",
@@ -3350,7 +3362,8 @@
       "travel": "{minutes} min from the venue",
       "groupRate": "Group rate",
       "code": "Code for your guests:",
-      "deadline": "Deadline: {date}"
+      "deadline": "Deadline: {date}",
+      "shared": "Visible to your guests"
     },
     "checks": {
       "optionExpired": "The hold has expired: call the property to extend it.",
@@ -3389,7 +3402,8 @@
       "contact": "Contact",
       "contactPlaceholder": "Ms Martin, +44 20 0000 0000",
       "notes": "Notes",
-      "notesPlaceholder": "Breakfast included, free parking…"
+      "notesPlaceholder": "Breakfast included, free parking…",
+      "notesHint": "Only visible to you."
     },
     "units": {
       "minutes": "min",

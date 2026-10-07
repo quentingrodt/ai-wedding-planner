@@ -10,6 +10,7 @@ import {
   securedRooms,
   sortLodgings,
 } from "./plan";
+import { guestRsvpSchema } from "@/lib/rsvp/schema";
 import { lodgingInputSchema, toLodgingRow, type Lodging } from "./schema";
 
 const lodging = (overrides: Partial<Lodging> = {}): Lodging => ({
@@ -172,5 +173,44 @@ describe("saisie d'un hébergement", () => {
       }),
     );
     expect(row).toMatchObject({ name: "Gîte du Moulin", location: null, deadline: null, rooms: 5, booking_code: null });
+  });
+});
+
+describe("hébergement sur le lien de l'invité", () => {
+  const rsvp = {
+    first_name: "Camille",
+    last_name: null,
+    status: "confirmed",
+    dietary_requirements: null,
+    events: ["ceremony"],
+    wedding_title: "Camille & Thomas",
+    wedding_date: "2027-07-10",
+    design: null,
+    has_registry: false,
+  };
+
+  it("lit les hébergements partagés, et n'en montre aucun avant la migration 000029", () => {
+    expect(guestRsvpSchema.parse(rsvp)).toMatchObject({ lodgings: [], currency: "EUR" });
+    const shared = guestRsvpSchema.parse({
+      ...rsvp,
+      currency: "CHF",
+      lodgings: [
+        {
+          id: "l1",
+          name: "Hôtel de la Poste",
+          kind: "hotel",
+          location: "Beaune",
+          travel_minutes: 10,
+          price_per_night: 95,
+          group_rate: true,
+          booking_code: "MARIAGE-CT",
+          deadline: "2027-05-26",
+          url: "https://example.com",
+          contact: null,
+        },
+      ],
+    });
+    expect(shared.lodgings[0]).toMatchObject({ name: "Hôtel de la Poste", booking_code: "MARIAGE-CT" });
+    expect(shared.currency).toBe("CHF");
   });
 });
