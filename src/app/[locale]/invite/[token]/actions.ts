@@ -3,6 +3,8 @@
 import { getLocale } from "next-intl/server";
 import { redirect } from "@/i18n/navigation";
 import { inviteTokenSchema, type AcceptInviteState } from "@/lib/team/schema";
+import { getCurrentUserId, getLatestMembershipWeddingId } from "@/lib/weddings/queries";
+import { rememberSelectedWedding } from "@/lib/weddings/selection";
 import { createClient } from "@/utils/supabase/client";
 
 /**
@@ -27,6 +29,12 @@ export async function acceptInvite(
   }
 
   const status = String(data);
+  if (status === "joined") {
+    // Le mariage rejoint devient le mariage affiché, même si l'invité a déjà le sien.
+    const userId = await getCurrentUserId(supabase);
+    const weddingId = userId ? await getLatestMembershipWeddingId(supabase, userId).catch(() => null) : null;
+    if (weddingId) await rememberSelectedWedding(weddingId);
+  }
   if (status === "joined" || status === "already_member") {
     return redirect({ href: "/dashboard", locale: await getLocale() });
   }

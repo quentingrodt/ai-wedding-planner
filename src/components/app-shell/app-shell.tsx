@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { getFormatter } from "next-intl/server";
 import { isoDateToUtc } from "@/lib/weddings/dates";
-import { getCurrentMemberRole, getCurrentUserId, getCurrentWedding } from "@/lib/weddings/queries";
+import { getCurrentMemberRole, getCurrentUserId, getCurrentWedding, getUserWeddings } from "@/lib/weddings/queries";
 import { createClient } from "@/utils/supabase/client";
 import { MobileHeader } from "./mobile-header";
 import { MobileNav } from "./mobile-nav";
@@ -31,8 +31,9 @@ export async function AppShell({ children }: { children: ReactNode }) {
   const wedding = userId ? await getCurrentWedding(supabase) : null;
   if (!userId || !wedding) return children;
 
-  const [role, format] = await Promise.all([
+  const [role, weddings, format] = await Promise.all([
     getCurrentMemberRole(supabase, wedding.id, userId),
+    getUserWeddings(supabase, userId),
     getFormatter(),
   ]);
   const profile: ShellProfile = {
@@ -47,6 +48,8 @@ export async function AppShell({ children }: { children: ReactNode }) {
         })
       : null,
     canSeeBudget: role === "owner" || role === "partner",
+    weddingId: wedding.id,
+    weddings: weddings.map(({ id, title, role: weddingRole }) => ({ id, title, role: weddingRole })),
   };
 
   return (

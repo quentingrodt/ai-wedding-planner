@@ -8,7 +8,7 @@ import {
   parseHandoff,
   toHandoffQuery,
 } from "@/lib/onboarding/schema";
-import { getCurrentUserId, getCurrentWedding } from "@/lib/weddings/queries";
+import { getCurrentUserId, hasOwnWedding } from "@/lib/weddings/queries";
 import { createClient } from "@/utils/supabase/client";
 import { OnboardingForm } from "./onboarding-form";
 import { RestoreProject } from "./restore-project";
@@ -34,7 +34,8 @@ export default async function OnboardingPage({
   const handoff = parseHandoff(await searchParams);
 
   const supabase = await createClient();
-  if (!(await getCurrentUserId(supabase))) {
+  const userId = await getCurrentUserId(supabase);
+  if (!userId) {
     // Le projet Date Night est conservé pour la prochaine connexion.
     const query = Object.fromEntries(
       HANDOFF_KEYS.flatMap((key) =>
@@ -44,8 +45,9 @@ export default async function OnboardingPage({
     return redirect({ href: { pathname: "/login", query }, locale });
   }
 
-  // Onboarding déjà fait : on file directement au tableau de bord.
-  if (await getCurrentWedding(supabase)) {
+  // Onboarding déjà fait (l'utilisateur se marie déjà) : direction le tableau de bord.
+  // Être témoin d'un autre mariage n'empêche pas de créer le sien.
+  if (await hasOwnWedding(supabase, userId)) {
     return redirect({ href: "/dashboard", locale });
   }
 

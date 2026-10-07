@@ -132,6 +132,10 @@ export type ShellProfile = {
   /** Date du mariage déjà formatée, ou null si elle n'est pas fixée. */
   date: string | null;
   canSeeBudget: boolean;
+  /** Mariage affiché. */
+  weddingId: string;
+  /** Tous les mariages de l'utilisateur (le sien, ceux dont il est témoin) : sélecteur dès qu'il y en a deux. */
+  weddings: { id: string; title: string; role: "owner" | "partner" | "witness" }[];
 };
 
 export const visibleItems = (items: NavItem[], canSeeBudget: boolean) =>

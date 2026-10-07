@@ -2193,6 +2193,16 @@
       "vendor_website": "Le site web du mariage",
       "vendor_other": "Autres prestataires",
       "vendor_honeymoon": "Le voyage de noces"
+    },
+    "switcher": {
+      "label": "Changer de mariage",
+      "current": "Mariage affiché",
+      "createOwn": "Organiser notre mariage",
+      "roles": {
+        "owner": "Vous vous mariez",
+        "partner": "Vous vous mariez",
+        "witness": "Vous êtes témoin"
+      }
     }
   },
   "Planning": {

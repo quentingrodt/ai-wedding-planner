@@ -2193,6 +2193,16 @@
       "vendor_website": "Wedding website",
       "vendor_other": "Other vendors",
       "vendor_honeymoon": "Honeymoon"
+    },
+    "switcher": {
+      "label": "Switch wedding",
+      "current": "Wedding shown",
+      "createOwn": "Plan our own wedding",
+      "roles": {
+        "owner": "You are getting married",
+        "partner": "You are getting married",
+        "witness": "You are a witness"
+      }
     }
   },
   "Planning": {

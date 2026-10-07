@@ -126,7 +126,7 @@ export function MobileNav({ profile }: { profile: ShellProfile }) {
             </div>
           ) : (
             <div className="flex flex-col gap-1 pb-2">
-              <ProfileCard profile={profile} />
+              <ProfileCard profile={profile} onSwitch={close} />
               <NavLink item={SETTINGS_ITEM} pathname={pathname} onNavigate={close} />
               <SignOutForm />
             </div>

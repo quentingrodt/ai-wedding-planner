@@ -28,6 +28,7 @@ import { planningAnswersSchema, type PlanningAnswers } from "@/lib/planning/sche
 import type { PlanningTaskRow, Task } from "@/lib/tasks/schema";
 import { ROLE_ORDER, type TeamMember } from "@/lib/team/schema";
 import type { createClient } from "@/utils/supabase/client";
+import { readSelectedWeddingId } from "./selection";
 
 type ServerClient = Awaited<ReturnType<typeof createClient>>;
 
@@ -71,8 +72,10 @@ async function getMemberships(supabase: ServerClient, userId: string): Promise<M
 }
 
 /**
- * Mariage courant, le premier par ordre de préférence. Le budget total n'est
- * lisible que par les mariés (get_wedding_budget, 000033) : null pour un témoin.
+ * Mariage courant : celui que l'utilisateur a choisi (cookie, s'il en est
+ * toujours membre), sinon le premier par ordre de préférence. Le budget total
+ * n'est lisible que par les mariés (get_wedding_budget, 000033) : null pour un
+ * témoin.
  */
 export async function getCurrentWedding(
   supabase: ServerClient,
@@ -80,7 +83,10 @@ export async function getCurrentWedding(
   const userId = await getCurrentUserId(supabase);
   if (!userId) return null;
 
-  const [membership] = await getMemberships(supabase, userId);
+  const memberships = await getMemberships(supabase, userId);
+  const selectedId = await readSelectedWeddingId();
+  const membership =
+    memberships.find((candidate) => candidate.wedding_id === selectedId) ?? memberships[0];
   if (!membership) return null;
 
   const [wedding, budget] = await Promise.all([
@@ -636,3 +642,40 @@ export async function getVendorPlan<C extends PlanCategory>(
   return readPlan(category, data?.data);
 }
 
+/** Un mariage de l'utilisateur, pour le sélecteur du menu. */
+export type UserWedding = { id: string; title: string; wedding_date: string | null; role: WeddingRole };
+
+/** Tous les mariages de l'utilisateur, par ordre de préférence. */
+export async function getUserWeddings(supabase: ServerClient, userId: string): Promise<UserWedding[]> {
+  const memberships = await getMemberships(supabase, userId);
+  if (memberships.length === 0) return [];
+  const { data, error } = await supabase
+    .from("weddings")
+    .select("id, title, wedding_date")
+    .in(
+      "id",
+      memberships.map((membership) => membership.wedding_id),
+    )
+    .returns<Omit<UserWedding, "role">[]>();
+  if (error) {
+    console.error("[weddings] getUserWeddings:", error.code);
+    throw new Error("Unable to load weddings");
+  }
+  const byId = new Map(data.map((wedding) => [wedding.id, wedding]));
+  return memberships.flatMap((membership) => {
+    const wedding = byId.get(membership.wedding_id);
+    return wedding ? [{ ...wedding, role: membership.role }] : [];
+  });
+}
+
+/** L'utilisateur se marie-t-il déjà dans un mariage (owner ou partner) ? Être témoin ne compte pas. */
+export async function hasOwnWedding(supabase: ServerClient, userId: string): Promise<boolean> {
+  const memberships = await getMemberships(supabase, userId);
+  return memberships.some((membership) => membership.role !== "witness");
+}
+
+/** Mariage rejoint le plus récemment (après l'acceptation d'une invitation). */
+export async function getLatestMembershipWeddingId(supabase: ServerClient, userId: string): Promise<string | null> {
+  const memberships = await getMemberships(supabase, userId);
+  return [...memberships].sort((a, b) => b.created_at.localeCompare(a.created_at))[0]?.wedding_id ?? null;
+}

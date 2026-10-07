@@ -13,8 +13,9 @@ import {
   type OnboardingState,
   type StyleDna,
 } from "@/lib/onboarding/schema";
-import { getCurrentUserId, getCurrentWedding } from "@/lib/weddings/queries";
+import { getCurrentUserId, hasOwnWedding } from "@/lib/weddings/queries";
 import { seedWeddingDefaults } from "@/lib/weddings/seed";
+import { rememberSelectedWedding } from "@/lib/weddings/selection";
 import { createClient } from "@/utils/supabase/client";
 
 const FIELDS = [
@@ -68,14 +69,16 @@ export async function createWedding(
   const input = parsed.data;
 
   const supabase = await createClient();
-  if (!(await getCurrentUserId(supabase))) {
+  const userId = await getCurrentUserId(supabase);
+  if (!userId) {
     return redirect({ href: "/login", locale });
   }
 
-  // Double soumission ou onglet resté ouvert : pas de second projet.
+  // Double soumission ou onglet resté ouvert : pas de second projet. Être
+  // témoin d'un autre mariage n'empêche pas de créer le sien.
   let alreadyOnboarded: boolean;
   try {
-    alreadyOnboarded = (await getCurrentWedding(supabase)) !== null;
+    alreadyOnboarded = await hasOwnWedding(supabase, userId);
   } catch {
     return { status: "error", code: "generic", values };
   }
@@ -110,6 +113,10 @@ export async function createWedding(
     console.error("[onboarding] insert wedding:", error.code);
     return { status: "error", code: "generic", values };
   }
+
+  // Le nouveau mariage devient le mariage affiché (même si l'utilisateur
+  // consultait jusque-là celui d'amis dont il est témoin).
+  await rememberSelectedWedding(wedding.id);
 
   // Non bloquant : un échec est journalisé, le dashboard gère l'état vide.
   await seedWeddingDefaults(
