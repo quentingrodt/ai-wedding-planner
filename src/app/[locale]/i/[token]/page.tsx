@@ -111,8 +111,9 @@ export default async function RsvpPage({ params }: PageProps<"/[locale]/i/[token
           />
         </section>
 
-        {guest.lodgings.length > 0 && (
+        {(guest.my_lodging || guest.lodgings.length > 0) && (
           <GuestLodgingSection
+            mine={guest.my_lodging}
             lodgings={guest.lodgings}
             weddingDate={guest.wedding_date}
             today={todayIsoDate()}

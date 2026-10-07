@@ -98,6 +98,8 @@ export type LodgingGuest = {
   is_child: boolean;
   family_id: string | null;
   needs_lodging: boolean;
+  /** Hébergement attribué (cf. 000030), ou null. */
+  lodging_id: string | null;
 };
 
 export const idSchema = z.uuid();
@@ -107,6 +109,12 @@ export const lodgingStatusSchema = z.enum(LODGING_STATUSES);
 export const setNeedsLodgingSchema = z.object({
   guestIds: z.array(z.uuid()).min(1).max(50),
   needsLodging: z.boolean(),
+});
+
+/** Invités logés dans un hébergement : la liste remplace l'attribution précédente. */
+export const assignGuestsSchema = z.object({
+  lodgingId: z.uuid(),
+  guestIds: z.array(z.uuid()).max(1000),
 });
 
 export type LodgingActionError = "unauthenticated" | "forbidden" | "invalid" | "generic";

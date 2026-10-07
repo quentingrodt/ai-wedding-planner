@@ -19,6 +19,7 @@ import type { Lodging } from "./schema";
  */
 
 type LodgingGuest = Pick<Guest, "status" | "is_child" | "family_id"> & { needs_lodging: boolean };
+type AssignableGuest = LodgingGuest & { lodging_id: string | null };
 
 /**
  * Personnes à loger et chambres à prévoir : un foyer partage ses chambres
@@ -36,6 +37,19 @@ export function lodgingNeeds(guests: readonly LodgingGuest[]): { people: number;
   }
   for (const adults of households.values()) rooms += Math.max(1, Math.ceil(adults / 2));
   return { people: hosted.length, rooms };
+}
+
+/** Chambres à prévoir pour les invités logés dans cet hébergement. */
+export function assignedNeeds(guests: readonly AssignableGuest[], lodgingId: string) {
+  return lodgingNeeds(
+    guests.filter((guest) => guest.lodging_id === lodgingId).map((guest) => ({ ...guest, needs_lodging: true })),
+  );
+}
+
+/** Personnes venant de loin qui n'ont pas encore d'hébergement attribué. */
+export function unassignedPeople(guests: readonly AssignableGuest[]): number {
+  return guests.filter((guest) => guest.needs_lodging && guest.status !== "declined" && guest.lodging_id === null)
+    .length;
 }
 
 /** Où en est la réservation, selon le temps qui reste avant le mariage. */
@@ -85,13 +99,19 @@ export function securedRooms(lodgings: readonly Lodging[]): number {
 export type LodgingCheck =
   | { tone: "watch"; key: "optionExpired" }
   | { tone: "watch"; key: "deadlineSoon"; days: number }
+  | { tone: "watch"; key: "tooFewRooms"; missing: number }
   | { tone: "hint"; key: "askGroupRate" }
   | { tone: "hint"; key: "shareCode" }
   | { tone: "hint"; key: "shuttle"; minutes: number };
 
-export function lodgingChecks(lodging: Lodging, today: string): LodgingCheck[] {
+/** assignedRooms : chambres à prévoir pour les invités attribués (cf. assignedNeeds). */
+export function lodgingChecks(lodging: Lodging, today: string, assignedRooms = 0): LodgingCheck[] {
   if (lodging.status === "declined") return [];
   const checks: LodgingCheck[] = [];
+  // Une maison chez des proches ne se compte pas en chambres d'hôtel.
+  if (lodging.rooms !== null && lodging.kind !== "family" && assignedRooms > lodging.rooms) {
+    checks.push({ tone: "watch", key: "tooFewRooms", missing: assignedRooms - lodging.rooms });
+  }
   if (lodging.deadline !== null && lodging.status !== "confirmed") {
     const days = daysBetween(today, lodging.deadline);
     if (days < 0) checks.push({ tone: "watch", key: "optionExpired" });

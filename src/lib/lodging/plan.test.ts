@@ -3,12 +3,14 @@ import en from "../../../messages/en.json";
 import fr from "../../../messages/fr.json";
 import { LODGING_KINDS, LODGING_STATUSES, LODGING_TIPS } from "./catalog";
 import {
+  assignedNeeds,
   bookingTimeline,
   groupLeverage,
   lodgingChecks,
   lodgingNeeds,
   securedRooms,
   sortLodgings,
+  unassignedPeople,
 } from "./plan";
 import { guestRsvpSchema } from "@/lib/rsvp/schema";
 import { lodgingInputSchema, toLodgingRow, type Lodging } from "./schema";
@@ -212,5 +214,64 @@ describe("hébergement sur le lien de l'invité", () => {
     });
     expect(shared.lodgings[0]).toMatchObject({ name: "Hôtel de la Poste", booking_code: "MARIAGE-CT" });
     expect(shared.currency).toBe("CHF");
+  });
+});
+
+describe("attribution des hébergements", () => {
+  const assigned = (lodgingId: string | null, familyId: string | null, overrides: Parameters<typeof guest>[1] = {}) => ({
+    ...guest(familyId, overrides),
+    lodging_id: lodgingId,
+  });
+
+  it("compte les chambres des invités logés dans un hébergement, et ceux qui n'ont rien", () => {
+    const guests = [
+      assigned("hotel", "a"),
+      assigned("hotel", "a"),
+      assigned("hotel", null),
+      assigned("gite", "b"),
+      assigned(null, null),
+      assigned(null, null, { status: "declined" }),
+    ];
+    expect(assignedNeeds(guests, "hotel")).toEqual({ people: 3, rooms: 2 });
+    expect(unassignedPeople(guests)).toBe(1);
+  });
+
+  it("signale un hébergement trop petit pour ses invités, sauf chez des proches", () => {
+    expect(lodgingChecks(lodging({ status: "confirmed", rooms: 2 }), "2026-10-07", 3)).toContainEqual({
+      tone: "watch",
+      key: "tooFewRooms",
+      missing: 1,
+    });
+    expect(lodgingChecks(lodging({ kind: "family", status: "confirmed", rooms: 1 }), "2026-10-07", 3)).toEqual([]);
+  });
+
+  it("lit l'hébergement attribué sur le lien de l'invité", () => {
+    const parsed = guestRsvpSchema.parse({
+      first_name: "Camille",
+      last_name: null,
+      status: "confirmed",
+      dietary_requirements: null,
+      events: ["ceremony"],
+      wedding_title: "Camille & Thomas",
+      wedding_date: null,
+      design: null,
+      has_registry: false,
+      my_lodging: {
+        id: "l1",
+        name: "Gîte du Moulin",
+        kind: "gite",
+        status: "confirmed",
+        location: null,
+        travel_minutes: null,
+        price_per_night: null,
+        group_rate: false,
+        booking_code: null,
+        deadline: null,
+        url: null,
+        contact: null,
+        housemates: ["Julie", "Paul"],
+      },
+    });
+    expect(parsed.my_lodging).toMatchObject({ name: "Gîte du Moulin", housemates: ["Julie", "Paul"] });
   });
 });

@@ -2094,7 +2094,16 @@
       "groupRate": "Tarif négocié pour nos invités",
       "code": "À mentionner en réservant :",
       "deadline": "Réservez avant le {date}",
-      "book": "Réserver"
+      "book": "Réserver",
+      "mine": {
+        "title": "Votre hébergement",
+        "book": "Nous avons pensé à vous : nous vous conseillons {name}. Réservez votre chambre avec les informations ci-dessous.",
+        "shared": "Vous dormirez à {name}.",
+        "hosted": "Vous serez accueilli·e chez {name}.",
+        "housemates": "Avec {names}.",
+        "pending": "Les derniers détails arrivent bientôt : les mariés vous tiendront au courant."
+      },
+      "visit": "Découvrir le lieu"
     }
   },
   "Playlist": {
@@ -3268,7 +3277,9 @@
     },
     "coverage": {
       "done": "Tout le monde a une chambre en vue.",
-      "missing": "{count, plural, one {Encore # chambre à trouver.} other {Encore # chambres à trouver.}}"
+      "missing": "{count, plural, one {Encore # chambre à trouver.} other {Encore # chambres à trouver.}}",
+      "unassigned": "{count, plural, one {# personne n’a pas encore d’hébergement attribué.} other {# personnes n’ont pas encore d’hébergement attribué.}}",
+      "allAssigned": "Chaque invité sait où il dort."
     },
     "tips": {
       "title": "Quatre astuces pour bien les loger",
@@ -3333,7 +3344,7 @@
       "lead": "Hôtels, gîtes, maisons : ceux où des chambres sont tenues en tête.",
       "empty": "Aucun hébergement pour l’instant. Commencez par les adresses les plus proches du lieu.",
       "declined": "{count, plural, one {# piste écartée} other {# pistes écartées}}",
-      "shared": "Les hébergements en option ou confirmés apparaissent sur le lien personnel des invités qui viennent de loin, avec le code et la date limite. Vos notes et les solutions « chez des proches » restent entre vous."
+      "shared": "Chaque invité logé retrouve son hébergement sur son lien personnel, avec le code et la date limite. Un invité venant de loin sans hébergement attribué voit les adresses en option ou confirmées. Vos notes restent entre vous."
     },
     "venueSuggestion": {
       "body": "{name}, votre lieu, propose {count, plural, one {# couchage} other {# couchages}} sur place.",
@@ -3370,7 +3381,8 @@
       "deadlineSoon": "{count, plural, =0 {L’option expire aujourd’hui} one {L’option expire demain} other {L’option expire dans # jours}}",
       "askGroupRate": "Assez de chambres pour demander un tarif de groupe.",
       "shareCode": "Demandez un code de réservation à transmettre à vos invités.",
-      "shuttle": "À {minutes} min du lieu : pensez à une navette pour le retour."
+      "shuttle": "À {minutes} min du lieu : pensez à une navette pour le retour.",
+      "tooFewRooms": "{count, plural, one {Il manque # chambre pour les invités attribués} other {Il manque # chambres pour les invités attribués}}"
     },
     "status": {
       "change": "Avancement",
@@ -3408,6 +3420,18 @@
     "units": {
       "minutes": "min",
       "rooms": "chambres"
+    },
+    "assign": {
+      "open": "Qui dort ici ?",
+      "title": "Qui dort à {name} ?",
+      "description": "Cochez un foyer entier ou invité par invité. Chacun retrouvera cet hébergement, son code et sa date limite sur son lien personnel.",
+      "noGuests": "Aucun invité n’est marqué comme venant de loin. Marquez-les d’abord dans « Qui vient de loin ? ».",
+      "elsewhere": "logé à {name}",
+      "moving": "quitte {name}",
+      "summary": "{people, plural, =0 {Personne pour l’instant} one {# personne} other {# personnes}} · {rooms, plural, =0 {aucune chambre} one {environ # chambre} other {environ # chambres}}",
+      "available": "pour {count, plural, one {# chambre prévue} other {# chambres prévues}}",
+      "saved": "{count, plural, =0 {Plus personne ne dort à {name}.} one {# invité dort à {name}.} other {# invités dorment à {name}.}}",
+      "residents": "{count, plural, one {# invité logé ici} other {# invités logés ici}}"
     }
   }
 }

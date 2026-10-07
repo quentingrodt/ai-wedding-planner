@@ -558,7 +558,7 @@ export async function getLodging(
   const [guests, lodgings] = await Promise.all([
     supabase
       .from("guests")
-      .select("id, first_name, last_name, status, is_child, family_id, needs_lodging")
+      .select("id, first_name, last_name, status, is_child, family_id, needs_lodging, lodging_id")
       .eq("wedding_id", weddingId)
       .order("first_name", { ascending: true })
       .returns<LodgingGuest[]>(),

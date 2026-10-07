@@ -2,6 +2,7 @@
 
 import {
   BedDoubleIcon,
+  UsersIcon,
   ChevronDownIcon,
   CircleAlertIcon,
   ExternalLinkIcon,
@@ -35,18 +36,21 @@ import {
 import type { GuestFamily } from "@/lib/guests/schema";
 import { LODGING_STATUSES, SECURED_STATUSES, type LodgingStatus } from "@/lib/lodging/catalog";
 import {
+  assignedNeeds,
   bookingTimeline,
   groupLeverage,
   lodgingChecks,
   lodgingNeeds,
   securedRooms,
   sortLodgings,
+  unassignedPeople,
   type LodgingCheck,
 } from "@/lib/lodging/plan";
 import type { Lodging, LodgingActionResult, LodgingGuest } from "@/lib/lodging/schema";
 import { cn } from "@/lib/utils";
 import { isoDateToUtc } from "@/lib/weddings/dates";
 import { deleteLodging, setLodgingStatus } from "../actions";
+import { AssignGuestsDialog } from "./assign-guests-dialog";
 import { FarGuests } from "./far-guests";
 import { LodgingDialog, type LodgingPreset } from "./lodging-dialog";
 import { LodgingTips } from "./lodging-tips";
@@ -117,6 +121,11 @@ export function AccommodationBoard({
   const sorted = sortLodgings(lodgings);
   const active = sorted.filter((lodging) => lodging.status !== "declined");
   const declined = sorted.filter((lodging) => lodging.status === "declined");
+  // Invités à loger, et ceux déjà logés quelque part.
+  const farGuests = attending.filter((guest) => guest.needs_lodging || guest.lodging_id !== null);
+  const lodgingNames = new Map(lodgings.map((lodging) => [lodging.id, lodging.name]));
+  const unassigned = unassignedPeople(attending);
+  const assignment = { guests: farGuests, families, lodgingNames };
   const suggestVenue = canEdit && bookedVenue !== null && !lodgings.some((lodging) => lodging.kind === "venue");
 
   const summary =
@@ -160,6 +169,7 @@ export function AccommodationBoard({
         canEdit={canEdit}
         defaultOpen={needs.people === 0}
         summary={summary}
+        lodgingNames={lodgingNames}
       />
 
       {needs.people === 0 && lodgings.length === 0 ? (
@@ -194,6 +204,8 @@ export function AccommodationBoard({
                 {secured >= needs.rooms
                   ? t("coverage.done")
                   : t("coverage.missing", { count: needs.rooms - secured })}
+                {lodgings.length > 0 &&
+                  " " + (unassigned > 0 ? t("coverage.unassigned", { count: unassigned }) : t("coverage.allAssigned"))}
               </p>
             </div>
           )}
@@ -244,6 +256,7 @@ export function AccommodationBoard({
                     money={money}
                     canEdit={canEdit}
                     run={run}
+                    {...assignment}
                   />
                 ))}
               </ul>
@@ -265,6 +278,7 @@ export function AccommodationBoard({
                       money={money}
                       canEdit={canEdit}
                       run={run}
+                      {...assignment}
                     />
                   ))}
                 </ul>
@@ -284,12 +298,17 @@ type CardProps = {
   money: (amount: number) => string;
   canEdit: boolean;
   run: (action: () => Promise<LodgingActionResult>, success: string) => void;
+  /** Invités venant de loin ou déjà logés, pour l'attribution. */
+  guests: LodgingGuest[];
+  families: GuestFamily[];
+  lodgingNames: Map<string, string>;
 };
 
-function LodgingCard({ lodging, today, currencySymbol, money, canEdit, run }: CardProps) {
+function LodgingCard({ lodging, today, currencySymbol, money, canEdit, run, guests, families, lodgingNames }: CardProps) {
   const t = useTranslations("Lodging");
   const format = useFormatter();
-  const checks = lodgingChecks(lodging, today);
+  const residents = guests.filter((guest) => guest.lodging_id === lodging.id);
+  const checks = lodgingChecks(lodging, today, assignedNeeds(guests, lodging.id).rooms);
   const date = (iso: string) =>
     format.dateTime(isoDateToUtc(iso), { day: "numeric", month: "long", timeZone: "UTC" });
 
@@ -312,7 +331,7 @@ function LodgingCard({ lodging, today, currencySymbol, money, canEdit, run }: Ca
             {t(`statuses.${lodging.status}`)}
           </span>
           <span className="text-xs text-stone">{t(`kinds.${lodging.kind}`)}</span>
-          {SECURED_STATUSES.includes(lodging.status) && lodging.kind !== "family" && (
+          {((SECURED_STATUSES.includes(lodging.status) && lodging.kind !== "family") || residents.length > 0) && (
             <span className="rounded-full bg-linen px-2.5 py-0.5 text-xs text-charcoal">{t("facts.shared")}</span>
           )}
           {lodging.group_rate && (
@@ -357,6 +376,17 @@ function LodgingCard({ lodging, today, currencySymbol, money, canEdit, run }: Ca
         </ul>
       )}
 
+      {residents.length > 0 && (
+        <div className="flex flex-col gap-1.5 rounded-2xl bg-linen/70 p-3">
+          <p className="text-xs font-medium tracking-[0.15em] text-stone uppercase">
+            {t("assign.residents", { count: residents.length })}
+          </p>
+          <p className="text-sm leading-6">
+            {format.list(residents.map((guest) => [guest.first_name, guest.last_name].filter(Boolean).join(" ")))}
+          </p>
+        </div>
+      )}
+
       {lodging.notes && <p className="text-sm leading-6 text-pretty text-stone">{lodging.notes}</p>}
 
       {(canEdit || lodging.url) && (
@@ -386,6 +416,20 @@ function LodgingCard({ lodging, today, currencySymbol, money, canEdit, run }: Ca
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+          )}
+          {canEdit && lodging.status !== "declined" && (
+            <AssignGuestsDialog
+              lodging={lodging}
+              guests={guests}
+              families={families}
+              lodgingNames={lodgingNames}
+              trigger={
+                <Button variant="outline" size="sm" className="rounded-full">
+                  <UsersIcon aria-hidden />
+                  {t("assign.open")}
+                </Button>
+              }
+            />
           )}
           <span className="ml-auto flex">
             {lodging.url && (
@@ -423,6 +467,8 @@ function checkLabel(t: ReturnType<typeof useTranslations<"Lodging">>, check: Lod
   switch (check.key) {
     case "deadlineSoon":
       return t("checks.deadlineSoon", { count: check.days });
+    case "tooFewRooms":
+      return t("checks.tooFewRooms", { count: check.missing });
     case "shuttle":
       return t("checks.shuttle", { minutes: check.minutes });
     default:

@@ -18,12 +18,14 @@ type FarGuestsProps = {
   /** Ouvert d'office tant que personne n'est marqué. */
   defaultOpen: boolean;
   summary: string;
+  /** Nom de chaque hébergement, pour dire où dort chacun. */
+  lodgingNames: Map<string, string>;
 };
 
 const fullName = (guest: LodgingGuest) => [guest.first_name, guest.last_name].filter(Boolean).join(" ");
 
 /** « Qui vient de loin ? » : un foyer se marque d'un geste, un invité seul aussi. */
-export function FarGuests({ guests, families, canEdit, defaultOpen, summary }: FarGuestsProps) {
+export function FarGuests({ guests, families, canEdit, defaultOpen, summary, lodgingNames }: FarGuestsProps) {
   const t = useTranslations("Lodging");
   const [, startTransition] = useTransition();
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -52,6 +54,13 @@ export function FarGuests({ guests, families, canEdit, defaultOpen, summary }: F
     .map((family) => ({ family, members: guests.filter((guest) => guest.family_id === family.id) }))
     .filter(({ members }) => members.length > 0);
   const solos = guests.filter((guest) => guest.family_id === null);
+  const placeOf = (guest: LodgingGuest) =>
+    guest.lodging_id !== null && flags.get(guest.id) ? lodgingNames.get(guest.lodging_id) : undefined;
+  // Un foyer logé au même endroit l'affiche sur sa ligne.
+  const householdPlace = (members: LodgingGuest[]) => {
+    const places = new Set(members.filter((member) => flags.get(member.id)).map(placeOf));
+    return places.size === 1 ? [...places][0] : undefined;
+  };
 
   return (
     <details open={defaultOpen} className="group rounded-3xl bg-card ring-1 ring-border">
@@ -98,6 +107,9 @@ export function FarGuests({ guests, families, canEdit, defaultOpen, summary }: F
                               ? t("far.partial", { count: flagged, total: members.length })
                               : t("far.members", { count: members.length })}
                           </span>
+                          {householdPlace(members) && (
+                            <span className="truncate text-sm text-sage-deep">· {householdPlace(members)}</span>
+                          )}
                         </button>
                         <FarToggle
                           pressed={all}
@@ -114,6 +126,7 @@ export function FarGuests({ guests, families, canEdit, defaultOpen, summary }: F
                                 name={fullName(member)}
                                 isChild={member.is_child}
                                 pressed={flags.get(member.id) ?? false}
+                                place={placeOf(member)}
                                 disabled={!canEdit}
                                 onClick={() => toggle([member.id], !flags.get(member.id))}
                               />
@@ -139,6 +152,7 @@ export function FarGuests({ guests, families, canEdit, defaultOpen, summary }: F
                         name={fullName(guest)}
                         isChild={guest.is_child}
                         pressed={flags.get(guest.id) ?? false}
+                        place={placeOf(guest)}
                         disabled={!canEdit}
                         onClick={() => toggle([guest.id], !flags.get(guest.id))}
                       />
@@ -187,12 +201,15 @@ function FarToggle({
 function GuestChip({
   name,
   isChild,
+  place,
   pressed,
   disabled,
   onClick,
 }: {
   name: string;
   isChild: boolean;
+  /** Hébergement attribué, s'il y en a un. */
+  place?: string;
   pressed: boolean;
   disabled: boolean;
   onClick: () => void;
@@ -212,6 +229,7 @@ function GuestChip({
       {pressed && <CheckIcon aria-hidden className="size-4" />}
       {name}
       {isChild && <span className="text-xs text-stone">{t("far.child")}</span>}
+      {place && <span className="max-w-40 truncate text-xs text-sage-deep">· {place}</span>}
     </button>
   );
 }

@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import {
+  assignGuestsSchema,
   idSchema,
   lodgingInputSchema,
   lodgingStatusSchema,
@@ -50,12 +51,48 @@ export async function setNeedsLodging(input: { guestIds: string[]; needsLodging:
   if (!context.ok) return context;
   const { data, error } = await context.supabase
     .from("guests")
-    .update({ needs_lodging: parsed.data.needsLodging })
+    // Qui ne vient plus de loin n'a plus d'hébergement attribué.
+    .update(parsed.data.needsLodging ? { needs_lodging: true } : { needs_lodging: false, lodging_id: null })
     .eq("wedding_id", context.weddingId)
     .in("id", parsed.data.guestIds)
     .select("id");
   if (error) return failure("setNeedsLodging", error.code);
   if (data.length === 0) return { ok: false, error: "forbidden" };
+  revalidateLodging();
+  return { ok: true };
+}
+
+/**
+ * Invités logés dans un hébergement : ceux de la liste y sont attribués (et
+ * quittent leur hébergement précédent), les autres qui y étaient le quittent.
+ */
+export async function assignGuests(input: { lodgingId: string; guestIds: string[] }): Promise<LodgingActionResult> {
+  const parsed = assignGuestsSchema.safeParse(input);
+  if (!parsed.success) return { ok: false, error: "invalid" };
+  const context = await coupleContext();
+  if (!context.ok) return context;
+  const { supabase, weddingId } = context;
+  const { lodgingId, guestIds } = parsed.data;
+
+  let release = supabase
+    .from("guests")
+    .update({ lodging_id: null })
+    .eq("wedding_id", weddingId)
+    .eq("lodging_id", lodgingId);
+  if (guestIds.length > 0) release = release.not("id", "in", `(${guestIds.join(",")})`);
+  const { error: releaseError } = await release;
+  if (releaseError) return failure("assignGuests release", releaseError.code);
+
+  if (guestIds.length > 0) {
+    // La clé étrangère composite (000030) refuse un hébergement d'un autre mariage.
+    const { error } = await supabase
+      .from("guests")
+      .update({ lodging_id: lodgingId, needs_lodging: true })
+      .eq("wedding_id", weddingId)
+      .in("id", guestIds);
+    if (error) return failure("assignGuests", error.code);
+  }
+
   revalidateLodging();
   return { ok: true };
 }

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { GUEST_EVENTS, GUEST_LIMITS, GUEST_STATUSES, sortGuestEvents } from "@/lib/guests/schema";
 import { invitationDesignSchema } from "@/lib/invitations/schema";
-import { LODGING_KINDS } from "@/lib/lodging/catalog";
+import { LODGING_KINDS, LODGING_STATUSES } from "@/lib/lodging/catalog";
 
 /** Réponses qu'un invité peut donner lui-même (pas « invité »). */
 export const RSVP_STATUSES = ["confirmed", "tentative", "declined"] as const;
@@ -22,6 +22,13 @@ export const guestLodgingSchema = z.object({
   contact: z.string().nullable(),
 });
 export type GuestLodging = z.infer<typeof guestLodgingSchema>;
+
+/** Hébergement attribué à l'invité (cf. 000030), avec ceux qui partagent la maison. */
+export const myLodgingSchema = guestLodgingSchema.extend({
+  status: z.enum(LODGING_STATUSES),
+  housemates: z.array(z.string()).catch([]),
+});
+export type MyLodging = z.infer<typeof myLodgingSchema>;
 
 /** Résultat de la RPC get_guest_rsvp (cf. 000015 et 000023), revalidé avant affichage. */
 export const guestRsvpSchema = z.object({
@@ -44,6 +51,7 @@ export const guestRsvpSchema = z.object({
   has_registry: z.boolean().catch(false),
   // Hébergements conseillés, pour un invité venant de loin (cf. 000029).
   lodgings: z.array(guestLodgingSchema).catch([]),
+  my_lodging: myLodgingSchema.nullable().catch(null),
   currency: z.string().length(3).catch("EUR"),
 });
 export type GuestRsvp = z.infer<typeof guestRsvpSchema>;

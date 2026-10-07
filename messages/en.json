@@ -2094,7 +2094,16 @@
       "groupRate": "Special rate for our guests",
       "code": "Mention when booking:",
       "deadline": "Book before {date}",
-      "book": "Book"
+      "book": "Book",
+      "mine": {
+        "title": "Your accommodation",
+        "book": "We thought of you: we recommend {name}. Book your room with the details below.",
+        "shared": "You will be staying at {name}.",
+        "hosted": "You will be welcomed at {name}.",
+        "housemates": "With {names}.",
+        "pending": "Final details are coming soon: the couple will keep you posted."
+      },
+      "visit": "See the place"
     }
   },
   "Playlist": {
@@ -3268,7 +3277,9 @@
     },
     "coverage": {
       "done": "Everyone has a room in sight.",
-      "missing": "{count, plural, one {# more room to find.} other {# more rooms to find.}}"
+      "missing": "{count, plural, one {# more room to find.} other {# more rooms to find.}}",
+      "unassigned": "{count, plural, one {# person has no accommodation assigned yet.} other {# people have no accommodation assigned yet.}}",
+      "allAssigned": "Every guest knows where they sleep."
     },
     "tips": {
       "title": "Four tips to host them well",
@@ -3333,7 +3344,7 @@
       "lead": "Hotels, cottages, houses: those holding rooms come first.",
       "empty": "No accommodation yet. Start with the places closest to the venue.",
       "declined": "{count, plural, one {# lead set aside} other {# leads set aside}}",
-      "shared": "Accommodation on hold or confirmed appears on the personal link of guests travelling far, with the code and deadline. Your notes and stays with family or friends stay between you."
+      "shared": "Each assigned guest finds their accommodation on their personal link, with the code and deadline. A guest travelling far with nothing assigned sees the places on hold or confirmed. Your notes stay between you."
     },
     "venueSuggestion": {
       "body": "{name}, your venue, has {count, plural, one {# bed} other {# beds}} on site.",
@@ -3370,7 +3381,8 @@
       "deadlineSoon": "{count, plural, =0 {The hold expires today} one {The hold expires tomorrow} other {The hold expires in # days}}",
       "askGroupRate": "Enough rooms to ask for a group rate.",
       "shareCode": "Ask for a booking code to share with your guests.",
-      "shuttle": "{minutes} min from the venue: consider a shuttle for the ride back."
+      "shuttle": "{minutes} min from the venue: consider a shuttle for the ride back.",
+      "tooFewRooms": "{count, plural, one {# room short for the assigned guests} other {# rooms short for the assigned guests}}"
     },
     "status": {
       "change": "Progress",
@@ -3408,6 +3420,18 @@
     "units": {
       "minutes": "min",
       "rooms": "rooms"
+    },
+    "assign": {
+      "open": "Who sleeps here?",
+      "title": "Who sleeps at {name}?",
+      "description": "Tick a whole household or guest by guest. Each one will find this place, its code and deadline on their personal link.",
+      "noGuests": "No guest is marked as travelling far. Mark them first in “Who is travelling far?”.",
+      "elsewhere": "staying at {name}",
+      "moving": "leaving {name}",
+      "summary": "{people, plural, =0 {Nobody yet} one {# person} other {# people}} · {rooms, plural, =0 {no rooms} one {about # room} other {about # rooms}}",
+      "available": "for {count, plural, one {# room planned} other {# rooms planned}}",
+      "saved": "{count, plural, =0 {Nobody sleeps at {name} any more.} one {# guest sleeps at {name}.} other {# guests sleep at {name}.}}",
+      "residents": "{count, plural, one {# guest staying here} other {# guests staying here}}"
     }
   }
 }
