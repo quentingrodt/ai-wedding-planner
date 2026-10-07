@@ -2181,13 +2181,15 @@
     "groups": {
       "prepare": "Prepare",
       "guests": "Your guests",
-      "day": "The big day"
+      "day": "The big day",
+      "vendors": "Vendors"
     },
     "tabs": {
       "prepare": "Prepare",
       "guests": "Guests",
       "day": "Big day",
-      "more": "More"
+      "more": "More",
+      "vendors": "Vendors"
     },
     "items": {
       "dashboard": "Home",
@@ -2204,7 +2206,28 @@
       "calendar": "Calendar",
       "registry": "Registry",
       "venues": "Venue",
-      "accommodation": "Accommodation"
+      "accommodation": "Accommodation",
+      "vendors": "Overview",
+      "vendor_catering": "Catering",
+      "vendor_florist": "Florist",
+      "vendor_cake": "Wedding cake",
+      "vendor_hair": "Hairdresser",
+      "vendor_makeup": "Makeup artist",
+      "vendor_beauty": "Beauty treatments",
+      "vendor_officiant": "Officiant",
+      "vendor_car": "Wedding car",
+      "vendor_entertainment": "Entertainment",
+      "vendor_guest_gifts": "Guest favours",
+      "vendor_rings": "Wedding rings",
+      "vendor_photographer": "Photographer",
+      "vendor_videographer": "Videographer",
+      "vendor_bridal_gown": "Wedding dress",
+      "vendor_bridesmaids": "Bridesmaid dresses",
+      "vendor_groom_suit": "Groom’s suit",
+      "vendor_groomsmen": "Groomsmen suits",
+      "vendor_stationery": "Wedding stationery",
+      "vendor_website": "Wedding website",
+      "vendor_other": "Other vendors"
     }
   },
   "Planning": {
@@ -3126,17 +3149,6 @@
       "alternatives": "Other dates offered",
       "unavailable": "Booked on our date"
     },
-    "rating": {
-      "none": "Not rated yet",
-      "value": "{value} out of {max}",
-      "steps": {
-        "1": "Disappointing",
-        "2": "Average",
-        "3": "Fine",
-        "4": "Very good",
-        "5": "Perfect"
-      }
-    },
     "score": {
       "rated": "{count, plural, =0 {No criteria rated} one {# of {total} criteria rated} other {# of {total} criteria rated}}"
     },
@@ -3215,9 +3227,6 @@
       "cons": "Cons",
       "prosPlaceholder": "The park for drinks",
       "consPlaceholder": "Far from the station",
-      "prosAdd": "Add this pro",
-      "consAdd": "Add this con",
-      "removeNote": "Remove “{note}”",
       "notes": "Your impressions",
       "notesPlaceholder": "What struck you during the visit…"
     },
@@ -3432,6 +3441,317 @@
       "available": "for {count, plural, one {# room planned} other {# rooms planned}}",
       "saved": "{count, plural, =0 {Nobody sleeps at {name} any more.} one {# guest sleeps at {name}.} other {# guests sleep at {name}.}}",
       "residents": "{count, plural, one {# guest staying here} other {# guests staying here}}"
+    }
+  },
+  "Compare": {
+    "rating": {
+      "none": "Not rated yet",
+      "value": "{value} out of {max}",
+      "steps": {
+        "1": "Disappointing",
+        "2": "Average",
+        "3": "Fine",
+        "4": "Very good",
+        "5": "Perfect"
+      }
+    },
+    "notes": {
+      "pros": "Pros",
+      "cons": "Cons",
+      "prosAdd": "Add this pro",
+      "consAdd": "Add this con",
+      "remove": "Remove “{note}”"
+    }
+  },
+  "Vendors": {
+    "metaTitle": "Vendors",
+    "eyebrow": "Vendors",
+    "title": "The right people around you",
+    "intro": "For each vendor, keep your leads, their quotes and your impressions in one place, until you choose.",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving…",
+    "add": "Add a vendor",
+    "delete": "Delete",
+    "editLabel": "Edit {name}",
+    "deleteLabel": "Delete {name}",
+    "deleteTitle": "Delete {name}?",
+    "deleteDescription": "Its details, quote and your notes will be erased.",
+    "deleted": "{name} was removed.",
+    "site": "{name} website",
+    "book": "Book",
+    "bookedToast": "{name} is booked. The related steps of your timeline are checked off.",
+    "meeting": "Meeting on {date}",
+    "errors": {
+      "unauthenticated": "Your session has expired. Please sign in again.",
+      "forbidden": "Only the couple can edit vendors.",
+      "invalid": "Some details look incorrect. Check them and try again.",
+      "generic": "We couldn’t save this change. Please try again."
+    },
+    "benchmarks": {
+      "envelope": "“{line}” budget",
+      "guests": "Expected guests",
+      "booked": "Booked"
+    },
+    "budgetLines": {
+      "venue": "Venue",
+      "catering": "Catering",
+      "cake": "Cake",
+      "photography": "Photo and video",
+      "music": "Music",
+      "decoration": "Decoration and flowers",
+      "attire": "Attire",
+      "beauty": "Beauty",
+      "rings": "Rings",
+      "stationery": "Stationery",
+      "officiant": "Officiant",
+      "transport": "Transport",
+      "honeymoon": "Honeymoon",
+      "contingency": "Contingency",
+      "other": "Other"
+    },
+    "venueCatering": {
+      "imposed": "Your venue requires its own caterer: your leads will mostly help compare the menus it offers.",
+      "included": "Catering comes with your venue: note its menus and tasting date here."
+    },
+    "guide": {
+      "title": "The right time, the right questions",
+      "questions": "To ask every vendor"
+    },
+    "links": {
+      "catering": "See what your venue provides",
+      "entertainment": "Prepare your playlist",
+      "stationery": "Design your invitations with Céleste",
+      "website": "Prepare your guests’ personal link"
+    },
+    "list": {
+      "title": "Your leads",
+      "lead": "The booked vendor first, then leads by progress and rating.",
+      "allDeclined": "All your leads are set aside. Add a new one.",
+      "declined": "{count, plural, one {# lead set aside} other {# leads set aside}}"
+    },
+    "empty": {
+      "title": "No leads yet",
+      "body": "A name friends recommended, an account spotted on Instagram, a wedding fair: note it down, even without a quote."
+    },
+    "statuses": {
+      "idea": "Spotted",
+      "contacted": "Contacted",
+      "quote": "Quote received",
+      "meeting": "Meeting",
+      "booked": "Booked",
+      "declined": "Set aside"
+    },
+    "priceBases": {
+      "total": "in total",
+      "per_guest": "per guest"
+    },
+    "price": {
+      "perGuest": "{price} per guest",
+      "estimate": "≈ {total} for {count} guests",
+      "deposit": "{amount} deposit to pay",
+      "depositPaid": "{amount} deposit paid"
+    },
+    "checks": {
+      "overBudget": "{amount} over the budget planned for this line",
+      "depositDue": "{amount} deposit to pay to confirm the booking",
+      "meetingSoon": "{count, plural, =0 {Meeting today} one {Meeting tomorrow} other {Meeting in # days}}: prepare your questions",
+      "askQuote": "Ask for a detailed quote to compare"
+    },
+    "status": {
+      "change": "Progress",
+      "changed": "{name}: {status}."
+    },
+    "dialog": {
+      "addTitle": "{category}: a new lead",
+      "editTitle": "Vendor details",
+      "description": "Fill in what you already know; the rest will come with the quote or the meeting.",
+      "nameRequired": "Give this vendor a name.",
+      "emailInvalid": "This email address doesn’t look valid.",
+      "contact": "Contact",
+      "price": "Price and meeting",
+      "added": "{name} was added.",
+      "updated": "The details were updated."
+    },
+    "fields": {
+      "name": "Name",
+      "status": "Progress",
+      "contactName": "Contact person",
+      "phone": "Phone",
+      "email": "Email",
+      "url": "Website or Instagram",
+      "location": "Town",
+      "price": "Quoted price",
+      "priceBasis": "Price basis",
+      "deposit": "Deposit",
+      "depositPaid": "Deposit paid",
+      "meetingDate": "Next meeting",
+      "meetingHint": "Tasting, trial, meeting…",
+      "rating": "Your impression",
+      "prosPlaceholder": "A great listener",
+      "consPlaceholder": "Travel costs extra",
+      "notes": "Your notes",
+      "notesPlaceholder": "What the quote includes, what you liked…"
+    },
+    "overview": {
+      "kpis": {
+        "booked": "Vendors booked",
+        "leads": "Leads in progress",
+        "committed": "Committed"
+      },
+      "sections": {
+        "reception": "The reception",
+        "memories": "The memories",
+        "attire": "Attire and rings",
+        "beauty": "Beauty",
+        "ceremony": "Ceremony and guests"
+      },
+      "booked": "Booked: {names}",
+      "leads": "{count, plural, one {# lead in progress} other {# leads in progress}}",
+      "none": "To find"
+    },
+    "categories": {
+      "catering": {
+        "label": "Catering",
+        "title": "The caterer",
+        "intro": "The meal is the most shared memory of the day: compare menus, tastings and what each quote really includes.",
+        "when": "Book 9 to 12 months ahead, right after the venue; the tasting takes place 4 to 5 months before.",
+        "questions": "Does the price per guest include service, tableware and linen?|How many waiters for your guests, and until when?|Is a tasting included, and for how many people?|How are special diets and children’s menus handled?|Is there a corkage fee if you bring your own wine?"
+      },
+      "florist": {
+        "label": "Florist",
+        "title": "The florist",
+        "intro": "Bouquet, buttonholes, centrepieces, arch: the florist gives the day its colour.",
+        "when": "Book 8 to 9 months ahead; the final choice of flowers is made 2 months before, by season.",
+        "questions": "Which flowers are in season on your date?|Are delivery, set-up and vase collection included?|Can ceremony flowers be reused at the reception?|Is a bouquet trial possible?"
+      },
+      "cake": {
+        "label": "Wedding cake",
+        "title": "The wedding cake",
+        "intro": "Croquembouche, tiered cake, dessert bar: taste before you choose.",
+        "when": "Tasting 8 months ahead, order 6 to 7 months before; confirm with the final guest count.",
+        "questions": "Is the price per slice or in total?|Are delivery and set-up included?|How long does it keep out of the fridge?|Does the caterer accept an outside baker?"
+      },
+      "hair": {
+        "label": "Hairdresser",
+        "title": "The hairdresser",
+        "intro": "A hairstyle that lasts from the ceremony to the last dance, designed with the dress and veil.",
+        "when": "Book 6 to 8 months ahead; the trial is 2 to 3 months before, ideally with the veil.",
+        "questions": "Do they travel on the morning, and at what time?|Is the trial included?|Can they also style mothers and bridesmaids?|What about a touch-up before the evening?"
+      },
+      "makeup": {
+        "label": "Makeup artist",
+        "title": "The makeup artist",
+        "intro": "Glowing makeup that looks like you and holds up to emotion and photos.",
+        "when": "Book 6 to 8 months ahead, often with the hairdresser; the trial is 2 months before.",
+        "questions": "Do they use long-wear products suited to your skin?|Is the trial included?|Do they stay for a touch-up before the ceremony?|Can they do your family too, at what rate?"
+      },
+      "beauty": {
+        "label": "Beauty treatments",
+        "title": "Beauty treatments",
+        "intro": "Facials, manicure, waxing, massage: a gentle programme in the weeks before.",
+        "when": "Start facials 3 months ahead; manicure and waxing in the final days.",
+        "questions": "What treatment plan for the last three months?|Should some treatments be avoided just before?|A group package for the wedding party?|Can you plan a relaxing moment the day before?"
+      },
+      "officiant": {
+        "label": "Officiant",
+        "title": "The officiant",
+        "intro": "Civil celebrant or religious, the officiant sets the tone and tells your story.",
+        "when": "Book 10 to 12 months ahead; write the ceremony together 2 to 3 months before.",
+        "questions": "How many meetings to write the ceremony?|Is a rehearsal planned?|Are travel costs included?|How do they include readings and rituals from your family?"
+      },
+      "car": {
+        "label": "Wedding car",
+        "title": "The wedding car",
+        "intro": "Vintage car, carriage or guest shuttle: the journey is part of the day.",
+        "when": "Book 8 months ahead; confirm route and times the month before.",
+        "questions": "Are the driver, fuel and decoration included?|How many hours of service?|What happens if it breaks down or rains?|Is a shuttle home for guests possible?"
+      },
+      "entertainment": {
+        "label": "Entertainment",
+        "title": "Entertainment",
+        "intro": "DJ, band, musicians for drinks: they are the ones who will get your guests dancing.",
+        "when": "Book 8 to 10 months ahead; share your playlist and key moments 1 month before.",
+        "questions": "Until what time do they play, and what does an extra hour cost?|Is sound and lighting equipment included?|Can you give them a list of songs to play and avoid?|Do they also cover the ceremony and drinks?"
+      },
+      "guest_gifts": {
+        "label": "Guest favours",
+        "title": "Guest favours",
+        "intro": "A keepsake for each guest, and a thank-you for those who helped.",
+        "when": "Order 4 to 5 months ahead, especially if personalised.",
+        "questions": "How long does personalisation take?|Does the price drop with quantity?|Is wrapping included?|A separate gift for the wedding party and parents?"
+      },
+      "rings": {
+        "label": "Wedding rings",
+        "title": "The wedding rings",
+        "intro": "You’ll wear them for a lifetime: take time to try them on together.",
+        "when": "Choose 4 to 6 months ahead; allow 6 to 8 weeks for engraving or a custom design.",
+        "questions": "How long for making and engraving?|Is resizing included later?|What warranty and care?|Does the metal match the engagement ring?"
+      },
+      "photographer": {
+        "label": "Photographer",
+        "title": "The photographer",
+        "intro": "Photos remain when everything else fades: choose an eye before a price.",
+        "when": "Book 10 to 12 months ahead: good photographers are taken early.",
+        "questions": "How many hours, from getting ready to the party?|How many photos, delivered how soon?|Is an engagement shoot included?|What if they can’t make it on the day?"
+      },
+      "videographer": {
+        "label": "Videographer",
+        "title": "The videographer",
+        "intro": "Voices, laughter, speeches: video keeps what photos can’t say.",
+        "when": "Book 10 to 12 months ahead, often together with the photographer.",
+        "questions": "How long is the film, and is there a short teaser?|Are speeches filmed in full?|Do they fly a drone, and is it allowed at the venue?|How long until delivery?"
+      },
+      "bridal_gown": {
+        "label": "Wedding dress",
+        "title": "The wedding dress",
+        "intro": "Fittings, alterations, accessories: the dress is chosen calmly and prepared in stages.",
+        "when": "Start fittings 9 to 12 months ahead; plan 2 to 3 alterations in the last 2 months.",
+        "questions": "How long to make this model?|Are alterations included?|Are veil and accessories offered?|Can you bring people to fittings?"
+      },
+      "bridesmaids": {
+        "label": "Bridesmaid dresses",
+        "title": "Bridesmaid dresses",
+        "intro": "Matching or mismatched in one palette: dresses each of them will enjoy wearing.",
+        "when": "Choose 6 months ahead, leaving time for orders and alterations.",
+        "questions": "Several sizes and cuts in one colour?|Who pays for the dresses?|Delivery time and alterations?|Can they wear them again afterwards?"
+      },
+      "groom_suit": {
+        "label": "Groom’s suit",
+        "title": "The groom’s suit",
+        "intro": "Bespoke, made to measure or off the peg: a suit that fits, designed alongside the dress.",
+        "when": "Choose 6 to 8 months ahead for bespoke, 3 months for off the peg.",
+        "questions": "How many fittings, and how long?|Are alterations included?|Shirt, tie or bow tie, shoes: what does it include?|Rent or buy?"
+      },
+      "groomsmen": {
+        "label": "Groomsmen suits",
+        "title": "Groomsmen suits",
+        "intro": "One shared detail is often enough: a tie, a pocket square, a buttonhole.",
+        "when": "Organise 4 to 6 months ahead, especially for rentals.",
+        "questions": "Group rental and a group rate?|Sizes for everyone, children included?|Who pays for the suits?|When to collect and return them?"
+      },
+      "stationery": {
+        "label": "Wedding stationery",
+        "title": "Wedding stationery",
+        "intro": "Invitations, menus, seating chart, place cards: one design from the first mailing to dinner.",
+        "when": "Send invitations 3 months ahead; order on-the-day stationery 6 weeks before.",
+        "questions": "Which paper and printing?|How many proofs before printing?|Delivery time and shipping costs?|Are envelopes and stamps included?"
+      },
+      "website": {
+        "label": "Wedding website",
+        "title": "The wedding website",
+        "intro": "Schedule, directions, accommodation, registry: a website gathers everything your guests look for.",
+        "when": "Publish it with the invitations, 3 months ahead at the latest.",
+        "questions": "Is it password protected?|Can guests reply online?|Is the domain name included?|How long does it stay online afterwards?"
+      },
+      "other": {
+        "label": "Other vendors",
+        "title": "Other vendors",
+        "intro": "Equipment rental, babysitter, food truck, photo booth: everything that fits nowhere else.",
+        "when": "Book them 4 to 6 months ahead, depending on availability.",
+        "questions": "What exactly does the quote include?|Delivery, set-up and collection?|Insurance for breakage?|What deposit, and what cancellation terms?"
+      }
     }
   }
 }

@@ -1,3 +1,4 @@
+import type { VendorHref } from "@/lib/vendors/catalog";
 import type { PlanningContext, TaskCategory, Tradition } from "./schema";
 
 /*
@@ -24,7 +25,8 @@ export type PlanningHref =
   | "/seating"
   | "/itinerary"
   | "/playlist"
-  | "/inspiration";
+  | "/inspiration"
+  | VendorHref;
 
 export type TaskDefinition = {
   key: string;
@@ -74,7 +76,7 @@ export const TASK_CATALOG = [
   { key: "choose_witnesses", category: "foundations", ideal: 340, floor: 45, priority: 2 },
   { key: "announce_date", category: "foundations", ideal: 340, floor: 60, priority: 3 },
   { key: "gather_inspiration", category: "foundations", ideal: 360, floor: 60, priority: 3, href: "/inspiration" },
-  { key: "book_officiant", category: "foundations", ideal: 330, floor: 60, priority: 2, when: hasCeremonyOfficiant },
+  { key: "book_officiant", category: "foundations", ideal: 330, floor: 60, priority: 2, when: hasCeremonyOfficiant, href: "/vendors/officiant" },
   {
     key: "book_accommodation", category: "foundations", ideal: 300, floor: 45, priority: 3,
     dependsOn: "book_venue", href: "/accommodation",
@@ -84,32 +86,32 @@ export const TASK_CATALOG = [
 
   // — Prestataires —
   {
-    key: "book_catering", category: "vendors", ideal: 270, floor: 45, priority: 1,
+    key: "book_catering", category: "vendors", ideal: 270, floor: 45, priority: 1, href: "/vendors/catering",
     dependsOn: "book_venue",
     when: ({ answers }) => !answers.cateringByVenue,
   },
   {
-    key: "book_photographer", category: "vendors", ideal: 270, floor: 45, priority: 1,
+    key: "book_photographer", category: "vendors", ideal: 270, floor: 45, priority: 1, href: "/vendors/photographer",
     when: ({ answers }) => answers.photographer,
   },
   {
-    key: "book_videographer", category: "vendors", ideal: 270, floor: 45, priority: 2,
+    key: "book_videographer", category: "vendors", ideal: 270, floor: 45, priority: 2, href: "/vendors/videographer",
     when: ({ answers }) => answers.videographer,
   },
   {
-    key: "book_dj", category: "vendors", ideal: 255, floor: 45, priority: 2,
+    key: "book_dj", category: "vendors", ideal: 255, floor: 45, priority: 2, href: "/vendors/entertainment",
     dependsOn: "book_venue",
     when: ({ answers }) => answers.music === "dj" || answers.music === "band",
   },
-  { key: "book_florist", category: "vendors", ideal: 255, floor: 30, priority: 2 },
-  { key: "book_transport", category: "vendors", ideal: 255, floor: 21, priority: 3 },
-  { key: "book_other_vendors", category: "vendors", ideal: 240, floor: 30, priority: 3 },
-  { key: "cake_tasting", category: "vendors", ideal: 255, floor: 30, priority: 3 },
-  { key: "book_cake", category: "vendors", ideal: 210, floor: 21, priority: 3, dependsOn: "cake_tasting" },
-  { key: "book_beauty", category: "vendors", ideal: 210, floor: 30, priority: 2 },
+  { key: "book_florist", category: "vendors", ideal: 255, floor: 30, priority: 2, href: "/vendors/florist" },
+  { key: "book_transport", category: "vendors", ideal: 255, floor: 21, priority: 3, href: "/vendors/car" },
+  { key: "book_other_vendors", category: "vendors", ideal: 240, floor: 30, priority: 3, href: "/vendors/other" },
+  { key: "cake_tasting", category: "vendors", ideal: 255, floor: 30, priority: 3, href: "/vendors/cake" },
+  { key: "book_cake", category: "vendors", ideal: 210, floor: 21, priority: 3, dependsOn: "cake_tasting", href: "/vendors/cake" },
+  { key: "book_beauty", category: "vendors", ideal: 210, floor: 30, priority: 2, href: "/vendors/hair" },
   { key: "rent_equipment", category: "vendors", ideal: 180, floor: 30, priority: 3, dependsOn: "book_venue" },
-  { key: "taste_menu", category: "vendors", ideal: 150, floor: 30, priority: 2, dependsOn: "book_catering" },
-  { key: "confirm_menu", category: "vendors", ideal: 140, floor: 21, priority: 2, dependsOn: "taste_menu" },
+  { key: "taste_menu", category: "vendors", ideal: 150, floor: 30, priority: 2, dependsOn: "book_catering", href: "/vendors/catering" },
+  { key: "confirm_menu", category: "vendors", ideal: 140, floor: 21, priority: 2, dependsOn: "taste_menu", href: "/vendors/catering" },
   { key: "decor_items", category: "vendors", ideal: 120, floor: 14, priority: 3 },
 
   // — Tenues & beauté —
@@ -123,13 +125,13 @@ export const TASK_CATALOG = [
     dependsOn: "choose_attire", adjust: customAttire(270, 120),
   },
   {
-    key: "party_attire", category: "attire", ideal: 255, floor: 45, priority: 3,
+    key: "party_attire", category: "attire", ideal: 255, floor: 45, priority: 3, href: "/vendors/bridesmaids",
     when: ({ answers }) => answers.weddingParty,
   },
-  { key: "choose_rings", category: "attire", ideal: 180, floor: 21, priority: 2 },
+  { key: "choose_rings", category: "attire", ideal: 180, floor: 21, priority: 2, href: "/vendors/rings" },
   { key: "attire_fittings", category: "attire", ideal: 90, floor: 14, priority: 2, dependsOn: "order_attire" },
   { key: "beauty_trials", category: "attire", ideal: 90, floor: 14, priority: 3, dependsOn: "book_beauty" },
-  { key: "beauty_care", category: "attire", ideal: 90, floor: 10, priority: 3 },
+  { key: "beauty_care", category: "attire", ideal: 90, floor: 10, priority: 3, href: "/vendors/beauty" },
   { key: "final_fitting", category: "attire", ideal: 30, floor: 5, priority: 2, dependsOn: "attire_fittings" },
   { key: "pickup_attire", category: "attire", ideal: 7, floor: 2, priority: 1, dependsOn: "final_fitting" },
 
@@ -146,8 +148,8 @@ export const TASK_CATALOG = [
     key: "wedding_registry", category: "guests", ideal: 180, floor: 45, priority: 3,
     when: withTradition("registry"), href: "/registry",
   },
-  { key: "guest_gifts", category: "guests", ideal: 150, floor: 21, priority: 3, when: withTradition("guest_gifts") },
-  { key: "order_favors", category: "guests", ideal: 150, floor: 21, priority: 3, when: withTradition("favors") },
+  { key: "guest_gifts", category: "guests", ideal: 150, floor: 21, priority: 3, when: withTradition("guest_gifts"), href: "/vendors/guest-gifts" },
+  { key: "order_favors", category: "guests", ideal: 150, floor: 21, priority: 3, when: withTradition("favors"), href: "/vendors/guest-gifts" },
   {
     key: "design_invitations", category: "guests", ideal: 130, floor: 50, priority: 2,
     dependsOn: "book_venue", href: "/invitations",

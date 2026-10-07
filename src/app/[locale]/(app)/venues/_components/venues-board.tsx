@@ -7,7 +7,6 @@ import {
   ExternalLinkIcon,
   HeartIcon,
   MapPinIcon,
-  MinusIcon,
   PencilIcon,
   PlusIcon,
   Trash2Icon,
@@ -45,7 +44,8 @@ import {
 import { EDITABLE_STATUSES, ratingOf, type Venue, type VenueActionResult } from "@/lib/venues/schema";
 import { cn } from "@/lib/utils";
 import { chooseVenue, deleteVenue, setVenueStatus } from "../actions";
-import { RatingDots } from "./rating";
+import { NoteList } from "@/components/compare/note-list-field";
+import { RatingDots } from "@/components/compare/rating";
 import { VenueDialog } from "./venue-dialog";
 
 type VenuesBoardProps = {
@@ -382,25 +382,6 @@ function checkLabel(
     default:
       return t(`checks.${check.key}`);
   }
-}
-
-function NoteList({ items, kind }: { items: string[]; kind: "pros" | "cons" }) {
-  const t = useTranslations("Venues");
-  if (items.length === 0) return null;
-  const Icon = kind === "pros" ? PlusIcon : MinusIcon;
-  return (
-    <div className="flex flex-col gap-1.5 rounded-2xl bg-linen/70 p-3">
-      <p className="text-xs font-medium tracking-[0.15em] text-stone uppercase">{t(`fields.${kind}`)}</p>
-      <ul className="flex flex-col gap-1">
-        {items.map((item, index) => (
-          <li key={`${item}-${index}`} className="flex items-start gap-1.5 text-sm leading-5">
-            <Icon aria-hidden className={`mt-0.5 size-3.5 shrink-0 ${kind === "pros" ? "text-sage-deep" : "text-terracotta"}`} />
-            <span className="min-w-0 wrap-break-word">{item}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
 }
 
 /** Tableau côte à côte : un lieu par colonne, un critère par ligne, la meilleure note soulignée. */

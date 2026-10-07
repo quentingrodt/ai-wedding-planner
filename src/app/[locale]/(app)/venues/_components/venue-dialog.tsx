@@ -1,6 +1,5 @@
 "use client";
 
-import { MinusIcon, PlusIcon, XIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState, useTransition, type ChangeEvent, type FormEvent, type ReactNode } from "react";
 import { toast } from "sonner";
@@ -39,7 +38,8 @@ import {
   type VenueInput,
 } from "@/lib/venues/schema";
 import { saveVenue } from "../actions";
-import { RatingInput } from "./rating";
+import { NoteListField } from "@/components/compare/note-list-field";
+import { RatingInput } from "@/components/compare/rating";
 
 type VenueDialogProps = {
   /** Lieu à modifier, ou null pour en ajouter un. */
@@ -421,13 +421,17 @@ export function VenueDialog({ venue, currencySymbol, trigger }: VenueDialogProps
 
           <div className="grid gap-4 sm:grid-cols-2">
             <NoteListField
+              id="venue-pros"
               kind="pros"
               items={state.pros}
+              placeholder={t("fields.prosPlaceholder")}
               onChange={(items) => set("pros", items)}
             />
             <NoteListField
+              id="venue-cons"
               kind="cons"
               items={state.cons}
+              placeholder={t("fields.consPlaceholder")}
               onChange={(items) => set("cons", items)}
             />
           </div>
@@ -516,76 +520,6 @@ function TextArea({
         rows={2}
         className={textareaClass}
       />
-    </div>
-  );
-}
-
-/** Liste d'avantages ou d'inconvénients : une ligne par point, ajoutée avec Entrée. */
-function NoteListField({
-  kind,
-  items,
-  onChange,
-}: {
-  kind: "pros" | "cons";
-  items: string[];
-  onChange: (items: string[]) => void;
-}) {
-  const t = useTranslations("Venues");
-  const [draft, setDraft] = useState("");
-  const full = items.length >= VENUE_LIMITS.noteItems;
-  const Icon = kind === "pros" ? PlusIcon : MinusIcon;
-
-  function add() {
-    const value = draft.trim();
-    if (value === "" || full) return;
-    onChange([...items, value]);
-    setDraft("");
-  }
-
-  return (
-    <div className="flex flex-col gap-2">
-      <Label htmlFor={`venue-${kind}`}>{t(`fields.${kind}`)}</Label>
-      {items.length > 0 && (
-        <ul className="flex flex-col gap-1.5">
-          {items.map((item, index) => (
-            <li key={`${item}-${index}`} className="flex items-start gap-2 rounded-xl bg-card px-3 py-2 text-sm ring-1 ring-border">
-              <Icon aria-hidden className={`mt-0.5 size-4 shrink-0 ${kind === "pros" ? "text-sage-deep" : "text-terracotta"}`} />
-              <span className="min-w-0 flex-1 wrap-break-word">{item}</span>
-              <button
-                type="button"
-                aria-label={t("fields.removeNote", { note: item })}
-                onClick={() => onChange(items.filter((_, position) => position !== index))}
-                className="-my-0.5 rounded-full p-0.5 text-stone hover:text-terracotta"
-              >
-                <XIcon aria-hidden className="size-4" />
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-      {!full && (
-        <div className="flex gap-2">
-          <Input
-            id={`venue-${kind}`}
-            value={draft}
-            maxLength={VENUE_LIMITS.noteItem}
-            placeholder={t(`fields.${kind}Placeholder`)}
-            onChange={(event) => setDraft(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") {
-                event.preventDefault();
-                add();
-              }
-            }}
-            // Un point saisi mais pas encore ajouté n'est pas perdu à l'enregistrement.
-            onBlur={add}
-            className="h-10 rounded-xl bg-card text-base"
-          />
-          <Button type="button" variant="outline" size="icon" className="size-10 shrink-0 rounded-full" aria-label={t(`fields.${kind}Add`)} onClick={add}>
-            <PlusIcon aria-hidden />
-          </Button>
-        </div>
-      )}
     </div>
   );
 }

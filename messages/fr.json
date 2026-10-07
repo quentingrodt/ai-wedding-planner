@@ -2181,13 +2181,15 @@
     "groups": {
       "prepare": "Préparer",
       "guests": "Vos invités",
-      "day": "Le jour J"
+      "day": "Le jour J",
+      "vendors": "Prestataires"
     },
     "tabs": {
       "prepare": "Préparer",
       "guests": "Invités",
       "day": "Jour J",
-      "more": "Plus"
+      "more": "Plus",
+      "vendors": "Prestataires"
     },
     "items": {
       "dashboard": "Accueil",
@@ -2204,7 +2206,28 @@
       "calendar": "Calendrier",
       "registry": "Liste de mariage",
       "venues": "Lieu de réception",
-      "accommodation": "Hébergement"
+      "accommodation": "Hébergement",
+      "vendors": "Vue d’ensemble",
+      "vendor_catering": "Le traiteur",
+      "vendor_florist": "Le fleuriste",
+      "vendor_cake": "Le dessert (pièce montée)",
+      "vendor_hair": "Le coiffeur",
+      "vendor_makeup": "La maquilleuse",
+      "vendor_beauty": "Les soins esthétiques",
+      "vendor_officiant": "L’officiant",
+      "vendor_car": "La voiture",
+      "vendor_entertainment": "L’animation",
+      "vendor_guest_gifts": "Les cadeaux des invités",
+      "vendor_rings": "Les alliances",
+      "vendor_photographer": "Le photographe",
+      "vendor_videographer": "Le vidéaste",
+      "vendor_bridal_gown": "La robe de la mariée",
+      "vendor_bridesmaids": "Les robes de demoiselles d’honneur",
+      "vendor_groom_suit": "Le costume du marié",
+      "vendor_groomsmen": "Les costumes des garçons d’honneur",
+      "vendor_stationery": "La papeterie du mariage",
+      "vendor_website": "Le site web du mariage",
+      "vendor_other": "Autres prestataires"
     }
   },
   "Planning": {
@@ -3126,17 +3149,6 @@
       "alternatives": "D’autres dates proposées",
       "unavailable": "Complet à notre date"
     },
-    "rating": {
-      "none": "Pas encore noté",
-      "value": "{value} sur {max}",
-      "steps": {
-        "1": "Décevant",
-        "2": "Moyen",
-        "3": "Correct",
-        "4": "Très bien",
-        "5": "Parfait"
-      }
-    },
     "score": {
       "rated": "{count, plural, =0 {Aucun critère noté} one {# critère noté sur {total}} other {# critères notés sur {total}}}"
     },
@@ -3215,9 +3227,6 @@
       "cons": "Inconvénients",
       "prosPlaceholder": "Le parc pour le cocktail",
       "consPlaceholder": "Loin de la gare",
-      "prosAdd": "Ajouter cet avantage",
-      "consAdd": "Ajouter cet inconvénient",
-      "removeNote": "Retirer « {note} »",
       "notes": "Vos impressions",
       "notesPlaceholder": "Ce qui vous a marqués pendant la visite…"
     },
@@ -3432,6 +3441,317 @@
       "available": "pour {count, plural, one {# chambre prévue} other {# chambres prévues}}",
       "saved": "{count, plural, =0 {Plus personne ne dort à {name}.} one {# invité dort à {name}.} other {# invités dorment à {name}.}}",
       "residents": "{count, plural, one {# invité logé ici} other {# invités logés ici}}"
+    }
+  },
+  "Compare": {
+    "rating": {
+      "none": "Pas encore noté",
+      "value": "{value} sur {max}",
+      "steps": {
+        "1": "Décevant",
+        "2": "Moyen",
+        "3": "Correct",
+        "4": "Très bien",
+        "5": "Parfait"
+      }
+    },
+    "notes": {
+      "pros": "Avantages",
+      "cons": "Inconvénients",
+      "prosAdd": "Ajouter cet avantage",
+      "consAdd": "Ajouter cet inconvénient",
+      "remove": "Retirer « {note} »"
+    }
+  },
+  "Vendors": {
+    "metaTitle": "Prestataires",
+    "eyebrow": "Prestataires",
+    "title": "Les bonnes personnes autour de vous",
+    "intro": "Pour chaque prestataire, gardez vos pistes, leurs devis et vos impressions au même endroit, jusqu’au choix.",
+    "close": "Fermer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "add": "Ajouter un prestataire",
+    "delete": "Supprimer",
+    "editLabel": "Modifier {name}",
+    "deleteLabel": "Supprimer {name}",
+    "deleteTitle": "Supprimer {name} ?",
+    "deleteDescription": "Sa fiche, son devis et vos notes seront effacés.",
+    "deleted": "{name} a été retiré.",
+    "site": "Site de {name}",
+    "book": "Réserver",
+    "bookedToast": "{name} est réservé. Les étapes liées de votre rétroplanning sont cochées.",
+    "meeting": "Rendez-vous le {date}",
+    "errors": {
+      "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
+      "forbidden": "Seuls les mariés peuvent modifier les prestataires.",
+      "invalid": "Certaines informations semblent incorrectes. Vérifiez-les puis réessayez.",
+      "generic": "La modification n’a pas pu être enregistrée. Merci de réessayer."
+    },
+    "benchmarks": {
+      "envelope": "Budget « {line} »",
+      "guests": "Invités attendus",
+      "booked": "Réservé"
+    },
+    "budgetLines": {
+      "venue": "Lieu",
+      "catering": "Traiteur",
+      "cake": "Dessert",
+      "photography": "Photo et vidéo",
+      "music": "Musique",
+      "decoration": "Décoration et fleurs",
+      "attire": "Tenues",
+      "beauty": "Beauté",
+      "rings": "Alliances",
+      "stationery": "Papeterie",
+      "officiant": "Officiant",
+      "transport": "Transport",
+      "honeymoon": "Voyage de noces",
+      "contingency": "Imprévus",
+      "other": "Divers"
+    },
+    "venueCatering": {
+      "imposed": "Votre lieu impose son traiteur : vos pistes serviront surtout à comparer les menus qu’il propose.",
+      "included": "Le traiteur est inclus avec votre lieu : notez ici ses menus et la date de dégustation."
+    },
+    "guide": {
+      "title": "Le bon moment, les bonnes questions",
+      "questions": "À demander à chaque prestataire"
+    },
+    "links": {
+      "catering": "Voir ce que prévoit votre lieu",
+      "entertainment": "Préparer votre playlist",
+      "stationery": "Composer vos faire-part avec Céleste",
+      "website": "Préparer le lien personnel de vos invités"
+    },
+    "list": {
+      "title": "Vos pistes",
+      "lead": "Le prestataire réservé en tête, puis les pistes par avancement et par note.",
+      "allDeclined": "Toutes vos pistes sont écartées. Ajoutez-en une nouvelle.",
+      "declined": "{count, plural, one {# piste écartée} other {# pistes écartées}}"
+    },
+    "empty": {
+      "title": "Aucune piste pour l’instant",
+      "body": "Un nom recommandé par des amis, un compte repéré sur Instagram, un salon du mariage : notez-le, même sans devis."
+    },
+    "statuses": {
+      "idea": "Repéré",
+      "contacted": "Contacté",
+      "quote": "Devis reçu",
+      "meeting": "Rendez-vous",
+      "booked": "Réservé",
+      "declined": "Écarté"
+    },
+    "priceBases": {
+      "total": "au total",
+      "per_guest": "par invité"
+    },
+    "price": {
+      "perGuest": "{price} par invité",
+      "estimate": "≈ {total} pour {count} invités",
+      "deposit": "Acompte de {amount} à verser",
+      "depositPaid": "Acompte de {amount} versé"
+    },
+    "checks": {
+      "overBudget": "{amount} au-dessus du budget prévu pour ce poste",
+      "depositDue": "Acompte de {amount} à verser pour confirmer la réservation",
+      "meetingSoon": "{count, plural, =0 {Rendez-vous aujourd’hui} one {Rendez-vous demain} other {Rendez-vous dans # jours}} : préparez vos questions",
+      "askQuote": "Demandez un devis détaillé pour comparer"
+    },
+    "status": {
+      "change": "Avancement",
+      "changed": "{name} : {status}."
+    },
+    "dialog": {
+      "addTitle": "{category} : une nouvelle piste",
+      "editTitle": "La fiche du prestataire",
+      "description": "Remplissez ce que vous savez déjà ; le reste viendra avec le devis ou le rendez-vous.",
+      "nameRequired": "Donnez un nom à ce prestataire.",
+      "emailInvalid": "Cette adresse email ne semble pas valide.",
+      "contact": "Contact",
+      "price": "Prix et rendez-vous",
+      "added": "{name} a été ajouté.",
+      "updated": "La fiche a été mise à jour."
+    },
+    "fields": {
+      "name": "Nom",
+      "status": "Avancement",
+      "contactName": "Interlocuteur",
+      "phone": "Téléphone",
+      "email": "Email",
+      "url": "Site ou Instagram",
+      "location": "Ville",
+      "price": "Prix annoncé",
+      "priceBasis": "Base du prix",
+      "deposit": "Acompte",
+      "depositPaid": "Acompte versé",
+      "meetingDate": "Prochain rendez-vous",
+      "meetingHint": "Dégustation, essai, rencontre…",
+      "rating": "Votre ressenti",
+      "prosPlaceholder": "Très à l’écoute",
+      "consPlaceholder": "Frais de déplacement en plus",
+      "notes": "Vos notes",
+      "notesPlaceholder": "Ce que comprend le devis, ce qui vous a plu…"
+    },
+    "overview": {
+      "kpis": {
+        "booked": "Prestataires réservés",
+        "leads": "Pistes en cours",
+        "committed": "Engagé"
+      },
+      "sections": {
+        "reception": "La réception",
+        "memories": "Les souvenirs",
+        "attire": "Les tenues et les alliances",
+        "beauty": "La beauté",
+        "ceremony": "La cérémonie et les invités"
+      },
+      "booked": "Réservé : {names}",
+      "leads": "{count, plural, one {# piste en cours} other {# pistes en cours}}",
+      "none": "À trouver"
+    },
+    "categories": {
+      "catering": {
+        "label": "Le traiteur",
+        "title": "Le traiteur",
+        "intro": "Le repas reste le souvenir le plus partagé de la journée : comparez les menus, les dégustations et ce que comprend vraiment chaque devis.",
+        "when": "À réserver 9 à 12 mois avant, juste après le lieu ; la dégustation se fait 4 à 5 mois avant.",
+        "questions": "Le prix par invité comprend-il le service, la vaisselle et le nappage ?|Combien de serveurs pour vos invités, et jusqu’à quelle heure ?|Une dégustation est-elle offerte, et pour combien de personnes ?|Comment sont gérés les régimes particuliers et le menu des enfants ?|Le droit de bouchon, si vous apportez votre vin ?"
+      },
+      "florist": {
+        "label": "Le fleuriste",
+        "title": "Le fleuriste",
+        "intro": "Bouquet, boutonnières, centres de table, arche : le fleuriste donne sa couleur à la journée.",
+        "when": "À réserver 8 à 9 mois avant ; le choix final des fleurs se fait 2 mois avant, selon la saison.",
+        "questions": "Quelles fleurs de saison à votre date ?|Livraison, installation et reprise des vases sont-elles comprises ?|Peut-on réutiliser les fleurs de la cérémonie pour la réception ?|Un essai du bouquet est-il possible ?"
+      },
+      "cake": {
+        "label": "Le dessert (pièce montée)",
+        "title": "Le dessert",
+        "intro": "Pièce montée, wedding cake, bar à desserts : le moment sucré se goûte avant de se choisir.",
+        "when": "Dégustation 8 mois avant, commande 6 à 7 mois avant ; elle se confirme avec le nombre définitif d’invités.",
+        "questions": "Le prix est-il par part ou au total ?|La livraison et le montage sur place sont-ils compris ?|Combien de temps le dessert tient-il hors du froid ?|Le traiteur accepte-t-il un pâtissier extérieur ?"
+      },
+      "hair": {
+        "label": "Le coiffeur",
+        "title": "Le coiffeur",
+        "intro": "Une coiffure qui tient de la cérémonie à la dernière danse, pensée avec la robe et le voile.",
+        "when": "À réserver 6 à 8 mois avant ; l’essai a lieu 2 à 3 mois avant, idéalement avec le voile.",
+        "questions": "Se déplace-t-il le matin du mariage, et à quelle heure ?|L’essai est-il compris dans le forfait ?|Peut-il coiffer aussi les mamans et les demoiselles d’honneur ?|Que prévoit-il pour une retouche avant la soirée ?"
+      },
+      "makeup": {
+        "label": "La maquilleuse",
+        "title": "La maquilleuse",
+        "intro": "Un maquillage lumineux, qui vous ressemble et résiste aux émotions comme aux photos.",
+        "when": "À réserver 6 à 8 mois avant, souvent avec le coiffeur ; l’essai se fait 2 mois avant.",
+        "questions": "Utilise-t-elle des produits longue tenue, adaptés à votre peau ?|L’essai est-il compris ?|Reste-t-elle pour une retouche avant la cérémonie ?|Maquille-t-elle aussi vos proches, à quel tarif ?"
+      },
+      "beauty": {
+        "label": "Les soins esthétiques",
+        "title": "Les soins esthétiques",
+        "intro": "Soins du visage, manucure, épilation, massage : un programme doux dans les semaines qui précèdent.",
+        "when": "Commencez les soins du visage 3 mois avant ; manucure et épilation les derniers jours.",
+        "questions": "Quel programme de soins sur les trois derniers mois ?|Faut-il éviter certains soins juste avant le mariage ?|Une formule à plusieurs pour les témoins ?|Peut-on prévoir un moment de détente la veille ?"
+      },
+      "officiant": {
+        "label": "L’officiant",
+        "title": "L’officiant",
+        "intro": "Laïque ou religieux, l’officiant donne le ton de la cérémonie et raconte votre histoire.",
+        "when": "À réserver 10 à 12 mois avant ; préparez le déroulé ensemble 2 à 3 mois avant.",
+        "questions": "Combien de rendez-vous pour écrire la cérémonie ?|Une répétition est-elle prévue ?|Ses frais de déplacement sont-ils compris ?|Comment intègre-t-il les textes et les rituels de vos proches ?"
+      },
+      "car": {
+        "label": "La voiture",
+        "title": "La voiture",
+        "intro": "Voiture de collection, calèche ou navette pour les invités : le trajet fait partie du jour J.",
+        "when": "À réserver 8 mois avant ; confirmez l’itinéraire et les horaires le mois précédent.",
+        "questions": "Le chauffeur, le carburant et la décoration sont-ils compris ?|Combien d’heures de mise à disposition ?|Que se passe-t-il en cas de panne ou de pluie ?|Une navette pour le retour des invités est-elle possible ?"
+      },
+      "entertainment": {
+        "label": "L’animation",
+        "title": "L’animation",
+        "intro": "DJ, groupe, musiciens pour le vin d’honneur : ce sont eux qui feront danser vos invités.",
+        "when": "À réserver 8 à 10 mois avant ; partagez votre playlist et les moments clés 1 mois avant.",
+        "questions": "Jusqu’à quelle heure joue-t-il, et que coûte une heure de plus ?|Le matériel son et lumière est-il compris ?|Peut-on lui donner une liste de musiques à passer et à éviter ?|Anime-t-il aussi la cérémonie et le vin d’honneur ?"
+      },
+      "guest_gifts": {
+        "label": "Les cadeaux des invités",
+        "title": "Les cadeaux des invités",
+        "intro": "Un souvenir pour chaque invité, et une attention pour ceux qui vous ont aidés.",
+        "when": "À commander 4 à 5 mois avant, surtout s’ils sont personnalisés.",
+        "questions": "Quel délai pour une personnalisation ?|Le prix baisse-t-il avec la quantité ?|L’emballage est-il compris ?|Un cadeau à part pour les témoins et les parents ?"
+      },
+      "rings": {
+        "label": "Les alliances",
+        "title": "Les alliances",
+        "intro": "Elles se portent toute une vie : prenez le temps de les essayer ensemble.",
+        "when": "À choisir 4 à 6 mois avant ; comptez 6 à 8 semaines pour une gravure ou une création.",
+        "questions": "Quel délai pour la fabrication et la gravure ?|Les mises à taille sont-elles comprises plus tard ?|Quelle garantie, quel entretien ?|Le métal est-il assorti à la bague de fiançailles ?"
+      },
+      "photographer": {
+        "label": "Le photographe",
+        "title": "Le photographe",
+        "intro": "Les photos restent quand tout le reste s’efface : choisissez un regard avant un tarif.",
+        "when": "À réserver 10 à 12 mois avant : les bons photographes sont pris très tôt.",
+        "questions": "Combien d’heures de présence, des préparatifs à la soirée ?|Combien de photos livrées, en combien de temps ?|Une séance d’engagement est-elle comprise ?|Que prévoit-il en cas d’empêchement le jour J ?"
+      },
+      "videographer": {
+        "label": "Le vidéaste",
+        "title": "Le vidéaste",
+        "intro": "Les voix, les rires, les discours : la vidéo garde ce que les photos ne disent pas.",
+        "when": "À réserver 10 à 12 mois avant, souvent en même temps que le photographe.",
+        "questions": "Quelle durée pour le film, et un teaser court ?|Les discours sont-ils filmés en entier ?|Travaille-t-il avec un drone, et est-il autorisé sur le lieu ?|Quel délai de livraison ?"
+      },
+      "bridal_gown": {
+        "label": "La robe de la mariée",
+        "title": "La robe de la mariée",
+        "intro": "Essais, retouches, accessoires : la robe se choisit sans hâte et se prépare en plusieurs étapes.",
+        "when": "Commencez les essayages 9 à 12 mois avant ; prévoyez 2 à 3 retouches dans les 2 derniers mois.",
+        "questions": "Quel délai de fabrication pour ce modèle ?|Les retouches sont-elles comprises ?|Le voile et les accessoires sont-ils proposés ?|Peut-on venir à plusieurs aux essayages ?"
+      },
+      "bridesmaids": {
+        "label": "Les robes de demoiselles d’honneur",
+        "title": "Les robes de demoiselles d’honneur",
+        "intro": "Assorties ou dépareillées dans une même palette : des robes que chacune aura plaisir à porter.",
+        "when": "À choisir 6 mois avant, pour laisser le temps aux commandes et aux retouches.",
+        "questions": "Plusieurs tailles et coupes dans une même couleur ?|Qui paie les robes ?|Délai de livraison et retouches ?|Peuvent-elles les reporter après le mariage ?"
+      },
+      "groom_suit": {
+        "label": "Le costume du marié",
+        "title": "Le costume du marié",
+        "intro": "Sur mesure, demi-mesure ou prêt-à-porter : un costume qui tombe juste, pensé avec la robe.",
+        "when": "À choisir 6 à 8 mois avant pour un sur-mesure, 3 mois pour du prêt-à-porter.",
+        "questions": "Combien d’essayages, et quel délai ?|Les retouches sont-elles comprises ?|Chemise, cravate ou nœud, chaussures : que comprend l’ensemble ?|Location ou achat ?"
+      },
+      "groomsmen": {
+        "label": "Les costumes des garçons d’honneur",
+        "title": "Les costumes des garçons d’honneur",
+        "intro": "Un détail commun suffit souvent : une cravate, une pochette, une boutonnière.",
+        "when": "À organiser 4 à 6 mois avant, surtout si les costumes sont loués.",
+        "questions": "Location groupée et tarif à plusieurs ?|Des tailles pour tous, y compris les enfants ?|Qui paie les costumes ?|Quand récupérer et rendre les tenues ?"
+      },
+      "stationery": {
+        "label": "La papeterie du mariage",
+        "title": "La papeterie du mariage",
+        "intro": "Faire-part, menus, plan de table, marque-places : une même ligne graphique du premier envoi au dîner.",
+        "when": "Faire-part à envoyer 3 mois avant ; la papeterie du jour J se commande 6 semaines avant.",
+        "questions": "Quel papier, quelle impression ?|Combien d’épreuves avant l’impression ?|Délai de livraison et frais d’envoi ?|Enveloppes et timbres sont-ils compris ?"
+      },
+      "website": {
+        "label": "Le site web du mariage",
+        "title": "Le site web du mariage",
+        "intro": "Programme, accès, hébergement, liste : un site réunit tout ce que vos invités cherchent.",
+        "when": "À mettre en ligne avec l’envoi des faire-part, 3 mois avant au plus tard.",
+        "questions": "Le site est-il protégé par un mot de passe ?|Les invités peuvent-ils répondre en ligne ?|Le nom de domaine est-il compris ?|Combien de temps reste-t-il en ligne après le mariage ?"
+      },
+      "other": {
+        "label": "Autres prestataires",
+        "title": "Autres prestataires",
+        "intro": "Location de matériel, baby-sitter, food truck, photobooth : tout ce qui ne rentre pas ailleurs.",
+        "when": "Réservez-les 4 à 6 mois avant, selon leur disponibilité.",
+        "questions": "Que comprend exactement le devis ?|Livraison, installation et reprise ?|Une assurance en cas de casse ?|Quel acompte, et quelles conditions d’annulation ?"
+      }
     }
   }
 }

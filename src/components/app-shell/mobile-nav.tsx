@@ -10,6 +10,7 @@ import {
   HOME_ITEM,
   isActive,
   NAV_GROUPS,
+  visibleGroups,
   SETTINGS_ITEM,
   visibleItems,
   type NavGroup,
@@ -67,7 +68,7 @@ export function MobileNav({ profile }: { profile: ShellProfile }) {
               {t("items.dashboard")}
             </Link>
           </li>
-          {NAV_GROUPS.map((candidate) => {
+          {visibleGroups(profile.canSeeBudget).map((candidate) => {
             const active = candidate.items.some((item) => isActive(pathname, item.href));
             return (
               <li key={candidate.key} className="flex flex-1">
@@ -117,7 +118,8 @@ export function MobileNav({ profile }: { profile: ShellProfile }) {
           <SheetDescription className="sr-only">{t("sheetDescription")}</SheetDescription>
 
           {group ? (
-            <div className="flex flex-col gap-1 pb-2">
+            // Les prestataires comptent une vingtaine de pages : la liste défile.
+            <div className="flex max-h-[70dvh] flex-col gap-1 overflow-y-auto pb-2">
               {visibleItems(group.items, profile.canSeeBudget).map((item) => (
                 <NavLink key={item.key} item={item} pathname={pathname} onNavigate={close} />
               ))}

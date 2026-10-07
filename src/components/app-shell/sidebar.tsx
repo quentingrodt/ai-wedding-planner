@@ -1,15 +1,18 @@
 "use client";
 
+import { ChevronDownIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { Logo } from "@/components/brand/logo";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import {
   HOME_ITEM,
   isActive,
-  NAV_GROUPS,
+  visibleGroups,
   SETTINGS_ITEM,
   visibleItems,
+  type NavGroup,
   type NavItem,
   type ShellProfile,
 } from "./nav-config";
@@ -27,7 +30,7 @@ export function NavLink({
   onNavigate?: () => void;
 }) {
   const t = useTranslations("AppNav.items");
-  const active = isActive(pathname, item.href);
+  const active = isActive(pathname, item.href, item.exact);
   const Icon = item.icon;
   return (
     <Link
@@ -62,16 +65,20 @@ export function Sidebar({ profile }: { profile: ShellProfile }) {
 
       <nav aria-label={t("label")} className="flex flex-1 flex-col gap-6 overflow-y-auto px-3 pb-4">
         <NavLink item={HOME_ITEM} pathname={pathname} />
-        {NAV_GROUPS.map((group) => (
-          <div key={group.key} className="flex flex-col gap-1">
-            <p className="px-4 pb-1 text-[0.68rem] font-medium tracking-[0.2em] text-terracotta uppercase">
-              {t(`groups.${group.key}`)}
-            </p>
-            {visibleItems(group.items, profile.canSeeBudget).map((item) => (
-              <NavLink key={item.key} item={item} pathname={pathname} />
-            ))}
-          </div>
-        ))}
+        {visibleGroups(profile.canSeeBudget).map((group) =>
+          group.collapsible ? (
+            <CollapsibleGroup key={group.key} group={group} pathname={pathname} canSeeBudget={profile.canSeeBudget} />
+          ) : (
+            <div key={group.key} className="flex flex-col gap-1">
+              <p className="px-4 pb-1 text-[0.68rem] font-medium tracking-[0.2em] text-terracotta uppercase">
+                {t(`groups.${group.key}`)}
+              </p>
+              {visibleItems(group.items, profile.canSeeBudget).map((item) => (
+                <NavLink key={item.key} item={item} pathname={pathname} />
+              ))}
+            </div>
+          ),
+        )}
       </nav>
 
       <div className="flex flex-col gap-1 border-t border-sand/70 px-3 pt-3 pb-5">
@@ -80,5 +87,50 @@ export function Sidebar({ profile }: { profile: ShellProfile }) {
         <SignOutForm />
       </div>
     </aside>
+  );
+}
+
+/** Chapitre long (prestataires) : ouvert d'office quand l'une de ses pages est affichée. */
+function CollapsibleGroup({
+  group,
+  pathname,
+  canSeeBudget,
+}: {
+  group: NavGroup;
+  pathname: string;
+  canSeeBudget: boolean;
+}) {
+  const t = useTranslations("AppNav");
+  const items = visibleItems(group.items, canSeeBudget);
+  const current = items.some((item) => isActive(pathname, item.href));
+  const [open, setOpen] = useState(current);
+  const expanded = open || current;
+  const panelId = `nav-group-${group.key}`;
+
+  return (
+    <div className="flex flex-col gap-1">
+      <button
+        type="button"
+        aria-expanded={expanded}
+        aria-controls={panelId}
+        onClick={() => setOpen(!expanded)}
+        className="flex items-center justify-between rounded-full px-4 pb-1 text-left text-[0.68rem] font-medium tracking-[0.2em] text-terracotta uppercase hover:text-charcoal focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+      >
+        {t(`groups.${group.key}`)}
+        <ChevronDownIcon aria-hidden className={cn("size-3.5 transition-transform", !expanded && "-rotate-90")} />
+      </button>
+      {expanded ? (
+        <div id={panelId} className="flex flex-col gap-1">
+          {items.map((item) => (
+            <NavLink key={item.key} item={item} pathname={pathname} />
+          ))}
+        </div>
+      ) : (
+        // Replié : la vue d'ensemble reste à portée.
+        <div id={panelId}>
+          <NavLink item={items[0]} pathname={pathname} />
+        </div>
+      )}
+    </div>
   );
 }

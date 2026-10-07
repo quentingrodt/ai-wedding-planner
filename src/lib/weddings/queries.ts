@@ -19,6 +19,8 @@ import type {
 } from "@/lib/registry/schema";
 import { LODGING_COLUMNS, type Lodging, type LodgingGuest } from "@/lib/lodging/schema";
 import type { Quote } from "@/lib/quotes/schema";
+import type { VendorCategory } from "@/lib/vendors/catalog";
+import { VENDOR_COLUMNS, type Vendor } from "@/lib/vendors/schema";
 import { VENUE_COLUMNS, type Venue } from "@/lib/venues/schema";
 import type { SeatedGuest, SeatingTable } from "@/lib/seating/schema";
 import { planningAnswersSchema, type PlanningAnswers } from "@/lib/planning/schema";
@@ -577,4 +579,24 @@ export async function getLodging(
     throw new Error("Unable to load lodging");
   }
   return { guests: guests.data ?? [], lodgings: lodgings.data ?? [] };
+}
+
+/** Prestataires du mariage, d'une catégorie ou de toutes (réservés aux mariés, cf. 000031). */
+export async function getVendors(
+  supabase: ServerClient,
+  weddingId: string,
+  category?: VendorCategory,
+): Promise<Vendor[]> {
+  let query = supabase.from("vendors").select(VENDOR_COLUMNS).eq("wedding_id", weddingId);
+  if (category) query = query.eq("category", category);
+  const { data, error } = await query
+    .order("position", { ascending: true })
+    .order("created_at", { ascending: true })
+    .returns<Vendor[]>();
+
+  if (error) {
+    console.error("[weddings] getVendors:", error.code);
+    throw new Error("Unable to load vendors");
+  }
+  return data;
 }

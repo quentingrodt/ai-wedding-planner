@@ -8,7 +8,7 @@ const STEPS = Array.from({ length: RATING_MAX }, (_, index) => index + 1);
 
 /** Note de 1 à 5 en pastilles, lecture seule. */
 export function RatingDots({ value, className }: { value: number | null; className?: string }) {
-  const t = useTranslations("Venues");
+  const t = useTranslations("Compare");
   if (value === null) return <span className={cn("text-xs text-stone", className)}>{t("rating.none")}</span>;
   return (
     <span
@@ -33,7 +33,7 @@ export function RatingInput({
   value: number | null;
   onChange: (value: number | null) => void;
 }) {
-  const t = useTranslations("Venues");
+  const t = useTranslations("Compare");
   return (
     <div role="radiogroup" aria-label={label} className="flex items-center gap-1.5">
       {STEPS.map((step) => (
