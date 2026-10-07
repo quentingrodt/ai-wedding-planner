@@ -1,8 +1,10 @@
 import {
   ArmchairIcon,
+  BedDoubleIcon,
   BookHeartIcon,
   CalendarDaysIcon,
   CalendarHeartIcon,
+  CastleIcon,
   ClockIcon,
   FileTextIcon,
   GiftIcon,
@@ -29,6 +31,8 @@ export type NavItem = {
     | "guests"
     | "invitations"
     | "registry"
+    | "venues"
+    | "accommodation"
     | "seating"
     | "itinerary"
     | "playlist"
@@ -43,6 +47,8 @@ export type NavItem = {
     | "/guests"
     | "/invitations"
     | "/registry"
+    | "/venues"
+    | "/accommodation"
     | "/seating"
     | "/itinerary"
     | "/playlist"
@@ -66,6 +72,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { key: "planning", href: "/planning", icon: ListChecksIcon },
       { key: "calendar", href: "/calendar", icon: CalendarDaysIcon },
       { key: "inspiration", href: "/inspiration", icon: BookHeartIcon },
+      { key: "venues", href: "/venues", icon: CastleIcon, coupleOnly: true },
       { key: "budget", href: "/budget", icon: WalletIcon, coupleOnly: true },
       { key: "quotes", href: "/quotes", icon: FileTextIcon },
     ],
@@ -77,6 +84,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { key: "guests", href: "/guests", icon: UsersIcon },
       { key: "invitations", href: "/invitations", icon: MailIcon },
       { key: "registry", href: "/registry", icon: GiftIcon },
+      { key: "accommodation", href: "/accommodation", icon: BedDoubleIcon },
       { key: "seating", href: "/seating", icon: ArmchairIcon },
     ],
   },

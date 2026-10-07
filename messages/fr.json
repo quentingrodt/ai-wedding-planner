@@ -2182,7 +2182,9 @@
       "playlist": "Playlist",
       "settings": "Équipe",
       "calendar": "Calendrier",
-      "registry": "Liste de mariage"
+      "registry": "Liste de mariage",
+      "venues": "Lieu de réception",
+      "accommodation": "Hébergement"
     }
   },
   "Planning": {
@@ -2994,6 +2996,404 @@
       "closed": "Les mariés ont fermé leur boîte à idées.",
       "limit": "Vous avez déjà proposé cinq idées : merci pour votre générosité !",
       "generic": "Une erreur est survenue. Merci de réessayer dans un instant."
+    }
+  },
+  "Venues": {
+    "metaTitle": "Lieu de réception",
+    "eyebrow": "Préparer",
+    "title": "Le lieu qui vous ressemble",
+    "intro": "Notez chaque lieu visité, ses atouts et ses limites. Céleste le confronte à votre nombre d’invités, votre budget et votre ambiance, pour que le choix final s’impose de lui-même.",
+    "close": "Fermer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "add": "Ajouter un lieu",
+    "delete": "Supprimer",
+    "editLabel": "Modifier la fiche de {name}",
+    "deleteLabel": "Supprimer {name}",
+    "deleteTitle": "Supprimer {name} ?",
+    "deleteDescription": "Sa fiche, ses notes, ses avantages et ses inconvénients seront effacés.",
+    "deleted": "{name} a été retiré de vos lieux.",
+    "site": "Site de {name}",
+    "errors": {
+      "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
+      "forbidden": "Seuls les mariés peuvent modifier les lieux.",
+      "invalid": "Certaines informations semblent incorrectes. Vérifiez-les puis réessayez.",
+      "generic": "La modification n’a pas pu être enregistrée. Merci de réessayer."
+    },
+    "benchmarks": {
+      "guests": "Invités attendus",
+      "budget": "Enveloppe pour le lieu",
+      "style": "Votre ambiance"
+    },
+    "booked": {
+      "eyebrow": "Votre lieu",
+      "body": "C’est décidé. Les étapes « lieu » de votre rétroplanning sont cochées : place au traiteur et aux prestataires."
+    },
+    "guide": {
+      "title": "Les huit questions à se poser",
+      "lead": "À garder sous les yeux pendant chaque visite."
+    },
+    "criteria": {
+      "location": {
+        "label": "Localisation",
+        "questions": "À combien de temps de la cérémonie ? Accessible en train, facile à trouver de nuit, assez de places de parking ?"
+      },
+      "capacity": {
+        "label": "Capacité",
+        "questions": "Combien d’invités assis pour le dîner, et debout pour le cocktail ? Y a-t-il un repli à l’intérieur en cas de pluie ?"
+      },
+      "budget": {
+        "label": "Budget",
+        "questions": "Que comprend le prix : tables, chaises, ménage, électricité ? Quel acompte, quelles conditions d’annulation ?"
+      },
+      "style": {
+        "label": "Style",
+        "questions": "Vous y projetez-vous ? La lumière, les extérieurs, les photos : le lieu raconte-t-il votre histoire sans trop de décoration ?"
+      },
+      "accommodation": {
+        "label": "Hébergement",
+        "questions": "Combien de couchages sur place ? Des hôtels ou des gîtes à proximité, une navette possible pour le retour ?"
+      },
+      "service": {
+        "label": "Qualité du service",
+        "questions": "Le traiteur est-il imposé ? Un interlocuteur unique le jour J ? Que disent les couples qui s’y sont mariés ?"
+      },
+      "restrictions": {
+        "label": "Restrictions",
+        "questions": "À quelle heure la musique doit-elle s’arrêter ? Bougies, feux d’artifice, confettis, horaires d’installation et de départ ?"
+      },
+      "flexibility": {
+        "label": "Flexibilité des dates",
+        "questions": "Votre date est-elle libre ? D’autres dates, un vendredi, un dimanche, une option posée en attendant votre décision ?"
+      }
+    },
+    "list": {
+      "title": "Vos lieux",
+      "lead": "Du premier repérage au coup de cœur : le mieux noté en tête.",
+      "allDeclined": "Tous vos lieux sont écartés pour l’instant. Ajoutez une nouvelle piste.",
+      "declined": "{count, plural, one {# lieu écarté} other {# lieux écartés}}"
+    },
+    "empty": {
+      "title": "Votre premier lieu commence par une envie",
+      "body": "Un château repéré sur Instagram, la ferme d’un ami, un domaine conseillé : ajoutez-le, même sans tout savoir encore."
+    },
+    "statuses": {
+      "idea": "Repéré",
+      "contacted": "Contacté",
+      "visited": "Visité",
+      "shortlisted": "Coup de cœur",
+      "booked": "Retenu",
+      "declined": "Écarté"
+    },
+    "styles": {
+      "chateau": "Château",
+      "countryside": "Campagne",
+      "beach": "Bord de mer",
+      "urban": "Urbain",
+      "barn": "Grange",
+      "garden": "Jardin",
+      "restaurant": "Restaurant",
+      "other": "Autre"
+    },
+    "caterings": {
+      "included": "Traiteur inclus",
+      "imposed": "Traiteur imposé",
+      "free": "Traiteur au choix"
+    },
+    "dateStatuses": {
+      "available": "Notre date est libre",
+      "alternatives": "D’autres dates proposées",
+      "unavailable": "Complet à notre date"
+    },
+    "rating": {
+      "none": "Pas encore noté",
+      "value": "{value} sur {max}",
+      "steps": {
+        "1": "Décevant",
+        "2": "Moyen",
+        "3": "Correct",
+        "4": "Très bien",
+        "5": "Parfait"
+      }
+    },
+    "score": {
+      "rated": "{count, plural, =0 {Aucun critère noté} one {# critère noté sur {total}} other {# critères notés sur {total}}}"
+    },
+    "facts": {
+      "capacity": "{count, plural, one {# place} other {# places}}",
+      "beds": "{count, plural, =0 {Aucun couchage} one {# couchage} other {# couchages}}",
+      "travel": "{minutes} min",
+      "curfew": "Musique jusqu’à {time}"
+    },
+    "checks": {
+      "fits": "{count, plural, =0 {Pile la place pour tous vos invités} one {Tous vos invités, et # place de marge} other {Tous vos invités, et # places de marge}}",
+      "tooSmall": "{count, plural, one {Il manque # place pour vos invités} other {Il manque # places pour vos invités}}",
+      "withinBudget": "Dans votre enveloppe, avec {amount} de marge",
+      "overBudget": "{amount} au-dessus de votre enveloppe",
+      "matchesStyle": "L’ambiance de votre carnet d’inspiration",
+      "everyoneSleeps": "Tout le monde peut dormir sur place",
+      "noBeds": "Aucun couchage : prévoyez les hôtels et le retour",
+      "imposedCaterer": "Traiteur imposé : goûtez-le avant de signer",
+      "earlyCurfew": "La musique s’arrête à {time}",
+      "dateFree": "Votre date est libre",
+      "otherDates": "Votre date n’est pas libre, d’autres sont proposées",
+      "dateTaken": "Complet à votre date"
+    },
+    "status": {
+      "change": "Avancement",
+      "changed": "{name} : {status}.",
+      "restore": "Reconsidérer",
+      "restored": "{name} revient dans la course."
+    },
+    "choose": {
+      "action": "Choisir ce lieu",
+      "title": "Retenir {name} ?",
+      "description": "Il devient votre lieu de réception. Vos autres lieux restent enregistrés, et les étapes « lieu » de votre rétroplanning seront cochées.",
+      "confirm": "Oui, c’est lui",
+      "done": "{name} est votre lieu. Félicitations !"
+    },
+    "compare": {
+      "title": "Côte à côte",
+      "lead": "Vos coups de cœur critère par critère ; la meilleure note de chaque ligne est surlignée.",
+      "criterion": "Critère",
+      "overall": "Note globale"
+    },
+    "dialog": {
+      "addTitle": "Un nouveau lieu",
+      "editTitle": "La fiche du lieu",
+      "description": "Remplissez ce que vous savez déjà : le reste viendra après l’appel ou la visite. Notez chaque critère de 1 à 5.",
+      "nameRequired": "Donnez un nom à ce lieu.",
+      "ratingLabel": "Votre note pour : {criterion}",
+      "added": "{name} a rejoint vos lieux.",
+      "updated": "La fiche a été mise à jour."
+    },
+    "fields": {
+      "name": "Nom du lieu",
+      "namePlaceholder": "Domaine des Tilleuls",
+      "status": "Avancement",
+      "visitDate": "Date de visite",
+      "url": "Site du lieu",
+      "location": "Adresse ou ville",
+      "locationPlaceholder": "Beaune, Côte-d’Or",
+      "travelMinutes": "Trajet depuis la cérémonie",
+      "capacity": "Invités assis, au maximum",
+      "price": "Prix annoncé",
+      "style": "Ambiance",
+      "unset": "Non renseigné",
+      "beds": "Couchages sur place",
+      "accommodationNote": "Autour du lieu",
+      "accommodationPlaceholder": "Deux hôtels à 10 minutes, navette possible…",
+      "catering": "Traiteur",
+      "curfew": "Fin de la musique",
+      "restrictions": "Autres restrictions",
+      "restrictionsPlaceholder": "Pas de feux d’artifice, installation la veille impossible…",
+      "dateStatus": "Votre date",
+      "datesNote": "Dates possibles",
+      "datesPlaceholder": "Option posée jusqu’au 15 novembre, 14 juin libre…",
+      "pros": "Avantages",
+      "cons": "Inconvénients",
+      "prosPlaceholder": "Le parc pour le cocktail",
+      "consPlaceholder": "Loin de la gare",
+      "prosAdd": "Ajouter cet avantage",
+      "consAdd": "Ajouter cet inconvénient",
+      "removeNote": "Retirer « {note} »",
+      "notes": "Vos impressions",
+      "notesPlaceholder": "Ce qui vous a marqués pendant la visite…"
+    },
+    "units": {
+      "minutes": "min",
+      "guests": "invités",
+      "beds": "couchages"
+    }
+  },
+  "Lodging": {
+    "metaTitle": "Hébergement des invités",
+    "eyebrow": "Vos invités",
+    "title": "Une nuit douce pour ceux qui viennent de loin",
+    "intro": "Repérez qui fera la route, combien de chambres prévoir, et réservez au bon moment, au bon prix.",
+    "readOnly": "Les mariés organisent l’hébergement : vous pouvez le consulter ici.",
+    "close": "Fermer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "add": "Ajouter un hébergement",
+    "delete": "Supprimer",
+    "editLabel": "Modifier {name}",
+    "deleteLabel": "Supprimer {name}",
+    "deleteTitle": "Supprimer {name} ?",
+    "deleteDescription": "Sa fiche sera effacée. Pensez à prévenir l’établissement si des chambres sont posées en option.",
+    "deleted": "{name} a été retiré.",
+    "site": "Site de {name}",
+    "errors": {
+      "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
+      "forbidden": "Seuls les mariés peuvent modifier l’hébergement.",
+      "invalid": "Certaines informations semblent incorrectes. Vérifiez-les puis réessayez.",
+      "generic": "La modification n’a pas pu être enregistrée. Merci de réessayer."
+    },
+    "plannedNo": "Vous avez indiqué que chacun rentre chez soi. Si certains invités viennent de loin, marquez-les ci-dessous : Céleste vous aidera à les loger.",
+    "far": {
+      "title": "Qui vient de loin ?",
+      "summary": "{people, plural, one {# personne à loger} other {# personnes à loger}} · {rooms, plural, one {environ # chambre} other {environ # chambres}}",
+      "summaryNone": "Personne n’est encore marqué : chacun rentre chez soi.",
+      "noGuests": "Votre liste d’invités est vide. <link>Ajoutez vos invités</link>, puis revenez marquer ceux qui feront la route.",
+      "lead": "Marquez les foyers qui ne pourront pas rentrer le soir même. Ouvrez un foyer pour choisir invité par invité.",
+      "leadReadOnly": "Les invités marqués par les mariés comme venant de loin.",
+      "partial": "{count} sur {total}",
+      "members": "{count, plural, one {# invité} other {# invités}}",
+      "toggleHousehold": "{name} vient de loin",
+      "solos": "Invités sans foyer",
+      "farAway": "Vient de loin",
+      "child": "enfant"
+    },
+    "empty": {
+      "title": "Tout le monde dort chez soi",
+      "body": "Dès qu’un invité est marqué comme venant de loin, Céleste estime les chambres à prévoir et vous guide pour les réserver."
+    },
+    "kpis": {
+      "people": "Personnes à loger",
+      "rooms": "Chambres à prévoir",
+      "secured": "Chambres tenues"
+    },
+    "coverage": {
+      "done": "Tout le monde a une chambre en vue.",
+      "missing": "{count, plural, one {Encore # chambre à trouver.} other {Encore # chambres à trouver.}}"
+    },
+    "tips": {
+      "title": "Quatre astuces pour bien les loger",
+      "lead": "Ajustées à votre date et au nombre de chambres à prévoir.",
+      "bookEarly": {
+        "title": "Réservez à l’avance",
+        "early": "Bloquez vos chambres d’ici le {date} : neuf mois avant, les hôtels proches du lieu ont encore de quoi accueillir tout le monde.",
+        "now": "C’est le bon moment : posez des options cette semaine, avec annulation gratuite, avant que les hôtels proches ne se remplissent.",
+        "late": "Le temps presse : réservez dès aujourd’hui et élargissez la recherche à 30 minutes autour du lieu.",
+        "noDate": "Dès que votre date est fixée, bloquez des chambres : neuf mois avant est idéal.",
+        "past": "Le grand jour est passé : il ne reste qu’à remercier vos hôtes.",
+        "highSeason": "Votre mariage tombe en pleine saison des mariages : les meilleures adresses partent les premières.",
+        "guestsBy": "Demandez à vos invités de réserver avant le {date} : les hôtels libèrent souvent les chambres non prises six semaines avant."
+      },
+      "groupRate": {
+        "title": "Négociez des tarifs de groupe",
+        "strong": "Avec environ {rooms} chambres, vous êtes en position de force : visez 10 à 20 % sous le prix public.",
+        "possible": "Environ {rooms} chambres : beaucoup d’hôtels accordent un tarif de groupe dès 5 chambres. Demandez-le.",
+        "small": "Quelques chambres seulement : demandez tout de même un geste, comme le petit-déjeuner offert ou un départ tardif.",
+        "ask": "Appelez l’hôtel directement et demandez :",
+        "items": {
+          "discount": "une remise sur le prix public, valable pour tous vos invités ;",
+          "release": "l’annulation gratuite des chambres non réservées jusqu’à six semaines avant ;",
+          "code": "un code ou un nom de groupe à transmettre à vos invités ;",
+          "extras": "le petit-déjeuner du lendemain, un départ tardif après la fête."
+        }
+      },
+      "compare": {
+        "title": "Utilisez des sites comparatifs",
+        "body": "Comparez le même hôtel sur plusieurs sites pour connaître le juste prix, puis appelez-le : en direct, le tarif d’un groupe est souvent meilleur.",
+        "sites": {
+          "hotels": {
+            "label": "Comparateurs d’hôtels",
+            "names": "Google Hotels, Trivago, Kayak"
+          },
+          "booking": {
+            "label": "Sites de réservation",
+            "names": "Booking.com, Hotels.com, Expedia"
+          },
+          "homes": {
+            "label": "Gîtes et maisons",
+            "names": "Gîtes de France, Abritel, Airbnb"
+          }
+        }
+      },
+      "budget": {
+        "title": "Explorez les alternatives économiques",
+        "body": "Toutes les nuits n’ont pas besoin d’un hôtel :",
+        "ideas": {
+          "gite": "une famille ou une bande d’amis s’y partage la note.",
+          "rental": "une grande maison louée à plusieurs, souvent moins chère qu’une chambre par personne.",
+          "guesthouse": "des chambres d’hôtes, chaleureuses et proches du lieu.",
+          "camping": "un camping ou un glamping pour les plus jeunes et les plus aventureux.",
+          "family": "des proches de la région prêts à recevoir quelques invités."
+        },
+        "add": "Ajouter : {kind}",
+        "shuttle": "Et pour ceux qui peuvent rentrer le soir, une navette retour évite parfois une nuit d’hôtel."
+      }
+    },
+    "list": {
+      "title": "Les hébergements",
+      "lead": "Hôtels, gîtes, maisons : ceux où des chambres sont tenues en tête.",
+      "empty": "Aucun hébergement pour l’instant. Commencez par les adresses les plus proches du lieu.",
+      "declined": "{count, plural, one {# piste écartée} other {# pistes écartées}}"
+    },
+    "venueSuggestion": {
+      "body": "{name}, votre lieu, propose {count, plural, one {# couchage} other {# couchages}} sur place.",
+      "add": "L’ajouter"
+    },
+    "kinds": {
+      "hotel": "Hôtel",
+      "guesthouse": "Chambres d’hôtes",
+      "gite": "Gîte de groupe",
+      "rental": "Maison à louer",
+      "camping": "Camping",
+      "venue": "Sur le lieu",
+      "family": "Chez des proches",
+      "other": "Autre"
+    },
+    "statuses": {
+      "idea": "Repéré",
+      "contacted": "Contacté",
+      "option": "En option",
+      "confirmed": "Confirmé",
+      "declined": "Écarté"
+    },
+    "facts": {
+      "rooms": "{count, plural, one {# chambre} other {# chambres}}",
+      "perNight": "{price} la nuit",
+      "travel": "{minutes} min du lieu",
+      "groupRate": "Tarif de groupe",
+      "code": "Code à donner aux invités :",
+      "deadline": "Date limite : {date}"
+    },
+    "checks": {
+      "optionExpired": "L’option a expiré : rappelez l’établissement pour la prolonger.",
+      "deadlineSoon": "{count, plural, =0 {L’option expire aujourd’hui} one {L’option expire demain} other {L’option expire dans # jours}}",
+      "askGroupRate": "Assez de chambres pour demander un tarif de groupe.",
+      "shareCode": "Demandez un code de réservation à transmettre à vos invités.",
+      "shuttle": "À {minutes} min du lieu : pensez à une navette pour le retour."
+    },
+    "status": {
+      "change": "Avancement",
+      "changed": "{name} : {status}."
+    },
+    "dialog": {
+      "addTitle": "Un nouvel hébergement",
+      "editTitle": "La fiche de l’hébergement",
+      "description": "Notez ce que vous savez déjà ; le reste viendra après l’appel.",
+      "nameRequired": "Donnez un nom à cet hébergement.",
+      "added": "{name} a été ajouté.",
+      "updated": "La fiche a été mise à jour."
+    },
+    "fields": {
+      "name": "Nom",
+      "namePlaceholder": "Hôtel de la Poste",
+      "kind": "Type",
+      "status": "Avancement",
+      "location": "Adresse ou ville",
+      "travelMinutes": "Trajet jusqu’au lieu",
+      "rooms": "Chambres pour vos invités",
+      "pricePerNight": "Prix d’une nuit",
+      "groupRate": "Tarif de groupe obtenu",
+      "bookingCode": "Code ou nom de réservation",
+      "bookingCodePlaceholder": "MARIAGE-CAMILLE-THOMAS",
+      "deadline": "Date limite",
+      "deadlineHint": "Fin de l’option, ou date à laquelle l’hôtel libère les chambres non réservées.",
+      "url": "Site",
+      "contact": "Contact",
+      "contactPlaceholder": "Mme Martin, 03 80 00 00 00",
+      "notes": "Notes",
+      "notesPlaceholder": "Petit-déjeuner inclus, parking gratuit…"
+    },
+    "units": {
+      "minutes": "min",
+      "rooms": "chambres"
     }
   }
 }

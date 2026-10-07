@@ -17,7 +17,9 @@ import type {
   RegistryPledge,
   RegistrySuggestion,
 } from "@/lib/registry/schema";
+import { LODGING_COLUMNS, type Lodging, type LodgingGuest } from "@/lib/lodging/schema";
 import type { Quote } from "@/lib/quotes/schema";
+import { VENUE_COLUMNS, type Venue } from "@/lib/venues/schema";
 import type { SeatedGuest, SeatingTable } from "@/lib/seating/schema";
 import { planningAnswersSchema, type PlanningAnswers } from "@/lib/planning/schema";
 import type { PlanningTaskRow, Task } from "@/lib/tasks/schema";
@@ -529,4 +531,50 @@ export async function getRegistry(
     pledges: pledges.data ?? [],
     suggestions: suggestions.data ?? [],
   };
+}
+
+/** Lieux de réception envisagés (réservés aux mariés, cf. 000027). */
+export async function getVenues(supabase: ServerClient, weddingId: string): Promise<Venue[]> {
+  const { data, error } = await supabase
+    .from("venues")
+    .select(VENUE_COLUMNS)
+    .eq("wedding_id", weddingId)
+    .order("position", { ascending: true })
+    .order("created_at", { ascending: true })
+    .returns<Venue[]>();
+
+  if (error) {
+    console.error("[weddings] getVenues:", error.code);
+    throw new Error("Unable to load venues");
+  }
+  return data;
+}
+
+/** Invités et hébergements, pour la page Hébergement (cf. 000028). */
+export async function getLodging(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<{ guests: LodgingGuest[]; lodgings: Lodging[] }> {
+  const [guests, lodgings] = await Promise.all([
+    supabase
+      .from("guests")
+      .select("id, first_name, last_name, status, is_child, family_id, needs_lodging")
+      .eq("wedding_id", weddingId)
+      .order("first_name", { ascending: true })
+      .returns<LodgingGuest[]>(),
+    supabase
+      .from("guest_lodgings")
+      .select(LODGING_COLUMNS)
+      .eq("wedding_id", weddingId)
+      .order("position", { ascending: true })
+      .order("created_at", { ascending: true })
+      .returns<Lodging[]>(),
+  ]);
+
+  const error = guests.error ?? lodgings.error;
+  if (error) {
+    console.error("[weddings] getLodging:", error.code);
+    throw new Error("Unable to load lodging");
+  }
+  return { guests: guests.data ?? [], lodgings: lodgings.data ?? [] };
 }

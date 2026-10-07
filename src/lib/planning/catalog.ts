@@ -19,6 +19,8 @@ export type PlanningHref =
   | "/guests"
   | "/invitations"
   | "/registry"
+  | "/venues"
+  | "/accommodation"
   | "/seating"
   | "/itinerary"
   | "/playlist"
@@ -58,10 +60,12 @@ export const TASK_CATALOG = [
   // — Fondations —
   { key: "set_budget", category: "foundations", ideal: 365, floor: 75, priority: 1, asap: true, href: "/budget" },
   { key: "guest_list", category: "foundations", ideal: 350, floor: 75, priority: 1, asap: true, href: "/guests" },
-  { key: "explore_venues", category: "foundations", ideal: 365, floor: 75, priority: 1, asap: true },
+  {
+    key: "explore_venues", category: "foundations", ideal: 365, floor: 75, priority: 1, asap: true, href: "/venues",
+  },
   {
     key: "book_venue", category: "foundations", ideal: 330, floor: 60, priority: 1, asap: true,
-    dependsOn: "explore_venues",
+    dependsOn: "explore_venues", href: "/venues",
   },
   {
     key: "book_town_hall", category: "foundations", ideal: 330, floor: 60, priority: 1, asap: true,
@@ -73,7 +77,7 @@ export const TASK_CATALOG = [
   { key: "book_officiant", category: "foundations", ideal: 330, floor: 60, priority: 2, when: hasCeremonyOfficiant },
   {
     key: "book_accommodation", category: "foundations", ideal: 300, floor: 45, priority: 3,
-    dependsOn: "book_venue",
+    dependsOn: "book_venue", href: "/accommodation",
     when: ({ answers }) => answers.guestAccommodation,
   },
   { key: "assign_roles", category: "foundations", ideal: 120, floor: 14, priority: 2 },

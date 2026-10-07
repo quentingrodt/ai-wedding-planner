@@ -2182,7 +2182,9 @@
       "playlist": "Playlist",
       "settings": "Team",
       "calendar": "Calendar",
-      "registry": "Registry"
+      "registry": "Registry",
+      "venues": "Venue",
+      "accommodation": "Accommodation"
     }
   },
   "Planning": {
@@ -2994,6 +2996,404 @@
       "closed": "The couple has closed their idea box.",
       "limit": "You’ve already suggested five ideas: thank you for your generosity!",
       "generic": "Something went wrong. Please try again in a moment."
+    }
+  },
+  "Venues": {
+    "metaTitle": "Reception venue",
+    "eyebrow": "Prepare",
+    "title": "A venue that feels like you",
+    "intro": "Note every venue you visit, its strengths and its limits. Céleste weighs each one against your guest count, your budget and your style, so the final choice becomes obvious.",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving…",
+    "add": "Add a venue",
+    "delete": "Delete",
+    "editLabel": "Edit {name}",
+    "deleteLabel": "Delete {name}",
+    "deleteTitle": "Delete {name}?",
+    "deleteDescription": "Its details, ratings, pros and cons will be erased.",
+    "deleted": "{name} was removed from your venues.",
+    "site": "{name} website",
+    "errors": {
+      "unauthenticated": "Your session has expired. Please sign in again.",
+      "forbidden": "Only the couple can edit venues.",
+      "invalid": "Some details look incorrect. Check them and try again.",
+      "generic": "We couldn’t save this change. Please try again."
+    },
+    "benchmarks": {
+      "guests": "Expected guests",
+      "budget": "Venue budget",
+      "style": "Your style"
+    },
+    "booked": {
+      "eyebrow": "Your venue",
+      "body": "It’s settled. The venue steps of your timeline are checked off: on to the caterer and vendors."
+    },
+    "guide": {
+      "title": "Eight questions to ask",
+      "lead": "Keep them at hand during every visit."
+    },
+    "criteria": {
+      "location": {
+        "label": "Location",
+        "questions": "How far from the ceremony? Reachable by train, easy to find at night, enough parking?"
+      },
+      "capacity": {
+        "label": "Capacity",
+        "questions": "How many seated guests for dinner, standing for drinks? Is there an indoor fallback if it rains?"
+      },
+      "budget": {
+        "label": "Budget",
+        "questions": "What does the price include: tables, chairs, cleaning, power? What deposit, what cancellation terms?"
+      },
+      "style": {
+        "label": "Style",
+        "questions": "Can you picture yourselves there? Light, grounds, photos: does the place tell your story without much decoration?"
+      },
+      "accommodation": {
+        "label": "Guest accommodation",
+        "questions": "How many beds on site? Hotels or cottages nearby, a shuttle for the ride home?"
+      },
+      "service": {
+        "label": "Quality of service",
+        "questions": "Is the caterer imposed? One point of contact on the day? What do couples who married there say?"
+      },
+      "restrictions": {
+        "label": "Restrictions",
+        "questions": "When must the music stop? Candles, fireworks, confetti, set-up and departure times?"
+      },
+      "flexibility": {
+        "label": "Date flexibility",
+        "questions": "Is your date free? Other dates, a Friday, a Sunday, a hold while you decide?"
+      }
+    },
+    "list": {
+      "title": "Your venues",
+      "lead": "From first lead to favourite: the best rated come first.",
+      "allDeclined": "All your venues are set aside for now. Add a new lead.",
+      "declined": "{count, plural, one {# venue set aside} other {# venues set aside}}"
+    },
+    "empty": {
+      "title": "Your first venue starts with a wish",
+      "body": "A château spotted on Instagram, a friend’s farm, an estate someone recommended: add it, even before you know everything."
+    },
+    "statuses": {
+      "idea": "Spotted",
+      "contacted": "Contacted",
+      "visited": "Visited",
+      "shortlisted": "Favourite",
+      "booked": "Chosen",
+      "declined": "Set aside"
+    },
+    "styles": {
+      "chateau": "Château",
+      "countryside": "Countryside",
+      "beach": "Seaside",
+      "urban": "Urban",
+      "barn": "Barn",
+      "garden": "Garden",
+      "restaurant": "Restaurant",
+      "other": "Other"
+    },
+    "caterings": {
+      "included": "Catering included",
+      "imposed": "Caterer imposed",
+      "free": "Caterer of your choice"
+    },
+    "dateStatuses": {
+      "available": "Our date is free",
+      "alternatives": "Other dates offered",
+      "unavailable": "Booked on our date"
+    },
+    "rating": {
+      "none": "Not rated yet",
+      "value": "{value} out of {max}",
+      "steps": {
+        "1": "Disappointing",
+        "2": "Average",
+        "3": "Fine",
+        "4": "Very good",
+        "5": "Perfect"
+      }
+    },
+    "score": {
+      "rated": "{count, plural, =0 {No criteria rated} one {# of {total} criteria rated} other {# of {total} criteria rated}}"
+    },
+    "facts": {
+      "capacity": "{count, plural, one {# seat} other {# seats}}",
+      "beds": "{count, plural, =0 {No beds} one {# bed} other {# beds}}",
+      "travel": "{minutes} min",
+      "curfew": "Music until {time}"
+    },
+    "checks": {
+      "fits": "{count, plural, =0 {Exactly enough room for all your guests} one {All your guests, with # seat to spare} other {All your guests, with # seats to spare}}",
+      "tooSmall": "{count, plural, one {# seat short for your guests} other {# seats short for your guests}}",
+      "withinBudget": "Within your budget, {amount} to spare",
+      "overBudget": "{amount} over your budget",
+      "matchesStyle": "The style of your inspiration book",
+      "everyoneSleeps": "Everyone can sleep on site",
+      "noBeds": "No beds: plan hotels and the ride home",
+      "imposedCaterer": "Imposed caterer: taste before you sign",
+      "earlyCurfew": "Music stops at {time}",
+      "dateFree": "Your date is free",
+      "otherDates": "Your date is taken, others are offered",
+      "dateTaken": "Booked on your date"
+    },
+    "status": {
+      "change": "Progress",
+      "changed": "{name}: {status}.",
+      "restore": "Reconsider",
+      "restored": "{name} is back in the running."
+    },
+    "choose": {
+      "action": "Choose this venue",
+      "title": "Choose {name}?",
+      "description": "It becomes your reception venue. Your other venues stay saved, and the venue steps of your timeline will be checked off.",
+      "confirm": "Yes, this is the one",
+      "done": "{name} is your venue. Congratulations!"
+    },
+    "compare": {
+      "title": "Side by side",
+      "lead": "Your favourites criterion by criterion; the best rating in each row is highlighted.",
+      "criterion": "Criterion",
+      "overall": "Overall"
+    },
+    "dialog": {
+      "addTitle": "A new venue",
+      "editTitle": "Venue details",
+      "description": "Fill in what you already know: the rest will come after the call or visit. Rate each criterion from 1 to 5.",
+      "nameRequired": "Give this venue a name.",
+      "ratingLabel": "Your rating for: {criterion}",
+      "added": "{name} joined your venues.",
+      "updated": "The venue was updated."
+    },
+    "fields": {
+      "name": "Venue name",
+      "namePlaceholder": "Linden Estate",
+      "status": "Progress",
+      "visitDate": "Visit date",
+      "url": "Venue website",
+      "location": "Address or town",
+      "locationPlaceholder": "Beaune, Burgundy",
+      "travelMinutes": "Travel from the ceremony",
+      "capacity": "Seated guests, at most",
+      "price": "Quoted price",
+      "style": "Style",
+      "unset": "Not specified",
+      "beds": "Beds on site",
+      "accommodationNote": "Around the venue",
+      "accommodationPlaceholder": "Two hotels 10 minutes away, shuttle available…",
+      "catering": "Catering",
+      "curfew": "Music ends at",
+      "restrictions": "Other restrictions",
+      "restrictionsPlaceholder": "No fireworks, no set-up the day before…",
+      "dateStatus": "Your date",
+      "datesNote": "Possible dates",
+      "datesPlaceholder": "Hold until 15 November, 14 June free…",
+      "pros": "Pros",
+      "cons": "Cons",
+      "prosPlaceholder": "The park for drinks",
+      "consPlaceholder": "Far from the station",
+      "prosAdd": "Add this pro",
+      "consAdd": "Add this con",
+      "removeNote": "Remove “{note}”",
+      "notes": "Your impressions",
+      "notesPlaceholder": "What struck you during the visit…"
+    },
+    "units": {
+      "minutes": "min",
+      "guests": "guests",
+      "beds": "beds"
+    }
+  },
+  "Lodging": {
+    "metaTitle": "Guest accommodation",
+    "eyebrow": "Your guests",
+    "title": "A restful night for those travelling far",
+    "intro": "See who will travel, how many rooms to plan, and book at the right time, at the right price.",
+    "readOnly": "The couple is organising accommodation: you can follow it here.",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving…",
+    "add": "Add accommodation",
+    "delete": "Delete",
+    "editLabel": "Edit {name}",
+    "deleteLabel": "Delete {name}",
+    "deleteTitle": "Delete {name}?",
+    "deleteDescription": "Its details will be erased. Remember to tell the property if rooms are on hold.",
+    "deleted": "{name} was removed.",
+    "site": "{name} website",
+    "errors": {
+      "unauthenticated": "Your session has expired. Please sign in again.",
+      "forbidden": "Only the couple can edit accommodation.",
+      "invalid": "Some details look incorrect. Check them and try again.",
+      "generic": "We couldn’t save this change. Please try again."
+    },
+    "plannedNo": "You said everyone heads home. If some guests are travelling far, mark them below: Céleste will help you host them.",
+    "far": {
+      "title": "Who is travelling far?",
+      "summary": "{people, plural, one {# person to host} other {# people to host}} · {rooms, plural, one {about # room} other {about # rooms}}",
+      "summaryNone": "Nobody is marked yet: everyone heads home.",
+      "noGuests": "Your guest list is empty. <link>Add your guests</link>, then come back to mark those who will travel.",
+      "lead": "Mark the households who can’t get home the same night. Open a household to choose guest by guest.",
+      "leadReadOnly": "Guests the couple marked as travelling far.",
+      "partial": "{count} of {total}",
+      "members": "{count, plural, one {# guest} other {# guests}}",
+      "toggleHousehold": "{name} is travelling far",
+      "solos": "Guests without a household",
+      "farAway": "Travelling far",
+      "child": "child"
+    },
+    "empty": {
+      "title": "Everyone sleeps at home",
+      "body": "As soon as a guest is marked as travelling far, Céleste estimates the rooms to plan and guides you through booking them."
+    },
+    "kpis": {
+      "people": "People to host",
+      "rooms": "Rooms to plan",
+      "secured": "Rooms on hold"
+    },
+    "coverage": {
+      "done": "Everyone has a room in sight.",
+      "missing": "{count, plural, one {# more room to find.} other {# more rooms to find.}}"
+    },
+    "tips": {
+      "title": "Four tips to host them well",
+      "lead": "Tailored to your date and the number of rooms to plan.",
+      "bookEarly": {
+        "title": "Book ahead",
+        "early": "Block your rooms by {date}: nine months ahead, hotels near the venue still have room for everyone.",
+        "now": "Now is the time: place holds this week, with free cancellation, before nearby hotels fill up.",
+        "late": "Time is short: book today and widen your search to 30 minutes around the venue.",
+        "noDate": "As soon as your date is set, block rooms: nine months ahead is ideal.",
+        "past": "The big day has passed: all that’s left is to thank your hosts.",
+        "highSeason": "Your wedding falls in peak wedding season: the best places go first.",
+        "guestsBy": "Ask your guests to book before {date}: hotels often release unbooked rooms six weeks ahead."
+      },
+      "groupRate": {
+        "title": "Negotiate group rates",
+        "strong": "With about {rooms} rooms, you have leverage: aim for 10 to 20% below the public rate.",
+        "possible": "About {rooms} rooms: many hotels offer a group rate from 5 rooms. Ask for it.",
+        "small": "Only a few rooms: still ask for a gesture, like free breakfast or a late check-out.",
+        "ask": "Call the hotel directly and ask for:",
+        "items": {
+          "discount": "a discount on the public rate, valid for all your guests;",
+          "release": "free cancellation of unbooked rooms up to six weeks ahead;",
+          "code": "a code or group name to share with your guests;",
+          "extras": "breakfast the next morning, a late check-out after the party."
+        }
+      },
+      "compare": {
+        "title": "Use comparison sites",
+        "body": "Compare the same hotel across several sites to know the fair price, then call it: booking direct, a group rate is often better.",
+        "sites": {
+          "hotels": {
+            "label": "Hotel comparison",
+            "names": "Google Hotels, Trivago, Kayak"
+          },
+          "booking": {
+            "label": "Booking sites",
+            "names": "Booking.com, Hotels.com, Expedia"
+          },
+          "homes": {
+            "label": "Cottages and homes",
+            "names": "Vrbo, Airbnb"
+          }
+        }
+      },
+      "budget": {
+        "title": "Explore budget alternatives",
+        "body": "Not every night needs a hotel:",
+        "ideas": {
+          "gite": "a family or group of friends shares the bill.",
+          "rental": "a large house rented together, often cheaper than a room each.",
+          "guesthouse": "a bed and breakfast, warm and close to the venue.",
+          "camping": "a campsite or glamping for the youngest and most adventurous.",
+          "family": "local friends and family happy to host a few guests."
+        },
+        "add": "Add: {kind}",
+        "shuttle": "And for those who can head home that night, a return shuttle can save a hotel stay."
+      }
+    },
+    "list": {
+      "title": "Accommodation",
+      "lead": "Hotels, cottages, houses: those holding rooms come first.",
+      "empty": "No accommodation yet. Start with the places closest to the venue.",
+      "declined": "{count, plural, one {# lead set aside} other {# leads set aside}}"
+    },
+    "venueSuggestion": {
+      "body": "{name}, your venue, has {count, plural, one {# bed} other {# beds}} on site.",
+      "add": "Add it"
+    },
+    "kinds": {
+      "hotel": "Hotel",
+      "guesthouse": "Bed and breakfast",
+      "gite": "Group cottage",
+      "rental": "House rental",
+      "camping": "Campsite",
+      "venue": "At the venue",
+      "family": "With family or friends",
+      "other": "Other"
+    },
+    "statuses": {
+      "idea": "Spotted",
+      "contacted": "Contacted",
+      "option": "On hold",
+      "confirmed": "Confirmed",
+      "declined": "Set aside"
+    },
+    "facts": {
+      "rooms": "{count, plural, one {# room} other {# rooms}}",
+      "perNight": "{price} a night",
+      "travel": "{minutes} min from the venue",
+      "groupRate": "Group rate",
+      "code": "Code for your guests:",
+      "deadline": "Deadline: {date}"
+    },
+    "checks": {
+      "optionExpired": "The hold has expired: call the property to extend it.",
+      "deadlineSoon": "{count, plural, =0 {The hold expires today} one {The hold expires tomorrow} other {The hold expires in # days}}",
+      "askGroupRate": "Enough rooms to ask for a group rate.",
+      "shareCode": "Ask for a booking code to share with your guests.",
+      "shuttle": "{minutes} min from the venue: consider a shuttle for the ride back."
+    },
+    "status": {
+      "change": "Progress",
+      "changed": "{name}: {status}."
+    },
+    "dialog": {
+      "addTitle": "New accommodation",
+      "editTitle": "Accommodation details",
+      "description": "Note what you already know; the rest will come after the call.",
+      "nameRequired": "Give this accommodation a name.",
+      "added": "{name} was added.",
+      "updated": "The details were updated."
+    },
+    "fields": {
+      "name": "Name",
+      "namePlaceholder": "The Old Post Hotel",
+      "kind": "Type",
+      "status": "Progress",
+      "location": "Address or town",
+      "travelMinutes": "Travel to the venue",
+      "rooms": "Rooms for your guests",
+      "pricePerNight": "Price per night",
+      "groupRate": "Group rate secured",
+      "bookingCode": "Booking code or name",
+      "bookingCodePlaceholder": "WEDDING-CAMILLE-THOMAS",
+      "deadline": "Deadline",
+      "deadlineHint": "End of the hold, or the date the hotel releases unbooked rooms.",
+      "url": "Website",
+      "contact": "Contact",
+      "contactPlaceholder": "Ms Martin, +44 20 0000 0000",
+      "notes": "Notes",
+      "notesPlaceholder": "Breakfast included, free parking…"
+    },
+    "units": {
+      "minutes": "min",
+      "rooms": "rooms"
     }
   }
 }
