@@ -1,5 +1,3 @@
-import { z } from 'zod';
-
 // 1. Définition des types basés sur notre schéma SQL
 export type SourcingType = 'network' | 'celeste_search' | 'undecided';
 

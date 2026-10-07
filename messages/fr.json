@@ -4,7 +4,7 @@
   },
   "Index": {
     "metaTitle": "Céleste · Organisez votre mariage sans charge mentale",
-    "metaDescription": "Rétroplanning vivant, budget maîtrisé et analyse de vos devis : votre copilote invisible pour organiser un mariage qui vous ressemble, sereinement.",
+    "metaDescription": "Rétroplanning vivant, budget maîtrisé et prestataires réunis : votre copilote invisible pour organiser un mariage qui vous ressemble, sereinement.",
     "eyebrow": "Le carnet des futurs mariés",
     "title": "L’amour est une fête. <em>Laissez-nous la charge mentale.</em>",
     "subtitle": "L’assistance d’un expert, le calme en plus. Votre copilote invisible pour concevoir un mariage qui vous ressemble.",
@@ -19,9 +19,9 @@
         "title": "Budget maîtrisé",
         "body": "Le prévu, le réel, l’écart. Une vision claire de chaque dépense, sans tableur à tenir."
       },
-      "quotes": {
-        "title": "Analyse de devis",
-        "body": "Déposez un devis : montants, acomptes et clauses sensibles vous sont restitués en quelques instants."
+      "vendors": {
+        "title": "Prestataires réunis",
+        "body": "Pistes, questions à poser, paiements et échéances : chaque prestataire au même endroit, jusqu’au choix."
       }
     },
     "crossroadsEyebrow": "Deux façons de commencer",
@@ -168,9 +168,9 @@
           "title": "Votre carnet d’inspiration",
           "body": "Lieu, cérémonie et repas déjà choisis. Tenues, desserts, voyage de noces : la suite vous attend."
         },
-        "quotes": {
-          "title": "L’analyse de vos devis",
-          "body": "Déposez un devis : montants, acomptes et clauses sensibles vous sont restitués en clair."
+        "vendors": {
+          "title": "Vos prestataires réunis",
+          "body": "Pistes, questions à poser et échéances de paiement, au même endroit."
         }
       },
       "cta": "Sauvegarder notre projet",
@@ -318,7 +318,6 @@
       "error": "Cette étape n'a pas pu être mise à jour. Merci de réessayer.",
       "seeAll": "Voir tout le rétroplanning"
     },
-    "quotesLink": "Décryptez vos devis",
     "guestsLink": "Vos invités",
     "seatingLink": "Plan de table",
     "itineraryLink": "Le Jour J",
@@ -333,40 +332,6 @@
     },
     "invitationsLink": "Faire-part",
     "playlistLink": "Playlist"
-  },
-  "Quotes": {
-    "metaTitle": "Vos devis",
-    "back": "Tableau de bord",
-    "eyebrow": "Prestataires",
-    "title": "Décryptez vos devis",
-    "intro": "Déposez les devis de vos prestataires : nous les lirons pour vous et en extrairons l’essentiel.",
-    "readOnly": "Les mariés gèrent les devis : vous pouvez les consulter ici.",
-    "dropzone": {
-      "title": "Déposez votre devis ici",
-      "release": "Relâchez pour déposer",
-      "browse": "ou parcourez vos fichiers",
-      "hint": "PDF, PNG ou JPEG · 10 Mo maximum"
-    },
-    "uploading": "Téléversement en cours…",
-    "uploadedToast": "« {name} » est prêt pour analyse.",
-    "list": {
-      "title": "Vos devis",
-      "empty": "Aucun devis pour le moment.",
-      "added": "Ajouté le {date}"
-    },
-    "status": {
-      "uploaded": "Prêt pour analyse",
-      "analyzing": "Lecture en cours",
-      "processed": "Décrypté",
-      "error": "À vérifier"
-    },
-    "errors": {
-      "invalidType": "« {name} » n’est pas un PDF, PNG ou JPEG.",
-      "tooLarge": "« {name} » dépasse 10 Mo.",
-      "forbidden": "Seuls les mariés peuvent déposer des devis.",
-      "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
-      "generic": "« {name} » n’a pas pu être téléversé. Merci de réessayer."
-    }
   },
   "Guests": {
     "metaTitle": "Vos invités",
@@ -2196,7 +2161,6 @@
       "planning": "Rétroplanning",
       "inspiration": "Inspiration",
       "budget": "Budget",
-      "quotes": "Devis",
       "guests": "Invités",
       "invitations": "Faire-part",
       "seating": "Plan de table",

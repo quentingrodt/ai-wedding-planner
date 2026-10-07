@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, BookOpen, CalendarRange, FileSearch, type LucideIcon } from "lucide-react";
+import { ArrowRight, BookOpen, CalendarRange, Store, type LucideIcon } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/navigation";
@@ -10,10 +10,10 @@ import { DATE_NIGHT_CURRENCY, type DateNightInput } from "@/lib/date-night/schem
 import { DATE_NIGHT_STEPS, type DateNightLikes } from "@/lib/inspiration/catalog";
 import { cn } from "@/lib/utils";
 
-const BENEFITS: { key: "timeline" | "book" | "quotes"; icon: LucideIcon }[] = [
+const BENEFITS: { key: "timeline" | "book" | "vendors"; icon: LucideIcon }[] = [
   { key: "timeline", icon: CalendarRange },
   { key: "book", icon: BookOpen },
-  { key: "quotes", icon: FileSearch },
+  { key: "vendors", icon: Store },
 ];
 
 const SEGMENT_TONE = ["bg-terracotta", "bg-sage-deep", "bg-sand"] as const;

@@ -1,8 +1,8 @@
 "use server";
 
-import { headers } from "next/headers";
 import { getLocale } from "next-intl/server";
 import { getPathname } from "@/i18n/navigation";
+import { getRequestOrigin } from "@/lib/auth/redirect";
 import { inviteRoleSchema, type GenerateInviteResult } from "@/lib/team/schema";
 import {
   getCurrentMemberRole,
@@ -39,8 +39,7 @@ export async function generateInvite(role: string): Promise<GenerateInviteResult
     return { ok: false, error: error.code === "42501" ? "forbidden" : "generic" };
   }
 
-  const headerList = await headers();
-  const origin = headerList.get("origin") ?? `https://${headerList.get("host")}`;
+  const origin = await getRequestOrigin();
   const locale = await getLocale();
   const path = getPathname({ href: `/invite/${data.token}`, locale });
 

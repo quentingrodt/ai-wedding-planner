@@ -194,6 +194,20 @@ export async function generateWeddingPlan(): Promise<PlanActionResult> {
   if (latest && Date.now() - Date.parse(latest.createdAt) < PLAN_COOLDOWN_MS) {
     return { ok: false, error: "tooSoon" };
   }
+  // Réservation atomique avant l'appel payant : deux clics simultanés ne
+  // déclenchent qu'une génération (la seconde mise à jour ne trouve plus la ligne).
+  const since = new Date(Date.now() - PLAN_COOLDOWN_MS).toISOString();
+  const { data: claimed, error: claimError } = await supabase
+    .from("weddings")
+    .update({ plan_requested_at: new Date().toISOString() })
+    .eq("id", wedding.id)
+    .or(`plan_requested_at.is.null,plan_requested_at.lt.${since}`)
+    .select("id");
+  if (claimError) {
+    console.error("[plan] claim:", claimError.code);
+    return { ok: false, error: "generic" };
+  }
+  if (claimed.length === 0) return { ok: false, error: "tooSoon" };
 
   const locale = (await getLocale()) as Locale;
   const allocation = allocateBudget(wedding.total_budget, styleDna.likes);

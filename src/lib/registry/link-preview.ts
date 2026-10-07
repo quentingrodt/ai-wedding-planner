@@ -15,30 +15,68 @@ const TIMEOUT_MS = 6000;
 const MAX_BYTES = 1_500_000;
 const MAX_REDIRECTS = 3;
 
-/** Adresses privées, locales ou réservées, en IPv4 et IPv6. */
-function isPrivateAddress(address: string): boolean {
-  if (isIP(address) === 4) {
-    const [a, b] = address.split(".").map(Number);
-    return (
-      a === 0 ||
-      a === 10 ||
-      a === 127 ||
-      (a === 100 && b >= 64 && b <= 127) ||
-      (a === 169 && b === 254) ||
-      (a === 172 && b >= 16 && b <= 31) ||
-      (a === 192 && b === 168) ||
-      a >= 224
-    );
-  }
-  const value = address.toLowerCase();
-  if (value.startsWith("::ffff:")) return isPrivateAddress(value.slice(7));
+function isPrivateIPv4(address: string): boolean {
+  const [a, b] = address.split(".").map(Number);
   return (
-    value === "::" ||
-    value === "::1" ||
-    value.startsWith("fc") ||
-    value.startsWith("fd") ||
-    value.startsWith("fe80") ||
-    value.startsWith("ff")
+    a === 0 ||
+    a === 10 ||
+    a === 127 ||
+    (a === 100 && b >= 64 && b <= 127) ||
+    (a === 169 && b === 254) ||
+    (a === 172 && b >= 16 && b <= 31) ||
+    (a === 192 && b === 168) ||
+    a >= 224
+  );
+}
+
+/** Les huit groupes d'une adresse IPv6, « :: » et IPv4 finale compris ; null si illisible. */
+function ipv6Groups(address: string): number[] | null {
+  let value = address.toLowerCase().split("%")[0];
+  // Fin en notation IPv4 (::ffff:127.0.0.1) : convertie en deux groupes hexadécimaux.
+  const dotted = value.match(/(\d+\.\d+\.\d+\.\d+)$/);
+  if (dotted) {
+    if (isIP(dotted[1]) !== 4) return null;
+    const [a, b, c, d] = dotted[1].split(".").map(Number);
+    value = `${value.slice(0, -dotted[1].length)}${((a << 8) | b).toString(16)}:${((c << 8) | d).toString(16)}`;
+  }
+  const [head, tail, extra] = value.split("::");
+  if (extra !== undefined) return null;
+  const left = head ? head.split(":") : [];
+  const right = tail !== undefined && tail !== "" ? tail.split(":") : [];
+  const missing = 8 - left.length - right.length;
+  if (tail === undefined ? missing !== 0 : missing < 1) return null;
+  const groups = [...left, ...Array<string>(tail === undefined ? 0 : missing).fill("0"), ...right].map((group) =>
+    /^[0-9a-f]{1,4}$/.test(group) ? Number.parseInt(group, 16) : Number.NaN,
+  );
+  return groups.some(Number.isNaN) ? null : groups;
+}
+
+/**
+ * Adresses privées, locales ou réservées, en IPv4 et IPv6. Une IPv4 cachée
+ * dans une IPv6 (::ffff:7f00:1, 64:ff9b::7f00:1…) est vérifiée comme une IPv4 :
+ * l'URL normalise ::ffff:127.0.0.1 en ::ffff:7f00:1, qu'il faut donc décoder.
+ */
+export function isPrivateAddress(address: string): boolean {
+  if (isIP(address) === 4) return isPrivateIPv4(address);
+  const groups = ipv6Groups(address);
+  // Illisible : refusé par prudence.
+  if (!groups) return true;
+  const embedded = () => `${groups[6] >> 8}.${groups[6] & 255}.${groups[7] >> 8}.${groups[7] & 255}`;
+  const zeros = (count: number) => groups.slice(0, count).every((group) => group === 0);
+  // ::ffff:a.b.c.d (mappée), ::a.b.c.d (compatible) et 64:ff9b::a.b.c.d (NAT64).
+  if ((zeros(5) && groups[5] === 0xffff) || (zeros(6) && (groups[6] !== 0 || groups[7] > 1))) {
+    return isPrivateIPv4(embedded());
+  }
+  if (groups[0] === 0x64 && groups[1] === 0xff9b && groups.slice(2, 6).every((group) => group === 0)) {
+    return isPrivateIPv4(embedded());
+  }
+  const first = groups[0];
+  return (
+    zeros(8) || // ::
+    (zeros(7) && groups[7] === 1) || // ::1
+    (first & 0xfe00) === 0xfc00 || // fc00::/7, adresses locales uniques
+    (first & 0xffc0) === 0xfe80 || // fe80::/10, lien local
+    (first & 0xff00) === 0xff00 // ff00::/8, multidiffusion
   );
 }
 

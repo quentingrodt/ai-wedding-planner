@@ -18,7 +18,6 @@ import type {
   RegistrySuggestion,
 } from "@/lib/registry/schema";
 import { LODGING_COLUMNS, type Lodging, type LodgingGuest } from "@/lib/lodging/schema";
-import type { Quote } from "@/lib/quotes/schema";
 import type { VendorCategory } from "@/lib/vendors/catalog";
 import { readDetails } from "@/lib/vendors/details";
 import { readPlan, type PlanCategory, type PlanOf } from "@/lib/vendors/plans";
@@ -50,29 +49,61 @@ export type WeddingSummary = {
   guest_count: number | null;
 };
 
+type Membership = { wedding_id: string; role: WeddingRole; created_at: string };
+
 /**
- * Premier mariage auquel l'utilisateur a accès (RLS : créateur ou membre).
- * Le multi-projets viendra plus tard : on prend le plus ancien.
+ * Mariages de l'utilisateur, par ordre de préférence : ceux où il se marie
+ * (owner, puis partner), puis ceux où il est témoin ; à rôle égal, le plus ancien.
+ */
+async function getMemberships(supabase: ServerClient, userId: string): Promise<Membership[]> {
+  const { data, error } = await supabase
+    .from("wedding_members")
+    .select("wedding_id, role, created_at")
+    .eq("user_id", userId)
+    .returns<Membership[]>();
+  if (error) {
+    console.error("[weddings] getMemberships:", error.code);
+    throw new Error("Unable to load memberships");
+  }
+  return [...data].sort(
+    (a, b) => ROLE_ORDER[a.role] - ROLE_ORDER[b.role] || a.created_at.localeCompare(b.created_at),
+  );
+}
+
+/**
+ * Mariage courant, le premier par ordre de préférence. Le budget total n'est
+ * lisible que par les mariés (get_wedding_budget, 000033) : null pour un témoin.
  */
 export async function getCurrentWedding(
   supabase: ServerClient,
 ): Promise<WeddingSummary | null> {
-  const { data, error } = await supabase
-    .from("weddings")
-    .select("id, title, wedding_date, total_budget, currency_code, guest_count")
-    .order("created_at", { ascending: true })
-    .limit(1)
-    .maybeSingle<WeddingSummary>();
+  const userId = await getCurrentUserId(supabase);
+  if (!userId) return null;
 
+  const [membership] = await getMemberships(supabase, userId);
+  if (!membership) return null;
+
+  const [wedding, budget] = await Promise.all([
+    supabase
+      .from("weddings")
+      .select("id, title, wedding_date, currency_code, guest_count")
+      .eq("id", membership.wedding_id)
+      .maybeSingle<Omit<WeddingSummary, "total_budget">>(),
+    membership.role === "witness"
+      ? Promise.resolve({ data: null, error: null })
+      : supabase.rpc("get_wedding_budget", { p_wedding_id: membership.wedding_id }),
+  ]);
+
+  const error = wedding.error ?? budget.error;
   if (error) {
     console.error("[weddings] getCurrentWedding:", error.code);
     throw new Error("Unable to load wedding");
   }
-  if (!data) return null;
+  if (!wedding.data) return null;
   // numeric(12,2) peut arriver sous forme de chaîne selon la configuration PostgREST.
   return {
-    ...data,
-    total_budget: data.total_budget === null ? null : Number(data.total_budget),
+    ...wedding.data,
+    total_budget: budget.data === null || budget.data === undefined ? null : Number(budget.data),
   };
 }
 
@@ -320,25 +351,6 @@ export async function getGuestFamilies(
   if (error) {
     console.error("[weddings] getGuestFamilies:", error.code);
     throw new Error("Unable to load guest families");
-  }
-  return data;
-}
-
-/** Devis du mariage, du plus récent au plus ancien. */
-export async function getQuotes(
-  supabase: ServerClient,
-  weddingId: string,
-): Promise<Quote[]> {
-  const { data, error } = await supabase
-    .from("quotes")
-    .select("id, file_name, vendor_name, category, status, total_ttc, created_at")
-    .eq("wedding_id", weddingId)
-    .order("created_at", { ascending: false })
-    .returns<Quote[]>();
-
-  if (error) {
-    console.error("[weddings] getQuotes:", error.code);
-    throw new Error("Unable to load quotes");
   }
   return data;
 }
@@ -623,3 +635,4 @@ export async function getVendorPlan<C extends PlanCategory>(
   }
   return readPlan(category, data?.data);
 }
+

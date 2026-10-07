@@ -6,7 +6,6 @@ import {
   CalendarHeartIcon,
   CastleIcon,
   ClockIcon,
-  FileTextIcon,
   GiftIcon,
   HouseIcon,
   ListChecksIcon,
@@ -30,7 +29,6 @@ export type NavItem = {
     | "calendar"
     | "inspiration"
     | "budget"
-    | "quotes"
     | "guests"
     | "invitations"
     | "registry"
@@ -48,7 +46,6 @@ export type NavItem = {
     | "/calendar"
     | "/inspiration"
     | "/budget"
-    | "/quotes"
     | "/guests"
     | "/invitations"
     | "/registry"
@@ -100,7 +97,6 @@ export const NAV_GROUPS: NavGroup[] = [
       { key: "inspiration", href: "/inspiration", icon: BookHeartIcon },
       { key: "venues", href: "/venues", icon: CastleIcon, coupleOnly: true },
       { key: "budget", href: "/budget", icon: WalletIcon, coupleOnly: true },
-      { key: "quotes", href: "/quotes", icon: FileTextIcon },
     ],
   },
   { key: "vendors", icon: StoreIcon, items: VENDOR_ITEMS },

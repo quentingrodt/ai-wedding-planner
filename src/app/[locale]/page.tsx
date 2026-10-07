@@ -6,7 +6,7 @@ import {
   ArrowDown,
   ArrowRight,
   CalendarRange,
-  FileSearch,
+  Store,
   Wallet,
   type LucideIcon,
 } from "lucide-react";
@@ -22,10 +22,10 @@ import {
 import { PaperPlaneFlight } from "./_components/paper-plane-flight";
 import { TableDrawing } from "./_components/table-drawing";
 
-const PILLARS: { key: "planning" | "budget" | "quotes"; icon: LucideIcon }[] = [
+const PILLARS: { key: "planning" | "budget" | "vendors"; icon: LucideIcon }[] = [
   { key: "planning", icon: CalendarRange },
   { key: "budget", icon: Wallet },
-  { key: "quotes", icon: FileSearch },
+  { key: "vendors", icon: Store },
 ];
 
 const ROMAN = ["I", "II", "III"];
