@@ -72,8 +72,6 @@ export type NavGroup = {
   key: "prepare" | "vendors" | "guests" | "day";
   icon: LucideIcon;
   items: NavItem[];
-  /** Long chapitre : replié dans le menu latéral tant qu'aucune de ses pages n'est ouverte. */
-  collapsible?: boolean;
 };
 
 /** Prestataires : la vue d'ensemble, puis une page par catégorie (réservées aux mariés, comme le budget). */
@@ -105,7 +103,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { key: "quotes", href: "/quotes", icon: FileTextIcon },
     ],
   },
-  { key: "vendors", icon: StoreIcon, items: VENDOR_ITEMS, collapsible: true },
+  { key: "vendors", icon: StoreIcon, items: VENDOR_ITEMS },
   {
     key: "guests",
     icon: UsersIcon,
