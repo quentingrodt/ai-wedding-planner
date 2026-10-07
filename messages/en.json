@@ -3441,6 +3441,36 @@
       "available": "for {count, plural, one {# room planned} other {# rooms planned}}",
       "saved": "{count, plural, =0 {Nobody sleeps at {name} any more.} one {# guest sleeps at {name}.} other {# guests sleep at {name}.}}",
       "residents": "{count, plural, one {# guest staying here} other {# guests staying here}}"
+    },
+    "pdf": {
+      "trigger": "Export who sleeps where (PDF)",
+      "triggerHint": "Each place with its details and guests, then the alphabetical index",
+      "fileName": "guest-accommodation",
+      "documentTitle": "Guest accommodation — {names}",
+      "eyebrow": "Guest accommodation",
+      "summary": "{people, plural, one {# guest to host} other {# guests to host}} · {assigned, plural, =0 {none has a place yet} other {# staying in {lodgings, plural, one {# place} other {# places}}}}{unassigned, plural, =0 {} other { · # still to host}}.",
+      "lodgingsTitle": "Accommodation",
+      "noLodgings": "No accommodation saved yet.",
+      "occupancy": "{people, plural, =0 {Nobody} one {# person} other {# people}} · {rooms, plural, one {# room} other {# rooms}} of {planned} planned",
+      "occupancyHosted": "{people, plural, =0 {Nobody} one {# person} other {# people}}",
+      "roomsHeld": "{count, plural, one {# room held} other {# rooms held}}",
+      "labels": {
+        "code": "Booking code",
+        "deadline": "Deadline",
+        "contact": "Contact",
+        "url": "Website",
+        "notes": "Notes"
+      },
+      "residentsTitle": "Who sleeps here",
+      "nobody": "Nobody is assigned here yet.",
+      "child": "child",
+      "unassignedTitle": "Still to host",
+      "unassignedLead": "These guests are travelling far and have no accommodation assigned yet.",
+      "indexTitle": "Who sleeps where",
+      "toHost": "to host",
+      "footer": "{names} · Guest accommodation",
+      "page": "{current} / {total}",
+      "summaryNone": "No guests to host yet."
     }
   },
   "Compare": {

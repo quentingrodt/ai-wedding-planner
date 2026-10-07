@@ -3441,6 +3441,36 @@
       "available": "pour {count, plural, one {# chambre prévue} other {# chambres prévues}}",
       "saved": "{count, plural, =0 {Plus personne ne dort à {name}.} one {# invité dort à {name}.} other {# invités dorment à {name}.}}",
       "residents": "{count, plural, one {# invité logé ici} other {# invités logés ici}}"
+    },
+    "pdf": {
+      "trigger": "Exporter qui dort où (PDF)",
+      "triggerHint": "Chaque hébergement avec ses informations et ses invités, puis l’index alphabétique",
+      "fileName": "hebergement-des-invites",
+      "documentTitle": "Hébergement des invités — {names}",
+      "eyebrow": "Hébergement des invités",
+      "summary": "{people, plural, one {# invité à loger} other {# invités à loger}} · {assigned, plural, =0 {aucun n’a encore d’hébergement} one {# logé dans {lodgings, plural, one {# hébergement} other {# hébergements}}} other {# logés dans {lodgings, plural, one {# hébergement} other {# hébergements}}}}{unassigned, plural, =0 {} other { · # encore à loger}}.",
+      "lodgingsTitle": "Les hébergements",
+      "noLodgings": "Aucun hébergement enregistré pour l’instant.",
+      "occupancy": "{people, plural, =0 {Personne} one {# personne} other {# personnes}} · {rooms, plural, =0 {0 chambre} one {# chambre} other {# chambres}} sur {planned, plural, one {# prévue} other {# prévues}}",
+      "occupancyHosted": "{people, plural, =0 {Personne} one {# personne} other {# personnes}}",
+      "roomsHeld": "{count, plural, one {# chambre tenue} other {# chambres tenues}}",
+      "labels": {
+        "code": "Code de réservation",
+        "deadline": "Date limite",
+        "contact": "Contact",
+        "url": "Site",
+        "notes": "Notes"
+      },
+      "residentsTitle": "Qui dort ici",
+      "nobody": "Personne n’y est encore attribué.",
+      "child": "enfant",
+      "unassignedTitle": "Encore à loger",
+      "unassignedLead": "Ces invités viennent de loin et n’ont pas encore d’hébergement attribué.",
+      "indexTitle": "Qui dort où",
+      "toHost": "à loger",
+      "footer": "{names} · Hébergement des invités",
+      "page": "{current} / {total}",
+      "summaryNone": "Aucun invité à loger pour l’instant."
     }
   },
   "Compare": {

@@ -1,3 +1,4 @@
+import { DownloadIcon } from "lucide-react";
 import type { Metadata } from "next";
 import type { Locale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -61,6 +62,18 @@ export default async function AccommodationPage({ params }: PageProps<"/[locale]
             {t("title")}
           </h1>
           <p className="max-w-2xl text-lg text-pretty text-muted-foreground">{t("intro")}</p>
+          {(lodgings.length > 0 || guests.some((guest) => guest.needs_lodging)) && (
+            // Route API (fichier téléchargé) : lien classique, pas de navigation client.
+            <a
+              href={`/api/lodging/pdf?locale=${locale}`}
+              download
+              title={t("pdf.triggerHint")}
+              className="inline-flex h-11 w-fit items-center gap-2 rounded-full bg-linen px-5 text-sm text-sage-deep ring-1 ring-sand transition-colors hover:bg-sage-soft"
+            >
+              <DownloadIcon aria-hidden className="size-4" />
+              {t("pdf.trigger")}
+            </a>
+          )}
           {!canEdit && <p className="rounded-3xl bg-linen px-6 py-5 text-stone">{t("readOnly")}</p>}
         </header>
 
