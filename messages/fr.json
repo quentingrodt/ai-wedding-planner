@@ -2227,7 +2227,8 @@
       "vendor_groomsmen": "Les costumes des garçons d’honneur",
       "vendor_stationery": "La papeterie du mariage",
       "vendor_website": "Le site web du mariage",
-      "vendor_other": "Autres prestataires"
+      "vendor_other": "Autres prestataires",
+      "vendor_honeymoon": "Le voyage de noces"
     }
   },
   "Planning": {
@@ -3547,7 +3548,8 @@
     },
     "guide": {
       "title": "Le bon moment, les bonnes questions",
-      "questions": "À demander à chaque prestataire"
+      "questions": "À demander à chaque prestataire",
+      "tips": "Nos conseils"
     },
     "links": {
       "catering": "Voir ce que prévoit votre lieu",
@@ -3587,7 +3589,9 @@
       "overBudget": "{amount} au-dessus du budget prévu pour ce poste",
       "depositDue": "Acompte de {amount} à verser pour confirmer la réservation",
       "meetingSoon": "{count, plural, =0 {Rendez-vous aujourd’hui} one {Rendez-vous demain} other {Rendez-vous dans # jours}} : préparez vos questions",
-      "askQuote": "Demandez un devis détaillé pour comparer"
+      "askQuote": "Demandez un devis détaillé pour comparer",
+      "paymentLate": "{instalment} de {amount} : l’échéance est passée",
+      "paymentSoon": "{instalment} de {amount} {days, plural, =0 {à régler aujourd’hui} one {à régler demain} other {à régler dans # jours}}"
     },
     "status": {
       "change": "Avancement",
@@ -3635,11 +3639,50 @@
         "memories": "Les souvenirs",
         "attire": "Les tenues et les alliances",
         "beauty": "La beauté",
-        "ceremony": "La cérémonie et les invités"
+        "ceremony": "La cérémonie et les invités",
+        "after": "Après la fête"
       },
       "booked": "Réservé : {names}",
       "leads": "{count, plural, one {# piste en cours} other {# pistes en cours}}",
-      "none": "À trouver"
+      "none": "À trouver",
+      "principles": {
+        "title": "Six principes pour bien choisir",
+        "items": {
+          "priorities": {
+            "title": "Priorisez",
+            "body": "Décidez ensemble de ce qui compte le plus, et concentrez-y votre temps et votre budget."
+          },
+          "research": {
+            "title": "Renseignez-vous",
+            "body": "Portfolios, avis, mariages complets : vérifiez que le style correspond à ce que vous aimez."
+          },
+          "referrals": {
+            "title": "Demandez autour de vous",
+            "body": "Les expériences de vos proches sont les meilleures recommandations."
+          },
+          "meet": {
+            "title": "Rencontrez-les",
+            "body": "Un rendez-vous dit tout du professionnalisme et du feeling."
+          },
+          "contracts": {
+            "title": "Lisez les contrats",
+            "body": "Faites préciser chaque détail par écrit pour éviter les malentendus."
+          },
+          "budget": {
+            "title": "Annoncez votre budget",
+            "body": "Dites-le clairement : un bon prestataire proposera une formule qui y tient."
+          }
+        }
+      },
+      "schedule": {
+        "title": "L’échéancier",
+        "lead": "Les versements à venir de vos prestataires réservés.",
+        "empty": "Aucun versement à venir.",
+        "late": "En retard",
+        "in": "{days, plural, =0 {Aujourd’hui} one {Demain} other {Dans # jours}}",
+        "noDate": "Date à fixer",
+        "item": "{instalment} · {vendor}"
+      }
     },
     "categories": {
       "catering": {
@@ -3647,140 +3690,561 @@
         "title": "Le traiteur",
         "intro": "Le repas reste le souvenir le plus partagé de la journée : comparez les menus, les dégustations et ce que comprend vraiment chaque devis.",
         "when": "À réserver 9 à 12 mois avant, juste après le lieu ; la dégustation se fait 4 à 5 mois avant.",
-        "questions": "Le prix par invité comprend-il le service, la vaisselle et le nappage ?|Combien de serveurs pour vos invités, et jusqu’à quelle heure ?|Une dégustation est-elle offerte, et pour combien de personnes ?|Comment sont gérés les régimes particuliers et le menu des enfants ?|Le droit de bouchon, si vous apportez votre vin ?"
+        "questions": "Que comprend votre prix par invité : service, vaisselle, nappage, mobilier ?|Quels menus proposez-vous, et comment adaptez-vous les plats aux allergies et aux régimes de nos invités ?|Organisez-vous une dégustation avant la signature, et pour combien de personnes ?|Combien de serveurs pour nos invités, et jusqu’à quelle heure restent-ils ?|De quoi avez-vous besoin sur place : cuisine, eau, électricité, espace de dressage ?|Pouvez-vous suivre notre déroulé de journée, du vin d’honneur au dessert ?|Quels frais peuvent s’ajouter : déplacement, service tardif, droit de bouchon ?|Que se passe-t-il en cas d’annulation ou de report, de votre côté comme du nôtre ?|Jusqu’à quand pouvons-nous ajuster le nombre d’invités ?|Pouvons-nous relire le contrat avant de verser l’acompte ?",
+        "tips": "Fixez d’abord votre budget repas, puis comparez ce que chaque devis inclut vraiment.|Goûtez avant de signer : c’est le seul moyen de juger une cuisine.|Faites préciser par écrit chaque coût annexe."
       },
       "florist": {
         "label": "Le fleuriste",
         "title": "Le fleuriste",
         "intro": "Bouquet, boutonnières, centres de table, arche : le fleuriste donne sa couleur à la journée.",
         "when": "À réserver 8 à 9 mois avant ; le choix final des fleurs se fait 2 mois avant, selon la saison.",
-        "questions": "Quelles fleurs de saison à votre date ?|Livraison, installation et reprise des vases sont-elles comprises ?|Peut-on réutiliser les fleurs de la cérémonie pour la réception ?|Un essai du bouquet est-il possible ?"
+        "questions": "Êtes-vous libre à notre date, et combien d’événements gérez-vous ce jour-là ?|Quelles fleurs conseillez-vous pour notre ambiance et notre palette ?|Quelles fleurs seront de saison, et comment les mettre en valeur ?|Comment vous assurez-vous que le rendu final sera fidèle au projet validé ?|L’installation et le démontage sont-ils compris ? Sinon, à quel prix ?|Comment décririez-vous votre style, et jusqu’où pouvez-vous l’adapter ?|Serez-vous présent le jour J, ou quelqu’un de votre équipe ?|Louez-vous des contenants ou des éléments de décor (candélabres, arches) ?|Que conseillez-vous pour la cérémonie : allée, autel, arche ?|Peut-on réutiliser les fleurs de la cérémonie pour la réception ?",
+        "tips": "Commencez à chercher environ neuf mois avant, une fois le lieu choisi et les espaces à fleurir repérés.|Apportez les photos de votre carnet d’inspiration et votre palette."
       },
       "cake": {
         "label": "Le dessert (pièce montée)",
         "title": "Le dessert",
         "intro": "Pièce montée, wedding cake, bar à desserts : le moment sucré se goûte avant de se choisir.",
         "when": "Dégustation 8 mois avant, commande 6 à 7 mois avant ; elle se confirme avec le nombre définitif d’invités.",
-        "questions": "Le prix est-il par part ou au total ?|La livraison et le montage sur place sont-ils compris ?|Combien de temps le dessert tient-il hors du froid ?|Le traiteur accepte-t-il un pâtissier extérieur ?"
+        "questions": "Quand préparez-vous la pièce montée, pour qu’elle soit parfaitement fraîche ?|Pouvez-vous l’accorder à notre thème et à nos couleurs ?|Quelle taille conseillez-vous pour notre nombre d’invités ?|Quels parfums et quelles garnitures proposez-vous ?|Proposez-vous d’autres desserts en complément : bar à desserts, mignardises ?|Réalisez-vous des décors en sucre, ou avec des fleurs fraîches ?|La livraison et le montage sur place sont-ils facturés ?|Fournissez-vous le présentoir et la pelle à gâteau, et faut-il les louer ?|Avant quelle date devons-nous passer commande ?|Avez-vous des options véganes ou sans gluten ?|Organisez-vous une dégustation avant la commande ?|Fournissez-vous les bougies ou fontaines lumineuses pour l’arrivée du dessert ?",
+        "tips": "Un pâtissier spécialisé ira souvent plus loin que le dessert standard d’un traiteur : comparez les deux.|Vérifiez que votre traiteur accepte un pâtissier extérieur."
       },
       "hair": {
         "label": "Le coiffeur",
         "title": "Le coiffeur",
         "intro": "Une coiffure qui tient de la cérémonie à la dernière danse, pensée avec la robe et le voile.",
         "when": "À réserver 6 à 8 mois avant ; l’essai a lieu 2 à 3 mois avant, idéalement avec le voile.",
-        "questions": "Se déplace-t-il le matin du mariage, et à quelle heure ?|L’essai est-il compris dans le forfait ?|Peut-il coiffer aussi les mamans et les demoiselles d’honneur ?|Que prévoit-il pour une retouche avant la soirée ?"
+        "questions": "Êtes-vous libre à notre date, et coiffez-vous d’autres mariées ce jour-là ?|Pouvons-nous voir des coiffures de mariage que vous avez réalisées ?|Qui vous remplace si vous êtes empêché le jour J ?|Vous déplacez-vous, et un essai est-il prévu avant le mariage ?|Faut-il prévoir des produits ou des accessoires ? Tarif à l’heure ou par personne ?|Combien de temps par personne, et à quelle heure commencer pour être prêtes à temps ?",
+        "tips": "Faites l’essai avec le voile ou les accessoires prévus.|Toutes les demoiselles d’honneur n’ont pas besoin d’une coiffeuse : certaines préféreront se coiffer elles-mêmes."
       },
       "makeup": {
         "label": "La maquilleuse",
         "title": "La maquilleuse",
         "intro": "Un maquillage lumineux, qui vous ressemble et résiste aux émotions comme aux photos.",
         "when": "À réserver 6 à 8 mois avant, souvent avec le coiffeur ; l’essai se fait 2 mois avant.",
-        "questions": "Utilise-t-elle des produits longue tenue, adaptés à votre peau ?|L’essai est-il compris ?|Reste-t-elle pour une retouche avant la cérémonie ?|Maquille-t-elle aussi vos proches, à quel tarif ?"
+        "questions": "Êtes-vous libre à notre date, et maquillez-vous d’autres mariées ce jour-là ?|Pouvons-nous voir vos maquillages de mariée ?|Votre tarif est-il à l’heure, au forfait ou par personne ?|Vous déplacez-vous, ou faut-il venir dans votre salon ?|Un essai est-il possible avant le mariage ?|Avez-vous des assistantes, et qui vous remplace en cas d’empêchement ?|Combien de temps par personne, et à quelle heure commencer ?",
+        "tips": "Listez tôt les proches qui souhaitent être maquillés par une professionnelle : le planning du matin en dépend."
       },
       "beauty": {
         "label": "Les soins esthétiques",
         "title": "Les soins esthétiques",
         "intro": "Soins du visage, manucure, épilation, massage : un programme doux dans les semaines qui précèdent.",
         "when": "Commencez les soins du visage 3 mois avant ; manucure et épilation les derniers jours.",
-        "questions": "Quel programme de soins sur les trois derniers mois ?|Faut-il éviter certains soins juste avant le mariage ?|Une formule à plusieurs pour les témoins ?|Peut-on prévoir un moment de détente la veille ?"
+        "questions": "Quel programme de soins conseillez-vous sur les trois derniers mois ?|Quels soins faut-il éviter dans les jours qui précèdent le mariage ?|Proposez-vous une formule pour plusieurs personnes ?|Peut-on réserver un moment de détente la veille ?",
+        "tips": "Ajoutez chaque rendez-vous comme une piste : salon, date, adresse et prix.|Les soins du visage se commencent tôt ; manucure et épilation se font les derniers jours."
       },
       "officiant": {
         "label": "L’officiant",
         "title": "L’officiant",
         "intro": "Laïque ou religieux, l’officiant donne le ton de la cérémonie et raconte votre histoire.",
         "when": "À réserver 10 à 12 mois avant ; préparez le déroulé ensemble 2 à 3 mois avant.",
-        "questions": "Combien de rendez-vous pour écrire la cérémonie ?|Une répétition est-elle prévue ?|Ses frais de déplacement sont-ils compris ?|Comment intègre-t-il les textes et les rituels de vos proches ?"
+        "questions": "Pouvez-vous célébrer ailleurs que dans un lieu de culte ?|Pouvons-nous écrire nos propres vœux, et nous aideriez-vous à les rédiger ?|Pouvons-nous choisir les textes et les lectures ?|Prévoyez-vous un discours, et pourrons-nous le lire avant ?|Quelles sont les règles pour la musique pendant la cérémonie ?|Le photographe et le vidéaste pourront-ils travailler pendant la cérémonie ?|Pouvez-vous nous montrer des exemples de cérémonies ?|Faut-il prévoir un tarif, une participation ou un don ?|Combien de rencontres avant le jour J ?",
+        "tips": "Choisissez quelqu’un en qui vous avez confiance, et rencontrez-le avant pour qu’il puisse raconter votre histoire."
       },
       "car": {
         "label": "La voiture",
         "title": "La voiture",
         "intro": "Voiture de collection, calèche ou navette pour les invités : le trajet fait partie du jour J.",
         "when": "À réserver 8 mois avant ; confirmez l’itinéraire et les horaires le mois précédent.",
-        "questions": "Le chauffeur, le carburant et la décoration sont-ils compris ?|Combien d’heures de mise à disposition ?|Que se passe-t-il en cas de panne ou de pluie ?|Une navette pour le retour des invités est-elle possible ?"
+        "questions": "Êtes-vous disponibles à notre date, et quels véhicules proposez-vous ?|Le marié peut-il conduire après la cérémonie ?|Comment le véhicule est-il assuré, et que couvre l’assurance ?|Que prévoyez-vous en cas de retard, de panne ou d’absence du chauffeur ?|Facturez-vous à la durée ou à la distance ?|Pouvons-nous décorer la voiture à notre goût ?|Quelle sera la tenue du chauffeur ?|Proposez-vous des options : rafraîchissements, navette pour les invités ?|Y a-t-il des frais supplémentaires à connaître ?",
+        "tips": "Confirmez l’itinéraire et les horaires par écrit le mois précédent."
       },
       "entertainment": {
         "label": "L’animation",
         "title": "L’animation",
         "intro": "DJ, groupe, musiciens pour le vin d’honneur : ce sont eux qui feront danser vos invités.",
         "when": "À réserver 8 à 10 mois avant ; partagez votre playlist et les moments clés 1 mois avant.",
-        "questions": "Jusqu’à quelle heure joue-t-il, et que coûte une heure de plus ?|Le matériel son et lumière est-il compris ?|Peut-on lui donner une liste de musiques à passer et à éviter ?|Anime-t-il aussi la cérémonie et le vin d’honneur ?"
+        "questions": "Pouvons-nous vous voir ou vous écouter en situation avant de signer ?|Jusqu’à quelle heure jouez-vous, et combien coûte une heure de plus ?|Le matériel son et lumière est-il compris ?|Suivez-vous une liste de morceaux à passer et à éviter ?|De quoi avez-vous besoin sur place : électricité, espace, repas ?",
+        "tips": "DJ, groupe, magicien : choisissez ceux qui vous ressemblent et comparez au moins deux options.|Notez leurs exigences particulières pour les transmettre au lieu."
       },
       "guest_gifts": {
         "label": "Les cadeaux des invités",
         "title": "Les cadeaux des invités",
         "intro": "Un souvenir pour chaque invité, et une attention pour ceux qui vous ont aidés.",
         "when": "À commander 4 à 5 mois avant, surtout s’ils sont personnalisés.",
-        "questions": "Quel délai pour une personnalisation ?|Le prix baisse-t-il avec la quantité ?|L’emballage est-il compris ?|Un cadeau à part pour les témoins et les parents ?"
+        "questions": "Quel délai pour une personnalisation ?|Le prix baisse-t-il avec la quantité ?|L’emballage est-il compris ?|Avant quelle date commander pour être livrés à temps ?",
+        "tips": "Dragées ou petite attention faite maison : un cadeau simple et personnel marque plus qu’un objet coûteux."
       },
       "rings": {
         "label": "Les alliances",
         "title": "Les alliances",
         "intro": "Elles se portent toute une vie : prenez le temps de les essayer ensemble.",
         "when": "À choisir 4 à 6 mois avant ; comptez 6 à 8 semaines pour une gravure ou une création.",
-        "questions": "Quel délai pour la fabrication et la gravure ?|Les mises à taille sont-elles comprises plus tard ?|Quelle garantie, quel entretien ?|Le métal est-il assorti à la bague de fiançailles ?"
+        "questions": "Quel délai pour la fabrication et la gravure ?|Les mises à taille sont-elles comprises plus tard ?|Quelle garantie, et quel entretien ?|Faites-vous un geste pour les deux alliances ?",
+        "tips": "Montrez à votre bijoutier des photos de ce qui vous plaît.|Pensez à votre quotidien et à votre métier pour choisir le métal et la forme.|Achetez les deux alliances au même endroit : c’est plus simple pour négocier.|Gardez votre budget en tête pendant les essayages."
       },
       "photographer": {
         "label": "Le photographe",
         "title": "Le photographe",
         "intro": "Les photos restent quand tout le reste s’efface : choisissez un regard avant un tarif.",
         "when": "À réserver 10 à 12 mois avant : les bons photographes sont pris très tôt.",
-        "questions": "Combien d’heures de présence, des préparatifs à la soirée ?|Combien de photos livrées, en combien de temps ?|Une séance d’engagement est-elle comprise ?|Que prévoit-il en cas d’empêchement le jour J ?"
+        "questions": "Êtes-vous libre à notre date ?|Comment décririez-vous votre style ?|Pouvons-nous voir des mariages complets dans un style proche du nôtre ?|Combien de photographes seront présents ?|Que comprennent vos formules, et peut-on les adapter ?|Combien d’heures sont prévues, et combien coûte une heure de plus ?|Comment organisez-vous la journée ?|Sous quel délai recevrons-nous les photos, et combien ?|Comment se passent les retouches ?|Que prévoit le contrat en cas d’annulation ou de report ?|Êtes-vous assuré ?|Si vous ne filmez pas, quel vidéaste recommandez-vous ?",
+        "tips": "Définissez d’abord le style d’images qui vous plaît : classique, reportage, vintage ou contemporain.|Rencontrez-le en personne ou en visio : il sera à vos côtés toute la journée.|Une formule photo et vidéo chez le même prestataire coûte souvent moins cher.|Une couverture partielle, sans les préparatifs par exemple, allège la facture."
       },
       "videographer": {
         "label": "Le vidéaste",
         "title": "Le vidéaste",
         "intro": "Les voix, les rires, les discours : la vidéo garde ce que les photos ne disent pas.",
         "when": "À réserver 10 à 12 mois avant, souvent en même temps que le photographe.",
-        "questions": "Quelle durée pour le film, et un teaser court ?|Les discours sont-ils filmés en entier ?|Travaille-t-il avec un drone, et est-il autorisé sur le lieu ?|Quel délai de livraison ?"
+        "questions": "Êtes-vous libre à notre date ?|Comment décririez-vous votre style ?|Pouvons-nous voir des films de mariage dans un style proche du nôtre ?|Combien de vidéastes seront présents ?|Que comprennent vos formules, et peut-on les adapter ?|Combien d’heures sont prévues, et combien coûte une heure de plus ?|Comment organisez-vous la journée ?|Sous quel délai recevrons-nous le film ?|Comment se passent le montage et les retouches ?|Que prévoit le contrat en cas d’annulation ou de report ?|Êtes-vous assuré ?|Si vous ne photographiez pas, quel photographe recommandez-vous ?",
+        "tips": "Regardez des films entiers, pas seulement les bandes-annonces.|Une formule photo et vidéo chez le même prestataire coûte souvent moins cher.|Demandez si un paiement en plusieurs fois est possible."
       },
       "bridal_gown": {
         "label": "La robe de la mariée",
         "title": "La robe de la mariée",
         "intro": "Essais, retouches, accessoires : la robe se choisit sans hâte et se prépare en plusieurs étapes.",
         "when": "Commencez les essayages 9 à 12 mois avant ; prévoyez 2 à 3 retouches dans les 2 derniers mois.",
-        "questions": "Quel délai de fabrication pour ce modèle ?|Les retouches sont-elles comprises ?|Le voile et les accessoires sont-ils proposés ?|Peut-on venir à plusieurs aux essayages ?"
+        "questions": "Quelles sont vos disponibilités pour les essayages ?|Proposez-vous du sur-mesure ou du prêt-à-porter ?|Quels sont les délais de fabrication et de livraison ?|Les retouches sont-elles comprises ? Sinon, combien coûtent-elles ?|Que se passe-t-il si ma taille change d’ici le mariage ?|Quels accessoires sont inclus, et lesquels sont en supplément ?|Le repassage avant la remise est-il compris ?|Pouvez-vous garder la robe jusqu’au mariage ?|Quelles sont vos conditions de paiement ?|Quelle est votre politique d’annulation ou de remboursement ?|Quels conseils d’entretien avant et après le mariage ?|Quelles chaussures conseillez-vous avec ce modèle ?",
+        "tips": "Au-delà des règles de morphologie, suivez votre instinct : la bonne robe est celle où vous vous sentez vous-même."
       },
       "bridesmaids": {
         "label": "Les robes de demoiselles d’honneur",
         "title": "Les robes de demoiselles d’honneur",
         "intro": "Assorties ou dépareillées dans une même palette : des robes que chacune aura plaisir à porter.",
         "when": "À choisir 6 mois avant, pour laisser le temps aux commandes et aux retouches.",
-        "questions": "Plusieurs tailles et coupes dans une même couleur ?|Qui paie les robes ?|Délai de livraison et retouches ?|Peuvent-elles les reporter après le mariage ?"
+        "questions": "Avez-vous plusieurs tailles et coupes dans une même couleur ?|Quel délai de livraison, et les retouches sont-elles possibles ?|Peut-on commander séparément, chacune à son nom ?|Les robes pourront-elles être reportées ensuite ?",
+        "tips": "Donnez une ligne directrice (palette, longueur) et laissez à chacune une part de choix : elles doivent s’y sentir bien.|Décidez tôt qui paie les robes."
       },
       "groom_suit": {
         "label": "Le costume du marié",
         "title": "Le costume du marié",
         "intro": "Sur mesure, demi-mesure ou prêt-à-porter : un costume qui tombe juste, pensé avec la robe.",
         "when": "À choisir 6 à 8 mois avant pour un sur-mesure, 3 mois pour du prêt-à-porter.",
-        "questions": "Combien d’essayages, et quel délai ?|Les retouches sont-elles comprises ?|Chemise, cravate ou nœud, chaussures : que comprend l’ensemble ?|Location ou achat ?"
+        "questions": "Combien d’essayages, et quel délai ?|Les retouches sont-elles comprises ?|Que comprend l’ensemble : chemise, cravate ou nœud, chaussures ?|Location ou achat ?",
+        "tips": "Prenez les mensurations quelques mois avant le mariage."
       },
       "groomsmen": {
         "label": "Les costumes des garçons d’honneur",
         "title": "Les costumes des garçons d’honneur",
         "intro": "Un détail commun suffit souvent : une cravate, une pochette, une boutonnière.",
         "when": "À organiser 4 à 6 mois avant, surtout si les costumes sont loués.",
-        "questions": "Location groupée et tarif à plusieurs ?|Des tailles pour tous, y compris les enfants ?|Qui paie les costumes ?|Quand récupérer et rendre les tenues ?"
+        "questions": "Une location groupée, avec un tarif à plusieurs ?|Des tailles pour tous, enfants compris ?|Quand récupérer et rendre les tenues ?|Qui paie les costumes ?",
+        "tips": "Un détail commun suffit souvent : une cravate, une pochette ou une boutonnière."
       },
       "stationery": {
         "label": "La papeterie du mariage",
         "title": "La papeterie du mariage",
         "intro": "Faire-part, menus, plan de table, marque-places : une même ligne graphique du premier envoi au dîner.",
         "when": "Faire-part à envoyer 3 mois avant ; la papeterie du jour J se commande 6 semaines avant.",
-        "questions": "Quel papier, quelle impression ?|Combien d’épreuves avant l’impression ?|Délai de livraison et frais d’envoi ?|Enveloppes et timbres sont-ils compris ?"
+        "questions": "Quel papier et quelle impression ?|Combien d’épreuves avant l’impression ?|Quel délai de livraison, et quels frais d’envoi ?|Les enveloppes et la personnalisation sont-elles comprises ?",
+        "tips": "Gardez une même ligne graphique, du save-the-date aux remerciements."
       },
       "website": {
         "label": "Le site web du mariage",
         "title": "Le site web du mariage",
         "intro": "Programme, accès, hébergement, liste : un site réunit tout ce que vos invités cherchent.",
         "when": "À mettre en ligne avec l’envoi des faire-part, 3 mois avant au plus tard.",
-        "questions": "Le site est-il protégé par un mot de passe ?|Les invités peuvent-ils répondre en ligne ?|Le nom de domaine est-il compris ?|Combien de temps reste-t-il en ligne après le mariage ?"
+        "questions": "Le site peut-il être protégé par un mot de passe ?|Les invités peuvent-ils répondre en ligne ?|Le nom de domaine est-il compris ?|Combien de temps reste-t-il en ligne après le mariage ?",
+        "tips": "Une plateforme gratuite et un modèle existant suffisent : un design simple et cohérent est le plus élégant.|Limitez le nombre de pages.|Partager un lien plutôt qu’imprimer peut alléger le budget papeterie."
       },
       "other": {
         "label": "Autres prestataires",
         "title": "Autres prestataires",
         "intro": "Location de matériel, baby-sitter, food truck, photobooth : tout ce qui ne rentre pas ailleurs.",
         "when": "Réservez-les 4 à 6 mois avant, selon leur disponibilité.",
-        "questions": "Que comprend exactement le devis ?|Livraison, installation et reprise ?|Une assurance en cas de casse ?|Quel acompte, et quelles conditions d’annulation ?"
+        "questions": "Que comprend exactement le devis ?|Livraison, installation et reprise sont-elles comprises ?|Une assurance couvre-t-elle la casse ?|Quel acompte, et quelles conditions d’annulation ?",
+        "tips": "Demandez toujours un devis détaillé, et comparez au moins deux propositions."
+      },
+      "honeymoon": {
+        "label": "Le voyage de noces",
+        "title": "Le voyage de noces",
+        "intro": "Le premier voyage à deux après la fête : une destination qui vous ressemble, à la bonne saison et au bon prix.",
+        "when": "Réservez 6 à 9 mois avant, surtout pour un long-courrier en haute saison.",
+        "questions": "Quelle est la meilleure saison pour cette destination à nos dates ?|Que comprend le séjour : vols, transferts, repas, activités ?|Proposez-vous des attentions pour les jeunes mariés ?|Quelles conditions d’annulation, et quelle assurance ?|Quelles formalités prévoir : passeport, visa, vaccins ?",
+        "tips": "Partez de vos envies communes : plage, aventure, culture ou repos.|Pour les billets d’avion : soyez souples sur les dates, réservez tôt, évitez les vacances scolaires et les ponts, et guettez les offres."
+      }
+    },
+    "details": {
+      "catering": {
+        "serviceStyle": "Formule"
+      },
+      "cake": {
+        "style": "Style",
+        "flavours": "Parfums",
+        "decoration": "Décoration",
+        "portions": "Nombre de parts"
+      },
+      "hair": {
+        "bride": "Coiffure de la mariée",
+        "bridesmaids": "Demoiselles d’honneur",
+        "children": "Enfants d’honneur"
+      },
+      "makeup": {
+        "bride": "Maquillage de la mariée",
+        "bridesmaids": "Demoiselles d’honneur"
+      },
+      "beauty": {
+        "treatment": "Soin"
+      },
+      "officiant": {
+        "ceremony": "Cérémonie",
+        "thanks": "Participation ou remerciement prévu"
+      },
+      "car": {
+        "vehicles": "Véhicule(s) loué(s)",
+        "billing": "Facturation",
+        "conditions": "Conditions convenues"
+      },
+      "entertainment": {
+        "kind": "Type d’animation",
+        "requirements": "Exigences particulières"
+      },
+      "guest_gifts": {
+        "idea": "Cadeau choisi"
+      },
+      "rings": {
+        "brideRing": "Alliance de la mariée",
+        "groomRing": "Alliance du marié",
+        "metal": "Métal"
+      },
+      "photographer": {
+        "hours": "Heures de présence",
+        "photos": "Photos livrées",
+        "deliveryWeeks": "Délai de livraison (semaines)"
+      },
+      "videographer": {
+        "hours": "Heures de présence",
+        "filmMinutes": "Durée du film (minutes)",
+        "deliveryWeeks": "Délai de livraison (semaines)"
+      },
+      "bridal_gown": {
+        "model": "Modèle",
+        "silhouette": "Coupe",
+        "size": "Taille"
+      },
+      "bridesmaids": {
+        "model": "Modèle",
+        "color": "Couleur"
+      },
+      "groom_suit": {
+        "model": "Modèle ou référence",
+        "color": "Couleur"
+      },
+      "groomsmen": {
+        "model": "Modèle ou référence",
+        "color": "Couleur"
+      },
+      "website": {
+        "platform": "Plateforme"
+      },
+      "honeymoon": {
+        "destination": "Destination",
+        "departure": "Départ",
+        "nights": "Nuits"
+      }
+    },
+    "options": {
+      "serviceStyle": {
+        "seated": "Repas assis",
+        "buffet": "Buffet",
+        "cocktail": "Cocktail dînatoire",
+        "stations": "Stands"
+      },
+      "treatment": {
+        "manicure": "Manucure",
+        "waxing": "Épilation",
+        "pedicure": "Pédicure",
+        "massage": "Massage",
+        "facial": "Soin du visage",
+        "other": "Autre soin"
+      },
+      "ceremony": {
+        "secular": "Laïque",
+        "religious": "Religieuse"
+      },
+      "billing": {
+        "duration": "À la durée",
+        "distance": "Au kilomètre",
+        "flat": "Au forfait"
+      },
+      "kind": {
+        "dj": "DJ",
+        "band": "Groupe",
+        "musicians": "Musiciens",
+        "magician": "Magicien",
+        "other": "Autre"
+      },
+      "silhouette": {
+        "mermaid": "Sirène",
+        "ballgown": "Princesse",
+        "empire": "Empire",
+        "sheath": "Droite",
+        "strapless": "Bustier"
+      },
+      "unset": "Non renseigné"
+    },
+    "payments": {
+      "title": "Paiements",
+      "deposit": "Acompte",
+      "second": "Deuxième versement",
+      "balance": "Solde",
+      "due": "Échéance",
+      "paid": "Payé",
+      "balanceComputed": "{amount}, calculé à partir du prix convenu",
+      "balanceUnknown": "Indiquez le prix convenu pour calculer le solde.",
+      "summary": "Réglé {paid} · reste {remaining}",
+      "allPaid": "Tout est réglé ({paid}).",
+      "next": "Prochain versement : {amount}, le {date}",
+      "nextNoDate": "Prochain versement : {amount}, date à fixer"
+    },
+    "questionsUi": {
+      "title": "Questions posées",
+      "lead": "Cochez celles déjà posées à ce prestataire.",
+      "progress": "{count, plural, =0 {Aucune question posée} one {# question posée sur {total}} other {# questions posées sur {total}}}"
+    },
+    "tools": {
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "saved": "C’est enregistré.",
+      "remove": "Retirer",
+      "add": "Ajouter",
+      "noGuests": "Indiquez le nombre d’invités (onboarding ou liste d’invités) pour calculer les quantités.",
+      "drinks": {
+        "title": "Les boissons",
+        "lead": "Cochez les boissons servies : voici les quantités à prévoir pour {count, plural, one {# invité} other {# invités}}.",
+        "items": {
+          "champagne": "Champagne",
+          "white": "Vin blanc",
+          "red": "Vin rouge",
+          "beer": "Bière",
+          "cocktails": "Cocktails",
+          "water": "Eau",
+          "soft": "Jus et limonades"
+        },
+        "rules": {
+          "champagne": "1 bouteille pour 3 à 4 personnes",
+          "white": "1 bouteille pour 3 à 4 personnes",
+          "red": "1 bouteille pour 2 personnes",
+          "beer": "4 bières par personne",
+          "cocktails": "1 bouteille d’alcool de base pour 14 cocktails, 2 cocktails par invité",
+          "water": "1 litre par invité",
+          "soft": "1 litre pour 4 personnes"
+        },
+        "bottles": "{min, plural, one {# bouteille} other {# bouteilles}}",
+        "bottlesRange": "{min} à {max} bouteilles",
+        "units": "{min, plural, one {# bière} other {# bières}}",
+        "litres": "{min, plural, one {# litre} other {# litres}}",
+        "note": "Des repères à ajuster selon la durée de la soirée et les habitudes de vos invités."
+      },
+      "menu": {
+        "title": "Le menu",
+        "courses": {
+          "starter": "Entrée",
+          "main": "Plat",
+          "cheese": "Fromage",
+          "dessert": "Dessert",
+          "drinks": "Boissons"
+        }
+      },
+      "cocktail": {
+        "title": "Le vin d’honneur",
+        "parts": {
+          "savory": "Salé",
+          "sweet": "Sucré",
+          "drinks": "Boissons"
+        }
+      },
+      "stations": {
+        "title": "Stands et bars",
+        "lead": "Des idées pour animer le repas ou le vin d’honneur.",
+        "ideas": {
+          "liveCooking": "Cuisine en direct",
+          "tapas": "Tapas",
+          "salads": "Bar à salades",
+          "grill": "Grillades",
+          "seafood": "Fruits de mer",
+          "cheese": "Fromages",
+          "soups": "Soupes",
+          "pasta": "Bar à pâtes",
+          "desserts": "Desserts",
+          "worldFood": "Cuisines du monde"
+        }
+      },
+      "cake": {
+        "title": "La taille de la pièce montée",
+        "lead": "Choisissez la forme et les étages : le nombre de parts se calcule pour vous.",
+        "shapes": {
+          "round": "Ronde",
+          "square": "Carrée"
+        },
+        "tier": "{size} cm",
+        "portions": "{count, plural, one {# part} other {# parts}}",
+        "total": "{portions, plural, one {# part} other {# parts}} pour {guests, plural, one {# invité} other {# invités}}",
+        "enough": "Tout le monde aura sa part.",
+        "short": "{count, plural, one {Il manque # part.} other {Il manque # parts.}}",
+        "suggest": "Suggestion pour vos invités : {tiers}",
+        "apply": "Choisir ces étages"
+      },
+      "ready": {
+        "title": "Le matin du mariage",
+        "lead": "Qui se fait coiffer, qui se fait maquiller : l’heure de chaque rendez-vous se calcule à partir de l’heure où vous devez être prêtes.",
+        "readyBy": "Prêtes à",
+        "hairMinutes": "Coiffure, par personne",
+        "makeupMinutes": "Maquillage, par personne",
+        "minutes": "min",
+        "people": "Les personnes",
+        "bride": "La mariée",
+        "personPlaceholder": "Prénom",
+        "hair": "Coiffure",
+        "makeup": "Maquillage",
+        "start": "Premier rendez-vous à {time}",
+        "margin": "Tout se termine {minutes} minutes avant, pour l’habillage et les photos. La mariée passe en dernier.",
+        "needTime": "Indiquez l’heure à laquelle vous devez être prêtes.",
+        "slot": "{start} – {end}"
+      },
+      "rings": {
+        "title": "Tailles des bagues",
+        "brideSize": "Taille de la mariée",
+        "groomSize": "Taille du marié"
+      },
+      "bridesmaids": {
+        "title": "Les demoiselles d’honneur",
+        "name": "Prénom",
+        "size": "Taille",
+        "style": "Couleur ou coupe"
+      },
+      "measures": {
+        "title": "Les mensurations",
+        "groomTitle": "Les mensurations du marié",
+        "groomsmenTitle": "Les mensurations des garçons d’honneur",
+        "name": "Prénom",
+        "notes": "Notes",
+        "fields": {
+          "jacket": "Taille de veste",
+          "neck": "Tour de cou",
+          "waist": "Tour de taille",
+          "leg": "Longueur de jambe",
+          "shoe": "Pointure"
+        }
+      },
+      "stationery": {
+        "title": "Les articles de papeterie",
+        "lead": "Notez ce qui est commandé : les quantités conseillées viennent de votre liste d’invités et de votre plan de table.",
+        "columns": {
+          "item": "Article",
+          "spec": "Caractéristiques",
+          "quantity": "Quantité",
+          "cost": "Coût",
+          "receivedOn": "Reçu le"
+        },
+        "suggested": "Conseillé : {count}",
+        "total": "Total de la papeterie : {amount}",
+        "items": {
+          "bachelorInvites": "Invitations aux EVJF / EVG",
+          "engagementInvites": "Invitations aux fiançailles",
+          "saveTheDate": "Save-the-date",
+          "invitations": "Faire-part",
+          "ceremonyPrograms": "Livrets de cérémonie",
+          "welcomeSign": "Panneau de bienvenue",
+          "tableNumbers": "Numéros de table",
+          "placeCards": "Marque-places",
+          "menus": "Menus",
+          "seatingChart": "Plan de table",
+          "guestbook": "Livre d’or",
+          "favorWrapping": "Emballage des dragées",
+          "thankYouCards": "Cartes de remerciement"
+        }
+      },
+      "website": {
+        "title": "Ce que votre site doit réunir",
+        "lead": "Cochez ce qui est prêt. Une partie est déjà assurée par le lien personnel de chaque invité.",
+        "celeste": "Déjà dans Céleste",
+        "elements": {
+          "home": "Une page d’accueil, avec une photo et un mot",
+          "essentials": "La date, l’heure et le lieu",
+          "rsvp": "La réponse en ligne",
+          "practical": "Les infos pratiques : hébergement, transports, que faire autour",
+          "gallery": "Une galerie : fiançailles, préparatifs, mariage",
+          "registry": "Le lien vers la liste de mariage",
+          "contacts": "Vos coordonnées, pour les questions et les félicitations",
+          "thanks": "Une page de remerciements après le mariage"
+        }
+      },
+      "gifts": {
+        "title": "Idées de cadeaux",
+        "lead": "Cochez celles qui vous tentent ; il en faudra environ {count}, un par invité.",
+        "leadNoGuests": "Cochez celles qui vous tentent.",
+        "ideas": {
+          "sweets": "Biscuits, gâteaux ou bonbons",
+          "jams": "Confitures",
+          "oils": "Huiles aromatisées",
+          "candles": "Bougies parfumées",
+          "seeds": "Fleurs et graines à semer",
+          "coasters": "Dessous de verre personnalisés",
+          "cards": "Jeu de cartes personnalisé",
+          "soaps": "Savons artisanaux",
+          "coffeeTea": "Cafés ou thés artisanaux",
+          "lavender": "Sachets de lavande"
+        }
+      },
+      "honeymoon": {
+        "title": "Destinations et saisons",
+        "lead": "Pour un départ en {month} :",
+        "leadNoMatch": "Aucune de ces destinations n’est à son meilleur en {month} : regardez du côté des saisons ci-dessous.",
+        "ideal": "Idéal en {month}",
+        "destinations": {
+          "maldives": {
+            "name": "Maldives",
+            "season": "De novembre à avril, hors mousson"
+          },
+          "santorini": {
+            "name": "Santorin, Grèce",
+            "season": "De mai à septembre, soleil et douceur"
+          },
+          "boraBora": {
+            "name": "Bora-Bora, Polynésie",
+            "season": "De mai à octobre, saison sèche"
+          },
+          "kyoto": {
+            "name": "Kyoto, Japon",
+            "season": "Avril pour les cerisiers, novembre pour les érables"
+          },
+          "florence": {
+            "name": "Florence, Italie",
+            "season": "De mai à septembre, en évitant août"
+          },
+          "bali": {
+            "name": "Bali, Indonésie",
+            "season": "Mai, juin et septembre, avant et après l’affluence"
+          },
+          "philippines": {
+            "name": "Philippines",
+            "season": "De janvier à avril, hors saison des pluies"
+          }
+        }
+      },
+      "gown": {
+        "title": "Les grandes coupes",
+        "lead": "Cinq silhouettes, et à qui elles vont le mieux. Un repère, pas une règle.",
+        "forWho": "Pour qui",
+        "advice": "Ce qu’elle apporte",
+        "items": {
+          "mermaid": {
+            "name": "Sirène",
+            "forWho": "Les silhouettes en sablier ou en poire.",
+            "advice": "Elle épouse la taille et les hanches, avec une traîne qui fait son effet."
+          },
+          "ballgown": {
+            "name": "Princesse",
+            "forWho": "Les silhouettes en pomme ou en rectangle.",
+            "advice": "Le jupon affine la taille et met le buste en valeur."
+          },
+          "empire": {
+            "name": "Empire",
+            "forWho": "Les silhouettes en triangle inversé ou en rectangle.",
+            "advice": "La taille haute allonge la silhouette et met le haut du corps en avant."
+          },
+          "sheath": {
+            "name": "Droite",
+            "forWho": "Les silhouettes en rectangle ou en sablier.",
+            "advice": "Une ligne épurée qui suit le corps, d’une élégance intemporelle."
+          },
+          "strapless": {
+            "name": "Bustier",
+            "forWho": "La plupart des silhouettes, surtout avec des épaules dessinées.",
+            "advice": "Elle dégage le décolleté et les épaules, avec une jupe ample ou ajustée."
+          }
+        }
       }
     }
   }

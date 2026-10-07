@@ -7,6 +7,7 @@ import {
   type VendorCategory,
   type VendorStatus,
 } from "./catalog";
+import type { VendorDetails } from "./details";
 
 /** Limites alignées sur les contraintes CHECK de 000031_vendors.sql. */
 export const VENDOR_LIMITS = {
@@ -35,11 +36,20 @@ export type Vendor = {
   location: string | null;
   price: number | null;
   price_basis: PriceBasis;
+  /** Échéancier : acompte, deuxième versement, solde (prix convenu moins les versements). */
   deposit: number | null;
+  deposit_due: string | null;
   deposit_paid: boolean;
+  second_payment: number | null;
+  second_due: string | null;
+  second_paid: boolean;
+  balance_due: string | null;
+  balance_paid: boolean;
   /** Date ISO (YYYY-MM-DD). */
   meeting_date: string | null;
   rating: number | null;
+  /** Détails de la catégorie et questions posées, lus avec readDetails. */
+  details: VendorDetails;
   pros: string[];
   cons: string[];
   notes: string | null;
@@ -48,7 +58,8 @@ export type Vendor = {
 
 export const VENDOR_COLUMNS =
   "id, category, name, status, contact_name, phone, email, url, location, price, price_basis, " +
-  "deposit, deposit_paid, meeting_date, rating, pros, cons, notes, position";
+  "deposit, deposit_due, deposit_paid, second_payment, second_due, second_paid, balance_due, balance_paid, " +
+  "meeting_date, rating, details, pros, cons, notes, position";
 
 // Champ facultatif : une saisie vide est stockée à null (la contrainte SQL refuse "").
 const optionalText = (max: number) =>
@@ -59,6 +70,8 @@ const optionalText = (max: number) =>
     .transform((value) => (value === "" ? null : value));
 
 const optionalAmount = z.number().int().min(0).max(VENDOR_LIMITS.price).nullable();
+
+const optionalDate = z.union([z.literal(""), z.iso.date()]).transform((value) => (value === "" ? null : value));
 
 const noteList = z
   .array(z.string().trim().max(VENDOR_LIMITS.noteItem))
@@ -86,8 +99,16 @@ export const vendorInputSchema = z.object({
   price: optionalAmount,
   priceBasis: z.enum(PRICE_BASES),
   deposit: optionalAmount,
+  depositDue: optionalDate,
   depositPaid: z.boolean(),
-  meetingDate: z.union([z.literal(""), z.iso.date()]).transform((value) => (value === "" ? null : value)),
+  secondPayment: optionalAmount,
+  secondDue: optionalDate,
+  secondPaid: z.boolean(),
+  balanceDue: optionalDate,
+  balancePaid: z.boolean(),
+  /** Validés selon la catégorie (detailsSchema) par l'action. */
+  details: z.record(z.string(), z.unknown()),
+  meetingDate: optionalDate,
   rating: z.number().int().min(1).max(5).nullable(),
   pros: noteList,
   cons: noteList,
@@ -108,7 +129,13 @@ export function toVendorRow(input: z.output<typeof vendorInputSchema>) {
     price: input.price,
     price_basis: input.priceBasis,
     deposit: input.deposit,
+    deposit_due: input.depositDue,
     deposit_paid: input.depositPaid,
+    second_payment: input.secondPayment,
+    second_due: input.secondDue,
+    second_paid: input.secondPaid,
+    balance_due: input.balanceDue,
+    balance_paid: input.balancePaid,
     meeting_date: input.meetingDate,
     rating: input.rating,
     pros: input.pros,

@@ -17,7 +17,7 @@ import {
   Trash2Icon,
 } from "lucide-react";
 import { useFormatter, useLocale, useTranslations } from "next-intl";
-import { useTransition } from "react";
+import { useTransition, type ReactNode } from "react";
 import { toast } from "sonner";
 import { NoteList } from "@/components/compare/note-list-field";
 import { RatingDots } from "@/components/compare/rating";
@@ -47,6 +47,8 @@ import type { Vendor, VendorActionResult } from "@/lib/vendors/schema";
 import type { VenueCatering } from "@/lib/venues/catalog";
 import { isoDateToUtc } from "@/lib/weddings/dates";
 import { deleteVendor, setVendorStatus } from "../actions";
+import { DETAIL_FIELDS, QUESTION_COUNTS } from "@/lib/vendors/details";
+import { paymentSummary } from "@/lib/vendors/payments";
 import { VendorDialog } from "./vendor-dialog";
 
 type VendorBoardProps = {
@@ -58,6 +60,8 @@ type VendorBoardProps = {
   envelope: number | null;
   /** Traiteur du lieu retenu (page Traiteur uniquement). */
   venueCatering: VenueCatering | null;
+  /** Carnet de la catégorie (menu, préparatifs, mensurations…), s'il y en a un. */
+  tools?: ReactNode;
   today: string;
   /** Devise du mariage (ISO 4217). */
   currency: string;
@@ -79,6 +83,7 @@ export function VendorBoard({
   guestCount,
   envelope,
   venueCatering,
+  tools,
   today,
   currency,
 }: VendorBoardProps) {
@@ -114,6 +119,7 @@ export function VendorBoard({
       category={category}
       vendor={null}
       currencySymbol={currencySymbol}
+      guestCount={guestCount}
       trigger={
         <Button size="lg" className="h-11 rounded-full px-5">
           <PlusIcon aria-hidden />
@@ -178,6 +184,21 @@ export function VendorBoard({
                 </li>
               ))}
           </ul>
+          {t(`categories.${category}.tips`) !== "" && (
+            <>
+              <p className="pt-2 text-xs font-medium tracking-[0.15em] text-stone uppercase">{t("guide.tips")}</p>
+              <ul className="flex flex-col gap-2">
+                {t(`categories.${category}.tips`)
+                  .split("|")
+                  .map((tip) => (
+                    <li key={tip} className="flex gap-3 leading-6 text-stone">
+                      <span aria-hidden className="mt-2.5 size-1.5 shrink-0 rounded-full bg-sage" />
+                      {tip}
+                    </li>
+                  ))}
+              </ul>
+            </>
+          )}
           {definition.link && (
             <Link
               href={definition.link}
@@ -189,6 +210,8 @@ export function VendorBoard({
           )}
         </div>
       </details>
+
+      {tools}
 
       <section aria-labelledby="vendors-title" className="flex flex-col gap-5">
         <div className="flex flex-wrap items-end justify-between gap-3">
@@ -289,11 +312,8 @@ function VendorCard({ vendor, guestCount, envelope, today, currencySymbol, money
           )}
         </p>
       )}
-      {vendor.deposit !== null && vendor.deposit > 0 && (
-        <p className="text-sm text-stone">
-          {t(vendor.deposit_paid ? "price.depositPaid" : "price.deposit", { amount: money(vendor.deposit) })}
-        </p>
-      )}
+      <PaymentLine vendor={vendor} guestCount={guestCount} money={money} />
+      <DetailChips vendor={vendor} />
       {vendor.meeting_date && vendor.meeting_date >= today && (
         <p className="flex items-center gap-1.5 text-sm text-charcoal">
           <CalendarIcon aria-hidden className="size-3.5 shrink-0 text-stone" />
@@ -344,6 +364,12 @@ function VendorCard({ vendor, guestCount, envelope, today, currencySymbol, money
       )}
 
       {vendor.notes && <p className="text-sm leading-6 text-pretty text-stone">{vendor.notes}</p>}
+
+      {(vendor.details.asked?.length ?? 0) > 0 && (
+        <p className="text-xs text-stone">
+          {t("questionsUi.progress", { count: vendor.details.asked?.length ?? 0, total: QUESTION_COUNTS[vendor.category] })}
+        </p>
+      )}
 
       <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-border pt-4">
         {vendor.status !== "booked" && vendor.status !== "declined" && (
@@ -398,6 +424,7 @@ function VendorCard({ vendor, guestCount, envelope, today, currencySymbol, money
             category={vendor.category}
             vendor={vendor}
             currencySymbol={currencySymbol}
+            guestCount={guestCount}
             trigger={
               <Button variant="ghost" size="icon-sm" aria-label={t("editLabel", { name: vendor.name })} className="text-stone">
                 <PencilIcon aria-hidden />
@@ -419,6 +446,14 @@ function checkLabel(
   switch (check.key) {
     case "overBudget":
       return t("checks.overBudget", { amount: money(check.over) });
+    case "paymentLate":
+      return t("checks.paymentLate", { instalment: t(`payments.${check.instalment}`), amount: money(check.amount) });
+    case "paymentSoon":
+      return t("checks.paymentSoon", {
+        instalment: t(`payments.${check.instalment}`),
+        amount: money(check.amount),
+        days: check.days,
+      });
     case "depositDue":
       return t("checks.depositDue", { amount: money(check.amount) });
     case "meetingSoon":
@@ -450,5 +485,71 @@ function ConfirmDelete({ name, onConfirm }: { name: string; onConfirm: () => voi
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
+  );
+}
+
+/** Où en sont les paiements : réglé, reste à payer, prochain versement. */
+function PaymentLine({
+  vendor,
+  guestCount,
+  money,
+}: {
+  vendor: Vendor;
+  guestCount: number | null;
+  money: (amount: number) => string;
+}) {
+  const t = useTranslations("Vendors.payments");
+  const format = useFormatter();
+  const { instalments, paid, remaining, next } = paymentSummary(vendor, guestCount);
+  if (instalments.length === 0 || vendor.status === "declined") return null;
+  const total = paid + remaining;
+  return (
+    <div className="flex flex-col gap-1.5">
+      <div aria-hidden className="h-1.5 overflow-hidden rounded-full bg-linen">
+        <div className="h-full rounded-full bg-sage" style={{ width: `${total > 0 ? (paid / total) * 100 : 0}%` }} />
+      </div>
+      <p className="text-sm text-charcoal">
+        {remaining === 0 ? t("allPaid", { paid: money(paid) }) : t("summary", { paid: money(paid), remaining: money(remaining) })}
+      </p>
+      {next && (
+        <p className="text-xs text-stone">
+          {next.due
+            ? t("next", {
+                amount: money(next.amount),
+                date: format.dateTime(isoDateToUtc(next.due), { day: "numeric", month: "long", timeZone: "UTC" }),
+              })
+            : t("nextNoDate", { amount: money(next.amount) })}
+        </p>
+      )}
+    </div>
+  );
+}
+
+/** Les détails de la catégorie renseignés, en quelques étiquettes. */
+function DetailChips({ vendor }: { vendor: Vendor }) {
+  const t = useTranslations("Vendors");
+  const format = useFormatter();
+  const chips = DETAIL_FIELDS[vendor.category]
+    .filter((field) => vendor.details[field.key] !== undefined)
+    .map((field) => {
+      const raw = vendor.details[field.key] as string | number;
+      const value =
+        field.kind === "select"
+          ? t(`options.${field.key}.${raw}` as "options.kind.dj")
+          : field.kind === "date"
+            ? format.dateTime(isoDateToUtc(String(raw)), { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })
+            : String(raw);
+      return { key: field.key, label: t(`details.${vendor.category}.${field.key}` as "details.cake.style"), value };
+    });
+  if (chips.length === 0) return null;
+  return (
+    <dl className="flex flex-col gap-1 rounded-2xl bg-linen/60 px-3 py-2.5 text-sm">
+      {chips.map((chip) => (
+        <div key={chip.key} className="flex flex-wrap gap-x-2">
+          <dt className="text-stone">{chip.label}</dt>
+          <dd className="min-w-0 wrap-break-word text-charcoal">{chip.value}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }

@@ -34,7 +34,17 @@ import {
   type VendorStatus,
 } from "@/lib/vendors/catalog";
 import { VENDOR_LIMITS, type Vendor, type VendorActionResult } from "@/lib/vendors/schema";
+import { vendorTotal } from "@/lib/vendors/payments";
 import { saveVendor } from "../actions";
+import {
+  DetailFields,
+  detailState,
+  detailValues,
+  PaymentFields,
+  QuestionChecklist,
+  type DetailState,
+  type PaymentState,
+} from "./vendor-form-sections";
 
 type VendorDialogProps = {
   category: VendorCategory;
@@ -42,6 +52,8 @@ type VendorDialogProps = {
   vendor: Vendor | null;
   currencySymbol: string;
   trigger: ReactNode;
+  /** Invités attendus, pour le solde d'un prix par invité. */
+  guestCount: number | null;
 };
 
 type FormState = {
@@ -54,8 +66,9 @@ type FormState = {
   location: string;
   price: string;
   priceBasis: PriceBasis;
-  deposit: string;
-  depositPaid: boolean;
+  payments: PaymentState;
+  details: DetailState;
+  asked: number[];
   meetingDate: string;
   rating: number | null;
   pros: string[];
@@ -80,8 +93,18 @@ function initialState(category: VendorCategory, vendor: Vendor | null): FormStat
     location: vendor?.location ?? "",
     price: digits(vendor?.price),
     priceBasis: vendor?.price_basis ?? VENDOR_CATALOG[category].priceBasis,
-    deposit: digits(vendor?.deposit),
-    depositPaid: vendor?.deposit_paid ?? false,
+    payments: {
+      deposit: digits(vendor?.deposit),
+      depositDue: vendor?.deposit_due ?? "",
+      depositPaid: vendor?.deposit_paid ?? false,
+      secondPayment: digits(vendor?.second_payment),
+      secondDue: vendor?.second_due ?? "",
+      secondPaid: vendor?.second_paid ?? false,
+      balanceDue: vendor?.balance_due ?? "",
+      balancePaid: vendor?.balance_paid ?? false,
+    },
+    details: detailState(category, vendor?.details ?? {}),
+    asked: vendor?.details.asked ?? [],
     meetingDate: vendor?.meeting_date ?? "",
     rating: vendor?.rating ?? null,
     pros: vendor?.pros ?? [],
@@ -95,13 +118,19 @@ const selectClass = "h-11 w-full rounded-xl bg-card data-[size=default]:h-11";
 const amountDigits = String(VENDOR_LIMITS.price).length;
 
 /** Fiche d'un prestataire : qui, combien, prochain rendez-vous, et ce qu'en pensent les mariés. */
-export function VendorDialog({ category, vendor, currencySymbol, trigger }: VendorDialogProps) {
+export function VendorDialog({ category, vendor, currencySymbol, trigger, guestCount }: VendorDialogProps) {
   const t = useTranslations("Vendors");
   const [open, setOpen] = useState(false);
   const [pending, startTransition] = useTransition();
   const [state, setState] = useState<FormState>(() => initialState(category, vendor));
   const [nameError, setNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
+
+  const total = vendorTotal({ price: toNumber(state.price), price_basis: state.priceBasis }, guestCount);
+  const balance =
+    total === null
+      ? null
+      : Math.max(0, total - (toNumber(state.payments.deposit) ?? 0) - (toNumber(state.payments.secondPayment) ?? 0));
 
   const set = <K extends keyof FormState>(key: K, value: FormState[K]) =>
     setState((current) => ({ ...current, [key]: value }));
@@ -122,10 +151,19 @@ export function VendorDialog({ category, vendor, currencySymbol, trigger }: Vend
       return;
     }
     startTransition(async () => {
+      const { payments, details, asked, ...fields } = state;
       const result = await saveVendor(category, vendor?.id ?? null, {
-        ...state,
+        ...fields,
         price: toNumber(state.price),
-        deposit: toNumber(state.deposit),
+        deposit: toNumber(payments.deposit),
+        depositDue: payments.depositDue,
+        depositPaid: payments.depositPaid,
+        secondPayment: toNumber(payments.secondPayment),
+        secondDue: payments.secondDue,
+        secondPaid: payments.secondPaid,
+        balanceDue: payments.balanceDue,
+        balancePaid: payments.balancePaid,
+        details: { ...detailValues(category, details), ...(asked.length > 0 && { asked }) },
       }).catch((): VendorActionResult => ({ ok: false, error: "generic" }));
       if (!result.ok) {
         // L'adresse email est le seul champ que le formulaire ne peut pas garantir.
@@ -237,30 +275,12 @@ export function VendorDialog({ category, vendor, currencySymbol, trigger }: Vend
                 </Select>
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="vendor-deposit">{t("fields.deposit")}</Label>
-                <div className="flex items-center gap-2">
-                  <Input
-                    id="vendor-deposit"
-                    inputMode="numeric"
-                    value={state.deposit}
-                    onChange={(event) => set("deposit", event.target.value.replace(/\D/g, "").slice(0, amountDigits))}
-                    className={`${fieldClass} w-32`}
-                  />
-                  <span className="text-stone">{currencySymbol}</span>
-                </div>
-              </div>
-              <label className="mt-6 flex items-center gap-3 text-sm">
-                <input
-                  type="checkbox"
-                  checked={state.depositPaid}
-                  onChange={(event) => set("depositPaid", event.target.checked)}
-                  className="size-4 accent-sage-deep"
-                />
-                {t("fields.depositPaid")}
-              </label>
-            </div>
+            <PaymentFields
+              state={state.payments}
+              onChange={(patch) => set("payments", { ...state.payments, ...patch })}
+              balance={balance}
+              currencySymbol={currencySymbol}
+            />
             <div className="flex flex-col gap-2">
               <Label htmlFor="vendor-meeting">{t("fields.meetingDate")}</Label>
               <Input
@@ -274,6 +294,12 @@ export function VendorDialog({ category, vendor, currencySymbol, trigger }: Vend
             </div>
           </fieldset>
 
+          <DetailFields
+            category={category}
+            state={state.details}
+            onChange={(key, value) => set("details", { ...state.details, [key]: value })}
+          />
+
           <div className="flex flex-wrap items-center justify-between gap-3">
             <Label>{t("fields.rating")}</Label>
             <RatingInput label={t("fields.rating")} value={state.rating} onChange={(value) => set("rating", value)} />
@@ -282,6 +308,10 @@ export function VendorDialog({ category, vendor, currencySymbol, trigger }: Vend
           <div className="grid gap-4 sm:grid-cols-2">
             <NoteListField id="vendor-pros" kind="pros" items={state.pros} placeholder={t("fields.prosPlaceholder")} onChange={(items) => set("pros", items)} />
             <NoteListField id="vendor-cons" kind="cons" items={state.cons} placeholder={t("fields.consPlaceholder")} onChange={(items) => set("cons", items)} />
+          </div>
+
+          <div className="rounded-2xl bg-linen/60 p-4">
+            <QuestionChecklist category={category} asked={state.asked} onChange={(asked) => set("asked", asked)} />
           </div>
 
           <div className="flex flex-col gap-2">

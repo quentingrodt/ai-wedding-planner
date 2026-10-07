@@ -19,6 +19,7 @@ import {
 } from "@/lib/weddings/queries";
 import { createClient } from "@/utils/supabase/client";
 import { VendorBoard } from "../_components/vendor-board";
+import { categoryTools } from "./category-tools";
 
 export async function generateMetadata({
   params,
@@ -61,6 +62,18 @@ export default async function VendorCategoryPage({ params }: PageProps<"/[locale
     getTranslations("Vendors"),
   ]);
   const venueCatering = venues.find((venue) => venue.status === "booked")?.catering ?? null;
+  const attending = guests.filter((guest) => guest.status !== "declined");
+  const guestCount = expectedGuests(attending.length, wedding.guest_count);
+  const today = todayIsoDate();
+  const tools = await categoryTools(category, {
+    supabase,
+    weddingId: wedding.id,
+    weddingDate: wedding.wedding_date,
+    currency: wedding.currency_code,
+    guests: attending,
+    guestCount,
+    today,
+  });
 
   return (
     <main className="flex flex-1 justify-center px-5 pt-14 pb-24 sm:px-6 sm:pt-20">
@@ -83,13 +96,11 @@ export default async function VendorCategoryPage({ params }: PageProps<"/[locale
           key={category}
           category={category}
           vendors={vendors}
-          guestCount={expectedGuests(
-            guests.filter((guest) => guest.status !== "declined").length,
-            wedding.guest_count,
-          )}
+          guestCount={guestCount}
           envelope={budgetEnvelope(budgetItems, definition.budget)}
           venueCatering={venueCatering}
-          today={todayIsoDate()}
+          tools={tools}
+          today={today}
           currency={wedding.currency_code}
         />
       </div>

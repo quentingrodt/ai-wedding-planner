@@ -27,6 +27,7 @@ export const VENDOR_CATEGORIES = [
   "groomsmen",
   "stationery",
   "website",
+  "honeymoon",
   "other",
 ] as const;
 export type VendorCategory = (typeof VENDOR_CATEGORIES)[number];
@@ -71,6 +72,7 @@ export const VENDOR_CATALOG: Record<VendorCategory, CategoryDefinition> = {
   groomsmen: { budget: "attire", priceBasis: "total", tasks: [] },
   stationery: { budget: "stationery", priceBasis: "total", tasks: [], link: "/invitations" },
   website: { budget: "stationery", priceBasis: "total", tasks: [], link: "/invitations" },
+  honeymoon: { budget: "honeymoon", priceBasis: "total", tasks: ["plan_honeymoon"], link: "/registry" },
   other: { budget: "other", priceBasis: "total", tasks: ["book_other_vendors"] },
 };
 
@@ -95,4 +97,5 @@ export const VENDOR_SECTIONS = [
   },
   { key: "beauty", categories: ["hair", "makeup", "beauty"] },
   { key: "ceremony", categories: ["officiant", "stationery", "website", "other"] },
+  { key: "after", categories: ["honeymoon"] },
 ] as const satisfies readonly { key: string; categories: readonly VendorCategory[] }[];

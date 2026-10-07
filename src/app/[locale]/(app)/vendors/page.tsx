@@ -1,4 +1,4 @@
-import { ChevronRightIcon } from "lucide-react";
+import { ChevronRightIcon, CircleAlertIcon } from "lucide-react";
 import type { Metadata } from "next";
 import type { Locale } from "next-intl";
 import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
@@ -6,7 +6,9 @@ import { VENDOR_ICONS } from "@/components/vendors/icons";
 import { Link, redirect } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { VENDOR_CATEGORIES, VENDOR_SECTIONS, vendorHref } from "@/lib/vendors/catalog";
+import { upcomingPayments } from "@/lib/vendors/payments";
 import { categoryProgress, vendorTotal } from "@/lib/vendors/plan";
+import { isoDateToUtc, todayIsoDate } from "@/lib/weddings/dates";
 import { expectedGuests } from "@/lib/venues/compare";
 import {
   getCurrentMemberRole,
@@ -60,6 +62,8 @@ export default async function VendorsPage({ params }: PageProps<"/[locale]/vendo
   const committed = vendors
     .filter((vendor) => vendor.status === "booked")
     .reduce((sum, vendor) => sum + (vendorTotal(vendor, guestCount) ?? 0), 0);
+  const schedule = upcomingPayments(vendors, guestCount, todayIsoDate()).slice(0, 8);
+  const PRINCIPLES = ["priorities", "research", "referrals", "meet", "contracts", "budget"] as const;
   const money = (amount: number) =>
     format.number(amount, { style: "currency", currency: wedding.currency_code, maximumFractionDigits: 0 });
 
@@ -88,6 +92,45 @@ export default async function VendorsPage({ params }: PageProps<"/[locale]/vendo
             </div>
           ))}
         </dl>
+
+        {vendors.some((vendor) => vendor.status === "booked") && (
+          <section aria-labelledby="schedule-title" className="flex flex-col gap-4 rounded-3xl bg-card p-6 ring-1 ring-border">
+            <div className="flex flex-col gap-1">
+              <h2 id="schedule-title" className="font-serif text-2xl">{t("overview.schedule.title")}</h2>
+              <p className="text-sm text-stone">{t("overview.schedule.lead")}</p>
+            </div>
+            {schedule.length === 0 ? (
+              <p className="text-stone">{t("overview.schedule.empty")}</p>
+            ) : (
+              <ul className="flex flex-col divide-y divide-border">
+                {schedule.map((payment) => {
+                  const late = payment.days !== null && payment.days < 0;
+                  return (
+                    <li key={`${payment.vendor.id}-${payment.kind}`} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-2.5">
+                      <Link href={vendorHref(payment.vendor.category)} className="min-w-0 hover:text-sage-deep">
+                        {t("overview.schedule.item", {
+                          instalment: t(`payments.${payment.kind}`),
+                          vendor: payment.vendor.name,
+                        })}
+                      </Link>
+                      <span className="flex items-center gap-3 text-sm">
+                        <span className={late ? "inline-flex items-center gap-1 text-terracotta" : "text-stone"}>
+                          {late && <CircleAlertIcon aria-hidden className="size-3.5" />}
+                          {payment.due === null
+                            ? t("overview.schedule.noDate")
+                            : late
+                              ? t("overview.schedule.late")
+                              : `${t("overview.schedule.in", { days: payment.days ?? 0 })} · ${format.dateTime(isoDateToUtc(payment.due), { day: "numeric", month: "short", timeZone: "UTC" })}`}
+                        </span>
+                        <span className="font-serif text-lg tabular-nums">{money(payment.amount)}</span>
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </section>
+        )}
 
         {VENDOR_SECTIONS.map((section) => (
           <section key={section.key} aria-labelledby={`section-${section.key}`} className="flex flex-col gap-4">
@@ -128,6 +171,21 @@ export default async function VendorsPage({ params }: PageProps<"/[locale]/vendo
             </ul>
           </section>
         ))}
+
+        <section aria-labelledby="principles-title" className="flex flex-col gap-4">
+          <h2 id="principles-title" className="font-serif text-3xl">{t("overview.principles.title")}</h2>
+          <ol className="grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
+            {PRINCIPLES.map((key, index) => (
+              <li key={key} className="flex gap-4">
+                <span className="font-serif text-2xl leading-none text-terracotta tabular-nums">{index + 1}</span>
+                <span className="flex flex-col gap-1">
+                  <span className="font-medium">{t(`overview.principles.items.${key}.title`)}</span>
+                  <span className="text-sm leading-6 text-stone">{t(`overview.principles.items.${key}.body`)}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </section>
       </div>
     </main>
   );

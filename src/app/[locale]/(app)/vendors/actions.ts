@@ -2,6 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { VENDOR_CATALOG, type VendorCategory } from "@/lib/vendors/catalog";
+import { detailsSchema } from "@/lib/vendors/details";
+import { PLAN_SCHEMAS, type PlanCategory } from "@/lib/vendors/plans";
 import {
   idSchema,
   toVendorRow,
@@ -75,10 +77,12 @@ export async function saveVendor(
   if (!parsedCategory.success || !parsed.success || (vendorId !== null && !idSchema.safeParse(vendorId).success)) {
     return { ok: false, error: "invalid" };
   }
+  const details = detailsSchema(parsedCategory.data).safeParse(parsed.data.details);
+  if (!details.success) return { ok: false, error: "invalid" };
   const context = await coupleContext();
   if (!context.ok) return context;
   const { supabase, weddingId } = context;
-  const row = toVendorRow(parsed.data);
+  const row = { ...toVendorRow(parsed.data), details: details.data };
 
   if (vendorId === null) {
     const { count } = await supabase
@@ -132,6 +136,32 @@ export async function deleteVendor(vendorId: string): Promise<VendorActionResult
   const { data, error } = await context.supabase.from("vendors").delete().eq("id", vendorId).select("id");
   if (error) return failure("deleteVendor", error.code);
   if (data.length === 0) return { ok: false, error: "forbidden" };
+  revalidateVendors();
+  return { ok: true };
+}
+
+/** Enregistre le carnet d'une catégorie (menu, préparatifs, mensurations…). */
+export async function saveVendorPlan(category: string, data: unknown): Promise<VendorActionResult> {
+  if (!Object.hasOwn(PLAN_SCHEMAS, category)) return { ok: false, error: "invalid" };
+  const schema = PLAN_SCHEMAS[category as PlanCategory];
+  const parsed = schema.safeParse(data);
+  if (!parsed.success) return { ok: false, error: "invalid" };
+  const context = await coupleContext();
+  if (!context.ok) return context;
+  // Mise à jour d'abord : wedding_id et category n'ont pas le droit UPDATE (un upsert les réécrirait).
+  const { data: updated, error: updateError } = await context.supabase
+    .from("vendor_plans")
+    .update({ data: parsed.data, updated_at: new Date().toISOString() })
+    .eq("wedding_id", context.weddingId)
+    .eq("category", category)
+    .select("category");
+  if (updateError) return failure("saveVendorPlan update", updateError.code);
+  if (updated.length === 0) {
+    const { error } = await context.supabase
+      .from("vendor_plans")
+      .insert({ wedding_id: context.weddingId, category, data: parsed.data });
+    if (error) return failure("saveVendorPlan insert", error.code);
+  }
   revalidateVendors();
   return { ok: true };
 }

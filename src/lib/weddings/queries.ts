@@ -20,6 +20,8 @@ import type {
 import { LODGING_COLUMNS, type Lodging, type LodgingGuest } from "@/lib/lodging/schema";
 import type { Quote } from "@/lib/quotes/schema";
 import type { VendorCategory } from "@/lib/vendors/catalog";
+import { readDetails } from "@/lib/vendors/details";
+import { readPlan, type PlanCategory, type PlanOf } from "@/lib/vendors/plans";
 import { VENDOR_COLUMNS, type Vendor } from "@/lib/vendors/schema";
 import { VENUE_COLUMNS, type Venue } from "@/lib/venues/schema";
 import type { SeatedGuest, SeatingTable } from "@/lib/seating/schema";
@@ -598,5 +600,26 @@ export async function getVendors(
     console.error("[weddings] getVendors:", error.code);
     throw new Error("Unable to load vendors");
   }
-  return data;
+  // Détails en JSONB : lus selon la catégorie, une valeur illisible est ignorée.
+  return data.map((vendor) => ({ ...vendor, details: readDetails(vendor.category, vendor.details) }));
+}
+
+/** Carnet d'une catégorie (menu, boissons, mensurations…), vide s'il n'existe pas encore (cf. 000032). */
+export async function getVendorPlan<C extends PlanCategory>(
+  supabase: ServerClient,
+  weddingId: string,
+  category: C,
+): Promise<PlanOf<C>> {
+  const { data, error } = await supabase
+    .from("vendor_plans")
+    .select("data")
+    .eq("wedding_id", weddingId)
+    .eq("category", category)
+    .maybeSingle<{ data: unknown }>();
+
+  if (error) {
+    console.error("[weddings] getVendorPlan:", error.code);
+    throw new Error("Unable to load vendor plan");
+  }
+  return readPlan(category, data?.data);
 }

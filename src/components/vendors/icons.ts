@@ -13,6 +13,7 @@ import {
   LayersIcon,
   PackageIcon,
   PartyPopperIcon,
+  PlaneIcon,
   RibbonIcon,
   ScissorsIcon,
   ShirtIcon,
@@ -44,5 +45,6 @@ export const VENDOR_ICONS: Record<VendorCategory, LucideIcon> = {
   groomsmen: UsersIcon,
   stationery: FeatherIcon,
   website: GlobeIcon,
+  honeymoon: PlaneIcon,
   other: LayersIcon,
 };

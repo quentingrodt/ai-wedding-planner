@@ -1,7 +1,10 @@
 import type { BudgetCategory, BudgetItem } from "@/lib/budget/schema";
 import { daysBetween } from "@/lib/weddings/dates";
 import { VENDOR_CATEGORIES, type VendorCategory } from "./catalog";
+import { instalments, PAYMENT_SOON_DAYS, vendorTotal, type InstalmentKind } from "./payments";
 import type { Vendor } from "./schema";
+
+export { vendorTotal };
 
 /*
  * Prestataires : coûts, constats et état de chaque catégorie, calculés ici à
@@ -10,13 +13,6 @@ import type { Vendor } from "./schema";
 
 /** Un rendez-vous sous 14 jours se prépare (questions, échantillons). */
 export const MEETING_SOON_DAYS = 14;
-
-/** Coût total d'une piste : prix par invité × invités attendus, ou prix total. */
-export function vendorTotal(vendor: Pick<Vendor, "price" | "price_basis">, guestCount: number | null): number | null {
-  if (vendor.price === null) return null;
-  if (vendor.price_basis === "total") return vendor.price;
-  return guestCount === null ? null : vendor.price * guestCount;
-}
 
 /** Montant prévu au budget pour un poste (somme des lignes), ou null s'il n'est pas chiffré. */
 export function budgetEnvelope(
@@ -32,6 +28,8 @@ export function budgetEnvelope(
 export type VendorCheck =
   | { tone: "watch"; key: "overBudget"; over: number }
   | { tone: "watch"; key: "depositDue"; amount: number }
+  | { tone: "watch"; key: "paymentLate"; amount: number; instalment: InstalmentKind }
+  | { tone: "hint"; key: "paymentSoon"; amount: number; days: number; instalment: InstalmentKind }
   | { tone: "hint"; key: "meetingSoon"; days: number }
   | { tone: "hint"; key: "askQuote" };
 
@@ -45,8 +43,21 @@ export function vendorChecks(
   if (total !== null && context.envelope !== null && total > context.envelope) {
     checks.push({ tone: "watch", key: "overBudget", over: total - context.envelope });
   }
-  if (vendor.status === "booked" && vendor.deposit !== null && vendor.deposit > 0 && !vendor.deposit_paid) {
-    checks.push({ tone: "watch", key: "depositDue", amount: vendor.deposit });
+  if (vendor.status === "booked") {
+    for (const instalment of instalments(vendor, context.guestCount)) {
+      if (instalment.paid) continue;
+      if (instalment.due === null) {
+        // Acompte sans date : c'est lui qui confirme la réservation.
+        if (instalment.kind === "deposit") checks.push({ tone: "watch", key: "depositDue", amount: instalment.amount });
+        continue;
+      }
+      const days = daysBetween(context.today, instalment.due);
+      if (days < 0) {
+        checks.push({ tone: "watch", key: "paymentLate", amount: instalment.amount, instalment: instalment.kind });
+      } else if (days <= PAYMENT_SOON_DAYS) {
+        checks.push({ tone: "hint", key: "paymentSoon", amount: instalment.amount, days, instalment: instalment.kind });
+      }
+    }
   }
   if (vendor.meeting_date !== null) {
     const days = daysBetween(context.today, vendor.meeting_date);
