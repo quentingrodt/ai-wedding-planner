@@ -23,19 +23,37 @@ export function RatingDots({ value, className }: { value: number | null; classNa
   );
 }
 
-/** Saisie d'une note : cliquer sur la note choisie la retire. */
+/**
+ * Saisie d'une note : cliquer sur la note choisie la retire. Avec `caption`,
+ * une mention discrète précède les pastilles (« Votre note », puis le mot
+ * choisi) pour les formulaires où rien d'autre ne dit qu'il s'agit d'une note.
+ */
 export function RatingInput({
   label,
   value,
   onChange,
+  caption = false,
 }: {
   label: string;
   value: number | null;
   onChange: (value: number | null) => void;
+  caption?: boolean;
 }) {
   const t = useTranslations("Compare");
   return (
     <div role="radiogroup" aria-label={label} className="flex items-center gap-1.5">
+      {caption && (
+        // Déjà dit par aria-label et par la pastille cochée : visuel seulement.
+        <span
+          aria-hidden
+          className={cn(
+            "mr-1.5 min-w-20 text-right text-xs",
+            value === null ? "text-stone" : "font-medium text-sage-deep",
+          )}
+        >
+          {value === null ? t("rating.prompt") : t(`rating.steps.${value as 1 | 2 | 3 | 4 | 5}`)}
+        </span>
+      )}
       {STEPS.map((step) => (
         <button
           key={step}

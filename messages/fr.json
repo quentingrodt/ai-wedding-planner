@@ -3512,6 +3512,7 @@
     "rating": {
       "none": "Pas encore noté",
       "value": "{value} sur {max}",
+      "prompt": "Votre note",
       "steps": {
         "1": "Décevant",
         "2": "Moyen",

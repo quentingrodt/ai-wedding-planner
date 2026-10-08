@@ -189,6 +189,7 @@ export function VenueDialog({ venue, currencySymbol, trigger }: VenueDialogProps
           label={t("dialog.ratingLabel", { criterion: t(`criteria.${criterion}.label`) })}
           value={state.ratings[criterion] ?? null}
           onChange={(value) => set("ratings", { ...state.ratings, [criterion]: value })}
+          caption
         />
       </div>
       {children}
