@@ -1,5 +1,8 @@
+import { ArrowRightIcon } from "lucide-react";
 import { getFormatter, getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import type { BudgetItem, BudgetSummary } from "@/lib/budget/schema";
+import { budgetHighlights } from "@/lib/dashboard/priorities";
 import { cn } from "@/lib/utils";
 
 type BudgetGaugeProps = {
@@ -9,10 +12,14 @@ type BudgetGaugeProps = {
   currency: string;
 };
 
-/** Jauge horizontale : dépensé (Terracotta) et réparti (Sauge) sur fond Lin. */
+/**
+ * Jauge horizontale : dépensé (Terracotta) et réparti (Sauge) sur fond Lin,
+ * suivie des seuls postes à surveiller ; le détail reste sur la page Budget.
+ */
 export async function BudgetGauge({ summary, items, currency }: BudgetGaugeProps) {
   const t = await getTranslations("Dashboard.budget");
   const format = await getFormatter();
+  const highlights = budgetHighlights(items);
   const money = (amount: number) =>
     format.number(amount, {
       style: "currency",
@@ -104,35 +111,53 @@ export async function BudgetGauge({ summary, items, currency }: BudgetGaugeProps
             </div>
           </dl>
 
-          {items.length > 0 && (
-            <ul className="flex flex-col divide-y divide-border border-t border-border">
-              {items.map((item) => (
-                <li
-                  key={item.id}
-                  className="flex items-baseline justify-between gap-4 py-3 text-sm"
-                >
-                  <span className="min-w-0 truncate">
-                    {t(`categories.${item.category}`)}
-                    {item.label && (
-                      <span className="text-stone"> · {item.label}</span>
-                    )}
-                  </span>
-                  <span className="shrink-0 text-stone tabular-nums">
-                    {item.actual_amount === null
-                      ? t("estimated", { amount: money(item.estimated_amount) })
-                      : t("actualOfEstimated", {
-                          actual: money(item.actual_amount),
-                          estimated: money(item.estimated_amount),
-                        })}
-                  </span>
-                </li>
-              ))}
-            </ul>
+          {highlights.items.length > 0 && (
+            <div className="flex flex-col gap-2 border-t border-border pt-5">
+              <h3 className="text-xs font-medium tracking-[0.2em] text-stone uppercase">
+                {highlights.mode === "over" ? t("overTitle") : t("largestTitle")}
+              </h3>
+              <ul className="flex flex-col divide-y divide-border">
+                {highlights.items.map((item) => (
+                  <li
+                    key={item.id}
+                    className="flex items-baseline justify-between gap-4 py-3 text-sm"
+                  >
+                    <span className="min-w-0 truncate">
+                      {t(`categories.${item.category}`)}
+                      {item.label && (
+                        <span className="text-stone"> · {item.label}</span>
+                      )}
+                    </span>
+                    <span
+                      className={cn(
+                        "shrink-0 tabular-nums",
+                        highlights.mode === "over" ? "text-terracotta" : "text-stone",
+                      )}
+                    >
+                      {item.actual_amount === null
+                        ? t("estimated", { amount: money(item.estimated_amount) })
+                        : t("actualOfEstimated", {
+                            actual: money(item.actual_amount),
+                            estimated: money(item.estimated_amount),
+                          })}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </>
       ) : (
         <p className="text-stone">{t("noBudget")}</p>
       )}
+
+      <Link
+        href="/budget"
+        className="group inline-flex items-center gap-2 self-start text-sm font-medium text-sage-deep"
+      >
+        {t("seeAll")}
+        <ArrowRightIcon aria-hidden className="size-4 transition-transform group-hover:translate-x-0.5" />
+      </Link>
     </section>
   );
 }

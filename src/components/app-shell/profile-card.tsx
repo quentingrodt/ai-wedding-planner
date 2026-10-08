@@ -10,6 +10,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { WeddingAvatar } from "@/components/wedding-photo/wedding-avatar";
 import { Link, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { switchWedding } from "@/lib/weddings/actions";
@@ -18,12 +19,7 @@ import type { ShellProfile } from "./nav-config";
 function Identity({ profile }: { profile: ShellProfile }) {
   return (
     <>
-      <span
-        aria-hidden
-        className="flex size-10 shrink-0 items-center justify-center rounded-full bg-terracotta-soft font-serif text-sm text-terracotta"
-      >
-        {profile.initials}
-      </span>
+      <WeddingAvatar photoUrl={profile.photoUrl} initials={profile.initials} className="size-10 text-sm" />
       <span className="flex min-w-0 flex-1 flex-col text-left">
         <span className="truncate font-serif text-base text-charcoal">
           {profile.title}
@@ -37,7 +33,8 @@ function Identity({ profile }: { profile: ShellProfile }) {
 }
 
 /**
- * Les prénoms du mariage et sa date, sous un monogramme. Avec plusieurs
+ * Les prénoms du mariage et sa date, à côté de la photo du couple (ou de son
+ * monogramme). Avec plusieurs
  * mariages (le sien, ceux d'amis dont on est témoin), la carte devient le
  * sélecteur du mariage affiché.
  */

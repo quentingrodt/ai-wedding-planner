@@ -27,7 +27,9 @@ import type { SeatedGuest, SeatingTable } from "@/lib/seating/schema";
 import { planningAnswersSchema, type PlanningAnswers } from "@/lib/planning/schema";
 import type { PlanningTaskRow, Task } from "@/lib/tasks/schema";
 import { ROLE_ORDER, type TeamMember } from "@/lib/team/schema";
-import type { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/client";
+import { cache } from "react";
+import { WEDDING_PHOTO_BUCKET, WEDDING_PHOTO_URL_SECONDS } from "./photo";
 import { readSelectedWeddingId } from "./selection";
 
 type ServerClient = Awaited<ReturnType<typeof createClient>>;
@@ -48,6 +50,8 @@ export type WeddingSummary = {
   total_budget: number | null;
   currency_code: string;
   guest_count: number | null;
+  /** Photo du couple dans le bucket wedding-photos, ou null (000036). */
+  photo_path: string | null;
 };
 
 type Membership = { wedding_id: string; role: WeddingRole; created_at: string };
@@ -92,7 +96,7 @@ export async function getCurrentWedding(
   const [wedding, budget] = await Promise.all([
     supabase
       .from("weddings")
-      .select("id, title, wedding_date, currency_code, guest_count")
+      .select("id, title, wedding_date, currency_code, guest_count, photo_path")
       .eq("id", membership.wedding_id)
       .maybeSingle<Omit<WeddingSummary, "total_budget">>(),
     membership.role === "witness"
@@ -203,6 +207,69 @@ export async function getUpcomingTasks(
     throw new Error("Unable to load tasks");
   }
   return data;
+}
+
+/**
+ * URL signée de la photo du couple, ou null. Mise en cache le temps d'une
+ * requête, par chemin seulement (chaque composant crée son propre client) :
+ * le menu et le tableau de bord affichent la même URL, téléchargée une fois.
+ */
+export const getWeddingPhotoUrl = cache(
+  async (path: string | null): Promise<string | null> => {
+    if (path === null) return null;
+    const supabase = await createClient();
+    const { data, error } = await supabase.storage
+      .from(WEDDING_PHOTO_BUCKET)
+      .createSignedUrl(path, WEDDING_PHOTO_URL_SECONDS);
+    if (error) {
+      // Photo illisible : le monogramme prend le relais, la page reste affichée.
+      console.error("[weddings] getWeddingPhotoUrl:", error.message);
+      return null;
+    }
+    return data.signedUrl;
+  },
+);
+
+/** Nombre de tâches à faire dont l'échéance est passée. */
+export async function countOverdueTasks(
+  supabase: ServerClient,
+  weddingId: string,
+  today: string,
+): Promise<number> {
+  const { count, error } = await supabase
+    .from("tasks")
+    .select("id", { count: "exact", head: true })
+    .eq("wedding_id", weddingId)
+    .eq("status", "todo")
+    .lt("due_date", today);
+
+  if (error) {
+    console.error("[weddings] countOverdueTasks:", error.code);
+    throw new Error("Unable to count overdue tasks");
+  }
+  return count ?? 0;
+}
+
+/** Étapes terminées et nombre total d'étapes du rétroplanning. */
+export async function getTaskProgress(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<{ done: number; total: number }> {
+  const [total, done] = await Promise.all([
+    supabase.from("tasks").select("id", { count: "exact", head: true }).eq("wedding_id", weddingId),
+    supabase
+      .from("tasks")
+      .select("id", { count: "exact", head: true })
+      .eq("wedding_id", weddingId)
+      .eq("status", "done"),
+  ]);
+
+  const error = total.error ?? done.error;
+  if (error) {
+    console.error("[weddings] getTaskProgress:", error.code);
+    throw new Error("Unable to count tasks");
+  }
+  return { done: done.count ?? 0, total: total.count ?? 0 };
 }
 
 /** Toutes les tâches du mariage, par échéance (rétroplanning). */

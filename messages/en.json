@@ -275,7 +275,51 @@
     "countdownPast": "Your wedding took place on {date}.",
     "countdownNoDate": "Your date is yet to be set.",
     "allGood": "Everything is under control.",
-    "needsAttention": "A few tasks need your attention.",
+    "needsAttention": "A few things need your attention.",
+    "phases": {
+      "foundations": "The foundations",
+      "bookings": "The bookings",
+      "details": "The details",
+      "finalStretch": "The final stretch"
+    },
+    "progress": "{percent} of the way there",
+    "progressLabel": "Timeline steps completed",
+    "priorities": {
+      "eyebrow": "Coming up",
+      "title": "Your next deadlines",
+      "empty": "No deadlines yet. Your appointments and payments will show up here.",
+      "overdueTasks": "{count, plural, one {# step overdue} other {# steps overdue}}",
+      "overdueTasksDetail": "In your timeline",
+      "payment": "{instalment} · {vendor}",
+      "paymentLate": "{amount} · overdue",
+      "eventDetail": "{kind} · {when}",
+      "rsvp": "{count, plural, one {# guest hasn’t replied yet} other {# guests haven’t replied yet}}",
+      "rsvpDetail": "A gentle reminder before the big day",
+      "paymentDue": "{amount} · {when}",
+      "when": "{days, plural, =0 {today} one {tomorrow} other {on {date}}}",
+      "whenTime": "{days, plural, =0 {today} one {tomorrow} other {on {date}}} at {time}"
+    },
+    "vendors": {
+      "eyebrow": "Vendors",
+      "title": "Your bookings",
+      "progress": "{booked} of {total} booked",
+      "venue": "The venue",
+      "leads": "{count, plural, one {# lead in progress} other {# leads in progress}}",
+      "none": "To find",
+      "seeAll": "See all vendors"
+    },
+    "guests": {
+      "eyebrow": "Guests",
+      "title": "Your guests",
+      "of": "{count, plural, one {confirmed out of # guest} other {confirmed out of # guests}}",
+      "meterLabel": "Guest replies",
+      "confirmed": "Confirmed",
+      "pending": "Pending",
+      "declined": "Declined",
+      "toAdd": "{count, plural, one {# more guest to add to reach your estimate of {estimate}.} other {# more guests to add to reach your estimate of {estimate}.}}",
+      "empty": "Your guest list is yet to be drawn up.",
+      "seeAll": "See the guest list"
+    },
     "budget": {
       "title": "Budget",
       "percentSpent": "{percent} committed",
@@ -304,7 +348,10 @@
         "honeymoon": "Honeymoon",
         "contingency": "Contingency",
         "other": "Other expenses"
-      }
+      },
+      "overTitle": "Over budget",
+      "largestTitle": "Your largest items",
+      "seeAll": "See the budget"
     },
     "timeline": {
       "eyebrow": "Timeline",
@@ -332,6 +379,19 @@
     },
     "invitationsLink": "Invitation",
     "playlistLink": "Playlist"
+  },
+  "WeddingPhoto": {
+    "label": "Couple photo",
+    "add": "Add a photo of the couple",
+    "change": "Change the photo",
+    "remove": "Remove the photo",
+    "errors": {
+      "unauthenticated": "Your session has expired. Please sign in again.",
+      "forbidden": "Only the couple can change the photo.",
+      "invalidType": "This image format isn’t supported. Try a JPEG or PNG photo.",
+      "tooLarge": "This photo is too large (20 MB maximum).",
+      "generic": "The photo couldn’t be saved. Please try again."
+    }
   },
   "Guests": {
     "metaTitle": "Your guests",

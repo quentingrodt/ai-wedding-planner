@@ -275,7 +275,51 @@
     "countdownPast": "Votre mariage a eu lieu le {date}.",
     "countdownNoDate": "Votre date reste à fixer.",
     "allGood": "Tout est sous contrôle.",
-    "needsAttention": "Quelques tâches méritent votre attention.",
+    "needsAttention": "Quelques points méritent votre attention.",
+    "phases": {
+      "foundations": "Les fondations",
+      "bookings": "Les réservations",
+      "details": "Les détails",
+      "finalStretch": "La dernière ligne droite"
+    },
+    "progress": "{percent} du chemin parcouru",
+    "progressLabel": "Étapes du rétroplanning terminées",
+    "priorities": {
+      "eyebrow": "À venir",
+      "title": "Vos prochaines échéances",
+      "empty": "Aucune échéance pour l’instant. Vos rendez-vous et vos versements apparaîtront ici.",
+      "overdueTasks": "{count, plural, one {# étape en retard} other {# étapes en retard}}",
+      "overdueTasksDetail": "Dans votre rétroplanning",
+      "payment": "{instalment} · {vendor}",
+      "paymentLate": "{amount} · en retard",
+      "eventDetail": "{kind} · {when}",
+      "rsvp": "{count, plural, one {# invité n’a pas encore répondu} other {# invités n’ont pas encore répondu}}",
+      "rsvpDetail": "Une petite relance avant le grand jour",
+      "paymentDue": "{amount} · {when}",
+      "when": "{days, plural, =0 {aujourd’hui} one {demain} other {le {date}}}",
+      "whenTime": "{days, plural, =0 {aujourd’hui} one {demain} other {le {date}}} à {time}"
+    },
+    "vendors": {
+      "eyebrow": "Prestataires",
+      "title": "Vos réservations",
+      "progress": "{booked} sur {total} réservés",
+      "venue": "Le lieu de réception",
+      "leads": "{count, plural, one {# piste en cours} other {# pistes en cours}}",
+      "none": "À trouver",
+      "seeAll": "Voir tous les prestataires"
+    },
+    "guests": {
+      "eyebrow": "Invités",
+      "title": "Vos invités",
+      "of": "{count, plural, one {confirmé sur # invité} other {confirmés sur # invités}}",
+      "meterLabel": "Réponses des invités",
+      "confirmed": "Confirmés",
+      "pending": "En attente",
+      "declined": "Déclinés",
+      "toAdd": "{count, plural, one {Encore # invité à ajouter pour atteindre votre estimation de {estimate}.} other {Encore # invités à ajouter pour atteindre votre estimation de {estimate}.}}",
+      "empty": "Votre liste d’invités reste à composer.",
+      "seeAll": "Voir la liste des invités"
+    },
     "budget": {
       "title": "Budget",
       "percentSpent": "{percent} engagé",
@@ -304,7 +348,10 @@
         "honeymoon": "Voyage de noces",
         "contingency": "Imprévus",
         "other": "Autres dépenses"
-      }
+      },
+      "overTitle": "Postes en dépassement",
+      "largestTitle": "Vos plus gros postes",
+      "seeAll": "Voir le budget"
     },
     "timeline": {
       "eyebrow": "Rétroplanning",
@@ -332,6 +379,19 @@
     },
     "invitationsLink": "Faire-part",
     "playlistLink": "Playlist"
+  },
+  "WeddingPhoto": {
+    "label": "Photo du couple",
+    "add": "Ajouter une photo du couple",
+    "change": "Changer la photo",
+    "remove": "Retirer la photo",
+    "errors": {
+      "unauthenticated": "Votre session a expiré. Merci de vous reconnecter.",
+      "forbidden": "Seuls les mariés peuvent changer la photo.",
+      "invalidType": "Ce format d’image n’est pas pris en charge. Essayez une photo JPEG ou PNG.",
+      "tooLarge": "Cette photo est trop lourde (20 Mo maximum).",
+      "generic": "La photo n’a pas pu être enregistrée. Merci de réessayer."
+    }
   },
   "Guests": {
     "metaTitle": "Vos invités",

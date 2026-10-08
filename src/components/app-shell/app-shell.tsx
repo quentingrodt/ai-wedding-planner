@@ -1,24 +1,19 @@
 import type { ReactNode } from "react";
 import { getFormatter } from "next-intl/server";
 import { isoDateToUtc } from "@/lib/weddings/dates";
-import { getCurrentMemberRole, getCurrentUserId, getCurrentWedding, getUserWeddings } from "@/lib/weddings/queries";
+import { monogram } from "@/lib/weddings/monogram";
+import {
+  getCurrentMemberRole,
+  getCurrentUserId,
+  getCurrentWedding,
+  getUserWeddings,
+  getWeddingPhotoUrl,
+} from "@/lib/weddings/queries";
 import { createClient } from "@/utils/supabase/client";
 import { MobileHeader } from "./mobile-header";
 import { MobileNav } from "./mobile-nav";
 import type { ShellProfile } from "./nav-config";
 import { Sidebar } from "./sidebar";
-
-/** « Quentin & Aurore » → « Q&A » ; un seul prénom → sa première lettre. */
-function monogram(title: string): string {
-  const names = title
-    .split(/\s*(?:&|\+|\bet\b|\band\b)\s*/i)
-    .map((part) => part.trim())
-    .filter(Boolean);
-  return names
-    .slice(0, 2)
-    .map((name) => name.charAt(0).toLocaleUpperCase())
-    .join("&");
-}
 
 /**
  * Coque de l'espace connecté : menu latéral (écrans larges) et barre
@@ -31,14 +26,16 @@ export async function AppShell({ children }: { children: ReactNode }) {
   const wedding = userId ? await getCurrentWedding(supabase) : null;
   if (!userId || !wedding) return children;
 
-  const [role, weddings, format] = await Promise.all([
+  const [role, weddings, photoUrl, format] = await Promise.all([
     getCurrentMemberRole(supabase, wedding.id, userId),
     getUserWeddings(supabase, userId),
+    getWeddingPhotoUrl(wedding.photo_path),
     getFormatter(),
   ]);
   const profile: ShellProfile = {
     title: wedding.title,
     initials: monogram(wedding.title),
+    photoUrl,
     date: wedding.wedding_date
       ? format.dateTime(isoDateToUtc(wedding.wedding_date), {
           day: "numeric",

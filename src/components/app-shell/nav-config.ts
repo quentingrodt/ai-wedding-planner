@@ -129,6 +129,8 @@ export const isActive = (pathname: string, href: string, exact = false) =>
 export type ShellProfile = {
   title: string;
   initials: string;
+  /** Photo du couple (URL signée), ou null : le monogramme s'affiche. */
+  photoUrl: string | null;
   /** Date du mariage déjà formatée, ou null si elle n'est pas fixée. */
   date: string | null;
   canSeeBudget: boolean;
