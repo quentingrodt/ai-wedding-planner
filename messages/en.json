@@ -41,7 +41,9 @@
     "footer": "Crafted with care for the big days.",
     "illustrationTable": "Line drawing of a set wedding table with candles and a bouquet",
     "illustrationGlasses": "Drawing of two champagne flutes clinking",
-    "illustrationNotebook": "Drawing of a notebook opening onto a planning timeline"
+    "illustrationNotebook": "Drawing of a notebook opening onto a planning timeline",
+    "footerPrivacy": "Privacy",
+    "footerLegal": "Legal notice"
   },
   "Auth": {
     "emailLabel": "Email address",
@@ -79,7 +81,8 @@
         "budget": "Budget",
         "guests": "{count, plural, one {# guest} other {# guests}}",
         "kept": "Your answers are saved and waiting for you in your space."
-      }
+      },
+      "consent": "By creating an account, you agree to our <privacy>privacy policy</privacy>."
     },
     "forgot": {
       "metaTitle": "Forgot password",
@@ -918,6 +921,27 @@
         "invalid": "This link has already been used. Ask the organiser for a new one.",
         "expired": "This link has expired. Ask the organiser for a new one.",
         "generic": "Something went wrong. Please try again."
+      }
+    },
+    "account": {
+      "heading": "Your account",
+      "intro": "You can delete your account at any time. To learn which data Céleste keeps and why, read our <privacy>privacy policy</privacy>.",
+      "trigger": "Delete my account",
+      "title": "Delete your account?",
+      "description": "Your account and your personal information will be permanently erased. This cannot be undone.",
+      "consequences": {
+        "deleted": "“{title}” will be deleted, with its guests, budget, photos and all its content. Your witnesses will no longer have access.",
+        "kept": "“{title}” will stay available to your partner, who can carry on without you.",
+        "left": "You will leave “{title}”, where you are a witness."
+      },
+      "confirmLabel": "To confirm, type {word} below.",
+      "confirmWord": "DELETE",
+      "cancel": "Cancel",
+      "confirm": "Delete permanently",
+      "deleting": "Deleting…",
+      "errors": {
+        "unauthenticated": "Your session has expired: sign in again to delete your account.",
+        "generic": "The deletion didn’t go through. Please try again in a moment; if it keeps happening, write to us."
       }
     }
   },
@@ -4462,5 +4486,115 @@
     "retry": "Try again",
     "home": "Back to home",
     "reference": "Reference: {digest}"
+  },
+  "Legal": {
+    "missing": "to be completed",
+    "home": "Céleste, back to home",
+    "updated": "Updated on {date}",
+    "links": {
+      "privacy": "Privacy policy",
+      "legal": "Legal notice"
+    },
+    "Privacy": {
+      "title": "Privacy policy",
+      "intro": "Planning a wedding means sharing a lot: your dates, your budget, the list of the people you love. Here is, simply, what Céleste does with it.",
+      "sections": [
+        {
+          "title": "Who is responsible for your data",
+          "paragraphs": [
+            "Céleste is published by {name}, the controller of your personal data. For any question, write to {email}."
+          ]
+        },
+        {
+          "title": "The data we use",
+          "paragraphs": [
+            "Your account: email address and password (only ever stored encrypted), and your name if you give it.",
+            "Your wedding: date, budget, venues, vendors, timeline, inspiration notebook, photos, playlist and everything you enter in the app.",
+            "Your guests: names, contact details and replies, entered by you or by the guests themselves through their personal link. You are responsible for them towards your guests: only enter what helps the planning.",
+            "Your messages: feedback sent from the “Something wrong? An idea?” button, with the page it was sent from and the browser type.",
+            "Technical data: errors encountered by the app, and anonymous audience measurement of the pages visited."
+          ]
+        },
+        {
+          "title": "Why, and on what basis",
+          "paragraphs": [
+            "To provide the service you asked for when creating your account: this is the performance of our contract.",
+            "To fix errors, secure the app and improve it thanks to your feedback and audience measurement: this is our legitimate interest, pursued without cookies or individual profiles.",
+            "Your data is never sold, nor used for advertising."
+          ]
+        },
+        {
+          "title": "Who can access it",
+          "paragraphs": [
+            "The members of your wedding, according to their role: your partner sees everything, witnesses do not see the budget.",
+            "Our technical providers, only to run Céleste: Supabase (database, files and sign-in, hosted in the European Union, in Ireland); the app’s host, {host}; Sentry (error tracking, without IP addresses or the content of your pages); PostHog (audience measurement, hosted in the European Union, without cookies).",
+            "Anthropic (Claude), when you ask for your wedding plan: we send your inspiration favourites, your budget split, the number of guests and the date, never names or contact details. Anthropic is based in the United States; the transfer is covered by the European Commission’s standard contractual clauses.",
+            "Spotify, when you search for a song or link your Spotify account, and Pinterest, if you add a board to your notebook: this content is displayed by their services, under their own privacy policies."
+          ]
+        },
+        {
+          "title": "How long",
+          "paragraphs": [
+            "Your data is kept for as long as your account exists. When you delete it, it is erased from the database immediately; backup copies disappear as they are renewed, within a few weeks.",
+            "Error reports are kept for 90 days at most."
+          ]
+        },
+        {
+          "title": "Cookies",
+          "paragraphs": [
+            "Céleste only uses essential cookies: the one that keeps you signed in and, while you link your Spotify account, a temporary security cookie. A few display preferences (such as the menu chapters you left open) stay in your browser.",
+            "No advertising or audience measurement cookies. Third-party content you choose to display, such as the Spotify player or a Pinterest board, may set its own cookies."
+          ]
+        },
+        {
+          "title": "Your rights",
+          "paragraphs": [
+            "You can access your data, correct it, get a copy in a readable format, object to a processing or ask for it to be restricted, by writing to {email}. We reply within one month.",
+            "You can delete your account at any time from the app, under Team, “Your account”.",
+            "If you believe your rights are not respected, you can lodge a complaint with the CNIL (www.cnil.fr) or your local data protection authority."
+          ]
+        },
+        {
+          "title": "Beta version",
+          "paragraphs": [
+            "Céleste is in beta. This policy will evolve with the app; the date of the last update is shown at the top of this page."
+          ]
+        }
+      ]
+    },
+    "Notice": {
+      "title": "Legal notice",
+      "intro": "Information about Céleste’s publisher and host.",
+      "sections": [
+        {
+          "title": "Publisher",
+          "paragraphs": [
+            "{name}",
+            "Address: {address}",
+            "Contact: {email}",
+            "Publication director: {director}"
+          ]
+        },
+        {
+          "title": "Hosting",
+          "paragraphs": [
+            "App: {host}",
+            "Data: Supabase Inc., servers located in the European Union (Ireland)."
+          ]
+        },
+        {
+          "title": "Intellectual property",
+          "paragraphs": [
+            "The texts, illustrations and the Céleste brand are protected. Inspiration photographs come from Unsplash and Pexels, used under their licences; album covers are provided by Spotify."
+          ]
+        },
+        {
+          "title": "Personal data",
+          "paragraphs": [
+            "How Céleste handles your data is described in the privacy policy."
+          ]
+        }
+      ]
+    }
   }
 }

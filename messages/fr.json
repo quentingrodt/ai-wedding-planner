@@ -41,7 +41,9 @@
     "footer": "Conçu avec soin pour les grands jours.",
     "illustrationTable": "Dessin au trait d’une table de mariage dressée, avec bougies et bouquet",
     "illustrationGlasses": "Dessin de deux flûtes de champagne qui trinquent",
-    "illustrationNotebook": "Dessin d’un carnet qui s’ouvre sur un rétroplanning"
+    "illustrationNotebook": "Dessin d’un carnet qui s’ouvre sur un rétroplanning",
+    "footerPrivacy": "Confidentialité",
+    "footerLegal": "Mentions légales"
   },
   "Auth": {
     "emailLabel": "Adresse email",
@@ -79,7 +81,8 @@
         "budget": "Budget",
         "guests": "{count, plural, one {# invité} other {# invités}}",
         "kept": "Vos réponses sont conservées et vous attendent dans votre espace."
-      }
+      },
+      "consent": "En créant un compte, vous acceptez notre <privacy>politique de confidentialité</privacy>."
     },
     "forgot": {
       "metaTitle": "Mot de passe oublié",
@@ -918,6 +921,27 @@
         "invalid": "Ce lien a déjà été utilisé. Demandez-en un nouveau à l'organisateur.",
         "expired": "Ce lien a expiré. Demandez-en un nouveau à l'organisateur.",
         "generic": "Une erreur est survenue. Merci de réessayer."
+      }
+    },
+    "account": {
+      "heading": "Votre compte",
+      "intro": "Vous pouvez supprimer votre compte à tout moment. Pour savoir quelles données Céleste conserve et pourquoi, consultez notre <privacy>politique de confidentialité</privacy>.",
+      "trigger": "Supprimer mon compte",
+      "title": "Supprimer votre compte ?",
+      "description": "Votre compte et vos informations personnelles seront effacés définitivement. Cette action est irréversible.",
+      "consequences": {
+        "deleted": "« {title} » sera supprimé, avec ses invités, son budget, ses photos et tout son contenu. Vos témoins n’y auront plus accès.",
+        "kept": "« {title} » restera accessible à l’autre marié, qui pourra continuer sans vous.",
+        "left": "Vous quitterez « {title} », où vous êtes témoin."
+      },
+      "confirmLabel": "Pour confirmer, écrivez {word} ci-dessous.",
+      "confirmWord": "SUPPRIMER",
+      "cancel": "Annuler",
+      "confirm": "Supprimer définitivement",
+      "deleting": "Suppression…",
+      "errors": {
+        "unauthenticated": "Votre session a expiré : reconnectez-vous pour supprimer votre compte.",
+        "generic": "La suppression n’a pas abouti. Réessayez dans un instant ; si le problème persiste, écrivez-nous."
       }
     }
   },
@@ -4462,5 +4486,115 @@
     "retry": "Réessayer",
     "home": "Revenir à l’accueil",
     "reference": "Référence : {digest}"
+  },
+  "Legal": {
+    "missing": "à compléter",
+    "home": "Céleste, retour à l’accueil",
+    "updated": "Mise à jour le {date}",
+    "links": {
+      "privacy": "Politique de confidentialité",
+      "legal": "Mentions légales"
+    },
+    "Privacy": {
+      "title": "Politique de confidentialité",
+      "intro": "Préparer un mariage, c’est confier beaucoup de choses : vos dates, votre budget, la liste de vos proches. Voici, simplement, ce que Céleste en fait.",
+      "sections": [
+        {
+          "title": "Qui est responsable de vos données",
+          "paragraphs": [
+            "Céleste est éditée par {name}, responsable du traitement de vos données personnelles. Pour toute question, écrivez à {email}."
+          ]
+        },
+        {
+          "title": "Les données que nous utilisons",
+          "paragraphs": [
+            "Votre compte : adresse e-mail et mot de passe (conservé uniquement sous forme chiffrée), et votre nom si vous l’indiquez.",
+            "Votre mariage : date, budget, lieux, prestataires, rétroplanning, carnet d’inspiration, photos, playlist et tout ce que vous saisissez dans l’application.",
+            "Vos invités : noms, coordonnées et réponses, saisis par vous ou par l’invité lui-même grâce à son lien personnel. Vous en êtes responsables auprès d’eux : n’indiquez que ce qui sert à l’organisation.",
+            "Vos messages : les retours envoyés depuis le bouton « Un souci ? Une idée ? », avec la page d’où ils partent et le type de navigateur.",
+            "Des données techniques : les erreurs rencontrées par l’application et une mesure d’audience anonyme des pages visitées."
+          ]
+        },
+        {
+          "title": "Pourquoi, et sur quelle base",
+          "paragraphs": [
+            "Pour vous fournir le service que vous avez demandé en créant votre compte : c’est l’exécution du contrat qui nous lie.",
+            "Pour corriger les erreurs, sécuriser l’application et l’améliorer grâce à vos retours et à la mesure d’audience : c’est notre intérêt légitime, mis en œuvre sans cookie et sans profil individuel.",
+            "Vos données ne sont jamais vendues, ni utilisées à des fins publicitaires."
+          ]
+        },
+        {
+          "title": "Qui y a accès",
+          "paragraphs": [
+            "Les membres de votre mariage, selon leur rôle : l’autre marié voit tout, les témoins ne voient pas le budget.",
+            "Nos prestataires techniques, uniquement pour faire fonctionner Céleste : Supabase (base de données, fichiers et connexion, hébergés dans l’Union européenne, en Irlande) ; l’hébergeur de l’application, {host} ; Sentry (suivi des erreurs, sans adresse IP ni contenu de vos pages) ; PostHog (mesure d’audience, hébergée dans l’Union européenne, sans cookie).",
+            "Anthropic (Claude), lorsque vous demandez votre plan d’accompagnement : nous lui transmettons vos coups de cœur d’inspiration, la répartition de votre budget, le nombre d’invités et la date, jamais de nom ni de coordonnées. Anthropic est situé aux États-Unis ; le transfert est encadré par les clauses contractuelles types de la Commission européenne.",
+            "Spotify, lorsque vous cherchez un morceau ou liez votre compte Spotify, et Pinterest, si vous ajoutez un tableau à votre carnet : ces contenus sont affichés par leurs services, selon leurs propres politiques de confidentialité."
+          ]
+        },
+        {
+          "title": "Combien de temps",
+          "paragraphs": [
+            "Vos données sont conservées tant que votre compte existe. Quand vous le supprimez, elles sont effacées immédiatement de la base ; les copies de sauvegarde disparaissent au fil de leur renouvellement, sous quelques semaines.",
+            "Les rapports d’erreur sont conservés 90 jours au plus."
+          ]
+        },
+        {
+          "title": "Cookies",
+          "paragraphs": [
+            "Céleste n’utilise que les cookies indispensables : celui qui vous garde connecté et, le temps de lier votre compte Spotify, un cookie temporaire de sécurité. Quelques préférences d’affichage (les chapitres du menu laissés ouverts, par exemple) restent dans votre navigateur.",
+            "Aucun cookie publicitaire ni de mesure d’audience. Les contenus tiers que vous choisissez d’afficher, comme le lecteur Spotify ou un tableau Pinterest, peuvent déposer leurs propres cookies."
+          ]
+        },
+        {
+          "title": "Vos droits",
+          "paragraphs": [
+            "Vous pouvez accéder à vos données, les corriger, les récupérer dans un format lisible, vous opposer à un traitement ou en demander la limitation, en écrivant à {email}. Nous répondons sous un mois.",
+            "Vous pouvez supprimer votre compte à tout moment depuis l’application, rubrique Équipe, section « Votre compte ».",
+            "Si vous estimez que vos droits ne sont pas respectés, vous pouvez saisir la CNIL (www.cnil.fr)."
+          ]
+        },
+        {
+          "title": "Version d’essai",
+          "paragraphs": [
+            "Céleste est en version d’essai. Cette politique évoluera avec l’application ; la date de mise à jour figure en haut de cette page."
+          ]
+        }
+      ]
+    },
+    "Notice": {
+      "title": "Mentions légales",
+      "intro": "Les informations sur l’éditeur et l’hébergeur de Céleste.",
+      "sections": [
+        {
+          "title": "Éditeur",
+          "paragraphs": [
+            "{name}",
+            "Adresse : {address}",
+            "Contact : {email}",
+            "Directeur de la publication : {director}"
+          ]
+        },
+        {
+          "title": "Hébergement",
+          "paragraphs": [
+            "Application : {host}",
+            "Données : Supabase Inc., serveurs situés dans l’Union européenne (Irlande)."
+          ]
+        },
+        {
+          "title": "Propriété intellectuelle",
+          "paragraphs": [
+            "Les textes, illustrations et la marque Céleste sont protégés. Les photographies d’inspiration proviennent d’Unsplash et de Pexels, utilisées selon leurs licences ; les pochettes d’album sont fournies par Spotify."
+          ]
+        },
+        {
+          "title": "Données personnelles",
+          "paragraphs": [
+            "La façon dont Céleste traite vos données est décrite dans la politique de confidentialité."
+          ]
+        }
+      ]
+    }
   }
 }

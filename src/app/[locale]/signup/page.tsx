@@ -57,6 +57,15 @@ export default async function SignupPage({
     >
       {showProject && <ProjectRecap handoff={handoff} />}
       <SignupForm handoff={handoff} invite={invite} />
+      <p className="text-center text-xs leading-5 text-stone">
+        {t.rich("signup.consent", {
+          privacy: (chunks) => (
+            <Link href="/privacy" className={authLinkClassName}>
+              {chunks}
+            </Link>
+          ),
+        })}
+      </p>
     </AuthLayout>
   );
 }

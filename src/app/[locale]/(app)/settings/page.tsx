@@ -2,14 +2,17 @@ import type { Metadata } from "next";
 import type { Locale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Toaster } from "@/components/ui/sonner";
-import { redirect } from "@/i18n/navigation";
+import { Link, redirect } from "@/i18n/navigation";
+import { loadDeletionPlan } from "@/lib/account/server";
 import {
   getCurrentMemberRole,
   getCurrentUserId,
   getCurrentWedding,
   getTeamMembers,
 } from "@/lib/weddings/queries";
+import { createAdminClient } from "@/utils/supabase/admin";
 import { createClient } from "@/utils/supabase/client";
+import { DeleteAccount } from "./_components/delete-account";
 import { InviteButtons } from "./_components/invite-buttons";
 
 export async function generateMetadata({
@@ -40,9 +43,10 @@ export default async function SettingsPage({
     return redirect({ href: "/onboarding", locale });
   }
 
-  const [role, members, t] = await Promise.all([
+  const [role, members, deletionPlan, t] = await Promise.all([
     getCurrentMemberRole(supabase, wedding.id, userId),
     getTeamMembers(supabase, wedding.id),
+    loadDeletionPlan(createAdminClient(), userId),
     getTranslations("Settings"),
   ]);
 
@@ -98,6 +102,22 @@ export default async function SettingsPage({
           ) : (
             <p className="rounded-3xl bg-linen px-6 py-5 text-stone">{t("invite.ownerOnly")}</p>
           )}
+        </section>
+
+        <section aria-labelledby="account-heading" className="flex flex-col gap-4 border-t border-sand pt-10">
+          <h2 id="account-heading" className="font-serif text-2xl">
+            {t("account.heading")}
+          </h2>
+          <p className="text-muted-foreground">
+            {t.rich("account.intro", {
+              privacy: (chunks) => (
+                <Link href="/privacy" className="underline underline-offset-4 hover:text-charcoal">
+                  {chunks}
+                </Link>
+              ),
+            })}
+          </p>
+          <DeleteAccount plan={deletionPlan} />
         </section>
       </div>
       <Toaster position="bottom-center" />

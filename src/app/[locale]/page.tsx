@@ -241,6 +241,14 @@ export default function Home({ params }: PageProps<"/[locale]">) {
       <footer className="mx-auto flex w-full max-w-6xl flex-col items-center gap-5 border-t border-sand/70 px-6 pt-16 pb-14 text-center sm:px-10 sm:pt-20">
         <Logo className="text-6xl text-charcoal sm:text-7xl" />
         <span className="font-serif text-stone italic">{t("footer")}</span>
+        <nav className="flex gap-6 text-xs text-stone">
+          <Link href="/privacy" className="underline-offset-4 hover:underline">
+            {t("footerPrivacy")}
+          </Link>
+          <Link href="/legal" className="underline-offset-4 hover:underline">
+            {t("footerLegal")}
+          </Link>
+        </nav>
       </footer>
     </div>
   );
