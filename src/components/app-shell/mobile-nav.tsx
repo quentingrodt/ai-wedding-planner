@@ -16,6 +16,7 @@ import {
   type NavGroup,
   type ShellProfile,
 } from "./nav-config";
+import { FeedbackDialog, FeedbackTrigger } from "./feedback-button";
 import { ProfileCard } from "./profile-card";
 import { NavLink } from "./sidebar";
 import { SignOutForm } from "./sign-out-form";
@@ -46,6 +47,7 @@ export function MobileNav({ profile }: { profile: ShellProfile }) {
   const t = useTranslations("AppNav");
   const pathname = usePathname();
   const [panel, setPanel] = useState<Panel | null>(null);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
   const close = () => setPanel(null);
 
   const homeActive = isActive(pathname, HOME_ITEM.href);
@@ -128,11 +130,20 @@ export function MobileNav({ profile }: { profile: ShellProfile }) {
             <div className="flex flex-col gap-1 pb-2">
               <ProfileCard profile={profile} onSwitch={close} />
               <NavLink item={SETTINGS_ITEM} pathname={pathname} onNavigate={close} />
+              <FeedbackTrigger
+                onClick={() => {
+                  close();
+                  setFeedbackOpen(true);
+                }}
+              />
               <SignOutForm />
             </div>
           )}
         </SheetContent>
       </Sheet>
+
+      {/* Hors du volet : la fenêtre reste ouverte quand le volet se ferme. */}
+      <FeedbackDialog open={feedbackOpen} onOpenChange={setFeedbackOpen} />
     </>
   );
 }

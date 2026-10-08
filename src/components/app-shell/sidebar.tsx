@@ -16,6 +16,7 @@ import {
   type NavItem,
   type ShellProfile,
 } from "./nav-config";
+import { FeedbackButton } from "./feedback-button";
 import { ProfileCard } from "./profile-card";
 import { SignOutForm } from "./sign-out-form";
 
@@ -74,6 +75,7 @@ export function Sidebar({ profile }: { profile: ShellProfile }) {
 
       <div className="flex flex-col gap-1 border-t border-sand/70 px-3 pt-3 pb-5">
         <NavLink item={SETTINGS_ITEM} pathname={pathname} />
+        <FeedbackButton />
         <ProfileCard profile={profile} />
         <SignOutForm />
       </div>

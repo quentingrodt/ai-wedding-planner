@@ -150,12 +150,16 @@ export type PlanActionResult =
         | "incomplete"
         | "noBudget"
         | "tooSoon"
+        | "dailyLimit"
         | "unavailable"
         | "generic";
     };
 
 /** Délai minimal entre deux générations, pour éviter les doubles clics coûteux. */
 const PLAN_COOLDOWN_MS = 60_000;
+
+/** Plafond de générations par mariage sur 24 heures glissantes : garde-fou de coût. */
+const PLAN_DAILY_LIMIT = 5;
 
 /**
  * Prépare le plan d'accompagnement : répartition du budget calculée en
@@ -194,6 +198,16 @@ export async function generateWeddingPlan(): Promise<PlanActionResult> {
   if (latest && Date.now() - Date.parse(latest.createdAt) < PLAN_COOLDOWN_MS) {
     return { ok: false, error: "tooSoon" };
   }
+  const { count: todayCount, error: countError } = await supabase
+    .from("wedding_plans")
+    .select("id", { count: "exact", head: true })
+    .eq("wedding_id", wedding.id)
+    .gte("created_at", new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
+  if (countError) {
+    console.error("[plan] count:", countError.code);
+    return { ok: false, error: "generic" };
+  }
+  if ((todayCount ?? 0) >= PLAN_DAILY_LIMIT) return { ok: false, error: "dailyLimit" };
   // Réservation atomique avant l'appel payant : deux clics simultanés ne
   // déclenchent qu'une génération (la seconde mise à jour ne trouve plus la ligne).
   const since = new Date(Date.now() - PLAN_COOLDOWN_MS).toISOString();

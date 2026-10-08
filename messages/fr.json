@@ -1825,6 +1825,7 @@
       "incomplete": "Complétez d’abord les douze étapes du carnet.",
       "noBudget": "Indiquez d’abord un budget pour votre mariage.",
       "tooSoon": "Un plan vient d’être préparé. Patientez une minute avant d’en demander un nouveau.",
+      "dailyLimit": "Vous avez préparé plusieurs plans aujourd’hui. Vous pourrez en demander un nouveau demain.",
       "forbidden": "Seuls les mariés peuvent préparer le plan.",
       "unauthenticated": "Votre session a expiré. Reconnectez-vous pour préparer le plan."
     },
@@ -4424,6 +4425,34 @@
           }
         }
       }
+    }
+  },
+  "Feedback": {
+    "trigger": "Un souci ? Une idée ?",
+    "title": "Votre avis compte",
+    "description": "Céleste est en version d’essai. Dites-nous ce qui coince ou ce qui vous manque : chaque message est lu.",
+    "kindLabel": "C’est plutôt…",
+    "kinds": {
+      "problem": "Un souci",
+      "idea": "Une idée",
+      "other": "Autre chose"
+    },
+    "messageLabel": "Votre message",
+    "placeholders": {
+      "problem": "Ce que vous faisiez, ce qui s’est passé, ce que vous attendiez…",
+      "idea": "Ce qui vous aiderait, et pourquoi…",
+      "other": "Tout ce que vous voulez nous dire…"
+    },
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "send": "Envoyer",
+    "sending": "Envoi…",
+    "sent": "Merci ! Votre message nous est bien parvenu.",
+    "errors": {
+      "invalid": "Écrivez quelques mots avant d’envoyer.",
+      "unauthenticated": "Votre session a expiré : reconnectez-vous pour envoyer votre message.",
+      "tooMany": "Vous nous avez déjà écrit plusieurs fois cette heure-ci : réessayez un peu plus tard.",
+      "generic": "Le message n’a pas pu partir. Réessayez dans un instant."
     }
   }
 }

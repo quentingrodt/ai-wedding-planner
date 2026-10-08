@@ -1825,6 +1825,7 @@
       "incomplete": "Please complete all twelve steps of the book first.",
       "noBudget": "Please set a budget for your wedding first.",
       "tooSoon": "A plan was just prepared. Please wait a minute before asking for a new one.",
+      "dailyLimit": "You’ve prepared several plans today. You can ask for a new one tomorrow.",
       "forbidden": "Only the couple can prepare the plan.",
       "unauthenticated": "Your session has expired. Please sign in again to prepare the plan."
     },
@@ -4424,6 +4425,34 @@
           }
         }
       }
+    }
+  },
+  "Feedback": {
+    "trigger": "Something wrong? An idea?",
+    "title": "We’d love your feedback",
+    "description": "Céleste is in beta. Tell us what gets in your way or what you miss: we read every message.",
+    "kindLabel": "It’s mostly…",
+    "kinds": {
+      "problem": "A problem",
+      "idea": "An idea",
+      "other": "Something else"
+    },
+    "messageLabel": "Your message",
+    "placeholders": {
+      "problem": "What you were doing, what happened, what you expected…",
+      "idea": "What would help you, and why…",
+      "other": "Anything you’d like to tell us…"
+    },
+    "cancel": "Cancel",
+    "close": "Close",
+    "send": "Send",
+    "sending": "Sending…",
+    "sent": "Thank you! We’ve received your message.",
+    "errors": {
+      "invalid": "Write a few words before sending.",
+      "unauthenticated": "Your session has expired: sign in again to send your message.",
+      "tooMany": "You’ve already written several times this hour: please try again a little later.",
+      "generic": "The message couldn’t be sent. Please try again in a moment."
     }
   }
 }
