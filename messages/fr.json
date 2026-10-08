@@ -2136,65 +2136,111 @@
     "back": "Tableau de bord",
     "eyebrow": "Musique",
     "title": "La Playlist du Mariage",
-    "intro": "Les chansons qui vous ressemblent, réunies au fil des mois dans une playlist Spotify à votre nom.",
+    "intro": "Les chansons qui vous ressemblent, rangées moment par moment, de l’entrée à la cérémonie au dernier morceau. Pas besoin de compte Spotify.",
+    "export": "La liste pour le DJ",
+    "exportHint": "La playlist moment par moment, en PDF, avec la liste « à ne pas passer ».",
+    "sections": {
+      "ceremony_entrance": "L’entrée à la cérémonie",
+      "ceremony": "Pendant la cérémonie",
+      "ceremony_exit": "La sortie des mariés",
+      "cocktail": "Le vin d’honneur",
+      "dinner": "Le dîner",
+      "first_dance": "L’ouverture du bal",
+      "party": "La soirée",
+      "last_dance": "Le dernier morceau",
+      "do_not_play": "À ne pas passer"
+    },
+    "search": {
+      "label": "Rechercher un morceau",
+      "placeholder": "Un titre, un artiste…",
+      "hint": "Cherchez la chanson de votre entrée, celle de l’ouverture du bal, celles qui feront danser tout le monde.",
+      "hintWitness": "Proposez les chansons que vous aimeriez entendre : les mariés valident vos idées.",
+      "loading": "Recherche en cours",
+      "noResults": "Aucun morceau trouvé pour « {query} ».",
+      "section": "Ajouter à",
+      "sectionWitness": "Proposer pour"
+    },
+    "add": {
+      "trigger": "Ajouter {name} de {artist}",
+      "suggest": "Proposer {name} de {artist}",
+      "done": "{name} est déjà dans la playlist",
+      "success": "« {name} » a rejoint la playlist.",
+      "suggested": "« {name} » a été proposé aux mariés."
+    },
+    "list": {
+      "title": "Votre playlist",
+      "count": "{count, plural, =0 {Aucun morceau} one {# morceau} other {# morceaux}}",
+      "duration": "{duration} de musique",
+      "hours": "{hours} h {minutes}",
+      "minutes": "{minutes} min",
+      "empty": "Pas encore de morceau. Cherchez un titre et ajoutez-le avec +.",
+      "emptyWitness": "Les mariés n’ont pas encore choisi de morceau. Proposez-leur vos idées.",
+      "actions": "Options pour {name}",
+      "move": "Déplacer vers",
+      "remove": "Retirer de la playlist",
+      "removed": "« {name} » a été retiré.",
+      "play": "Écouter {name} de {artist}",
+      "pause": "Mettre en pause {name}",
+      "playerError": "Le lecteur Spotify n’a pas pu se charger. Vérifiez qu’aucune extension ne le bloque."
+    },
+    "suggestions": {
+      "title": "Les idées de vos témoins",
+      "titleWitness": "Vos propositions",
+      "lead": "Ajoutez-les à la playlist ou écartez-les.",
+      "leadWitness": "Les mariés les valideront ou les écarteront.",
+      "for": "Pour : {section}",
+      "approve": "Ajouter {name} à la playlist",
+      "decline": "Écarter {name}",
+      "withdraw": "Retirer ma proposition {name}",
+      "approved": "« {name} » a rejoint la playlist.",
+      "declined": "« {name} » a été écarté."
+    },
+    "spotify": {
+      "title": "Retrouver la playlist dans Spotify",
+      "body": "Facultatif : liez votre compte Spotify pour retrouver cette playlist dans votre bibliothèque. Un compte gratuit suffit.",
+      "connect": "Connecter mon compte Spotify",
+      "connectedBody": "Votre playlist vous attend dans votre bibliothèque Spotify. Envoyez-y vos derniers ajouts quand vous voulez.",
+      "send": "Envoyer dans Spotify",
+      "sent": "{count, plural, =0 {Spotify est déjà à jour.} one {# morceau envoyé dans Spotify.} other {# morceaux envoyés dans Spotify.}}",
+      "open": "Ouvrir dans Spotify",
+      "note": "Les morceaux retirés ici restent dans Spotify, et « À ne pas passer » n’y est jamais envoyé.",
+      "privacy": "La playlist reste privée. Céleste ne lit ni vos écoutes ni vos autres playlists."
+    },
+    "errors": {
+      "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
+      "forbidden": "Seuls les mariés peuvent modifier la playlist.",
+      "invalid": "Cette demande n’est pas valide.",
+      "duplicate": "Ce morceau est déjà dans la playlist.",
+      "disconnected": "Le lien avec Spotify a expiré. Reconnectez votre compte.",
+      "playlistMissing": "La playlist est introuvable sur Spotify. Déliez puis reconnectez votre compte pour en créer une nouvelle.",
+      "rateLimited": "Spotify reçoit beaucoup de demandes. Patientez quelques secondes.",
+      "generic": "Une erreur est survenue. Merci de réessayer."
+    },
+    "pdf": {
+      "documentTitle": "Playlist du mariage de {names}",
+      "eyebrow": "La playlist",
+      "summary": "{count, plural, one {# morceau} other {# morceaux}} · {duration} de musique",
+      "empty": "Aucun morceau pour l’instant.",
+      "doNotPlay": "Merci de ne pas passer ces morceaux.",
+      "footer": "Composée avec Céleste",
+      "page": "{current} / {total}",
+      "fileName": "playlist-du-mariage"
+    },
     "status": {
       "denied": "La connexion à Spotify a été annulée. Vous pourrez la reprendre quand vous voudrez.",
       "error": "La connexion à Spotify n’a pas abouti. Merci de réessayer dans un instant.",
       "forbidden": "Seuls les mariés peuvent lier un compte Spotify à la playlist."
     },
-    "empty": {
-      "title": "Votre bande-son commence ici",
-      "body": "Liez votre compte Spotify : nous créons la playlist « Mariage de … » dans votre bibliothèque, et vous y ajoutez vos morceaux depuis Céleste.",
-      "connect": "Connecter mon compte Spotify",
-      "readOnly": "Les mariés lient leur compte Spotify pour composer la playlist.",
-      "privacy": "La playlist reste privée. Céleste ne lit ni vos écoutes ni vos autres playlists."
-    },
-    "connected": {
-      "welcome": "Votre playlist est prête",
-      "title": "Ajouter des morceaux",
-      "open": "Ouvrir dans Spotify",
-      "readOnly": "Les mariés composent la playlist : découvrez-la ici au fil de ses ajouts."
-    },
-    "search": {
-      "label": "Rechercher un morceau",
-      "placeholder": "Un titre, un artiste…",
-      "hint": "Cherchez la chanson de votre première danse, celle de l’entrée, celles qui feront danser tout le monde.",
-      "loading": "Recherche en cours",
-      "noResults": "Aucun morceau trouvé pour « {query} »."
-    },
-    "add": {
-      "trigger": "Ajouter {name} de {artist} à la playlist",
-      "done": "{name} est dans la playlist",
-      "success": "« {name} » a rejoint la playlist."
-    },
     "disconnect": {
       "trigger": "Délier Spotify",
       "title": "Délier votre compte Spotify ?",
-      "description": "La playlist reste dans votre bibliothèque Spotify. Pour y ajouter des morceaux depuis Céleste, il faudra reconnecter votre compte.",
+      "description": "La playlist reste dans votre bibliothèque Spotify, et votre playlist reste complète dans Céleste. Pour y envoyer de nouveaux morceaux, il faudra reconnecter votre compte.",
       "cancel": "Annuler",
       "confirm": "Délier"
     },
     "spotifyPlaylist": {
       "name": "Mariage de {names}",
       "description": "La bande-son de notre mariage, composée avec Céleste."
-    },
-    "errors": {
-      "unauthenticated": "Votre session a expiré. Reconnectez-vous.",
-      "forbidden": "Seuls les mariés peuvent composer la playlist.",
-      "invalid": "Cette recherche n’est pas valide.",
-      "disconnected": "Le lien avec Spotify a expiré. Reconnectez votre compte.",
-      "playlistMissing": "La playlist est introuvable sur Spotify. Déliez puis reconnectez votre compte pour en créer une nouvelle.",
-      "rateLimited": "Spotify reçoit beaucoup de demandes. Patientez quelques secondes.",
-      "generic": "Spotify n’a pas répondu. Merci de réessayer."
-    },
-    "tracks": {
-      "title": "Votre playlist",
-      "count": "{count, plural, =0 {Aucun morceau} one {# morceau} other {# morceaux}}",
-      "empty": "Pas encore de morceau. Cherchez un titre à gauche et ajoutez-le avec +.",
-      "error": "La playlist n’a pas pu être lue depuis Spotify. Rechargez la page dans un instant.",
-      "play": "Écouter {name} de {artist}",
-      "pause": "Mettre en pause {name}",
-      "playerError": "Le lecteur Spotify n’a pas pu se charger. Vérifiez qu’aucune extension ne le bloque."
     }
   },
   "AppNav": {

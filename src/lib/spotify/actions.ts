@@ -1,19 +1,14 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { PLAYLIST_SECTIONS } from "@/lib/playlist/schema";
+import { getWeddingPlaylist } from "@/lib/weddings/queries";
+import { createClient } from "@/utils/supabase/client";
 import { getCoupleWedding } from "./access";
-import {
-  searchQuerySchema,
-  searchResponseSchema,
-  SPOTIFY_SEARCH_LIMIT,
-  toSpotifyTrack,
-  trackUriSchema,
-  type SpotifyActionError,
-  type SpotifyActionResult,
-  type SpotifySearchResult,
-} from "./schema";
+import type { SpotifyActionError, SpotifyActionResult } from "./schema";
 import {
   disconnectSpotifyIntegration,
+  getPlaylistTracks,
   getSpotifyIntegration,
   getValidAccessToken,
   spotifyApi,
@@ -26,59 +21,46 @@ const toError = (error: unknown): SpotifyActionError => {
   return "generic";
 };
 
-/** Recherche de morceaux, avec le compte Spotify lié au mariage courant. */
-export async function searchSpotify(query: string): Promise<SpotifySearchResult> {
-  const parsed = searchQuerySchema.safeParse(query);
-  if (!parsed.success) return { ok: false, error: "invalid" };
+/** Spotify accepte 100 morceaux au plus par ajout. */
+const ADD_BATCH = 100;
 
-  const access = await getCoupleWedding();
-  if (!access.ok) return access;
-
-  try {
-    const token = await getValidAccessToken(access.wedding.id);
-    const params = new URLSearchParams({
-      q: parsed.data,
-      type: "track",
-      limit: String(SPOTIFY_SEARCH_LIMIT),
-      market: "from_token",
-    });
-    const response = searchResponseSchema.safeParse(
-      await spotifyApi(token, `/search?${params.toString()}`),
-    );
-    if (!response.success) return { ok: false, error: "generic" };
-
-    return { ok: true, tracks: response.data.tracks.items.map(toSpotifyTrack) };
-  } catch (error) {
-    return { ok: false, error: toError(error) };
-  }
-}
+export type SendToSpotifyResult = { ok: true; added: number } | { ok: false; error: SpotifyActionError };
 
 /**
- * Ajoute un morceau à la playlist du mariage. weddingId vient du navigateur :
- * il doit désigner le mariage dont l'utilisateur connecté est l'un des mariés.
+ * Envoie la playlist de Céleste dans la playlist Spotify du couple : les
+ * morceaux validés qui n'y sont pas encore y sont ajoutés, dans l'ordre de la
+ * journée. « À ne pas passer » reste dans Céleste ; rien n'est retiré de Spotify.
  */
-export async function addToPlaylist(
-  weddingId: string,
-  trackUri: string,
-): Promise<SpotifyActionResult> {
-  const uri = trackUriSchema.safeParse(trackUri);
-  if (!uri.success) return { ok: false, error: "invalid" };
-
+export async function sendToSpotify(): Promise<SendToSpotifyResult> {
   const access = await getCoupleWedding();
   if (!access.ok) return access;
-  if (access.wedding.id !== weddingId) return { ok: false, error: "forbidden" };
+  const weddingId = access.wedding.id;
 
   try {
     const integration = await getSpotifyIntegration(weddingId);
     if (!integration) return { ok: false, error: "disconnected" };
     if (!integration.playlistId) return { ok: false, error: "playlistMissing" };
 
+    const [tracks, current] = await Promise.all([
+      getWeddingPlaylist(await createClient(), weddingId),
+      getPlaylistTracks(weddingId, integration.playlistId),
+    ]);
+    const present = new Set(current.tracks.map((track) => track.uri));
+    const order = (section: (typeof PLAYLIST_SECTIONS)[number]) => PLAYLIST_SECTIONS.indexOf(section);
+    const uris = tracks
+      .filter((track) => track.status === "approved" && track.section !== "do_not_play")
+      .sort((a, b) => order(a.section) - order(b.section))
+      .map((track) => `spotify:track:${track.spotify_id}`)
+      .filter((uri) => !present.has(uri));
+
     const token = await getValidAccessToken(weddingId);
-    await spotifyApi(token, `/playlists/${encodeURIComponent(integration.playlistId)}/items`, {
-      method: "POST",
-      body: { uris: [uri.data] },
-    });
-    return { ok: true };
+    for (let start = 0; start < uris.length; start += ADD_BATCH) {
+      await spotifyApi(token, `/playlists/${encodeURIComponent(integration.playlistId)}/items`, {
+        method: "POST",
+        body: { uris: uris.slice(start, start + ADD_BATCH) },
+      });
+    }
+    return { ok: true, added: uris.length };
   } catch (error) {
     return { ok: false, error: toError(error) };
   }

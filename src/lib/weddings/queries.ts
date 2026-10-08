@@ -10,6 +10,7 @@ import {
 } from "@/lib/plan/schema";
 import { toTimeKey, type ItineraryEvent } from "@/lib/itinerary/schema";
 import type { MoodboardItem } from "@/lib/moodboard/schema";
+import { PLAYLIST_TRACK_COLUMNS, type PlaylistTrack } from "@/lib/playlist/schema";
 import type {
   Registry,
   RegistryFund,
@@ -229,6 +230,25 @@ export const getWeddingPhotoUrl = cache(
     return data.signedUrl;
   },
 );
+
+/** Morceaux de la playlist du mariage (validés et proposés), dans l'ordre d'ajout. */
+export async function getWeddingPlaylist(
+  supabase: ServerClient,
+  weddingId: string,
+): Promise<PlaylistTrack[]> {
+  const { data, error } = await supabase
+    .from("playlist_tracks")
+    .select(PLAYLIST_TRACK_COLUMNS)
+    .eq("wedding_id", weddingId)
+    .order("created_at", { ascending: true })
+    .returns<PlaylistTrack[]>();
+
+  if (error) {
+    console.error("[weddings] getWeddingPlaylist:", error.code);
+    throw new Error("Unable to load playlist");
+  }
+  return data;
+}
 
 /** Nombre de tâches à faire dont l'échéance est passée. */
 export async function countOverdueTasks(

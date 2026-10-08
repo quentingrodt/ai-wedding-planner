@@ -32,6 +32,7 @@ const nextConfig: NextConfig = {
     "/api/invitations/pdf": ["./assets/fonts/**"],
     "/api/seating/pdf": ["./assets/fonts/**"],
     "/api/lodging/pdf": ["./assets/fonts/**"],
+    "/api/playlist/pdf": ["./assets/fonts/**"],
   },
   images: {
     // Photos du swipe d'inspiration (licences Unsplash et Pexels), toujours

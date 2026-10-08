@@ -101,8 +101,3 @@ export type SpotifyActionError =
   | "generic";
 
 export type SpotifyActionResult = { ok: true } | { ok: false; error: SpotifyActionError };
-/** Morceaux de la playlist ; null si Spotify n'a pas pu être lu. */
-export type PlaylistTracks = { total: number; tracks: SpotifyTrack[] } | null;
-
-export type SpotifySearchResult =
-  { ok: true; tracks: SpotifyTrack[] } | { ok: false; error: SpotifyActionError };

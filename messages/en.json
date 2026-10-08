@@ -2136,65 +2136,111 @@
     "back": "Dashboard",
     "eyebrow": "Music",
     "title": "The Wedding Playlist",
-    "intro": "The songs that feel like you, gathered over the months in a Spotify playlist in your names.",
+    "intro": "The songs that feel like you, moment by moment, from the walk down the aisle to the very last song. No Spotify account needed.",
+    "export": "The list for the DJ",
+    "exportHint": "The playlist moment by moment, as a PDF, with the “do not play” list.",
+    "sections": {
+      "ceremony_entrance": "Walking down the aisle",
+      "ceremony": "During the ceremony",
+      "ceremony_exit": "The recessional",
+      "cocktail": "Cocktail hour",
+      "dinner": "Dinner",
+      "first_dance": "The first dance",
+      "party": "The party",
+      "last_dance": "The last song",
+      "do_not_play": "Do not play"
+    },
+    "search": {
+      "label": "Search for a song",
+      "placeholder": "A title, an artist…",
+      "hint": "Look for your walk down the aisle, your first dance, the songs that will get everyone dancing.",
+      "hintWitness": "Suggest the songs you’d love to hear: the couple approves your ideas.",
+      "loading": "Searching",
+      "noResults": "No songs found for “{query}”.",
+      "section": "Add to",
+      "sectionWitness": "Suggest for"
+    },
+    "add": {
+      "trigger": "Add {name} by {artist}",
+      "suggest": "Suggest {name} by {artist}",
+      "done": "{name} is already in the playlist",
+      "success": "“{name}” joined the playlist.",
+      "suggested": "“{name}” was suggested to the couple."
+    },
+    "list": {
+      "title": "Your playlist",
+      "count": "{count, plural, =0 {No songs} one {# song} other {# songs}}",
+      "duration": "{duration} of music",
+      "hours": "{hours} h {minutes}",
+      "minutes": "{minutes} min",
+      "empty": "No songs yet. Search for a title and add it with +.",
+      "emptyWitness": "The couple hasn’t picked any songs yet. Suggest your ideas.",
+      "actions": "Options for {name}",
+      "move": "Move to",
+      "remove": "Remove from the playlist",
+      "removed": "“{name}” was removed.",
+      "play": "Play {name} by {artist}",
+      "pause": "Pause {name}",
+      "playerError": "The Spotify player couldn’t load. Check that no extension is blocking it."
+    },
+    "suggestions": {
+      "title": "Ideas from your witnesses",
+      "titleWitness": "Your suggestions",
+      "lead": "Add them to the playlist or set them aside.",
+      "leadWitness": "The couple will approve them or set them aside.",
+      "for": "For: {section}",
+      "approve": "Add {name} to the playlist",
+      "decline": "Set {name} aside",
+      "withdraw": "Withdraw my suggestion {name}",
+      "approved": "“{name}” joined the playlist.",
+      "declined": "“{name}” was set aside."
+    },
+    "spotify": {
+      "title": "Find the playlist in Spotify",
+      "body": "Optional: link your Spotify account to find this playlist in your library. A free account is enough.",
+      "connect": "Connect my Spotify account",
+      "connectedBody": "Your playlist is waiting in your Spotify library. Send your latest additions whenever you like.",
+      "send": "Send to Spotify",
+      "sent": "{count, plural, =0 {Spotify is already up to date.} one {# song sent to Spotify.} other {# songs sent to Spotify.}}",
+      "open": "Open in Spotify",
+      "note": "Songs removed here stay in Spotify, and “Do not play” is never sent there.",
+      "privacy": "The playlist stays private. Céleste never reads your listening history or your other playlists."
+    },
+    "errors": {
+      "unauthenticated": "Your session has expired. Please sign in again.",
+      "forbidden": "Only the couple can change the playlist.",
+      "invalid": "This request isn’t valid.",
+      "duplicate": "This song is already in the playlist.",
+      "disconnected": "The link with Spotify has expired. Please reconnect your account.",
+      "playlistMissing": "The playlist can’t be found on Spotify. Unlink and reconnect your account to create a new one.",
+      "rateLimited": "Spotify is receiving many requests. Please wait a few seconds.",
+      "generic": "Something went wrong. Please try again."
+    },
+    "pdf": {
+      "documentTitle": "Wedding playlist of {names}",
+      "eyebrow": "The playlist",
+      "summary": "{count, plural, one {# song} other {# songs}} · {duration} of music",
+      "empty": "No songs yet.",
+      "doNotPlay": "Please do not play these songs.",
+      "footer": "Made with Céleste",
+      "page": "{current} / {total}",
+      "fileName": "wedding-playlist"
+    },
     "status": {
       "denied": "The Spotify connection was cancelled. You can pick it up whenever you like.",
       "error": "The Spotify connection didn’t go through. Please try again in a moment.",
       "forbidden": "Only the couple can link a Spotify account to the playlist."
     },
-    "empty": {
-      "title": "Your soundtrack starts here",
-      "body": "Link your Spotify account: we create the “Wedding of …” playlist in your library, and you add songs to it from Céleste.",
-      "connect": "Connect my Spotify account",
-      "readOnly": "The couple links their Spotify account to build the playlist.",
-      "privacy": "The playlist stays private. Céleste never reads your listening history or your other playlists."
-    },
-    "connected": {
-      "welcome": "Your playlist is ready",
-      "title": "Add songs",
-      "open": "Open in Spotify",
-      "readOnly": "The couple is building the playlist: listen to it here as it grows."
-    },
-    "search": {
-      "label": "Search for a song",
-      "placeholder": "A title, an artist…",
-      "hint": "Look for your first dance, your entrance song, the ones that will get everyone dancing.",
-      "loading": "Searching",
-      "noResults": "No songs found for “{query}”."
-    },
-    "add": {
-      "trigger": "Add {name} by {artist} to the playlist",
-      "done": "{name} is in the playlist",
-      "success": "“{name}” joined the playlist."
-    },
     "disconnect": {
       "trigger": "Unlink Spotify",
       "title": "Unlink your Spotify account?",
-      "description": "The playlist stays in your Spotify library. To add songs from Céleste again, you’ll need to reconnect your account.",
+      "description": "The playlist stays in your Spotify library, and your full playlist stays in Céleste. To send new songs there, you’ll need to reconnect your account.",
       "cancel": "Cancel",
       "confirm": "Unlink"
     },
     "spotifyPlaylist": {
       "name": "Wedding of {names}",
       "description": "The soundtrack of our wedding, put together with Céleste."
-    },
-    "errors": {
-      "unauthenticated": "Your session has expired. Please sign in again.",
-      "forbidden": "Only the couple can build the playlist.",
-      "invalid": "This search isn’t valid.",
-      "disconnected": "The Spotify link has expired. Please reconnect your account.",
-      "playlistMissing": "The playlist can’t be found on Spotify. Unlink and reconnect your account to create a new one.",
-      "rateLimited": "Spotify is busy. Please wait a few seconds.",
-      "generic": "Spotify didn’t respond. Please try again."
-    },
-    "tracks": {
-      "title": "Your playlist",
-      "count": "{count, plural, =0 {No songs} one {# song} other {# songs}}",
-      "empty": "No songs yet. Search for a title and add it with +.",
-      "error": "The playlist couldn’t be loaded from Spotify. Reload the page in a moment.",
-      "play": "Play {name} by {artist}",
-      "pause": "Pause {name}",
-      "playerError": "The Spotify player couldn’t load. Check that no extension is blocking it."
     }
   },
   "AppNav": {

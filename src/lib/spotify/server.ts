@@ -4,6 +4,8 @@ import {
   PLAYLIST_MAX_PAGES,
   PLAYLIST_PAGE_SIZE,
   playlistItemsResponseSchema,
+  searchResponseSchema,
+  SPOTIFY_SEARCH_LIMIT,
   toSpotifyTrack,
   tokenResponseSchema,
   type SpotifyActionError,
@@ -78,6 +80,35 @@ async function requestToken(body: Record<string, string>): Promise<TokenResponse
   const parsed = tokenResponseSchema.safeParse(await response.json());
   if (!parsed.success) throw new SpotifyError("generic");
   return parsed.data;
+}
+
+/** Jeton d'application en mémoire, partagé par toutes les requêtes du serveur. */
+let appToken: { value: string; expiresAt: number } | null = null;
+
+/**
+ * Jeton d'application (client_credentials) : lit le catalogue Spotify sans
+ * aucun compte utilisateur. La limite d'utilisateurs du Development Mode ne
+ * s'y applique pas, puisque personne ne se connecte.
+ */
+async function getAppAccessToken(): Promise<string> {
+  if (appToken && appToken.expiresAt - Date.now() > EXPIRY_MARGIN_MS) return appToken.value;
+  const token = await requestToken({ grant_type: "client_credentials" });
+  appToken = { value: token.access_token, expiresAt: Date.now() + token.expires_in * 1000 };
+  return token.access_token;
+}
+
+/**
+ * Recherche de morceaux dans le catalogue Spotify, avec le jeton
+ * d'application. market : pays du mariage (ISO 3166-1), pour ne proposer que
+ * des morceaux disponibles là-bas.
+ */
+export async function searchCatalog(query: string, market: string | null): Promise<SpotifyTrack[]> {
+  const token = await getAppAccessToken();
+  const params = new URLSearchParams({ q: query, type: "track", limit: String(SPOTIFY_SEARCH_LIMIT) });
+  if (market && /^[A-Z]{2}$/.test(market)) params.set("market", market);
+  const response = searchResponseSchema.safeParse(await spotifyApi(token, `/search?${params.toString()}`));
+  if (!response.success) throw new SpotifyError("generic");
+  return response.data.tracks.items.map(toSpotifyTrack);
 }
 
 /** Échange le code reçu au retour d'autorisation contre les jetons. */
