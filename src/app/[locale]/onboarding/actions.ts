@@ -132,5 +132,6 @@ export async function createWedding(
     console.error("[onboarding] seed defaults:", seedError);
   });
 
-  return redirect({ href: "/dashboard", locale });
+  // Étape 2 : la revue des postes, pour préremplir l'espace.
+  return redirect({ href: "/onboarding/step-2", locale });
 }

@@ -267,6 +267,103 @@
     },
     "styleLegend": "Which mood feels like you?"
   },
+  "OnboardingStepTwo": {
+    "metaTitle": "What you already know",
+    "eyebrow": "Second step",
+    "title": "What you already know",
+    "intro": "A few questions, one area at a time, so everything is in place the moment you arrive. Answer whatever you like: nothing is required, and everything can be changed later.",
+    "photo": {
+      "title": "Your photo",
+      "lead": "The couple’s portrait, at the top of your space.",
+      "hint": "Tap the circle to pick a photo."
+    },
+    "planning": {
+      "title": "Your timeline",
+      "lead": "Four landmarks so your steps land at the right time.",
+      "date": "Your date: {date}",
+      "ceremony": {
+        "label": "Your ceremony",
+        "civil": "Civil ceremony only",
+        "religious": "Civil and religious",
+        "secular": "Civil and secular",
+        "both": "Civil, religious and secular"
+      },
+      "music": {
+        "label": "Music for the party",
+        "dj": "A DJ",
+        "band": "A band",
+        "playlist": "Our playlist",
+        "none": "No dancing"
+      },
+      "attire": {
+        "label": "Your outfits",
+        "custom": "Made to measure",
+        "ready": "From a shop",
+        "undecided": "Not decided yet"
+      },
+      "accommodation": {
+        "label": "Guests to host on site?",
+        "hint": "The timeline then adds booking their accommodation."
+      }
+    },
+    "pinterest": {
+      "title": "Your creative direction",
+      "lead": "Do you already have a Pinterest board? It will join your inspiration board.",
+      "label": "Board link",
+      "placeholder": "https://www.pinterest.com/you/our-wedding/"
+    },
+    "venues": {
+      "title": "The venues",
+      "question": "Do you already have venues in mind?",
+      "hint": "They will join your shortlisted venues, to compare at your own pace.",
+      "label": "Venue {number}",
+      "placeholder": "e.g. Château de Vaux"
+    },
+    "vendors": {
+      "title": "Casting your vendors",
+      "lead": "Do you already have someone in mind for these?",
+      "name": "Name",
+      "namePlaceholder": "e.g. Maison Blanc",
+      "budget": "Estimated budget ({currency})",
+      "toFind": "Céleste will help you find one",
+      "labels": {
+        "catering": "The caterer",
+        "entertainment": "The DJ",
+        "photographer": "The photographer",
+        "florist": "The florist"
+      }
+    },
+    "guests": {
+      "title": "Your guests",
+      "question": "Have you started your list?",
+      "hint": "One guest per line, first name then last name. Households, tables and replies come later.",
+      "label": "Your guests",
+      "placeholder": "Camille Martin\nThomas Durand\nLéa",
+      "count": "{count, plural, =0 {No guests} one {# guest} other {# guests}}"
+    },
+    "submit": "Set up our space",
+    "submitting": "Setting up your space…",
+    "skip": "Skip this step",
+    "errors": {
+      "invalidPinterest": "Paste the link to a Pinterest board (pinterest.com/you/board-name).",
+      "invalidAmount": "Enter an amount in figures.",
+      "tooLong": "This text is a little long.",
+      "tooManyGuests": "Add up to 300 guests here; the rest can be added from the Guests page.",
+      "invalid": "A few answers need fixing.",
+      "unauthenticated": "Your session has expired. Please sign in again.",
+      "forbidden": "Only the couple can fill in this step.",
+      "generic": "We couldn’t save your answers. Please try again.",
+      "partial": "Almost everything is saved. These parts couldn’t be: {blocks}. You can complete them from your space.",
+      "continue": "Continue to my space"
+    },
+    "blocks": {
+      "planning": "timeline",
+      "pinterest": "Pinterest board",
+      "venues": "venues",
+      "vendors": "vendors",
+      "guests": "guests"
+    }
+  },
   "Dashboard": {
     "metaTitle": "Dashboard",
     "eyebrow": "Our wedding",

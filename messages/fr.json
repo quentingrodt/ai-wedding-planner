@@ -267,6 +267,103 @@
     },
     "styleLegend": "Quelle ambiance vous ressemble ?"
   },
+  "OnboardingStepTwo": {
+    "metaTitle": "Ce que vous savez déjà",
+    "eyebrow": "Deuxième étape",
+    "title": "Ce que vous savez déjà",
+    "intro": "Quelques questions, poste par poste, pour que tout soit à sa place dès votre arrivée. Répondez à ce que vous voulez : rien n’est obligatoire, et tout reste modifiable.",
+    "photo": {
+      "title": "Votre photo",
+      "lead": "Le portrait du couple, en tête de votre espace.",
+      "hint": "Touchez le cercle pour choisir une photo."
+    },
+    "planning": {
+      "title": "Votre rétroplanning",
+      "lead": "Quatre repères pour que vos étapes tombent au bon moment.",
+      "date": "Votre date : {date}",
+      "ceremony": {
+        "label": "Votre cérémonie",
+        "civil": "À la mairie seulement",
+        "religious": "Mairie et cérémonie religieuse",
+        "secular": "Mairie et cérémonie laïque",
+        "both": "Mairie, religieuse et laïque"
+      },
+      "music": {
+        "label": "La musique de la soirée",
+        "dj": "Un DJ",
+        "band": "Un groupe",
+        "playlist": "Notre playlist",
+        "none": "Pas de soirée dansante"
+      },
+      "attire": {
+        "label": "Vos tenues",
+        "custom": "Sur mesure",
+        "ready": "En boutique",
+        "undecided": "Pas encore décidé"
+      },
+      "accommodation": {
+        "label": "Des invités à loger sur place ?",
+        "hint": "Le rétroplanning ajoute alors la réservation des hébergements."
+      }
+    },
+    "pinterest": {
+      "title": "Votre direction artistique",
+      "lead": "Avez-vous déjà un tableau Pinterest ? Il rejoindra votre planche d’inspiration.",
+      "label": "Lien du tableau",
+      "placeholder": "https://www.pinterest.fr/vous/notre-mariage/"
+    },
+    "venues": {
+      "title": "Les lieux du jour J",
+      "question": "Avez-vous déjà des lieux en tête ?",
+      "hint": "Ils rejoindront vos lieux repérés, à comparer tranquillement.",
+      "label": "Lieu {number}",
+      "placeholder": "Ex. Château de Vaux"
+    },
+    "vendors": {
+      "title": "Le casting des prestataires",
+      "lead": "Avez-vous déjà quelqu’un en vue pour ces postes ?",
+      "name": "Nom",
+      "namePlaceholder": "Ex. Maison Blanc",
+      "budget": "Budget estimé ({currency})",
+      "toFind": "À dénicher par Céleste",
+      "labels": {
+        "catering": "Le traiteur",
+        "entertainment": "Le DJ",
+        "photographer": "Le photographe",
+        "florist": "Le fleuriste"
+      }
+    },
+    "guests": {
+      "title": "Vos invités",
+      "question": "Avez-vous commencé votre liste ?",
+      "hint": "Un invité par ligne, prénom puis nom. Familles, tables et réponses viendront ensuite.",
+      "label": "Vos invités",
+      "placeholder": "Camille Martin\nThomas Durand\nLéa",
+      "count": "{count, plural, =0 {Aucun invité} one {# invité} other {# invités}}"
+    },
+    "submit": "Préparer notre espace",
+    "submitting": "Nous préparons votre espace…",
+    "skip": "Passer cette étape",
+    "errors": {
+      "invalidPinterest": "Collez le lien d’un tableau Pinterest (pinterest.fr/vous/nom-du-tableau).",
+      "invalidAmount": "Indiquez un montant en chiffres.",
+      "tooLong": "Ce texte est un peu long.",
+      "tooManyGuests": "Ajoutez jusqu’à 300 invités ici ; la suite se fera depuis la page Invités.",
+      "invalid": "Quelques réponses sont à corriger.",
+      "unauthenticated": "Votre session a expiré. Merci de vous reconnecter.",
+      "forbidden": "Seuls les mariés peuvent remplir cette étape.",
+      "generic": "Nous n’avons pas pu enregistrer vos réponses. Merci de réessayer.",
+      "partial": "Presque tout est enregistré. Ces blocs n’ont pas pu l’être : {blocks}. Vous pourrez les compléter depuis votre espace.",
+      "continue": "Continuer vers mon espace"
+    },
+    "blocks": {
+      "planning": "rétroplanning",
+      "pinterest": "tableau Pinterest",
+      "venues": "lieux",
+      "vendors": "prestataires",
+      "guests": "invités"
+    }
+  },
   "Dashboard": {
     "metaTitle": "Tableau de bord",
     "eyebrow": "Notre mariage",
