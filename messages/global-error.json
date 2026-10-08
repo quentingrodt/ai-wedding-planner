@@ -1,0 +1,12 @@
+{
+  "fr": {
+    "title": "Céleste a rencontré un souci",
+    "description": "Nous en avons été prévenus. Rechargez la page dans un instant.",
+    "retry": "Recharger la page"
+  },
+  "en": {
+    "title": "Céleste ran into a problem",
+    "description": "We have been notified. Please reload the page in a moment.",
+    "retry": "Reload the page"
+  }
+}

@@ -4454,5 +4454,13 @@
       "tooMany": "Vous nous avez déjà écrit plusieurs fois cette heure-ci : réessayez un peu plus tard.",
       "generic": "Le message n’a pas pu partir. Réessayez dans un instant."
     }
+  },
+  "ErrorPage": {
+    "eyebrow": "Un contretemps",
+    "title": "Cette page n’a pas pu s’afficher",
+    "description": "Nous en avons été prévenus et allons regarder. Réessayez dans un instant ; vos informations sont en sécurité.",
+    "retry": "Réessayer",
+    "home": "Revenir à l’accueil",
+    "reference": "Référence : {digest}"
   }
 }
