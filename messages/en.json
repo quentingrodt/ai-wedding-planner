@@ -4527,7 +4527,7 @@
           "title": "Who can access it",
           "paragraphs": [
             "The members of your wedding, according to their role: your partner sees everything, witnesses do not see the budget.",
-            "Our technical providers, only to run Céleste: Supabase (database, files and sign-in, hosted in the European Union, in Ireland); the app’s host, {host}; Sentry (error tracking, without IP addresses or the content of your pages); PostHog (audience measurement, hosted in the European Union, without cookies).",
+            "Our technical providers, only to run Céleste: Supabase (database, files and sign-in, hosted in the European Union, in Ireland); the app’s host, {host}; Sentry (error tracking, hosted in the European Union, in Germany, without IP addresses or the content of your pages); PostHog (audience measurement, hosted in the European Union, without cookies).",
             "Anthropic (Claude), when you ask for your wedding plan: we send your inspiration favourites, your budget split, the number of guests and the date, never names or contact details. Anthropic is based in the United States; the transfer is covered by the European Commission’s standard contractual clauses.",
             "Spotify, when you search for a song or link your Spotify account, and Pinterest, if you add a board to your notebook: this content is displayed by their services, under their own privacy policies."
           ]

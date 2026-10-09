@@ -4527,7 +4527,7 @@
           "title": "Qui y a accès",
           "paragraphs": [
             "Les membres de votre mariage, selon leur rôle : l’autre marié voit tout, les témoins ne voient pas le budget.",
-            "Nos prestataires techniques, uniquement pour faire fonctionner Céleste : Supabase (base de données, fichiers et connexion, hébergés dans l’Union européenne, en Irlande) ; l’hébergeur de l’application, {host} ; Sentry (suivi des erreurs, sans adresse IP ni contenu de vos pages) ; PostHog (mesure d’audience, hébergée dans l’Union européenne, sans cookie).",
+            "Nos prestataires techniques, uniquement pour faire fonctionner Céleste : Supabase (base de données, fichiers et connexion, hébergés dans l’Union européenne, en Irlande) ; l’hébergeur de l’application, {host} ; Sentry (suivi des erreurs, hébergé dans l’Union européenne, en Allemagne, sans adresse IP ni contenu de vos pages) ; PostHog (mesure d’audience, hébergée dans l’Union européenne, sans cookie).",
             "Anthropic (Claude), lorsque vous demandez votre plan d’accompagnement : nous lui transmettons vos coups de cœur d’inspiration, la répartition de votre budget, le nombre d’invités et la date, jamais de nom ni de coordonnées. Anthropic est situé aux États-Unis ; le transfert est encadré par les clauses contractuelles types de la Commission européenne.",
             "Spotify, lorsque vous cherchez un morceau ou liez votre compte Spotify, et Pinterest, si vous ajoutez un tableau à votre carnet : ces contenus sont affichés par leurs services, selon leurs propres politiques de confidentialité."
           ]
