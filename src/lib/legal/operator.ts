@@ -6,16 +6,16 @@
  */
 export const LEGAL_OPERATOR = {
   /** Nom et prénom, ou raison sociale (et numéro SIREN pour une société). */
-  name: "",
+  name: "GRODT Group, SAS au capital de 100 €, RCS Paris 100 187 889, TVA FR61100187889",
   /** Adresse postale (ou domiciliation). */
-  address: "",
+  address: "60 rue François Ier, 75008 Paris, France",
   /** Adresse e-mail de contact, aussi utilisée pour les demandes RGPD. */
-  email: "",
+  email: "quentin.grodt@gmail.com",
   /** Directeur ou directrice de la publication (souvent l'éditeur lui-même). */
-  publicationDirector: "",
+  publicationDirector: "Quentin Desquerre, président",
   /** Hébergeur de l'application : nom, adresse et téléphone (ex. Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis). */
-  host: "",
+  host: "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
 };
 
 /** Date de dernière mise à jour des deux pages (AAAA-MM-JJ). */
-export const LEGAL_UPDATED_AT = "2026-10-08";
+export const LEGAL_UPDATED_AT = "2026-10-09";

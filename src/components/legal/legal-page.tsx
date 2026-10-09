@@ -21,7 +21,7 @@ export async function operatorValues() {
 
 /** Remplace {name}, {email}… par les valeurs de l’éditeur (texte brut, sans ICU). */
 export function fillOperator(text: string, values: Record<string, string>) {
-  return text.replace(/{(w+)}/g, (match, key: string) => values[key] ?? match);
+  return text.replace(/{(\w+)}/g, (match, key: string) => values[key] ?? match);
 }
 
 /** Mise en page éditoriale commune à la politique de confidentialité et aux mentions légales. */
